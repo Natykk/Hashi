@@ -122,8 +122,9 @@ public class Grille {
      * @param dx le déplacement horizontal sur la grille (-1 : vers la gauche ; 1 : vers la droite)
      * @param dy le déplacement vertical sur la grille (-1 : vers le haut ; 1 : vers le bas)
      * @return l'île voisine à l'île passée en paramètre par rapport au sens donné. ou null s'il n'y a pas d'île voisine dans ce sens
+     * @throws UnsupportedOperationException si on sort de la boucle avec un cas logiquement impossible
      */
-    public Ile getVoisin( Ile uneIle, int dx, int dy ) {
+    public Ile getVoisin( Ile uneIle, int dx, int dy ) throws UnsupportedOperationException {
         // récupérer les coordonnées de l'île
         int x = uneIle.getX();
         int y = uneIle.getY();
@@ -153,9 +154,8 @@ public class Grille {
         }
 
 
-        // problème si ça arrive ici
-        System.err.println("Erreur getVoisin(Ile,int,int)");
-        return null;
+        // logiquement, ça n'arrive jamais ici
+        throw new  UnsupportedOperationException("sortie de boucle avec un cas non-supporté. logiquement impossible");
     }
 
 
