@@ -54,7 +54,6 @@ public class Ile extends Case{
 
     /**
      * récupère les îles voisines (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
-     * ne récupère QUE les îles voisines non-reliées par un pont à cette île
      * @return une liste d'îles qui sont les îles voisines, ou null si l'île n'a aucune voisine
      */
     public ArrayList<Ile> getVoisins() {
