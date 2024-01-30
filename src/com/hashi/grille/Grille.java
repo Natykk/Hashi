@@ -27,6 +27,53 @@ public class Grille {
         this.table[x][y] = new_case;
     }
 
+    public void ajouterIle(Ile ile) {
+        this.Iles.add(ile);
+    }
+
+    public void ajouterPont(Pont pont) {
+        this.Ponts.add(pont);
+    }
+
+    public void retirerPont(Pont pont) {
+        this.Ponts.remove(pont);
+    }
+    
+
+    public void afficher() {
+        for (int i = 0; i < this.taille; i++) {
+            for (int j = 0; j < this.taille; j++) {
+                if (this.table[i][j] == null) {
+                    System.out.print(" ");
+                } else {
+                    this.table[i][j].afficher();
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void afficherIles() {
+        for (Ile ile : this.Iles) {
+            ile.afficher();
+        }
+    }
+
+    public void afficherPonts() {
+        for (Pont pont : this.Ponts) {
+            pont.afficher();
+        }
+    }
+
+    public void afficherGrille() {
+        this.afficher();
+        this.afficherIles();
+        this.afficherPonts();
+    }
+
+    public void setGrille() {
+
+    }
 
 
     /**
