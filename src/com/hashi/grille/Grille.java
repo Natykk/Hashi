@@ -148,7 +148,7 @@ public class Grille {
         
 
         // problème si ça arrive ici
-        System.err.println("Erreur getVoisin()");
+        System.err.println("Erreur getVoisin(Ile,int,int)");
         return null;
     }
 
