@@ -146,7 +146,8 @@ public class Grille {
             // si on trouve un pont, c'est qu'il n'y a pas de voisin dans ce sens
             return null;
         }
-        else if( this.table[x][y].estIle() ) {
+        
+        if( this.table[x][y].estIle() ) {
             // si on trouve une île, c'est que c'est une île voisine. on la retourne
             return (Ile) this.table[x][y];
         }
