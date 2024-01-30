@@ -89,14 +89,40 @@ public class Grille {
     }
 
 
+
     /**
      * regarde les cases sur le même axe cardinal que l'île, pour trouver une île voisine ou non
      * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
      * @param dx le déplacement horizontal sur la grille (-1 : vers la gauche ; 1 : vers la droite)
      * @param dy le déplacement vertical sur la grille (-1 : vers le haut ; 1 : vers le bas)
-     * @return retourne l'île voisine par rapport à la direction donnée, à l'île passée en paramètre. ou null s'il n'y a pas d'île voisine dans cette direction
+     * @return l'île voisine à l'île passée en paramètre par rapport au sens donné. ou null s'il n'y a pas d'île voisine dans ce sens
      */
     public Ile getVoisin( Ile uneIle, int dx, int dy ) {
+        // récupérer les coordonnées de l'île
+        int x = uneIle.getX();
+        int y = uneIle.getY();
+        
+        // décaler d'une case avant de vérifier, pour ne pas se dire que l'île dont on démarre est sa propre voisine
+        do {
+            // avancer d'une case dans le sens donné
+            x += dx;
+            y += dy;
+        } while( isInBound(x, y) 
+            &&  this.table[x][y].estVide() );
+        
+
+        if( this.table[x][y].estPont() ) {
+            // si on trouve un pont, c'est qu'il n'y a pas de voisin dans ce sens
+            return null;
+        }
+        else if( this.table[x][y].estIle() ) {
+            // si on trouve une île, c'est que c'est une île voisine. on la retourne
+            return (Ile) this.table[x][y];
+        }
+        
+
+        // problème si ça arrive ici
+        System.err.println("Erreur getVoisin()");
         return null;
     }
 
