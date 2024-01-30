@@ -92,6 +92,32 @@ public class Grille {
 
     /**
      * regarde les cases sur le même axe cardinal que l'île, pour trouver une île voisine ou non
+     * cette fonction appelle getVoisin(Ile,int,int), sans qu'on ait à se soucier de mettre les bonnes valeurs pour les entiers
+     * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
+     * @param sens "haut", "bas", "gauche", "droite" un des quatre sens de l'axe cardinal
+     * @return l'île voisine à l'île passée en paramètre par rapport au sens donné. ou null s'il n'y a pas d'île voisine dans ce sens
+     */
+    public Ile getVoisin( Ile uneIle, String sens ) {
+
+        switch( sens.toLowerCase() ) {
+            case "haut":
+                return getVoisin(uneIle, 0, -1);
+            case "bas":
+                return getVoisin(uneIle, 0, 1);
+            case "gauche":
+                return getVoisin(uneIle, -1, 0);
+            case "droite":
+                return getVoisin(uneIle, 1, 0);
+            default:
+                System.err.println("erreur getVoisin(Ile,String), Sens invalide");
+                return null;
+        }
+    }
+
+
+
+    /**
+     * regarde les cases sur le même axe cardinal que l'île, pour trouver une île voisine ou non
      * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
      * @param dx le déplacement horizontal sur la grille (-1 : vers la gauche ; 1 : vers la droite)
      * @param dy le déplacement vertical sur la grille (-1 : vers le haut ; 1 : vers le bas)
