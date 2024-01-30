@@ -96,8 +96,9 @@ public class Grille {
      * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
      * @param sens "haut", "bas", "gauche", "droite" un des quatre sens de l'axe cardinal
      * @return l'île voisine à l'île passée en paramètre par rapport au sens donné. ou null s'il n'y a pas d'île voisine dans ce sens
+     * @throws IllegalArgumentException si sens ne vaut pas "haut", "bas", "gauche" ou "droite"
      */
-    public Ile getVoisin( Ile uneIle, String sens ) {
+    public Ile getVoisin( Ile uneIle, String sens ) throws IllegalArgumentException {
 
         switch( sens.toLowerCase() ) {
             case "haut":
@@ -109,8 +110,7 @@ public class Grille {
             case "droite":
                 return getVoisin(uneIle, 1, 0);
             default:
-                System.err.println("erreur getVoisin(Ile,String), Sens invalide");
-                return null;
+                throw new IllegalArgumentException("la valeur de sens n'est pas comprise dans \"haut\", \"bas\", \"gauche\", \"droite\"");
         }
     }
 
