@@ -54,7 +54,7 @@ public class Ile extends Case{
      * @return vrai si le nombre de ponts de l'île est égal à sa valeur, faux sinon
      */
     public boolean isComplete() {
-        return listePont.size() == valeur;
+        return this.nbConnexions() == valeur;
     }
     
 
@@ -64,7 +64,7 @@ public class Ile extends Case{
      * @return vrai si le nombre de ponts de l'île est inférieur à sa valeur, faux sinon
      */
     public boolean estLibre() {
-        return listePont.size() < valeur;
+        return this.nbConnexions() < valeur;
     }
     
 
