@@ -195,7 +195,7 @@ public class Ile extends Case{
                 // une île qui a besoin de 8 ponts 
                 // et en a actuellement moins de 8
                 if( this.nbConnexions() < 8 ) {
-                return true;
+                    return true;
                 }
             default:
                 throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de "+this+" n'est pas compris dans [1,8]");
@@ -207,11 +207,33 @@ public class Ile extends Case{
     /**
      * vérifie les techniques pour quand une île a un voisin qui lui fournit 1/2 ponts et qui est complété
      * @return vrai si une de ces techniques s'applique
+     * @throws InvalidAttributeValueException si l'attribut -valeur de l'île n'est pas compris dans [1,8]
      */
-    public boolean techniquePontsBloques() {
+    public boolean techniquePontsBloques() throws InvalidAttributeValueException {
 
-
-        return false;
+        switch ( this.valeur ) {
+            case 3:
+                // une île qui a besoin de 3 ponts, 
+                // en a actuellement moins de 3
+                // et qui n'a qu'un voisin libre dont il partage 1 pont
+                if( this.nbVoisinsLibres() == 1
+                 && this.nbConnexions() < this.valeur ) {
+                    // todo: vérifier que un pont mène à une île complète?
+                    
+                    return true;
+                }
+            case 4:
+                
+            case 5:
+                
+            case 6:
+                
+            case 7:
+                
+        
+            default:
+                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de "+this+" n'est pas compris dans [1,8]");
+        }
     }
 
 
@@ -225,6 +247,7 @@ public class Ile extends Case{
         if( !isComplete()) {
 
             // todo: appeler les méthodes d'aide
+            //this.techniquePontsForces();
         }
     }
 }
