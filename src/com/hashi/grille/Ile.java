@@ -69,7 +69,7 @@ public class Ile extends Case{
 
         return lesVoisins;
     }
-    
+
 
 
 	/**
@@ -77,9 +77,8 @@ public class Ile extends Case{
 	 * @return le nombre d'îles voisines qui n'ont pas encore tous leurs ponts de placés
 	 */
 	public int nbVoisinsLibres() {
-		List<Ile> lesVoisins = getVoisins();
-
+        // à partir de la liste de ses voisins, 
         // compte le nombre d'îles qui satisfont la méthode estLibre()
-        return (int) lesVoisins.stream().filter( e -> e.estLibre() ).count();
+        return (int) getVoisins().stream().filter( e -> e.estLibre() ).count();
 	}
 }
