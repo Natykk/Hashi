@@ -85,6 +85,19 @@ public class Ile extends Case{
 
 
     /**
+     * vérifie les techniques pour quand une île a besoin de beaucoup de ponts, mais qu'elle a peu de voisins
+     * @return vrai si une de ces techniques s'applique
+     */
+    public boolean techniquePontsForces() {
+
+
+        return false;
+    }
+
+
+
+
+    /**
      * appelle toutes les méthodes d'aide pour cette île, si nécessaire
      */
     public void chercherAide() {
