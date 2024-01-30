@@ -33,6 +33,23 @@ public class Ile extends Case{
 
 
     /**
+     * retourne le nombre de ponts reliés à cette île EN PRENANT EN COMPTE LES PONTS DOUBLES
+     * @return le nombre de ponts en comptant les ponts doubles pour 2 reliés à cette île
+     */
+    public int nbConnexions() {
+        int sum=0;
+
+        for (Pont p : listePont) {
+            // si le pont ests double, il compte pour 2
+            sum += ( p.EstDouble() ? 2 : 1 );
+        }
+
+        return sum;
+    }
+
+
+
+    /**
      * vérifie si le nombre de ponts de l'île est égal à sa valeur
      * @return vrai si le nombre de ponts de l'île est égal à sa valeur, faux sinon
      */
