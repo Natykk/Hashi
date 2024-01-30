@@ -76,6 +76,19 @@ public class Grille {
     }
 
 
+
+    /**
+     * vérifie si des coordonnées x y sont valides (pas en dehors de la table)
+     * @param x le numéro de ligne
+     * @param y le numéro de colonne
+     * @return vrai si les coordonnées sont valides, faux sinon
+     */
+    public boolean isInBound(int x, int y) {
+        return 0 <= x && x < taille
+            && 0 <= y && y < taille;
+    }
+
+
     /**
      * regarde les cases sur le même axe cardinal que l'île, pour trouver une île voisine ou non
      * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
