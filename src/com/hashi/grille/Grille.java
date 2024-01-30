@@ -76,4 +76,16 @@ public class Grille {
     }
 
 
+    /**
+     * regarde les cases sur le même axe cardinal que l'île, pour trouver une île voisine ou non
+     * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
+     * @param dx le déplacement horizontal sur la grille (-1 : vers la gauche ; 1 : vers la droite)
+     * @param dy le déplacement vertical sur la grille (-1 : vers le haut ; 1 : vers le bas)
+     * @return retourne l'île voisine par rapport à la direction donnée, à l'île passée en paramètre. ou null s'il n'y a pas d'île voisine dans cette direction
+     */
+    public Ile getVoisin( Ile uneIle, int dx, int dy ) {
+        return null;
+    }
+
+
 } 
