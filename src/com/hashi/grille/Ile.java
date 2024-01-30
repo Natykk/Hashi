@@ -54,6 +54,7 @@ public class Ile extends Case{
 
     /**
      * récupère les îles voisines (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
+     * ne récupère QUE les îles voisines non-reliées par un pont à cette île
      * @return une liste d'îles qui sont les îles voisines, ou null si l'île n'a aucune voisine
      */
     public ArrayList<Ile> getVoisins() {
@@ -65,6 +66,25 @@ public class Ile extends Case{
         lesVoisins.add( grille.getVoisin(this, "bas") );
         lesVoisins.add( grille.getVoisin(this, "gauche") );
         lesVoisins.add( grille.getVoisin(this, "droite") );
+
+
+        // la méthode getVoisin ne permet pas de récupérer les îles voisines qui sont déjà reliées par un pont, donc
+        List<Pont> sesPonts = this.listePont;
+
+        if( !sesPonts.isEmpty() ) {
+            
+            for (Pont unPont : sesPonts) {
+                // pour chaque pont, on cherche l'île qui n'est pas uneIle
+                if( unPont.getIle1() == this ) {
+                    // si cette île est dans l'attribut -ile1, c'est qu'elle a une voisine dans -île2
+                    lesVoisins.add( unPont.getIle2() );
+                }
+                else {
+                    // et inversement, si cette île est dans l'attribut -ile2, c'est qu'elle a une voisine dans -île1
+                    lesVoisins.add( unPont.getIle1() );
+                }
+            }
+        }
 
         // enlever les valeurs null, s'il y en a
         while (lesVoisins.remove(null));
