@@ -80,7 +80,7 @@ public class Ile extends Case{
                     lesVoisins.add( unPont.getIle2() );
                 }
                 else {
-                    // et inversement, si cette île est dans l'attribut -ile2, c'est qu'elle a une voisine dans -île1
+                    // et, logiquement, cette île est donc dans l'attribut -ile2, elle a une voisine dans -île1
                     lesVoisins.add( unPont.getIle1() );
                 }
             }
