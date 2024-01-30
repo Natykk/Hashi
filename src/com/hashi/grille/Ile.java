@@ -30,6 +30,16 @@ public class Ile extends Case{
 
 
     /**
+     * vérifie si le nombre de ponts de l'île est égal à sa valeur
+     * @return vrai si le nombre de ponts de l'île est égal à sa valeur, faux sinon
+     */
+    public boolean isComplete() {
+        return listePont.size() == valeur;
+    }
+    
+
+
+    /**
      * récupère les îles voisines (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
      * @return une liste d'îles qui sont les îles voisines, ou null si l'île n'a aucune voisine
      */
