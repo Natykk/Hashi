@@ -26,7 +26,7 @@ public class Ile extends Case{
     public void afficher() {
         System.out.print(this.valeur);
     }
-    
+
 
 
     /**
@@ -70,4 +70,16 @@ public class Ile extends Case{
         return lesVoisins;
     }
     
+
+
+	/**
+	 * compte le nombre d'île voisines de cette île qui n'ont pas encore tous leurs ponts de placés
+	 * @return le nombre d'îles voisines qui n'ont pas encore tous leurs ponts de placés
+	 */
+	public int nbVoisinsLibres() {
+		List<Ile> lesVoisins = getVoisins();
+
+        // compte le nombre d'îles qui satisfont la méthode estLibre()
+        return (int) lesVoisins.stream().filter( e -> e.estLibre() ).count();
+	}
 }
