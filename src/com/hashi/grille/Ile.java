@@ -81,4 +81,18 @@ public class Ile extends Case{
         // compte le nombre d'îles qui satisfont la méthode estLibre()
         return (int) getVoisins().stream().filter( e -> e.estLibre() ).count();
 	}
+
+
+
+    /**
+     * appelle toutes les méthodes d'aide pour cette île, si nécessaire
+     */
+    public void chercherAide() {
+
+        // déjà, on fait rien sur les îles complètes
+        if( !isComplete()) {
+
+            // todo: appeler les méthodes d'aide
+        }
+    }
 }
