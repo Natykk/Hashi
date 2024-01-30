@@ -137,6 +137,11 @@ public class Grille {
             &&  this.table[x][y].estVide() );
         
 
+        if( !isInBound(x, y) ) {
+            // si on sort de la grille, c'est qu'on a rien trouvé, donc il n'y a pas de voisin dans ce sens
+            return null;
+        }
+
         if( this.table[x][y].estPont() ) {
             // si on trouve un pont, c'est qu'il n'y a pas de voisin dans ce sens
             return null;
@@ -145,7 +150,7 @@ public class Grille {
             // si on trouve une île, c'est que c'est une île voisine. on la retourne
             return (Ile) this.table[x][y];
         }
-        
+
 
         // problème si ça arrive ici
         System.err.println("Erreur getVoisin(Ile,int,int)");
