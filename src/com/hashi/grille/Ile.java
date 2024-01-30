@@ -141,25 +141,62 @@ public class Ile extends Case{
 
         switch( this.valeur ) {
             case 1:
+                // une île qui a besoin d'un pont, 
+                // n'en a actuellement aucun
+                // et qui n'a qu'un seul voisin libre
             case 2:
-                // 
-                if( this.nbVoisinsLibres() == 1) {
+                // une île qui a besoin de 2 ponts, 
+                // en a actuellement moins de 2
+                // et qui n'a qu'un seul voisin libre
+                if( this.nbVoisinsLibres() == 1
+                 && this.nbConnexions() < this.valeur ) {
+                    // la même condition peut s'appliquer pour le cas 1 et 2
                     return true;
                 }
             case 3:
+                // une île qui a besoin de 3 ponts, 
+                // en a actuellement moins de 2 dans des sens différents
+                // et qui n'a que 2 voisins libres
+                if( this.nbVoisinsLibres() == 2
+                 && this.listePont.size() < 2 ) {
+                    return true;
+                }
             case 4:
-                if( this.nbVoisinsLibres() == 2) {
+                // une île qui a besoin de 4 ponts, 
+                // en a actuellement moins de 4
+                // et qui n'a que 2 voisins libres
+                if( this.nbVoisinsLibres() == 2
+                 && this.nbConnexions() < this.valeur ) {
                     return true;
                 }
             case 5:
+                // une île qui a besoin de 5 ponts, 
+                // en a actuellement moins de 3 dans des sens différents
+                // et qui n'a que 3 voisins libres
+                if( this.nbVoisinsLibres() == 3 
+                 && this.listePont.size() < 3) {
+                    return true;
+                }
             case 6:
-                if( this.nbVoisinsLibres() == 3) {
+                // une île qui a besoin de 6 ponts, 
+                // en a actuellement moins de 6
+                // et qui n'a que 3 voisins libres
+                if( this.nbVoisinsLibres() == 3 
+                 && this.nbConnexions() < this.valeur ) {
                     return true;
                 }
             case 7:
+                // une île qui a besoin de 7 ponts 
+                // et en a actuellement moins de 4 dans des sens différents
+                if( this.listePont.size() < 4 ) {
+                    return true;
+                }
             case 8:
-                // un 7 ou un 8 aura toujours 4 voisins, et on peut déjà les relier par des ponts
+                // une île qui a besoin de 8 ponts 
+                // et en a actuellement moins de 8
+                if( this.nbConnexions() < 8 ) {
                 return true;
+                }
             default:
                 throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de "+this+" n'est pas compris dans [1,8]");
         }
