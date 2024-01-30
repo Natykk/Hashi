@@ -1,4 +1,7 @@
 import java.util.List;
+
+import javax.management.InvalidAttributeValueException;
+
 import java.util.ArrayList;
 
 public class Ile extends Case{
@@ -86,12 +89,36 @@ public class Ile extends Case{
 
     /**
      * vérifie les techniques pour quand une île a besoin de beaucoup de ponts, mais qu'elle a peu de voisins
+     * la technique spécifique sera décidée par l'attribut -valeur de l'île dans une autre fonction
      * @return vrai si une de ces techniques s'applique
+     * @throws InvalidAttributeValueException si l'attribut -valeur de l'île n'est pas compris dans [1,8]
      */
-    public boolean techniquePontsForces() {
+    public boolean techniquePontsForces() throws InvalidAttributeValueException {
 
-
-        return false;
+        switch( this.valeur ) {
+            case 1:
+            case 2:
+                // 
+                if( this.nbVoisinsLibres() == 1) {
+                    return true;
+                }
+            case 3:
+            case 4:
+                if( this.nbVoisinsLibres() == 2) {
+                    return true;
+                }
+            case 5:
+            case 6:
+                if( this.nbVoisinsLibres() == 3) {
+                    return true;
+                }
+            case 7:
+            case 8:
+                // un 7 ou un 8 aura toujours 4 voisins, et on peut déjà les relier par des ponts
+                return true;
+            default:
+                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de "+this+" n'est pas compris dans [1,8]");
+        }
     }
 
 
