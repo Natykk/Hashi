@@ -80,6 +80,14 @@ public class Ile extends Case{
 	 * @return le nombre d'îles voisines qui n'ont pas encore tous leurs ponts de placés
 	 */
 	public int nbVoisinsLibres() {
+        // récupérer la liste de voisins de l'île
+        ArrayList<Ile> lesVoisins = this.getVoisins();
+
+        // pas besoin de faire toutes les étapes en-dessous si la liste est vide
+        if( lesVoisins.isEmpty() ) {
+            return 0;
+        }
+
         // à partir de la liste de ses voisins, 
         // compte le nombre d'îles qui satisfont la méthode estLibre()
         return (int) getVoisins().stream().filter( e -> e.estLibre() ).count();
