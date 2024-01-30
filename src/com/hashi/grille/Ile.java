@@ -28,4 +28,26 @@ public class Ile extends Case{
     }
     
 
+
+    /**
+     * récupère les îles voisines (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
+     * @return une liste d'îles qui sont les îles voisines, ou null si l'île n'a aucune voisine
+     */
+    public ArrayList<Ile> getVoisins() {
+
+        ArrayList<Ile> lesVoisins = new ArrayList<>();
+
+        // récupération des îles voisines dans les quatre sens
+        lesVoisins.add( grille.getVoisin(this, "haut") );
+        lesVoisins.add( grille.getVoisin(this, "bas") );
+        lesVoisins.add( grille.getVoisin(this, "gauche") );
+        lesVoisins.add( grille.getVoisin(this, "droite") );
+
+        // enlever les valeurs null, s'il y en a
+        while (lesVoisins.remove(null));
+
+
+        return lesVoisins;
+    }
+    
 }
