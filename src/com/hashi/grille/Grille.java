@@ -165,7 +165,7 @@ public class Grille extends MouseAdapter {
 
     /**
      * regarde les cases sur le même axe cardinal que l'île, pour trouver une île voisine ou non
-     * cette fonction appelle getVoisin(Ile,int,int), sans qu'on ait à se soucier de mettre les bonnes valeurs pour les entiers
+     * cette fonction appelle chercherVoisin(Ile,int,int), sans qu'on ait à se soucier de mettre les bonnes valeurs pour les entiers
      * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
      * @param sens "haut", "bas", "gauche", "droite" un des quatre sens de l'axe cardinal
      * @return l'île voisine à l'île passée en paramètre par rapport au sens donné. ou null s'il n'y a pas d'île voisine dans ce sens
@@ -175,13 +175,13 @@ public class Grille extends MouseAdapter {
 
         switch( sens.toLowerCase() ) {
             case "haut":
-                return getVoisin(uneIle, 0, -1);
+                return chercherVoisin(uneIle, 0, -1);
             case "bas":
-                return getVoisin(uneIle, 0, 1);
+                return chercherVoisin(uneIle, 0, 1);
             case "gauche":
-                return getVoisin(uneIle, -1, 0);
+                return chercherVoisin(uneIle, -1, 0);
             case "droite":
-                return getVoisin(uneIle, 1, 0);
+                return chercherVoisin(uneIle, 1, 0);
             default:
                 throw new IllegalArgumentException("la valeur de sens n'est pas comprise dans \"haut\", \"bas\", \"gauche\", \"droite\"");
         }
@@ -197,7 +197,7 @@ public class Grille extends MouseAdapter {
      * @return l'île voisine à l'île passée en paramètre par rapport au sens donné. ou null s'il n'y a pas d'île voisine dans ce sens
      * @throws UnsupportedOperationException si on sort de la boucle avec un cas logiquement impossible
      */
-    public Ile getVoisin( Ile uneIle, int dx, int dy ) throws UnsupportedOperationException {
+    public Ile chercherVoisin( Ile uneIle, int dx, int dy ) throws UnsupportedOperationException {
         // récupérer les coordonnées de l'île
         int x = uneIle.getX();
         int y = uneIle.getY();
