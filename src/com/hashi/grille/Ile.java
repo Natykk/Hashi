@@ -142,10 +142,9 @@ public class Ile extends Case{
     /**
      * vérifie les techniques pour quand une île a besoin de beaucoup de ponts, mais qu'elle a peu de voisins
      * la technique spécifique sera décidée par l'attribut -valeur de l'île dans une autre fonction
-     * @return vrai si une de ces techniques s'applique
-     * @throws InvalidAttributeValueException si l'attribut -valeur de l'île n'est pas compris dans [1,8]
+     * @return une aide applicable à la grille dans sa configuraiton actuelle
      */
-    public boolean techniquePontsForces() throws InvalidAttributeValueException {
+    public Aide techniquePontsForces() {
 
         switch( this.valeur ) {
             case 1:
@@ -159,79 +158,95 @@ public class Ile extends Case{
                 if( this.nbVoisinsLibres() == 1
                  && this.nbConnexions() < this.valeur ) {
                     // la même condition peut s'appliquer pour le cas 1 et 2
-                    return true;
+                    // renvoie FORCE1 si la valeur de l'île est 1. respectivement FORCE2 et 2
+                    return this.valeur == 1 ? Aide.FORCE1 : Aide.FORCE2 ;
                 }
+                break;
             case 3:
                 // une île qui a besoin de 3 ponts, 
                 // en a actuellement moins de 2 dans des sens différents
                 // et qui n'a que 2 voisins libres
                 if( this.nbVoisinsLibres() == 2
                  && this.listePont.size() < 2 ) {
-                    return true;
+                    return Aide.FORCE3;
                 }
+                break;
             case 4:
                 // une île qui a besoin de 4 ponts, 
                 // en a actuellement moins de 4
                 // et qui n'a que 2 voisins libres
                 if( this.nbVoisinsLibres() == 2
                  && this.nbConnexions() < this.valeur ) {
-                    return true;
+                    return Aide.FORCE4;
                 }
+                break;
             case 5:
                 // une île qui a besoin de 5 ponts, 
                 // en a actuellement moins de 3 dans des sens différents
                 // et qui n'a que 3 voisins libres
                 if( this.nbVoisinsLibres() == 3 
                  && this.listePont.size() < 3) {
-                    return true;
+                    return Aide.FORCE5;
                 }
+                break;
             case 6:
                 // une île qui a besoin de 6 ponts, 
                 // en a actuellement moins de 6
                 // et qui n'a que 3 voisins libres
                 if( this.nbVoisinsLibres() == 3 
                  && this.nbConnexions() < this.valeur ) {
-                    return true;
+                    return Aide.FORCE6;
                 }
+                break;
             case 7:
                 // une île qui a besoin de 7 ponts 
                 // et en a actuellement moins de 4 dans des sens différents
                 if( this.listePont.size() < 4 ) {
-                    return true;
+                    return Aide.FORCE7;
                 }
+                break;
             case 8:
                 // une île qui a besoin de 8 ponts 
                 // et en a actuellement moins de 8
                 if( this.nbConnexions() < 8 ) {
-                    return true;
+                    return Aide.FORCE8;
                 }
-            default:
-                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de "+this+" n'est pas compris dans [1,8]");
+                break;
         }
+        // si la valeur de l'île est fausse, on ne s'en occupe pas ici
+        
+        return Aide.RIEN;
     }
 
 
 
     /**
      * vérifie les techniques pour quand une île a un voisin qui lui fournit 1/2 ponts et qui est complété
-     * @return vrai si une de ces techniques s'applique
+     * @return une aide applicable à la grille dans sa configuraiton actuelle
      * @throws InvalidAttributeValueException si l'attribut -valeur de l'île n'est pas compris dans [1,8]
      */
-    public boolean techniquePontsBloques() throws InvalidAttributeValueException {
+    public Aide techniquePontsBloques() throws InvalidAttributeValueException {
 
         switch ( this.valeur ) {
             case 3:
                 // une île qui a besoin de 3 ponts, 
                 // en a actuellement moins de 3
-                // et qui n'a qu'un voisin libre dont il partage 1 pont
+                // et qui n'a plus qu'un voisin libre
+                if( this.nbVoisinsLibres() == 1
+                 && this.nbConnexions() < this.valeur ) {                    
+                    return Aide.BLOQUE3;
+                }
+                break;
+            case 4:
+                // une île qui a besoin de 4 ponts, 
+                // en a actuellement moins de 3 dans des sens différents
+                // et qui a 2 voisins libres
                 if( this.nbVoisinsLibres() == 1
                  && this.nbConnexions() < this.valeur ) {
-                    // todo: vérifier que un pont mène à une île complète?
                     
-                    return true;
+                    return Aide.BLOQUE3;
                 }
-            case 4:
-                
+                break;
             case 5:
                 
             case 6:
@@ -242,6 +257,8 @@ public class Ile extends Case{
             default:
                 throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de "+this+" n'est pas compris dans [1,8]");
         }
+
+        return Aide.RIEN;
     }
 
 
