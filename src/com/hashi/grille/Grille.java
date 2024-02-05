@@ -147,7 +147,7 @@ public class Grille extends MouseAdapter {
             return false;
         }
         return true;
-
+    }
 
 
     /**
