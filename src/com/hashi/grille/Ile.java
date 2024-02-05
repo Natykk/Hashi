@@ -143,9 +143,8 @@ public class Ile extends Case{
      * vérifie les techniques pour quand une île a besoin de beaucoup de ponts, mais qu'elle a peu de voisins
      * la technique spécifique sera décidée par l'attribut -valeur de l'île dans une autre fonction
      * @return une aide applicable à la grille dans sa configuraiton actuelle
-     * @throws InvalidAttributeValueException si l'attribut -valeur de l'île n'est pas compris dans [1,8]
      */
-    public Aide techniquePontsForces() throws InvalidAttributeValueException {
+    public Aide techniquePontsForces() {
 
         switch( this.valeur ) {
             case 1:
@@ -213,9 +212,8 @@ public class Ile extends Case{
                     return Aide.FORCE8;
                 }
                 break;
-            default:
-                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de "+this+" n'est pas compris dans [1,8]");
         }
+        // si la valeur de l'île est fausse, on ne s'en occupe pas ici
         
         return Aide.RIEN;
     }
