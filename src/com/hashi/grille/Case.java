@@ -33,11 +33,20 @@ public class Case{
         return grille.getCase(x, y) instanceof Pont;
     }
 
-    public void afficher(){
+    public String afficher(){
         if (this.estVide()){
-            System.out.print(" ");
-        }else{
-            grille.getCase(x, y).afficher();
+            return " ";
+        }
+        else{
+            return grille.getCase(x, y).afficher();
+        }
+    }
+
+    public int getValeur() {
+        if (this.estIle()) {
+            return ((Ile) grille.getCase(x, y)).getValeur();
+        } else {
+            return -1;
         }
     }
 
