@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-public class Hashi extends JFrame {
+public class Menu_accueil extends JFrame {
 
     private JPanel mainPanel;
     private JLabel logoLabel;
@@ -12,7 +12,7 @@ public class Hashi extends JFrame {
     private JTextArea messageTextArea;
     private JComboBox<String> menuDeroulantComboBox;
 
-    public Hashi() {
+    public Menu_accueil() {
         setTitle("Interface Swing");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
@@ -37,7 +37,7 @@ public class Hashi extends JFrame {
         profilPanel.add(profilLabel);
 
         profilTextField = new JTextField(20);
-        profilTextField.setVisible(false); // Le textField est initialement masqué
+
         profilPanel.add(profilTextField);
 
         // Bouton Valider
@@ -58,8 +58,6 @@ public class Hashi extends JFrame {
 
         // Remplissage du menu déroulant
         menuDeroulantComboBox.addItem("Nouvelle Utilisateur");
-        menuDeroulantComboBox.addItem("Profil 1");
-
 
         // Action du bouton Valider
         validerButton.addActionListener(e -> {
@@ -86,6 +84,6 @@ public class Hashi extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Hashi());
+        SwingUtilities.invokeLater(() -> new Menu_accueil());
     }
 }
