@@ -1,5 +1,5 @@
 PACKAGE=com.hashi
-MAIN:=Main
+MAIN:=Main TestStyle
 
 SRC=./src
 DOC=./doc
@@ -16,7 +16,7 @@ build:
 
 .PHONY: $(MAIN)
 $(MAIN):
-	@cd $(CLASS) && java $@
+	@cd $(CLASS) && java $(subst .,/,$(PACKAGE))/$@
 
 .PHONY: doc
 doc:
