@@ -10,7 +10,7 @@ public class PageManager {
         frame.revalidate();
         frame.repaint();
     }
-
+ 
     public static void afficherMessage(JFrame frame, String message) {
         JOptionPane.showMessageDialog(frame, message);
     }

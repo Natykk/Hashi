@@ -19,18 +19,19 @@ public class EcranLancement extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String utilisateurChoisi = utilisateurBox.getItemAt(utilisateurBox.getSelectedIndex());
                 // Vérifier si "Nouvel utilisateur" est sélectionné
-                if (utilisateurChoisi.equals("Nouvel utilisateur")) {
+                if (utilisateurChoisi.equals("Nouveau profil")) {
                     changerVersNouvellePage();
                     
                 }
                 else{
                     System.out.println("Vous avez choisi : " + utilisateurChoisi);
+                    // Changement du page => EcranAcceuil
                     PageManager.changerPage(EcranLancement.this, ecranAcceuil.getPanel());
                 }
             }
         });
 
-        String[] utilisateurs = {"Meow", "Corazon", "Nouvel utilisateur"};
+        String[] utilisateurs = {"Meow", "Corazon", "Nouveau profil"};
         utilisateurBox = new JComboBox<>(utilisateurs);
         panel1 = new JPanel();
         panel1.add(utilisateurBox);
@@ -45,15 +46,17 @@ public class EcranLancement extends JFrame {
         setSize(400, 400);
         setVisible(true);
     }
+    
     //verifier si la page est vidde
     private boolean estPageVide() {
         return panel2.getComponentCount() == 0;
     }
+    
     private void changerVersNouvellePage() {
         // si elle est vide on va creer la page du nouvel utilisateur 
         if (estPageVide()) {
             JTextField nouveauUtilisateurField = new JTextField(15);
-            panel2.add(new JLabel("Créer un nouvel utilisateur : "));
+            panel2.add(new JLabel("Créer un nouveau profil : "));
             panel2.add(nouveauUtilisateurField);
     
             JButton validerNouveauUtilisateur = new JButton("Valider");
@@ -61,10 +64,17 @@ public class EcranLancement extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String nouvelUtilisateur = nouveauUtilisateurField.getText();
-                    System.out.println("Nouvel utilisateur créé : " + nouvelUtilisateur);
-                    // Afficher un message de confirmation pour le nouvel utilisateur créé
-                    PageManager.afficherMessage(EcranLancement.this, "Nouvel utilisateur créé : " + nouvelUtilisateur);
-                    PageManager.changerPage(EcranLancement.this, ecranAcceuil.getPanel());
+                    if (nouvelUtilisateur.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(EcranLancement.this, "Veuillez entrer un nom du profil valide.",
+                                "Erreur", JOptionPane.ERROR_MESSAGE);
+                    } else if (utilisateurExisteDeja(nouvelUtilisateur)) {
+                        JOptionPane.showMessageDialog(EcranLancement.this, "Le nom du profil existe déjà.",
+                                "Erreur", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        System.out.println("Nouvel utilisateur créé : " + nouvelUtilisateur);
+                        // Afficher un message de confirmation pour le nouvel utilisateur créé
+                        PageManager.changerPage(EcranLancement.this, ecranAcceuil.getPanel());
+                    }
                 }
             });
             panel2.add(validerNouveauUtilisateur);
@@ -85,6 +95,16 @@ public class EcranLancement extends JFrame {
             // La page n'est pas vide, simplement changer de page vers panel2
             PageManager.changerPage(this, panel2);
         }
+        
+    }
+    public boolean utilisateurExisteDeja(String nouvelUtilisateur) {
+        String[] utilisateursExistants = {"Meow", "Corazon"};
+        for (String utilisateur : utilisateursExistants) {
+            if (utilisateur.equals(nouvelUtilisateur)) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public static void main(String[] args) {
