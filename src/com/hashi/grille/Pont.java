@@ -50,19 +50,11 @@ public class Pont extends Case{
     }
 
 
-    public void afficher() {
-        if (this.ile1.getPosition().getX() == this.ile2.getPosition().getX()) {
-            if (this.estDouble) {
-                System.out.print("=");
-            } else {
-                System.out.print("-");
-            }
+    public String afficher() {
+        if (this.estDouble) {
+            return "=";
         } else {
-            if (this.estDouble) {
-                System.out.print("‖");
-            } else {
-                System.out.print("|");
-            }
+            return "-";
         }
     }
     

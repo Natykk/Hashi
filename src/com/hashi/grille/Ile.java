@@ -18,11 +18,19 @@ public class Ile extends Case{
     public Case getPosition() {
         return new Case(this.x, this.y);
     }
-    
-    
-    public void afficher() {
-        System.out.print(this.valeur);
+
+    @Override
+    public int getValeur() {
+        return this.valeur;
     }
     
+    
+    public String afficher() {
+        return this.valeur + "";
+    }
+    
+    public int getNbPonts() {
+        return this.listePont.size();
+    }
 
 }

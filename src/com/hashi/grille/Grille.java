@@ -1,23 +1,31 @@
+
+import java.awt.event.MouseAdapter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+//package com.hashi.grille;
+
+import org.w3c.dom.events.MouseEvent;
 
 
-public class Grille {
+
+public class Grille extends MouseAdapter {
     private int taille; // coté de la grille² 
     private Case[][] table; // La matrice des Case de la grille
     private List<Ile> Iles; // Le Tableau des Iles de la grille
     private List<Pont> Ponts; // Le Tableau des ponts de la grille
+    private Case selectedCase; // Case selectionnée par l'utilisateur
 
-    protected Grille(String cheminFichier,int taille){
+    protected Grille(int taille){
         this.table = new Case[taille][taille];
-        for (int i = 0; i < taille; i++) {
-            for (int j = 0; j < taille; j++) {
-                this.table[i][j] = new Case(i, j);
-            }
-        }
+        this.taille = taille;
         this.Iles = new ArrayList<Ile>();
         this.Ponts = new ArrayList<Pont>();
+        
     }
+
+
+    
 
     public Case getCase(int x, int y) {
         return this.table[x][y];
@@ -40,52 +48,108 @@ public class Grille {
     }
     
 
-    public void afficher() {
+    public String afficher() {
+        String res = "";
         for (int i = 0; i < this.taille; i++) {
             for (int j = 0; j < this.taille; j++) {
                 if (this.table[i][j] == null) {
-                    System.out.print(" ");
+                    res += " ";
                 } else {
-                    this.table[i][j].afficher();
+                    res += this.table[i][j].afficher();
                 }
             }
-            System.out.println();
+            res += "\n";
         }
+        return res;
     }
 
-    public void afficherIles() {
+    public int getTaille() {
+        return this.taille;
+    }
+
+    public String afficherIles() {
+        String res = "";
         for (Ile ile : this.Iles) {
-            ile.afficher();
+            if(ile!=null){
+                res += ile.afficher();
+            }else{
+                res += "*";
+            }
         }
+        return res;
     }
 
-    public void afficherPonts() {
+    public String afficherPonts() {
+        String res = "";
         for (Pont pont : this.Ponts) {
-            pont.afficher();
+            res += pont.afficher();
         }
+        return res;
     }
 
     public void afficherGrille() {
         this.afficher();
-        this.afficherIles();
-        this.afficherPonts();
-    }
-
-    public void setGrille() {
-
     }
 
 
-    /**
-     * regarde les cases sur le même axe cardinal que l'île, pour trouver une île voisine ou non
-     * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
-     * @param dx le déplacement horizontal sur la grille (-1 : vers la gauche ; 1 : vers la droite)
-     * @param dy le déplacement vertical sur la grille (-1 : vers le haut ; 1 : vers le bas)
-     * @return retourne l'île voisine par rapport à la direction donnée, à l'île passée en paramètre. ou null s'il n'y a pas d'île voisine dans cette direction
-     */
-    public Ile getVoisin( Ile uneIle, int dx, int dy ) {
-        return null;
+    public int[][] getGridAsArray(){
+        int[][] res = new int[this.taille][this.taille];
+        for (int i = 0; i < this.taille; i++) {
+            for (int j = 0; j < this.taille; j++) {
+                if (this.table[i][j] == null) {
+                    res[i][j] = 0;
+                } else {
+                    res[i][j] = this.table[i][j].getValeur();
+                }
+            }
+        }
+        return res;
+    }
+
+    // Methode qui verifie si le pont a créer est valide ( les ponts ne se croisent pas, les ponts ne sont pas en diagonale, les ponts ne sont pas superposés)
+    public boolean pontValide(Pont pont) {
+        if (pont.getIle1().getX() == pont.getIle2().getX()) {
+            int x = pont.getIle1().getX();
+            int y1 = pont.getIle1().getY();
+            int y2 = pont.getIle2().getY();
+            if (y1 < y2) {
+                for (int i = y1 + 1; i < y2; i++) {
+                    if (this.table[x][i] != null) {
+                        return false;
+                    }
+                }
+            } else {
+                for (int i = y2 + 1; i < y1; i++) {
+                    if (this.table[x][i] != null) {
+                        return false;
+                    }
+                }
+            }
+        } else if (pont.getIle1().getY() == pont.getIle2().getY()) {
+            int y = pont.getIle1().getY();
+            int x1 = pont.getIle1().getX();
+            int x2 = pont.getIle2().getX();
+            if (x1 < x2) {
+                for (int i = x1 + 1; i < x2; i++) {
+                    if (this.table[i][y] != null) {
+                        return false;
+                    }
+                }
+            } else {
+                for (int i = x2 + 1; i < x1; i++) {
+                    if (this.table[i][y] != null) {
+                        return false;
+                    }
+                }
+            }
+        } else {
+            return false;
+        }
+        return true;
     }
 
 
+    
+
+        
 } 
