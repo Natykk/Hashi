@@ -162,6 +162,7 @@ public class Ile extends Case{
                     // renvoie FORCE1 si la valeur de l'île est 1. respectivement FORCE2 et 2
                     return this.valeur == 1 ? Aide.FORCE1 : Aide.FORCE2 ;
                 }
+                break;
             case 3:
                 // une île qui a besoin de 3 ponts, 
                 // en a actuellement moins de 2 dans des sens différents
@@ -170,6 +171,7 @@ public class Ile extends Case{
                  && this.listePont.size() < 2 ) {
                     return Aide.FORCE3;
                 }
+                break;
             case 4:
                 // une île qui a besoin de 4 ponts, 
                 // en a actuellement moins de 4
@@ -178,6 +180,7 @@ public class Ile extends Case{
                  && this.nbConnexions() < this.valeur ) {
                     return Aide.FORCE4;
                 }
+                break;
             case 5:
                 // une île qui a besoin de 5 ponts, 
                 // en a actuellement moins de 3 dans des sens différents
@@ -186,6 +189,7 @@ public class Ile extends Case{
                  && this.listePont.size() < 3) {
                     return Aide.FORCE5;
                 }
+                break;
             case 6:
                 // une île qui a besoin de 6 ponts, 
                 // en a actuellement moins de 6
@@ -194,18 +198,21 @@ public class Ile extends Case{
                  && this.nbConnexions() < this.valeur ) {
                     return Aide.FORCE6;
                 }
+                break;
             case 7:
                 // une île qui a besoin de 7 ponts 
                 // et en a actuellement moins de 4 dans des sens différents
                 if( this.listePont.size() < 4 ) {
                     return Aide.FORCE7;
                 }
+                break;
             case 8:
                 // une île qui a besoin de 8 ponts 
                 // et en a actuellement moins de 8
                 if( this.nbConnexions() < 8 ) {
                     return Aide.FORCE8;
                 }
+                break;
             default:
                 throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de "+this+" n'est pas compris dans [1,8]");
         }
