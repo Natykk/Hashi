@@ -216,6 +216,8 @@ public class Ile extends Case{
             default:
                 throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de "+this+" n'est pas compris dans [1,8]");
         }
+        
+        return Aide.RIEN;
     }
 
 
