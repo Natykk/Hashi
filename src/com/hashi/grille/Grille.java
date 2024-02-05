@@ -106,6 +106,7 @@ public class Grille extends MouseAdapter {
         return res;
     }
 
+
     // Methode qui verifie si le pont a créer est valide ( les ponts ne se croisent pas, les ponts ne sont pas en diagonale, les ponts ne sont pas superposés)
     public boolean pontValide(Pont pont) {
         if (pont.getIle1().getX() == pont.getIle2().getX()) {
@@ -146,6 +147,89 @@ public class Grille extends MouseAdapter {
             return false;
         }
         return true;
+
+
+
+    /**
+     * vérifie si des coordonnées x y sont valides (pas en dehors de la table)
+     * @param x le numéro de ligne
+     * @param y le numéro de colonne
+     * @return vrai si les coordonnées sont valides, faux sinon
+     */
+    public boolean isInBound(int x, int y) {
+        return 0 <= x && x < taille
+            && 0 <= y && y < taille;
+    }
+
+
+
+    /**
+     * regarde les cases sur le même axe cardinal que l'île, pour trouver une île voisine ou non
+     * cette fonction appelle getVoisin(Ile,int,int), sans qu'on ait à se soucier de mettre les bonnes valeurs pour les entiers
+     * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
+     * @param sens "haut", "bas", "gauche", "droite" un des quatre sens de l'axe cardinal
+     * @return l'île voisine à l'île passée en paramètre par rapport au sens donné. ou null s'il n'y a pas d'île voisine dans ce sens
+     * @throws IllegalArgumentException si sens ne vaut pas "haut", "bas", "gauche" ou "droite"
+     */
+    public Ile getVoisin( Ile uneIle, String sens ) throws IllegalArgumentException {
+
+        switch( sens.toLowerCase() ) {
+            case "haut":
+                return getVoisin(uneIle, 0, -1);
+            case "bas":
+                return getVoisin(uneIle, 0, 1);
+            case "gauche":
+                return getVoisin(uneIle, -1, 0);
+            case "droite":
+                return getVoisin(uneIle, 1, 0);
+            default:
+                throw new IllegalArgumentException("la valeur de sens n'est pas comprise dans \"haut\", \"bas\", \"gauche\", \"droite\"");
+        }
+    }
+
+
+
+    /**
+     * regarde les cases sur le même axe cardinal que l'île, pour trouver une île voisine ou non
+     * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
+     * @param dx le déplacement horizontal sur la grille (-1 : vers la gauche ; 1 : vers la droite)
+     * @param dy le déplacement vertical sur la grille (-1 : vers le haut ; 1 : vers le bas)
+     * @return l'île voisine à l'île passée en paramètre par rapport au sens donné. ou null s'il n'y a pas d'île voisine dans ce sens
+     * @throws UnsupportedOperationException si on sort de la boucle avec un cas logiquement impossible
+     */
+    public Ile getVoisin( Ile uneIle, int dx, int dy ) throws UnsupportedOperationException {
+        // récupérer les coordonnées de l'île
+        int x = uneIle.getX();
+        int y = uneIle.getY();
+        
+        // décaler d'une case avant de vérifier, pour ne pas se dire que l'île dont on démarre est sa propre voisine
+        do {
+            // avancer d'une case dans le sens donné
+            x += dx;
+            y += dy;
+        } while( isInBound(x, y) 
+            &&  this.table[x][y].estVide() );
+        
+
+        if( !isInBound(x, y) ) {
+            // si on sort de la grille, c'est qu'on a rien trouvé, donc il n'y a pas de voisin dans ce sens
+            return null;
+        }
+
+        if( this.table[x][y].estPont() ) {
+            // si on trouve un pont, c'est qu'il n'y a pas de voisin dans ce sens
+            return null;
+        }
+        
+        if( this.table[x][y].estIle() ) {
+            // si on trouve une île, c'est que c'est une île voisine. on la retourne
+            return (Ile) this.table[x][y];
+        }
+
+
+        // logiquement, ça n'arrive jamais ici
+        throw new  UnsupportedOperationException("sortie de boucle avec un cas non-supporté. logiquement impossible");
+
     }
 
 
