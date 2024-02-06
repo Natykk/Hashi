@@ -37,6 +37,8 @@ public class Grille extends MouseAdapter {
 
     public void ajouterIle(Ile ile) {
         this.Iles.add(ile);
+
+        this.setCase(ile.getX(), ile.getY(), ile);
     }
 
     public void ajouterPont(Pont pont) {
