@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.management.InvalidAttributeValueException;
+
 
 
 
@@ -39,6 +41,30 @@ public class Pont extends Case{
 
     public boolean EstDouble() {
         return this.estDouble;
+    }
+
+
+
+    /**
+     * est-ce que le Pont est horizontal ou vertical
+     * @return vrai si le Pont est horizontal, faux si il est vertical
+     * @throws InvalidAttributeValueException si les 2 îles que le pont relie ne sont pas alignées horizontalement ni verticalement
+     */
+    public boolean estHorizontal() throws InvalidAttributeValueException {
+
+        if( this.ile1.getX() == this.ile2.getX() ) {
+            // si les 2 îles que le pont relie sont sur le même axe X (horizontal)
+            // c'est un pont horizontal
+            return true;
+        }
+        else if( this.ile1.getY() == this.ile2.getY() ) {
+            // si les 2 îles que le pont relie sont sur le même axe Y (vertical)
+            // c'est un pont vertical
+            return false;
+        }
+        else {
+            throw new InvalidAttributeValueException();
+        }
     }
 
 
