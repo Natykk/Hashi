@@ -67,6 +67,78 @@ public class Ile extends Case{
     }
 
 
+    public int getNbPontDroite() {
+        int nbPontDroite = 0;
+        for (Pont pont : this.listePont) {
+            if (pont.getIle1().equals(this)) {
+                nbPontDroite++;
+            }
+        }
+        return nbPontDroite;
+    }
+
+    public int getNbPontGauche() {
+        int nbPontGauche = 0;
+        for (Pont pont : this.listePont) {
+            if (pont.getIle2().equals(this)) {
+                nbPontGauche++;
+            }
+        }
+        return nbPontGauche;
+    }
+
+    public void ajouterPont(Pont pont) {
+        this.listePont.add(pont);
+    }
+
+    public void retirerPont(Pont pont) {
+        this.listePont.remove(pont);
+    }
+
+    public List<Pont> getListePonts() {
+        return this.listePont;
+    }
+
+    public boolean estComplet() {
+        return this.valeur == this.getNbPonts();
+    }
+
+    public boolean estValide() {
+        return this.valeur >= this.getNbPonts();
+    }
+
+
+    public int getNbPontBas() {
+        int nbPontBas = 0;
+        for (Pont pont : this.listePont) {
+            if (pont.getIle1().equals(this)) {
+                nbPontBas++;
+            }
+        }
+        return nbPontBas;
+    }
+
+    public int getNbPontHaut() {
+        int nbPontHaut = 0;
+        for (Pont pont : this.listePont) {
+            if (pont.getIle2().equals(this)) {
+                nbPontHaut++;
+            }
+        }
+        return nbPontHaut;
+    }
+  
+
+
+
+
+
+ 
+
+
+
+
+
     /**
      * vérifie si le nombre de ponts de l'île est inférieur à sa valeur
      * @return vrai si le nombre de ponts de l'île est inférieur à sa valeur, faux sinon
@@ -258,4 +330,5 @@ public class Ile extends Case{
             //this.techniquePontsForces();
         }
     }
+
 }

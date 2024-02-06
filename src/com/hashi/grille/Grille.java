@@ -46,6 +46,10 @@ public class Grille extends MouseAdapter {
     public void retirerPont(Pont pont) {
         this.Ponts.remove(pont);
     }
+
+    public ArrayList<Pont> getListePonts() {
+        return (ArrayList<Pont>) this.Ponts;
+    }
     
 
     public String afficher() {
