@@ -14,4 +14,8 @@ public class PageManager {
     public static void afficherMessage(JFrame frame, String message) {
         JOptionPane.showMessageDialog(frame, message);
     }
+
+    public static void MessageErreur(JFrame frame , String m1, String m2){
+        JOptionPane.showMessageDialog(frame, m1,m2, JOptionPane.ERROR_MESSAGE);
+    }
 }
