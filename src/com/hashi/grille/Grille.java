@@ -54,9 +54,15 @@ public class Grille extends MouseAdapter {
             
             this.setCase(ile.getX(), ile.getY(), ile);
         }
+        else {
+            System.err.println("Les coordonnées de l'île à ajouter: ("+ile.getX()+","+ile.getY()+") sont en dehors des limites de la grille.\nL'île n'a pas été ajoutée à la Grille");
+        }
     }
 
     public void ajouterPont(Pont pont) {
+
+        
+
         this.Ponts.add(pont);
     }
 
