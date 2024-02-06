@@ -1,6 +1,7 @@
 package com.hashi.style;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.*;
 
 public class Button extends JButton {
@@ -25,6 +26,6 @@ public class Button extends JButton {
     }
 
     protected void paintComponent(Graphics g) {
-        style.paintButton(this, g);
+        style.paintButton(this, (Graphics2D)g);
     }
 }

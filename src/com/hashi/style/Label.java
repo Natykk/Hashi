@@ -1,6 +1,7 @@
 package com.hashi.style;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.*;
 
 public class Label extends JLabel {
@@ -25,6 +26,6 @@ public class Label extends JLabel {
     }
 
     protected void paintComponent(Graphics g) {
-        style.paintLabel(this, g);
+        style.paintLabel(this, (Graphics2D)g);
     }
 }

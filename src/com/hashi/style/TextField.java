@@ -1,6 +1,7 @@
 package com.hashi.style;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.*;
 
 public class TextField extends JTextField {
@@ -31,6 +32,6 @@ public class TextField extends JTextField {
     }
 
     protected void paintComponent(Graphics g) {
-        style.paintTextField(this, g);
+        style.paintTextField(this, (Graphics2D)g);
     }
 }

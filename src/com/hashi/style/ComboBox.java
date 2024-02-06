@@ -1,6 +1,7 @@
 package com.hashi.style;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -27,6 +28,6 @@ public class ComboBox<E> extends JComboBox<E> {
     }
 
     protected void paintComponent(Graphics g) {
-        style.paintComboBox(this, g);
+        style.paintComboBox(this, (Graphics2D)g);
     }
 }

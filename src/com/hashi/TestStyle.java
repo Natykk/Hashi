@@ -1,8 +1,9 @@
 package com.hashi;
 
 import javax.swing.*;
-import java.awt.FlowLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+
 import com.hashi.style.*;
 
 public class TestStyle extends JFrame {
