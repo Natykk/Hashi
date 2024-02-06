@@ -33,6 +33,9 @@ public class Pont extends Case{
         return this.listeCase;
     }
 
+    public void ajoutCase( Case c ) {
+        this.listeCase.add(c);
+    }
 
     public boolean EstDouble() {
         return this.estDouble;
