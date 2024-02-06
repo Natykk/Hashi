@@ -7,8 +7,10 @@ public class Pont extends Case{
     private Ile ile1; // Ile d'où part l'pont
     private Ile ile2; // Ile où arrive l'pont
     private boolean estDouble; // Booléen définissant si une pont est double ou non
+
     private ArrayList<Case> listeCase; // Liste des cases par lesquelles passe l'Pont
     public boolean estClique;
+
 
     protected Pont(Ile ile1, Ile ile2, boolean estDouble,int x,int y){
         super(x,y);

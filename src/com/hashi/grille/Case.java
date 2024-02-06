@@ -1,6 +1,7 @@
 public class Case{
     protected int x;
     protected int y;
+    // référence vers la grille où cette île se situe
     static Grille grille;
 
     public Case(int x, int y){
