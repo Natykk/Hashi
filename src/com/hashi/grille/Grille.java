@@ -126,7 +126,23 @@ public class Grille extends MouseAdapter {
     }
 
     public void retirerPont(Pont pont) {
+
+        int x,y;
+
+        for (Case c : pont.getListeCase()) {
+            // pour toutes les cases où on a mit le pont, dans la matrice
+            x = c.getX();
+            y = c.getY();
+            // on remplace la Case qui contient un Pont par une Case vide
+            this.table[x][y] = new Case( x,y );
+        }
+
+        // vider la liste de Case du Pont, et le détacher de ses deux Ile
+        pont.supprimer();
+
+        // enlever le Pont de la liste des ponts
         this.Ponts.remove(pont);
+
     }
     
 
