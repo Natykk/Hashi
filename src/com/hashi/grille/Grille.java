@@ -59,10 +59,67 @@ public class Grille extends MouseAdapter {
         }
     }
 
+
+
+    /**
+     * Ajoute un pont dans la matrice de la Grille (sur chaque case) et dans la liste des ponts
+     * @param pont le pont à ajouter
+     */
     public void ajouterPont(Pont pont) {
 
+        try {
+            // ajouter le pont sur chaque cases de la matrice qui sont entre les deux îles que ce pont relie
         
 
+            if( pont.estHorizontal() ) {
+                // l'axe horizontal du pont
+                int x = pont.getIle1().getX();
+                
+                if ( pont.getIle1().getY() < pont.getIle2().getY() ) {
+                    // l'île 1 est à la gauche de l'île 2
+                    for( int y=pont.getIle1().getY()+1 ; y<pont.getIle2().getY() ; y++ ) {
+                        // on parcourt toutes les cases entre ses deux îles (îles exclues)
+                        // on ajoute le pont dans chaque case de la matrice, entre les deux îles
+                        this.setCase(x, y, pont);
+                    }
+                    
+                } else {
+                    // l'île 1 est à la droite de l'île 2
+                    for( int y=(pont.getIle1().getY())-1 ; y>=(pont.getIle2().getY()) ; y-- ) {
+                        // on parcourt toutes les cases entre ses deux îles (îles exclues)
+                        // on ajoute le pont dans chaque case de la matrice, entre les deux îles
+                        this.setCase(x, y, pont);
+                    }
+                }
+            }
+            else {
+                // vertical
+                // l'axe vertical du pont
+                int y = pont.getIle1().getY();
+                
+                if ( pont.getIle1().getX() < pont.getIle2().getX() ) {
+                    // l'île 1 est au-dessus de l'île 2
+                    for( int x=pont.getIle1().getX()+1 ; x<pont.getIle2().getX() ; x++ ) {
+                        // on parcourt toutes les cases entre ses deux îles (îles exclues)
+                        // on ajoute le pont dans chaque case de la matrice, entre les deux îles
+                        this.setCase(x, y, pont);
+                    }
+                    
+                } else {
+                    // l'île 1 est en-dessous de l'île 2
+                    for( int x=(pont.getIle1().getX())-1 ; x>=(pont.getIle2().getX()) ; x-- ) {
+                        // on parcourt toutes les cases entre ses deux îles (îles exclues)
+                        // on ajoute le pont dans chaque case de la matrice, entre les deux îles
+                        this.setCase(x, y, pont);
+                    }
+                }
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Erreur : Les 2 îles que le pont relie ne sont pas alignées horizontalement ni verticalement");
+        }
+
+        // ajouter le pont à la liste de ponts
         this.Ponts.add(pont);
     }
 
