@@ -22,9 +22,20 @@ public class Grille extends MouseAdapter {
         this.Iles = new ArrayList<Ile>();
         this.Ponts = new ArrayList<Pont>();
         
+        this.initialiserTable();
     }
 
 
+    public void initialiserTable() {
+        for (int i = 0 ; i<taille ; i++) {
+            //  ligne
+            for (int j = 0 ; j<taille ; j++) {
+                //  colonne
+                this.table[i][j] = new Case(i, j);
+
+            }
+        }
+    }
     
 
     public Case getCase(int x, int y) {
@@ -39,10 +50,10 @@ public class Grille extends MouseAdapter {
 
         if( this.isInBound(ile.getX(), ile.getY()) ) {
 
-        this.Iles.add(ile);
-
-        this.setCase(ile.getX(), ile.getY(), ile);
-    }
+            this.Iles.add(ile);
+            
+            this.setCase(ile.getX(), ile.getY(), ile);
+        }
     }
 
     public void ajouterPont(Pont pont) {
