@@ -10,13 +10,13 @@ public class MainTest {
         ArrayList<Ile> iles = new ArrayList<>();
         ArrayList<Pont> ponts = new ArrayList<>();
 
-        Ile ile1 = new Ile(1, 50, 50, 50, Color.BLUE);
-        Ile ile2 = new Ile(2, 150, 150, 50,Color.BLUE);
-        Ile ile3 = new Ile(3, 200, 150, 50,Color.BLUE);
-        Ile ile4 = new Ile(2, 50, 150, 50,Color.BLUE);
-        Ile ile5 = new Ile(4, 150, 200, 50,Color.BLUE);
-        Ile ile6 = new Ile(4, 10, 200, 50,Color.BLUE);
-        Ile ile7 = new Ile(4, 250, 20, 50,Color.BLUE);
+        Ile ile1 = new Ile(1, 50, 50, 50, Color.YELLOW);
+        Ile ile2 = new Ile(2, 150, 150, 50,Color.YELLOW);
+        Ile ile3 = new Ile(3, 200, 150, 50,Color.YELLOW);
+        Ile ile4 = new Ile(2, 50, 150, 50,Color.YELLOW);
+        Ile ile5 = new Ile(4, 150, 200, 50,Color.YELLOW);
+        Ile ile6 = new Ile(4, 10, 200, 50,Color.YELLOW);
+        Ile ile7 = new Ile(4, 250, 20, 50,Color.YELLOW);
 
 
         iles.add(ile1);

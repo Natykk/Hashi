@@ -35,7 +35,10 @@ public class Ile {
     public void draw(Graphics g) {
         g.setColor(color);
         g.drawOval(abs - 10, ordo - 10, 20, 20);
+        g.fillOval(abs - 10, ordo - 10, 20, 20);
+        g.setColor(Color.BLACK);
         g.drawString(Integer.toString(valeur), abs - 5, ordo + 5);
+      
     }
 
 
@@ -47,12 +50,12 @@ public class Ile {
     }
 
     public void ajouterPont(Pont p){
-        if(this.liste_pont.contains(p) && p.nb_pont<2){
+        if(this.liste_pont.contains(p) && p.nb_pont <= 2 ){
             p.nb_pont+=1;
             this.liste_pont.add(p);
         }
         else{
-            p.nb_pont+=1;
+           // p.nb_pont+=1;
             this.liste_pont.add(p);
         }
     }

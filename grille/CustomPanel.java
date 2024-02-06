@@ -82,17 +82,12 @@ public class CustomPanel extends JPanel {
     private void creerOuDoublerPont(Ile ile1, Ile ile2) {
         if (ile1.abs == ile2.abs || ile1.ordo == ile2.ordo) {
             Pont pont = trouverPont(ile1, ile2);
-            if (pont != null && ile1.nb_connexion()<ile1.valeur && ile2.nb_connexion<ile1.valeur) {
+            if (pont != null && pont.nb_pont<2 ) {
                 pont.nb_pont ++;
-               // System.out.println("double");
-                //System.out.println("nb_pont "+pont.nb_pont);
-                
             } else {
                 // Ajout de la condition pour ne pas créer un nouveau pont si un pont existe déjà
-                if (!pontExisteEntreIles(ile1, ile2)&&ile1.nb_connexion()<ile1.valeur && ile2.nb_connexion<ile1.valeur) {
+                if (!pontExisteEntreIles(ile1, ile2)) {
                     ponts.add(new Pont(ile1, ile2));
-                   // System.out.println("simple");
-
                 }
             }
         }
