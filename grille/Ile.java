@@ -47,8 +47,7 @@ public class Ile {
     }
 
     public void ajouterPont(Pont p){
-        if(this.liste_pont.contains(p)){
-            this.liste_pont.remove(p);
+        if(this.liste_pont.contains(p) && p.nb_pont<2){
             p.nb_pont+=1;
             this.liste_pont.add(p);
         }
@@ -60,11 +59,17 @@ public class Ile {
     public void ajouterVoisin(Ile voisin){
         this.liste_voisin.add(voisin);
     }
-    public int get_nb_pont(){
-        return this.nb_connexion;
-    }
+    public int  nb_connexion(){
+        int tot=0;
+            for( Pont n : liste_pont){
+                tot+=n.nb_pont;
+            }
+            return tot;
 
-    public boolean supprimerPont (Pont p){
+        }
+    
+
+    public Boolean supprimerPont (Pont p){
        
         if(this.liste_pont.contains(p)){
             int k=liste_pont.indexOf(p);
@@ -81,9 +86,8 @@ public class Ile {
             }
         }                
         return true;
-
     }
-     public boolean ileComplete (){
+     public Boolean ileComplete (){
         if(liste_pont.size()==this.valeur)
             return true;
         return false;
