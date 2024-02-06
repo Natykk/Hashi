@@ -42,7 +42,7 @@ public class Grille extends MouseAdapter {
         return this.table[x][y];
     }
 
-    public void setCase(int x, int y,Case new_case) {
+    private void setCase(int x, int y,Case new_case) {
         this.table[x][y] = new_case;
     }
 
