@@ -10,12 +10,15 @@ public class EcranLancement extends JFrame {
     private JComboBox<String> profilBox;
     private ArrayList<String> profils;
     private JPanel panel1, panel2;
-    private EcranAcceuil ecranAcceuil;
+    private JLabel logoLabel;
+    //private EcranAcceuil ecranAcceuil;
+    private Menu_General Menu;
 
     public EcranLancement() {
         super("Hashi");
 
         JButton bouton = new JButton("Valider");
+        
         // Charger les profils depuis le fichier "profils.txt"
         chargerprofils();
 
@@ -30,7 +33,7 @@ public class EcranLancement extends JFrame {
                 } else {
                     System.out.println("Vous avez choisi : " + profilChoisi);
                     // Changement du page => EcranAcceuil
-                    PageManager.changerPage(EcranLancement.this, ecranAcceuil.getPanel());
+                    PageManager.changerPage(EcranLancement.this, Menu.getPanel());
                 }
             }
         });
@@ -45,11 +48,19 @@ public class EcranLancement extends JFrame {
         panel1.add(new JLabel("Profil:"),createGbc(0,0));
         panel1.add(profilBox, createGbc(1,0));
         panel1.add(bouton, createGbc(2,2));
+        //à regler (logo)
+        /*logoLabel = new JLabel(new ImageIcon("logo.png"));
+        // Resize the image to fit the window
+        Image img = new ImageIcon("logo.png").getImage();
+        Image img2 = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon logo = new ImageIcon(img2);
+        logoLabel.setIcon(logo);
+        panel1.add(logoLabel);*/
 
 
         // Initialiser panel2 avec un champ JTextField vide
         panel2 = new JPanel(new GridBagLayout());
-        ecranAcceuil = new EcranAcceuil();
+        Menu = new Menu_General();
         add(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -73,6 +84,15 @@ public class EcranLancement extends JFrame {
     private void PageNouveauProfil() {
         // si elle est vide on va creer la page du nouveau profil
         if (estPageVide()) {
+            //à regler (logo)
+            /*logoLabel = new JLabel(new ImageIcon("logo.png"));
+            // Resize the image to fit the window
+            Image img = new ImageIcon("logo.png").getImage();
+            Image img2 = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            ImageIcon logo = new ImageIcon(img2);
+            logoLabel.setIcon(logo);
+            panel2.add(logoLabel);*/
+
             JTextField nouveauprofilField  ;
             panel2.add(new JLabel("Créer un nouveau profil : "), createGbc(0, 0));
             panel2.add(nouveauprofilField= new JTextField(8), createGbc(1, 0));
@@ -101,7 +121,7 @@ public class EcranLancement extends JFrame {
                         // Sélectionner le nouveau profil ajouté
                         profilBox.setSelectedItem(nouveauprofil);
                         // Afficher un message de confirmation pour le nouveau profil créé
-                        PageManager.changerPage(EcranLancement.this, ecranAcceuil.getPanel());
+                        PageManager.changerPage(EcranLancement.this, Menu.getPanel());
                     }
                 }
             });
