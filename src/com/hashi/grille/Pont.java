@@ -43,10 +43,10 @@ public class Pont extends Case{
         while (!this.listeCase.isEmpty()) {
             Case laCase = this.listeCase.remove(0);
         }
-        /* 
-        this.ile1.getPosition().getGrille().retirerPont(this);
+        
+        //this.ile1.getPosition().getGrille().retirerPont(this);
         this.ile1.retirerPont(this);
-        this.ile2.retirerPont(this); */
+        this.ile2.retirerPont(this);
     }
 
 
