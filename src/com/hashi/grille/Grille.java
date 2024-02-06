@@ -80,7 +80,8 @@ public class Grille extends MouseAdapter {
                     for( int y=pont.getIle1().getY()+1 ; y<pont.getIle2().getY() ; y++ ) {
                         // on parcourt toutes les cases entre ses deux îles (îles exclues)
                         // on ajoute le pont dans chaque case de la matrice, entre les deux îles
-                        this.setCase(x, y, pont);
+                        pont.ajoutCase( this.getCase(x,y) );
+                        this.setCase(x,y, pont);
                     }
                     
                 } else {
@@ -88,6 +89,7 @@ public class Grille extends MouseAdapter {
                     for( int y=(pont.getIle1().getY())-1 ; y>=(pont.getIle2().getY()) ; y-- ) {
                         // on parcourt toutes les cases entre ses deux îles (îles exclues)
                         // on ajoute le pont dans chaque case de la matrice, entre les deux îles
+                        pont.ajoutCase( this.getCase(x,y) );
                         this.setCase(x, y, pont);
                     }
                 }
