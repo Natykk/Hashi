@@ -30,6 +30,9 @@ public class Ile extends Case{
         return this.valeur;
     }
 
+    public void retirerPont( Pont p ) {
+        this.listePont.remove( p );
+    }
 
 
     /**
