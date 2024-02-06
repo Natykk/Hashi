@@ -16,6 +16,16 @@ public class StyleWrapper extends Style {
         font = style.font;
     }
 
+    @Override
+    public String getName() {
+        return style.getName();
+    }
+
+    @Override
+    protected String getResourcePath(String res) {
+        return style.getResourcePath(res);
+    }
+
     public void paintPanel(Panel panel, Graphics g) {
         style.paintPanel(panel, g);
     }

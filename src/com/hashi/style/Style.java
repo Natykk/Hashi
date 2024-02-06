@@ -1,6 +1,7 @@
 package com.hashi.style;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -9,9 +10,14 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 public abstract class Style {
+    protected String name;
     protected Color bg_color;
     protected Color fg_color;
     protected Font font;
+
+    public String getName() {
+        return name;
+    }
 
     public Color getBgColor() {
         return bg_color;
@@ -25,11 +31,29 @@ public abstract class Style {
         return font;
     }
 
-    public BufferedImage getImage(String image_res) {
+    protected String getResourcePath(String res) {
+        return ClassLoader.getSystemResource("res/" + name +  "/" + res).getFile();
+    }
+
+    public Font getFontResource(String font_res) {
+        Font font = null;
+
+        try {                
+            font = Font.createFont(Font.TRUETYPE_FONT, new File(getResourcePath(font_res)));
+        } catch (FontFormatException e) {
+            System.err.println("Impossible de charger la police mauvais format <" + font_res + "> : " + e);
+        } catch (IOException e) {
+            System.err.println("Impossible de charger la police à partie de la ressource <" + font_res + "> : " + e);
+        }
+
+        return font;
+    }
+
+    public BufferedImage getImageResource(String image_res) {
         BufferedImage image = null;
 
         try {                
-            image = ImageIO.read(new File(image_res));
+            image = ImageIO.read(new File(getResourcePath(image_res)));
         } catch (IOException e) {
             System.err.println("Impossible de charger l'image à partie de la ressource <" + image_res + "> : " + e);
         }
