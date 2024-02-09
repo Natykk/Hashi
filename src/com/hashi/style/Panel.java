@@ -36,8 +36,10 @@ public class Panel extends JPanel {
     }
     
     protected void paintComponent(Graphics g) {
-        if (image_url != style.getResourcePath(image_res)) {
-            image_url = style.getResourcePath(image_res);
+        URL new_image_url = style.getResourcePath(image_res);
+
+        if (image_url != new_image_url) {
+            image_url = new_image_url;
             image = style.getImageResource(image_url);
         }
 
