@@ -1,6 +1,7 @@
 public class Case{
     protected int x;
     protected int y;
+    // référence vers la grille où cette île se situe
     static Grille grille;
 
     public Case(int x, int y){
@@ -21,7 +22,8 @@ public class Case{
     }
 
     public boolean estVide(){
-        return grille.getCase(x, y) == null;
+        return !(grille.getCase(x, y) instanceof Ile) 
+            && !(grille.getCase(x, y) instanceof Pont);
     }
 
     public boolean estIle(){

@@ -86,6 +86,7 @@ public class Hashi extends JFrame {
                                 grille.ajouterPont(new Pont(selectedIle, clickedIle));
                             }
                         }
+
                     }
                     grille.setSelectedCase(null);
                 }

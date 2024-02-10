@@ -35,7 +35,10 @@ public class Ile {
     public void draw(Graphics g) {
         g.setColor(color);
         g.drawOval(abs - 10, ordo - 10, 20, 20);
+        g.fillOval(abs - 10, ordo - 10, 20, 20);
+        g.setColor(Color.BLACK);
         g.drawString(Integer.toString(valeur), abs - 5, ordo + 5);
+      
     }
 
 
@@ -47,24 +50,29 @@ public class Ile {
     }
 
     public void ajouterPont(Pont p){
-        if(this.liste_pont.contains(p)){
-            this.liste_pont.remove(p);
+        if(this.liste_pont.contains(p) && p.nb_pont <= 2 ){
             p.nb_pont+=1;
             this.liste_pont.add(p);
         }
         else{
-            p.nb_pont+=1;
+           // p.nb_pont+=1;
             this.liste_pont.add(p);
         }
     }
     public void ajouterVoisin(Ile voisin){
         this.liste_voisin.add(voisin);
     }
-    public int get_nb_pont(){
-        return this.nb_connexion;
-    }
+    public int  nb_connexion(){
+        int tot=0;
+            for( Pont n : liste_pont){
+                tot+=n.nb_pont;
+            }
+            return tot;
 
-    public boolean supprimerPont (Pont p){
+        }
+    
+
+    public Boolean supprimerPont (Pont p){
        
         if(this.liste_pont.contains(p)){
             int k=liste_pont.indexOf(p);
@@ -81,9 +89,8 @@ public class Ile {
             }
         }                
         return true;
-
     }
-     public boolean ileComplete (){
+     public Boolean ileComplete (){
         if(liste_pont.size()==this.valeur)
             return true;
         return false;

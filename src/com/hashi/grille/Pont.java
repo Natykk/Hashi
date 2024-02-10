@@ -35,7 +35,6 @@ public class Pont extends Case {
             // Dessine 2 ponts l'un a coté de l'autre si le nombre de ponts est 2
             g.drawLine(ile1.x, ile1.y, ile2.x, ile2.y);
 
-
         }
         
 
@@ -60,6 +59,7 @@ public class Pont extends Case {
     }
 
     public Ile getIleDep() {
+
         return this.ile1;
     }
 
@@ -89,6 +89,93 @@ public class Pont extends Case {
         }
 
         return true;
+
+    public void ajoutCase( Case c ) {
+        this.listeCase.add(c);
+    }
+
+    public boolean EstDouble() {
+        return this.estDouble;
+    }
+
+    /**
+     * est-ce que le Pont est horizontal ou vertical
+     * @return vrai si le Pont est horizontal, faux si il est vertical
+     * @throws InvalidAttributeValueException si les 2 îles que le pont relie ne sont pas alignées horizontalement ni verticalement
+     */
+    public boolean estHorizontal() throws InvalidAttributeValueException {
+
+        if( this.ile1.getX() == this.ile2.getX() ) {
+            // si les 2 îles que le pont relie sont sur le même axe X (horizontal)
+            // c'est un pont horizontal
+            return true;
+        }
+        else if( this.ile1.getY() == this.ile2.getY() ) {
+            // si les 2 îles que le pont relie sont sur le même axe Y (vertical)
+            // c'est un pont vertical
+            return false;
+        }
+        else {
+            throw new InvalidAttributeValueException();
+        }
+    }
+    
+    public void supprimer() {
+        while (!this.listeCase.isEmpty()) {
+            Case laCase = this.listeCase.remove(0);
+        }
+        
+        //this.ile1.getPosition().getGrille().retirerPont(this);
+        this.ile1.retirerPont(this);
+        this.ile2.retirerPont(this);
+    }
+  
+    public boolean estValide() {
+        if (ile1 == null || ile2 == null) {
+            return false;
+        }
+        if (this.ile1.equals(this.ile2)) {
+            return false;
+        }
+        if (this.ile1.getPosition().equals(this.ile2.getPosition())) {
+            return false;
+        }
+        if (this.ile1.getPosition().getX() == this.ile2.getPosition().getX()) {
+            if (this.ile1.getPosition().getY() == this.ile2.getPosition().getY() - 1) {
+                if (this.ile1.getNbPontDroite() == 2 || this.ile2.getNbPontGauche() == 2) {
+                    return false;
+                }
+            } else if (this.ile1.getPosition().getY() == this.ile2.getPosition().getY() + 1) {
+                if (this.ile1.getNbPontGauche() == 2 || this.ile2.getNbPontDroite() == 2) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if (this.ile1.getPosition().getY() == this.ile2.getPosition().getY()) {
+            if (this.ile1.getPosition().getX() == this.ile2.getPosition().getX() - 1) {
+                if (this.ile1.getNbPontBas() == 2 || this.ile2.getNbPontHaut() == 2) {
+                    return false;
+                }
+            } else if (this.ile1.getPosition().getX() == this.ile2.getPosition().getX() + 1) {
+                if (this.ile1.getNbPontHaut() == 2 || this.ile2.getNbPontBas() == 2) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    public Ile getCaseDepart() {
+        return this.ile1;
+    }
+
+    public Ile getCaseArrivee() {
+        return this.ile2;
     }
 
     public void ajouterPont() {
