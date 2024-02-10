@@ -12,13 +12,13 @@ public class Label extends JLabel {
 
         this.style = style;
     }
-    
+
     public Label(StyleWrapper style, String text) {
         super(text);
 
         this.style = style;
     }
-    
+
     public Label(StyleWrapper style, String text, int horizontal_alignment) {
         super(text, horizontal_alignment);
 
@@ -26,6 +26,6 @@ public class Label extends JLabel {
     }
 
     protected void paintComponent(Graphics g) {
-        style.paintLabel(this, (Graphics2D)g);
+        style.paintLabel(this, (Graphics2D) g);
     }
 }

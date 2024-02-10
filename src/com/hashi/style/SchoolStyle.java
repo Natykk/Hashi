@@ -23,28 +23,26 @@ public class SchoolStyle extends Style {
         g.setFont(font.deriveFont(0, 20));
         g.setColor(fg_color);
         g.drawString(
-            button.getText(),
-            (button.getWidth() - g.getFontMetrics().stringWidth(button.getText())) / 2,
-            (button.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent()
-        );
+                button.getText(),
+                (button.getWidth() - g.getFontMetrics().stringWidth(button.getText())) / 2,
+                (button.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
     }
-    
+
     public void paintLabel(Label label, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setFont(font.deriveFont(0, 15));
         g.setColor(fg_color);
         g.drawString(
-            label.getText(),
-            (label.getWidth() - g.getFontMetrics().stringWidth(label.getText())) / 2,
-            (label.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent()
-        );
+                label.getText(),
+                (label.getWidth() - g.getFontMetrics().stringWidth(label.getText())) / 2,
+                (label.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
     }
-    
+
     public <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
-        
+
     }
-    
+
     public void paintTextField(TextField text_field, Graphics2D g) {
-        
+
     }
 }

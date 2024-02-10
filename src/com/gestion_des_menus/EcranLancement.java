@@ -10,19 +10,20 @@ public class EcranLancement extends JFrame {
     private JComboBox<String> profilBox;
     private ArrayList<String> profils;
     private JPanel panel1, panel2;
-    //private JLabel logoLabel;
+    // private JLabel logoLabel;
     private EcranAcceuil ecranAcceuil;
-    //private Menu_General2 Menu;
+    // private Menu_General2 Menu;
 
     public EcranLancement() {
         super("Hashi");
 
         JButton bouton = new JButton("Valider");
-      
+
         // Charger les profils depuis le fichier "profils.txt"
         chargerprofils();
 
-        // Ajout d'une action lorsque le bouton valider (dans la première page) est cliqué
+        // Ajout d'une action lorsque le bouton valider (dans la première page) est
+        // cliqué
         bouton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,18 +46,20 @@ public class EcranLancement extends JFrame {
 
         profilBox = new JComboBox<>(profilsArray);
         panel1 = new JPanel(new GridBagLayout());
-        panel1.add(new JLabel("Profil:"),createGbc(0,0));
-        panel1.add(profilBox, createGbc(1,0));
-        panel1.add(bouton, createGbc(2,2));
-      
-        //à regler (logo)
-        /*logoLabel = new JLabel(new ImageIcon("logo.png"));
-        // Resize the image to fit the window
-        Image img = new ImageIcon("logo.png").getImage();
-        Image img2 = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        ImageIcon logo = new ImageIcon(img2);
-        logoLabel.setIcon(logo);
-        panel1.add(logoLabel);*/
+        panel1.add(new JLabel("Profil:"), createGbc(0, 0));
+        panel1.add(profilBox, createGbc(1, 0));
+        panel1.add(bouton, createGbc(2, 2));
+
+        // à regler (logo)
+        /*
+         * logoLabel = new JLabel(new ImageIcon("logo.png"));
+         * // Resize the image to fit the window
+         * Image img = new ImageIcon("logo.png").getImage();
+         * Image img2 = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+         * ImageIcon logo = new ImageIcon(img2);
+         * logoLabel.setIcon(logo);
+         * panel1.add(logoLabel);
+         */
 
         // Initialiser panel2 avec un champ JTextField vide
         panel2 = new JPanel(new GridBagLayout());
@@ -72,7 +75,7 @@ public class EcranLancement extends JFrame {
     private boolean estPageVide() {
         return panel2.getComponentCount() == 0;
     }
-    
+
     private GridBagConstraints createGbc(int x, int y) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = x;
@@ -84,18 +87,20 @@ public class EcranLancement extends JFrame {
     private void PageNouveauProfil() {
         // si elle est vide on va creer la page du nouveau profil
         if (estPageVide()) {
-            //à regler (logo)
-            /*logoLabel = new JLabel(new ImageIcon("logo.png"));
-            // Resize the image to fit the window
-            Image img = new ImageIcon("logo.png").getImage();
-            Image img2 = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-            ImageIcon logo = new ImageIcon(img2);
-            logoLabel.setIcon(logo);
-            panel2.add(logoLabel);*/
+            // à regler (logo)
+            /*
+             * logoLabel = new JLabel(new ImageIcon("logo.png"));
+             * // Resize the image to fit the window
+             * Image img = new ImageIcon("logo.png").getImage();
+             * Image img2 = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+             * ImageIcon logo = new ImageIcon(img2);
+             * logoLabel.setIcon(logo);
+             * panel2.add(logoLabel);
+             */
 
-            JTextField nouveauprofilField  ;
+            JTextField nouveauprofilField;
             panel2.add(new JLabel("Créer un nouveau profil : "), createGbc(0, 0));
-            panel2.add(nouveauprofilField= new JTextField(8), createGbc(1, 0));
+            panel2.add(nouveauprofilField = new JTextField(8), createGbc(1, 0));
 
             JButton validerNouveauprofil = new JButton("Valider");
             validerNouveauprofil.addActionListener(new ActionListener() {
@@ -104,11 +109,11 @@ public class EcranLancement extends JFrame {
                     String nouveauprofil = nouveauprofilField.getText();
                     // si on saisie rien il affiche un message d'erreur
                     if (nouveauprofil.trim().isEmpty()) {
-                        PageManager.MessageErreur(EcranLancement.this,"Veuillez entrer un nom du profil valide.",
+                        PageManager.MessageErreur(EcranLancement.this, "Veuillez entrer un nom du profil valide.",
                                 "Erreur");
-                    // si on saisie un message déjà exsistant on affiche un message d'erreur
+                        // si on saisie un message déjà exsistant on affiche un message d'erreur
                     } else if (profilExisteDeja(nouveauprofil)) {
-                        PageManager.MessageErreur(EcranLancement.this,"Ce profil existe déja",
+                        PageManager.MessageErreur(EcranLancement.this, "Ce profil existe déja",
                                 "Erreur");
                     } else {
                         System.out.println("Nouveau profil créé : " + nouveauprofil);

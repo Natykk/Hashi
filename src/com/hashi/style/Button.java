@@ -12,13 +12,13 @@ public class Button extends JButton {
 
         this.style = style;
     }
-    
+
     public Button(StyleWrapper style, Action a) {
         super(a);
 
         this.style = style;
     }
-    
+
     public Button(StyleWrapper style, String text) {
         super(text);
 
@@ -26,6 +26,6 @@ public class Button extends JButton {
     }
 
     protected void paintComponent(Graphics g) {
-        style.paintButton(this, (Graphics2D)g);
+        style.paintButton(this, (Graphics2D) g);
     }
 }

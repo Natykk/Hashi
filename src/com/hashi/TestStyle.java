@@ -19,7 +19,7 @@ public class TestStyle extends JFrame {
         setMinimumSize(new Dimension(default_width, default_height));
 
         Panel panel = new Panel(style, new FlowLayout(FlowLayout.LEFT), "bg-1.png");
-        
+
         String[] combox_content = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
 
         Button button = new Button(style, "Jouer");

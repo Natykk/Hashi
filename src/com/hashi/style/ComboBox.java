@@ -14,13 +14,13 @@ public class ComboBox<E> extends JComboBox<E> {
 
         this.style = style;
     }
-    
+
     public ComboBox(StyleWrapper style, E[] items) {
         super(items);
 
         this.style = style;
     }
-    
+
     public ComboBox(StyleWrapper style, Vector<E> items) {
         super(items);
 
@@ -28,6 +28,6 @@ public class ComboBox<E> extends JComboBox<E> {
     }
 
     protected void paintComponent(Graphics g) {
-        style.paintComboBox(this, (Graphics2D)g);
+        style.paintComboBox(this, (Graphics2D) g);
     }
 }

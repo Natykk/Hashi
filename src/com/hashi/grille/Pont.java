@@ -36,19 +36,18 @@ public class Pont extends Case {
         if (this.nbPont == 0) {
             g.drawLine(ile1.x - 5, ile1.y - 5, ile2.x - 5, ile2.y - 5);
             g.drawLine(ile1.x + 5, ile1.y + 5, ile2.x + 5, ile2.y + 5);
-            
+
         } else {
             // Dessine 2 ponts l'un a coté de l'autre si le nombre de ponts est 2
             g.drawLine(ile1.x, ile1.y, ile2.x, ile2.y);
 
         }
-        
 
     }
 
     public Rectangle getBounds() {
-        int x = (ile1.x + ile2.x) / 2 - 5; 
-        int y = (ile1.y + ile2.y) / 2 - 5; 
+        int x = (ile1.x + ile2.x) / 2 - 5;
+        int y = (ile1.y + ile2.y) / 2 - 5;
         return new Rectangle(x, y, 20, 20);
     }
 
@@ -82,7 +81,7 @@ public class Pont extends Case {
     }
 
     public boolean estValide() {
-        if (this.ile1.equals(this.ile2) ) {
+        if (this.ile1.equals(this.ile2)) {
             return false;
         }
 
@@ -101,7 +100,7 @@ public class Pont extends Case {
         return true;
     }
 
-    public void ajoutCase( Case c ) {
+    public void ajoutCase(Case c) {
         this.listeCase.add(c);
     }
 
@@ -111,32 +110,33 @@ public class Pont extends Case {
 
     /**
      * est-ce que le Pont est horizontal ou vertical
+     * 
      * @return vrai si le Pont est horizontal, faux si il est vertical
-     * @throws InvalidAttributeValueException si les 2 îles que le pont relie ne sont pas alignées horizontalement ni verticalement
+     * @throws InvalidAttributeValueException si les 2 îles que le pont relie ne
+     *                                        sont pas alignées horizontalement ni
+     *                                        verticalement
      */
     public boolean estHorizontal() throws InvalidAttributeValueException {
 
-        if( this.ile1.getX() == this.ile2.getX() ) {
+        if (this.ile1.getX() == this.ile2.getX()) {
             // si les 2 îles que le pont relie sont sur le même axe X (horizontal)
             // c'est un pont horizontal
             return true;
-        }
-        else if( this.ile1.getY() == this.ile2.getY() ) {
+        } else if (this.ile1.getY() == this.ile2.getY()) {
             // si les 2 îles que le pont relie sont sur le même axe Y (vertical)
             // c'est un pont vertical
             return false;
-        }
-        else {
+        } else {
             throw new InvalidAttributeValueException();
         }
     }
-    
+
     public void supprimer() {
         while (!this.listeCase.isEmpty()) {
             this.listeCase.remove(0);
         }
-        
-        //this.ile1.getPosition().getGrille().retirerPont(this);
+
+        // this.ile1.getPosition().getGrille().retirerPont(this);
         this.ile1.retirerPont(this);
         this.ile2.retirerPont(this);
     }

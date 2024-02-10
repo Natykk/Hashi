@@ -74,19 +74,20 @@ public class Hashi extends JFrame {
             int cellSize = Offset;
             int x = e.getX() / cellSize;
             int y = e.getY() / cellSize;
-        
+
             Ile clickedIle = grille.getIleAt(x, y);
             Pont pont = grille.getPontAt(e.getX(), e.getY());
-            
-        
+
             if (clickedIle != null) {
                 if (grille.getSelectedCase() == null) {
                     grille.setSelectedCase(clickedIle);
                 } else {
                     if (grille.getSelectedCase() instanceof Ile) {
                         Ile selectedIle = (Ile) grille.getSelectedCase();
-                        if (selectedIle != clickedIle && (selectedIle.getX() == clickedIle.getX() || selectedIle.getY() == clickedIle.getY())) {
-                            if (selectedIle.getNbConnexion() < selectedIle.getValeur() && clickedIle.getNbConnexion() < clickedIle.getValeur()) {
+                        if (selectedIle != clickedIle && (selectedIle.getX() == clickedIle.getX()
+                                || selectedIle.getY() == clickedIle.getY())) {
+                            if (selectedIle.getNbConnexion() < selectedIle.getValeur()
+                                    && clickedIle.getNbConnexion() < clickedIle.getValeur()) {
                                 grille.ajouterPont(new Pont(selectedIle, clickedIle));
                             }
                         }
@@ -94,9 +95,9 @@ public class Hashi extends JFrame {
                     }
                     grille.setSelectedCase(null);
                 }
-            } else if ((grille.getPonts().size())>0 && pont != null) {
+            } else if ((grille.getPonts().size()) > 0 && pont != null) {
                 // si la position de la souris est dans le rectangle du pont
-                
+
                 if (pont != null) {
                     // supprimer le pont
                     grille.retirerPont(pont);
@@ -113,11 +114,10 @@ public class Hashi extends JFrame {
 
                 }
 
-
             } else {
                 grille.setSelectedCase(null);
             }
-        
+
             repaint();
         }
     }

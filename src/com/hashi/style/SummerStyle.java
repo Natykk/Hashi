@@ -20,16 +20,16 @@ public class SummerStyle extends Style {
     public void paintButton(Button button, Graphics2D g) {
 
     }
-    
+
     public void paintLabel(Label label, Graphics2D g) {
-        
+
     }
-    
+
     public <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
-        
+
     }
-    
+
     public void paintTextField(TextField text_field, Graphics2D g) {
-        
+
     }
 }

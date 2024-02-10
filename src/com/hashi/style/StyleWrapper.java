@@ -34,15 +34,15 @@ public class StyleWrapper extends Style {
     public void paintButton(Button button, Graphics2D g) {
         style.paintButton(button, g);
     }
-    
+
     public void paintLabel(Label label, Graphics2D g) {
         style.paintLabel(label, g);
     }
-    
+
     public <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
         style.paintComboBox(combo_box, g);
     }
-    
+
     public void paintTextField(TextField text_field, Graphics2D g) {
         style.paintTextField(text_field, g);
     }

@@ -12,19 +12,19 @@ public class TextField extends JTextField {
 
         this.style = style;
     }
-    
+
     public TextField(StyleWrapper style, String text) {
         super(text);
 
         this.style = style;
     }
-    
+
     public TextField(StyleWrapper style, int columns) {
         super(columns);
 
         this.style = style;
     }
-    
+
     public TextField(StyleWrapper style, String text, int columns) {
         super(text, columns);
 
@@ -32,6 +32,6 @@ public class TextField extends JTextField {
     }
 
     protected void paintComponent(Graphics g) {
-        style.paintTextField(this, (Graphics2D)g);
+        style.paintTextField(this, (Graphics2D) g);
     }
 }

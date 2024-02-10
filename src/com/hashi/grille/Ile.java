@@ -79,36 +79,37 @@ public class Ile extends Case {
         return this.valeur;
     }
 
-    public void retirerPont( Pont p ) {
-        this.listePont.remove( p );
+    public void retirerPont(Pont p) {
+        this.listePont.remove(p);
     }
 
-
     /**
-     * retourne le nombre de ponts reliés à cette île EN PRENANT EN COMPTE LES PONTS DOUBLES
-     * @return le nombre de ponts en comptant les ponts doubles pour 2 reliés à cette île
+     * retourne le nombre de ponts reliés à cette île EN PRENANT EN COMPTE LES PONTS
+     * DOUBLES
+     * 
+     * @return le nombre de ponts en comptant les ponts doubles pour 2 reliés à
+     *         cette île
      */
     public int nbConnexions() {
-        int sum=0;
+        int sum = 0;
 
         for (Pont p : listePont) {
             // si le pont ests double, il compte pour 2
-            sum += ( p.EstDouble() ? 2 : 1 );
+            sum += (p.EstDouble() ? 2 : 1);
         }
 
         return sum;
     }
 
-
-
     /**
      * vérifie si le nombre de ponts de l'île est égal à sa valeur
+     * 
      * @return vrai si le nombre de ponts de l'île est égal à sa valeur, faux sinon
      */
     public boolean isComplete() {
         return this.nbConnexions() == valeur;
     }
-    
+
     public String afficher() {
         return String.valueOf(this.valeur);
     }
@@ -185,202 +186,206 @@ public class Ile extends Case {
         return this.x;
     }
 
-
     /**
      * vérifie si le nombre de ponts de l'île est inférieur à sa valeur
-     * @return vrai si le nombre de ponts de l'île est inférieur à sa valeur, faux sinon
+     * 
+     * @return vrai si le nombre de ponts de l'île est inférieur à sa valeur, faux
+     *         sinon
      */
     public boolean estLibre() {
         return this.nbConnexions() < valeur;
     }
-    
-
 
     /**
-     * récupère les îles voisines (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
-     * @return une liste d'îles qui sont les îles voisines, ou null si l'île n'a aucune voisine
+     * récupère les îles voisines (les îles sur le même axe cardinal que cette île,
+     * sans être bloqué par un pont)
+     * 
+     * @return une liste d'îles qui sont les îles voisines, ou null si l'île n'a
+     *         aucune voisine
      */
     public ArrayList<Ile> getVoisins() {
 
         ArrayList<Ile> lesVoisins = new ArrayList<>();
 
         // récupération des îles voisines dans les quatre sens
-        lesVoisins.add( grille.getVoisin(this, "haut") );
-        lesVoisins.add( grille.getVoisin(this, "bas") );
-        lesVoisins.add( grille.getVoisin(this, "gauche") );
-        lesVoisins.add( grille.getVoisin(this, "droite") );
+        lesVoisins.add(grille.getVoisin(this, "haut"));
+        lesVoisins.add(grille.getVoisin(this, "bas"));
+        lesVoisins.add(grille.getVoisin(this, "gauche"));
+        lesVoisins.add(grille.getVoisin(this, "droite"));
 
-
-        // la méthode getVoisin ne permet pas de récupérer les îles voisines qui sont déjà reliées par un pont, donc
+        // la méthode getVoisin ne permet pas de récupérer les îles voisines qui sont
+        // déjà reliées par un pont, donc
         List<Pont> sesPonts = this.listePont;
 
-        if( !sesPonts.isEmpty() ) {
-            
+        if (!sesPonts.isEmpty()) {
+
             for (Pont unPont : sesPonts) {
                 // pour chaque pont, on cherche l'île qui n'est pas uneIle
-                if( unPont.getIle1() == this ) {
-                    // si cette île est dans l'attribut -ile1, c'est qu'elle a une voisine dans -île2
-                    lesVoisins.add( unPont.getIle2() );
-                }
-                else {
-                    // et, logiquement, cette île est donc dans l'attribut -ile2, elle a une voisine dans -île1
-                    lesVoisins.add( unPont.getIle1() );
+                if (unPont.getIle1() == this) {
+                    // si cette île est dans l'attribut -ile1, c'est qu'elle a une voisine dans
+                    // -île2
+                    lesVoisins.add(unPont.getIle2());
+                } else {
+                    // et, logiquement, cette île est donc dans l'attribut -ile2, elle a une voisine
+                    // dans -île1
+                    lesVoisins.add(unPont.getIle1());
                 }
             }
         }
 
         // enlever les valeurs null, s'il y en a
-        while (lesVoisins.remove(null));
-
+        while (lesVoisins.remove(null))
+            ;
 
         return lesVoisins;
     }
 
-
-
-	/**
-	 * compte le nombre d'île voisines de cette île qui n'ont pas encore tous leurs ponts de placés
-	 * @return le nombre d'îles voisines qui n'ont pas encore tous leurs ponts de placés
-	 */
-	public int nbVoisinsLibres() {
+    /**
+     * compte le nombre d'île voisines de cette île qui n'ont pas encore tous leurs
+     * ponts de placés
+     * 
+     * @return le nombre d'îles voisines qui n'ont pas encore tous leurs ponts de
+     *         placés
+     */
+    public int nbVoisinsLibres() {
         // récupérer la liste de voisins de l'île
         ArrayList<Ile> lesVoisins = this.getVoisins();
 
         // pas besoin de faire toutes les étapes en-dessous si la liste est vide
-        if( lesVoisins.isEmpty() ) {
+        if (lesVoisins.isEmpty()) {
             return 0;
         }
 
-        // à partir de la liste de ses voisins, 
+        // à partir de la liste de ses voisins,
         // compte le nombre d'îles qui satisfont la méthode estLibre()
-        return (int) getVoisins().stream().filter( e -> e.estLibre() ).count();
-	}
-
-
+        return (int) getVoisins().stream().filter(e -> e.estLibre()).count();
+    }
 
     /**
-     * vérifie les techniques pour quand une île a besoin de beaucoup de ponts, mais qu'elle a peu de voisins
-     * la technique spécifique sera décidée par l'attribut -valeur de l'île dans une autre fonction
+     * vérifie les techniques pour quand une île a besoin de beaucoup de ponts, mais
+     * qu'elle a peu de voisins
+     * la technique spécifique sera décidée par l'attribut -valeur de l'île dans une
+     * autre fonction
+     * 
      * @return une aide applicable à la grille dans sa configuraiton actuelle
      */
     public Aide techniquePontsForces() {
 
-        switch( this.valeur ) {
+        switch (this.valeur) {
             case 1:
-                // une île qui a besoin d'un pont, 
+                // une île qui a besoin d'un pont,
                 // n'en a actuellement aucun
                 // et qui n'a qu'un seul voisin libre
             case 2:
-                // une île qui a besoin de 2 ponts, 
+                // une île qui a besoin de 2 ponts,
                 // en a actuellement moins de 2
                 // et qui n'a qu'un seul voisin libre
-                if( this.nbVoisinsLibres() == 1
-                 && this.nbConnexions() < this.valeur ) {
+                if (this.nbVoisinsLibres() == 1
+                        && this.nbConnexions() < this.valeur) {
                     // la même condition peut s'appliquer pour le cas 1 et 2
                     // renvoie FORCE1 si la valeur de l'île est 1. respectivement FORCE2 et 2
-                    return this.valeur == 1 ? Aide.FORCE1 : Aide.FORCE2 ;
+                    return this.valeur == 1 ? Aide.FORCE1 : Aide.FORCE2;
                 }
                 break;
             case 3:
-                // une île qui a besoin de 3 ponts, 
+                // une île qui a besoin de 3 ponts,
                 // en a actuellement moins de 2 dans des sens différents
                 // et qui n'a que 2 voisins libres
-                if( this.nbVoisinsLibres() == 2
-                 && this.listePont.size() < 2 ) {
+                if (this.nbVoisinsLibres() == 2
+                        && this.listePont.size() < 2) {
                     return Aide.FORCE3;
                 }
                 break;
             case 4:
-                // une île qui a besoin de 4 ponts, 
+                // une île qui a besoin de 4 ponts,
                 // en a actuellement moins de 4
                 // et qui n'a que 2 voisins libres
-                if( this.nbVoisinsLibres() == 2
-                 && this.nbConnexions() < this.valeur ) {
+                if (this.nbVoisinsLibres() == 2
+                        && this.nbConnexions() < this.valeur) {
                     return Aide.FORCE4;
                 }
                 break;
             case 5:
-                // une île qui a besoin de 5 ponts, 
+                // une île qui a besoin de 5 ponts,
                 // en a actuellement moins de 3 dans des sens différents
                 // et qui n'a que 3 voisins libres
-                if( this.nbVoisinsLibres() == 3 
-                 && this.listePont.size() < 3) {
+                if (this.nbVoisinsLibres() == 3
+                        && this.listePont.size() < 3) {
                     return Aide.FORCE5;
                 }
                 break;
             case 6:
-                // une île qui a besoin de 6 ponts, 
+                // une île qui a besoin de 6 ponts,
                 // en a actuellement moins de 6
                 // et qui n'a que 3 voisins libres
-                if( this.nbVoisinsLibres() == 3 
-                 && this.nbConnexions() < this.valeur ) {
+                if (this.nbVoisinsLibres() == 3
+                        && this.nbConnexions() < this.valeur) {
                     return Aide.FORCE6;
                 }
                 break;
             case 7:
-                // une île qui a besoin de 7 ponts 
+                // une île qui a besoin de 7 ponts
                 // et en a actuellement moins de 4 dans des sens différents
-                if( this.listePont.size() < 4 ) {
+                if (this.listePont.size() < 4) {
                     return Aide.FORCE7;
                 }
                 break;
             case 8:
-                // une île qui a besoin de 8 ponts 
+                // une île qui a besoin de 8 ponts
                 // et en a actuellement moins de 8
-                if( this.nbConnexions() < 8 ) {
+                if (this.nbConnexions() < 8) {
                     return Aide.FORCE8;
                 }
                 break;
         }
         // si la valeur de l'île est fausse, on ne s'en occupe pas ici
-        
+
         return Aide.RIEN;
     }
 
-
-
     /**
-     * vérifie les techniques pour quand une île a un voisin qui lui fournit 1/2 ponts et qui est complété
+     * vérifie les techniques pour quand une île a un voisin qui lui fournit 1/2
+     * ponts et qui est complété
+     * 
      * @return une aide applicable à la grille dans sa configuraiton actuelle
-     * @throws InvalidAttributeValueException si l'attribut -valeur de l'île n'est pas compris dans [1,8]
+     * @throws InvalidAttributeValueException si l'attribut -valeur de l'île n'est
+     *                                        pas compris dans [1,8]
      */
     public Aide techniquePontsBloques() throws InvalidAttributeValueException {
 
-        switch ( this.valeur ) {
+        switch (this.valeur) {
             case 3:
-                // une île qui a besoin de 3 ponts, 
+                // une île qui a besoin de 3 ponts,
                 // en a actuellement moins de 3
                 // et qui n'a plus qu'un voisin libre
-                if( this.nbVoisinsLibres() == 1
-                 && this.nbConnexions() < this.valeur ) {                    
+                if (this.nbVoisinsLibres() == 1
+                        && this.nbConnexions() < this.valeur) {
                     return Aide.BLOQUE3;
                 }
                 break;
             case 4:
-                // une île qui a besoin de 4 ponts, 
+                // une île qui a besoin de 4 ponts,
                 // en a actuellement moins de 3 dans des sens différents
                 // et qui a 2 voisins libres
-                if( this.nbVoisinsLibres() == 1
-                 && this.nbConnexions() < this.valeur ) {
-                    
+                if (this.nbVoisinsLibres() == 1
+                        && this.nbConnexions() < this.valeur) {
+
                     return Aide.BLOQUE3;
                 }
                 break;
             case 5:
-                
+
             case 6:
-                
+
             case 7:
-                
-        
+
             default:
-                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de "+this+" n'est pas compris dans [1,8]");
+                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
+                        + " n'est pas compris dans [1,8]");
         }
 
         return Aide.RIEN;
     }
-
-
 
     /**
      * appelle toutes les méthodes d'aide pour cette île, si nécessaire
@@ -388,10 +393,10 @@ public class Ile extends Case {
     public void chercherAide() {
 
         // déjà, on fait rien sur les îles complètes
-        if( !isComplete()) {
+        if (!isComplete()) {
 
             // todo: appeler les méthodes d'aide
-            //this.techniquePontsForces();
+            // this.techniquePontsForces();
         }
     }
 

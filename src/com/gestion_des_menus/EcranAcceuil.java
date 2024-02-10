@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 public class EcranAcceuil {
 
     private JPanel panel; // Le panel qui représente l'écran d'accueil

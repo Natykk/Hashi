@@ -31,10 +31,10 @@ public class Panel extends JPanel {
 
     public void setImage(String image_res) {
         this.image_res = image_res;
-        
+
         repaint();
     }
-    
+
     protected void paintComponent(Graphics g) {
         URL new_image_url = style.getResourcePath(image_res);
 
@@ -43,6 +43,6 @@ public class Panel extends JPanel {
             image = style.getImageResource(image_url);
         }
 
-        style.paintPanel(this, (Graphics2D)g);
+        style.paintPanel(this, (Graphics2D) g);
     }
 }

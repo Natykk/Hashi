@@ -9,10 +9,9 @@ import java.util.ArrayList;
 import com.hashi.grille.*;
 
 public class TestAide {
-	
+
 	// grille de 5 par 5
 	static Grille g = new Grille(5);
-
 
 	static void testGetVoisins() {
 
@@ -21,30 +20,26 @@ public class TestAide {
 		Ile i3 = new Ile(3, 0, 0, g);
 
 		ArrayList<Ile> uneListeDIle = new ArrayList<>();
-		
 
 		g.ajouterIle(i3);
 		g.ajouterIle(i1);
 		g.ajouterIle(i2);
 
-
 		uneListeDIle = i3.getVoisins();
 
-
-		//==== affichage résultats
+		// ==== affichage résultats
 
 		System.out.println("la grille:");
 		System.out.println(g.afficher());
 
-
 		System.out.println("liste des voisins de i3:");
 		for (Ile ile : uneListeDIle) {
-			System.out.print(ile.afficher()+",");
+			System.out.print(ile.afficher() + ",");
 		}
 		System.out.println();
 	}
 
-	static void afficherNomAide( Aide a ) {
+	static void afficherNomAide(Aide a) {
 		switch (a) {
 			case RIEN:
 				System.out.println("RIEN");
@@ -100,39 +95,29 @@ public class TestAide {
 		Ile i2 = new Ile(2, 2, 0, g);
 		Ile i3 = new Ile(3, 0, 0, g);
 
-		//ArrayList<Ile> uneListeDIle = new ArrayList<>();
-		
+		// ArrayList<Ile> uneListeDIle = new ArrayList<>();
 
 		g.ajouterIle(i3);
 		g.ajouterIle(i1);
 		g.ajouterIle(i2);
 
+		// uneListeDIle = i3.getVoisins();
 
-		//uneListeDIle = i3.getVoisins();
-
-
-		
-
-
-
-
-		//==== affichage résultats
+		// ==== affichage résultats
 
 		System.out.println("la grille:");
 		System.out.println(g.afficher());
 
 		System.out.println("i3.techniquePontsForces()");
-		afficherNomAide( i3.techniquePontsForces() );
+		afficherNomAide(i3.techniquePontsForces());
 
 	}
 
-
 	public static void main(String[] args) {
-		
+
 		g.initialiserTable();
 
-
-		//testGetVoisins();
+		// testGetVoisins();
 
 		testIle3A2Voisins();
 

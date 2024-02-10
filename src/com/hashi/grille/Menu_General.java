@@ -24,10 +24,6 @@ public class Menu_General extends JFrame {
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
-
-
-
-
         // Ajout du logo
         logoLabel = new JLabel(new ImageIcon("logo.png"));
         // Resize the image to fit the window
@@ -56,8 +52,6 @@ public class Menu_General extends JFrame {
         histoireButton.setMaximumSize(new Dimension(50, 25));
         entrainementButton.setMaximumSize(new Dimension(50, 25));
 
-
-
         // Ajout d'une image d'arrière-plan a la fenêtre
         ImageIcon bg = new ImageIcon("background.png");
         JLabel background = new JLabel(bg);
@@ -84,7 +78,7 @@ public class Menu_General extends JFrame {
         groupButton2.add(reglesButton);
         groupButton2.add(quitterButton);
         groupButton2.setOpaque(false);
-        //mainPanel.add(groupButton2, BorderLayout.SOUTH);
+        // mainPanel.add(groupButton2, BorderLayout.SOUTH);
 
         // Ajout du panneau principal à la fenêtre
         setContentPane(mainPanel);
@@ -105,13 +99,13 @@ public class Menu_General extends JFrame {
         groupPanel1.add(groupButton, BorderLayout.CENTER);
         groupPanel1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-// Panneau pour le groupe 2
+        // Panneau pour le groupe 2
         JPanel groupPanel2 = new JPanel();
         groupPanel2.setLayout(new BorderLayout());
         groupPanel2.add(groupButton2, BorderLayout.CENTER);
         groupPanel2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-// Ajout des panneaux au panneau principal
+        // Ajout des panneaux au panneau principal
         mainPanel.add(groupPanel1, BorderLayout.CENTER);
         mainPanel.add(groupPanel2, BorderLayout.SOUTH);
 

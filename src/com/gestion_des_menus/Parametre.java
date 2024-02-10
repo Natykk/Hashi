@@ -1,20 +1,21 @@
 import javax.swing.*;
 
-
 public class Parametre extends JFrame {
     private JPanel panel;
-    /*private JComboBox<String> themeBox;
-    private ArrayList<String> themes;*/
+    /*
+     * private JComboBox<String> themeBox;
+     * private ArrayList<String> themes;
+     */
 
+    public Parametre() {
 
-    public Parametre(){
-        
         setTitle("Paramètre");
 
-        panel=new JPanel();
+        panel = new JPanel();
         panel.add(new JLabel("Thèmes: "));
     }
-    public JPanel getJPanel(){
+
+    public JPanel getJPanel() {
         return panel;
     }
 }

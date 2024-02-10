@@ -33,13 +33,13 @@ public abstract class Style {
     }
 
     public URL getResourcePath(String res) {
-        return ClassLoader.getSystemResource("res/" + name +  "/" + res);
+        return ClassLoader.getSystemResource("res/" + name + "/" + res);
     }
 
     public Font getFontResource(URL font_url) {
         Font font = null;
 
-        try {                
+        try {
             font = Font.createFont(Font.TRUETYPE_FONT, new File(font_url.getFile()));
         } catch (FontFormatException e) {
             System.err.println("Impossible de charger la police mauvais format <" + font_url + "> : " + e);
@@ -53,7 +53,7 @@ public abstract class Style {
     public BufferedImage getImageResource(URL image_url) {
         BufferedImage image = null;
 
-        try {                
+        try {
             image = ImageIO.read(new File(image_url.getFile()));
         } catch (IOException e) {
             System.err.println("Impossible de charger l'image à partie de la ressource <" + image_url + "> : " + e);
@@ -65,7 +65,7 @@ public abstract class Style {
     public abstract void paintPanel(Panel panel, Graphics2D g);
 
     public abstract void paintButton(Button button, Graphics2D g);
-    
+
     public abstract void paintLabel(Label label, Graphics2D g);
 
     public abstract <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g);

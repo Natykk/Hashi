@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Jeu {
-    
+
     public ArrayList<Grille> listeGrille;
     int numGrille;
 
@@ -17,9 +17,9 @@ public class Jeu {
 
     public void genererGrilleDepuisFichier(String cheminFichier) {
         try (BufferedReader br = new BufferedReader(new FileReader(cheminFichier))) {
-            String line="";
+            String line = "";
             int row = 0;
-            
+
             Grille grilleTemp = new Grille(7);
 
             while ((line = br.readLine()) != null) {
@@ -29,29 +29,29 @@ public class Jeu {
                 }
 
                 if (line.trim().equals("-")) {
-   
+
                     this.listeGrille.add(grilleTemp);
                     grilleTemp = new Grille(7);
                     this.numGrille++;
                     row = 0; // Reset row for the new grid
                     continue;
                 }
-    
+
                 String[] values = line.split(" ");
-    
+
                 for (int col = 0; col < values.length; col++) {
                     if (!values[col].isEmpty()) {
                         int value = Integer.parseInt(values[col]);
-    
+
                         if (value > 0) {
                             Ile ile = new Ile(value, row, col, grilleTemp);
                             grilleTemp.ajouterIle(ile);
-                            
+
                             grilleTemp.setCase(row, col, ile);
                         }
                     }
                 }
-    
+
                 row++;
             }
 
@@ -63,8 +63,4 @@ public class Jeu {
         }
     }
 
-    
-    
-
-    
 }
