@@ -3,7 +3,7 @@ package com.hashi.grille;
 import javax.swing.*;
 import java.awt.*;
 
-public class Menu_General extends JFrame {
+public class MenuGeneral extends JFrame {
 
     private JPanel mainPanel;
     private JLabel logoLabel;
@@ -15,7 +15,7 @@ public class Menu_General extends JFrame {
     private JButton histoireButton;
     private JButton entrainementButton;
 
-    public Menu_General() {
+    public MenuGeneral() {
         // Définition du titre de la fenêtre
         setTitle("Menu de Sélection");
 
@@ -112,7 +112,7 @@ public class Menu_General extends JFrame {
         mainPanel.setPreferredSize(new Dimension(600, 400));
 
         // Fermeture de l'application lors de la fermeture de la fenêtre
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         // Action du bouton "Quitter"
         quitterButton.addActionListener(e -> {

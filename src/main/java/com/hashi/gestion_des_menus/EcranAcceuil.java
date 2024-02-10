@@ -1,3 +1,5 @@
+package com.hashi.gestion_des_menus;
+
 import javax.swing.*;
 
 public class EcranAcceuil {

@@ -15,7 +15,7 @@ public class Hashi extends JFrame {
         this.grille = grille;
         setTitle("Hashi Puzzle");
         setSize(600, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         add(new PuzzlePanel());
         setLocationRelativeTo(null);
         setVisible(true);
@@ -127,7 +127,6 @@ public class Hashi extends JFrame {
         j.genererGrilleDepuisFichier("grille.txt");
         Grille grille = j.listeGrille.get(0);
 
-        @SuppressWarnings("unused")
-        Hashi hashiInterface = new Hashi(grille);
+        SwingUtilities.invokeLater(() -> new Hashi(grille));
     }
 }

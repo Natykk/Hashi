@@ -1,3 +1,5 @@
+package com.hashi.gestion_des_menus;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -65,7 +67,7 @@ public class EcranLancement extends JFrame {
         panel2 = new JPanel(new GridBagLayout());
         ecranAcceuil = new EcranAcceuil();
         add(panel1);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(400, 400);
         setVisible(true);
@@ -158,7 +160,8 @@ public class EcranLancement extends JFrame {
     // Charger les profils depuis le fichier
     private void chargerprofils() {
         profils = new ArrayList<>();
-        try (BufferedReader lire = new BufferedReader(new FileReader("profils.txt"))) {
+        try (BufferedReader lire = new BufferedReader(
+                new InputStreamReader(getClass().getResourceAsStream("../profils.txt")))) {
             String line;
             while ((line = lire.readLine()) != null) {
                 profils.add(line);
@@ -170,19 +173,12 @@ public class EcranLancement extends JFrame {
 
     // Ajouter un profil au fichier
     private void ajouterprofil(String profil) {
-        try (BufferedWriter ecrire = new BufferedWriter(new FileWriter("profils.txt", true))) {
+        try (BufferedWriter ecrire = new BufferedWriter(
+                new FileWriter(getClass().getResource("../profils.txt").getPath(), true))) {
             ecrire.write(profil);
             ecrire.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new EcranLancement();
-            }
-        });
     }
 }

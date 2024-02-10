@@ -1,9 +1,11 @@
 package com.hashi.grille;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import com.hashi.Hashi;
 
 public class Jeu {
 
@@ -16,7 +18,8 @@ public class Jeu {
     }
 
     public void genererGrilleDepuisFichier(String cheminFichier) {
-        try (BufferedReader br = new BufferedReader(new FileReader(cheminFichier))) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(Hashi.class.getResourceAsStream(cheminFichier)))) {
             String line = "";
             int row = 0;
 

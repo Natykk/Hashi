@@ -29,7 +29,7 @@ public class MainTest {
         frame.setSize(500, 500);
         frame.setLocationRelativeTo(null);
         frame.setResizable(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
     }
 }

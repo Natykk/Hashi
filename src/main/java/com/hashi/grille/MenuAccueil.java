@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-public class Menu_accueil extends JFrame {
+public class MenuAccueil extends JFrame {
 
     private JPanel mainPanel;
     private JLabel logoLabel;
@@ -14,9 +14,9 @@ public class Menu_accueil extends JFrame {
     private JTextArea messageTextArea;
     private JComboBox<String> menuDeroulantComboBox;
 
-    public Menu_accueil() {
+    public MenuAccueil() {
         setTitle("Interface Swing");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(600, 400);
 
         // Panneau principal

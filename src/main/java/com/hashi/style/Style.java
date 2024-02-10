@@ -33,7 +33,7 @@ public abstract class Style {
     }
 
     public URL getResourcePath(String res) {
-        return ClassLoader.getSystemResource("res/" + name + "/" + res);
+        return Style.class.getResource("../theme/" + name + "/" + res);
     }
 
     public Font getFontResource(URL font_url) {
