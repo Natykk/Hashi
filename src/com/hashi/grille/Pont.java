@@ -25,7 +25,6 @@ public class Pont extends Case{
     }
 
 
-
     public Ile getIle1() {
         return this.ile1;
     }
@@ -45,8 +44,6 @@ public class Pont extends Case{
     public boolean EstDouble() {
         return this.estDouble;
     }
-
-
 
     /**
      * est-ce que le Pont est horizontal ou vertical
@@ -69,8 +66,6 @@ public class Pont extends Case{
             throw new InvalidAttributeValueException();
         }
     }
-
-
     
     public void supprimer() {
         while (!this.listeCase.isEmpty()) {
@@ -81,8 +76,6 @@ public class Pont extends Case{
         this.ile1.retirerPont(this);
         this.ile2.retirerPont(this);
     }
-  
-  
   
     public boolean estValide() {
         if (ile1 == null || ile2 == null) {

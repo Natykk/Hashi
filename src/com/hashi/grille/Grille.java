@@ -148,6 +148,10 @@ public class Grille extends MouseAdapter {
     public ArrayList<Pont> getListePonts() {
         return (ArrayList<Pont>) this.Ponts;
     }
+
+    public ArrayList<Pont> getListePonts() {
+        return (ArrayList<Pont>) this.Ponts;
+    }
     
 
     public String afficher() {
