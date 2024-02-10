@@ -1,123 +1,127 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class Hashi extends JFrame implements ActionListener {
+public class Hashi extends JFrame {
+    private Grille grille;
+    static protected int Offset = 40;
 
-    private JPanel panneauPrincipal;
-    private JButton[][] boutons;
-    private JLabel lblTemps, lblAide, lblVerification, lblRecommencer, lblRevenirMenu;
-    private JTextField txtTemps;
-    private int temps = 0;
-    private Timer timer;
-    private Grille grilleJeu;
-
-    public Hashi() throws IOException {
-        setTitle("Hashi");
-        setSize(600, 400);
+    public Hashi(Grille grille) {
+        this.grille = grille;
+        setTitle("Hashi Puzzle");
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        panneauPrincipal = new JPanel();
-        panneauPrincipal.setLayout(new GridLayout(10, 10));
-        add(panneauPrincipal, BorderLayout.CENTER);
-
-        boutons = new JButton[10][10];
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                boutons[i][j] = new JButton();
-                boutons[i][j].setBackground(Color.WHITE);
-                boutons[i][j].addActionListener(this);
-                panneauPrincipal.add(boutons[i][j]);
-            }
-        }
-
-        lblTemps = new JLabel("Temps :");
-        txtTemps = new JTextField(5);
-        txtTemps.setEditable(false);
-        lblAide = new JLabel("Aide");
-        lblVerification = new JLabel("Vérification");
-        lblRecommencer = new JLabel("Recommencer");
-        lblRevenirMenu = new JLabel("Revenir au menu");
-
-        JPanel panneauBoutons = new JPanel();
-        panneauBoutons.setLayout(new BoxLayout(panneauBoutons, BoxLayout.Y_AXIS));
-        panneauBoutons.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        // Ajout d'un JLabel vide pour le titre
-        panneauBoutons.add(new JLabel(" "));
-
-        // Création d'un JPanel pour chaque bouton et centrage du contenu
-        JPanel panneauTemps = new JPanel();
-        panneauTemps.setLayout(new BorderLayout());
-        panneauTemps.setPreferredSize(new Dimension(100, 25)); // **Réduction de la taille**
-        panneauTemps.add(lblTemps, BorderLayout.WEST);
-        panneauTemps.add(txtTemps, BorderLayout.EAST);
-
-        JPanel panneauAide = new JPanel();
-        panneauAide.add(lblAide);
-
-        JPanel panneauVerification = new JPanel();
-        panneauVerification.add(lblVerification);
-
-        JPanel panneauRecommencer = new JPanel();
-        panneauRecommencer.add(lblRecommencer);
-
-        JPanel panneauRevenirMenu = new JPanel();
-        panneauRevenirMenu.add(lblRevenirMenu);
-
-        // Ajout des panneaux avec un espace vertical entre chaque
-        panneauBoutons.add(panneauTemps);
-        panneauBoutons.add(Box.createVerticalStrut(10));
-        panneauBoutons.add(panneauAide);
-        panneauBoutons.add(Box.createVerticalStrut(5));
-        panneauBoutons.add(panneauVerification);
-        panneauBoutons.add(Box.createVerticalStrut(5));
-        panneauBoutons.add(panneauRecommencer);
-        panneauBoutons.add(Box.createVerticalStrut(5));
-        panneauBoutons.add(panneauRevenirMenu);
-
-        add(panneauBoutons, BorderLayout.WEST);
-
-        timer = new Timer(1000, this);
-        timer.start();
-
-        Jeu jeu = new Jeu();
-        jeu.genererGrilleDepuisFichier("grille.txt");
-        this.grilleJeu = jeu.listeGrille.get(0); // Commencer avec la première grille
-
-        // Affichage initial de la grille
-        for (int i = 0; i < grilleJeu.getTaille(); i++) {
-            for (int j = 0; j < grilleJeu.getTaille(); j++) {
-                Case caseJeu = grilleJeu.getCase(i, j);
-                if (caseJeu != null) {
-                    boutons[i][j].setText(caseJeu.afficher());
-                }
-            }
-        }
+        add(new PuzzlePanel());
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton) {
-            // Gestion des clics sur les boutons
-            JButton bouton = (JButton) e.getSource();
-            for (int i = 0; i < 10; i++) {
-                for (int j = 0; j < 10; j++) {
-                    if (bouton == boutons[i][j]) {
-                        // Gestion du clic sur le bouton
-                        // ...
+    class PuzzlePanel extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setStroke(new BasicStroke(3));
+            drawGrid(g2d);
+            drawIslands(g2d);
+            drawBridges(g2d);
+        }
+
+        private void drawGrid(Graphics2D g2d) {
+            int cellSize = Offset;
+            for (int i = 0; i < grille.getTaille(); i++) {
+                for (int j = 0; j < grille.getTaille(); j++) {
+                    g2d.drawRect(i * cellSize, j * cellSize, cellSize, cellSize);
+
+                    if (grille.getCase(i, j) instanceof Ile) {
+                        Ile ile = (Ile) grille.getCase(i, j);
+                        ile.x = i * cellSize + cellSize / 2;
+                        ile.y = j * cellSize + cellSize / 2;
                     }
                 }
             }
-        } else if (e.getSource() == timer) {
-            // Gestion du timer
-            temps++;
-            txtTemps.setText(temps + "");
+        }
+
+        private void drawIslands(Graphics2D g2d) {
+            for (Ile ile : grille.getIles()) {
+                ile.draw(g2d);
+            }
+        }
+
+        private void drawBridges(Graphics2D g2d) {
+            for (Pont pont : grille.getPonts()) {
+                pont.draw(g2d);
+            }
+            System.out.println("Ponts : " + grille.getPonts());
+        }
+
+        public PuzzlePanel() {
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    handleClick(e);
+                }
+            });
+        }
+
+        private void handleClick(MouseEvent e) {
+            int cellSize = Offset;
+            int x = e.getX() / cellSize;
+            int y = e.getY() / cellSize;
+        
+            Ile clickedIle = grille.getIleAt(x, y);
+            Pont pont = grille.getPontAt(e.getX(), e.getY());
+            
+        
+            if (clickedIle != null) {
+                if (grille.getSelectedCase() == null) {
+                    grille.setSelectedCase(clickedIle);
+                } else {
+                    if (grille.getSelectedCase() instanceof Ile) {
+                        Ile selectedIle = (Ile) grille.getSelectedCase();
+                        if (selectedIle != clickedIle && (selectedIle.getX() == clickedIle.getX() || selectedIle.getY() == clickedIle.getY())) {
+                            if (selectedIle.getNbConnexion() < selectedIle.getValeur() && clickedIle.getNbConnexion() < clickedIle.getValeur()) {
+                                grille.ajouterPont(new Pont(selectedIle, clickedIle));
+                            }
+                        }
+                    }
+                    grille.setSelectedCase(null);
+                }
+            } else if ((grille.getPonts().size())>0 && pont != null) {
+                // si la position de la souris est dans le rectangle du pont
+                
+                if (pont != null) {
+                    // supprimer le pont
+                    grille.retirerPont(pont);
+
+                    // retirer le pont de la liste des ponts
+                    grille.getPonts().remove(pont);
+
+                    // retirer le pont de la liste des ponts de l'ile
+                    pont.getIleDep().retirerPont(pont);
+
+                    // retirer le pont de la liste des ponts de l'ile
+
+                    pont.getIleArr().retirerPont(pont);
+
+                }
+
+
+            } else {
+                grille.setSelectedCase(null);
+            }
+        
+            repaint();
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        Hashi fenetre = new Hashi();
-        fenetre.setVisible(true);
+    public static void main(String[] args) {
+        Jeu j = new Jeu();
+        j.genererGrilleDepuisFichier("grille.txt");
+        Grille grille = j.listeGrille.get(0);
+
+        Hashi hashiInterface = new Hashi(grille);
     }
 }
