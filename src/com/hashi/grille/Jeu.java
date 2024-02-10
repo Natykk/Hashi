@@ -44,6 +44,7 @@ public class Jeu {
                         if (value > 0) {
                             Ile ile = new Ile(value, row, col, grilleTemp);
                             grilleTemp.ajouterIle(ile);
+                            
                             grilleTemp.setCase(row, col, ile);
                         }
                     }

@@ -1,4 +1,5 @@
 
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Grille extends MouseAdapter {
     private int taille; // coté de la grille² 
     private Case[][] table; // La matrice des Case de la grille
     private List<Ile> Iles; // Le Tableau des Iles de la grille
-    private List<Pont> Ponts; // Le Tableau des ponts de la grille
+    protected List<Pont> Ponts; // Le Tableau des ponts de la grille
     private Case selectedCase; // Case selectionnée par l'utilisateur
 
     protected Grille(int taille){
@@ -152,6 +153,10 @@ public class Grille extends MouseAdapter {
     public ArrayList<Pont> getListePonts() {
         return (ArrayList<Pont>) this.Ponts;
     }
+
+    public ArrayList<Pont> getListePonts() {
+        return (ArrayList<Pont>) this.Ponts;
+    }
     
 
     public String afficher() {
@@ -255,6 +260,69 @@ public class Grille extends MouseAdapter {
         return true;
     }
 
+    public Pont getPont(int x, int y) {
+        //il faut verifier si le pont existe dans la liste des ponts
+        for (Pont pont : this.Ponts) {
+            if (pont.getIle1().getX() == x && pont.getIle1().getY() == y) {
+                return pont;
+            }
+        }
+        return null;
+    }
+
+    public List<Ile> getIles(){
+        return this.Iles;
+    }
+
+    public List<Pont> getPonts(){
+        return this.Ponts;
+    }
+
+    public Ile getIleAt(int x, int y) {
+        for (Ile ile : this.Iles) {
+            if (ile.getX() == x && ile.getY() == y) {
+                return ile;
+            }
+        }
+        return null;
+    }
+
+    public Case getSelectedCase() {
+        return this.selectedCase;
+    }
+
+    public void setSelectedCase(Case selectedCase) {
+        this.selectedCase = selectedCase;
+    }
+
+    public void retirerIle(Ile ile) {
+        this.Iles.remove(ile);
+    }
+
+    public void retirerCase(int x, int y) {
+        this.table[x][y] = null;
+    }
+
+    public void retirerPont(int x, int y) {
+        for (Pont pont : this.Ponts) {
+            if (pont.getIle1().getX() == x && pont.getIle1().getY() == y) {
+                this.Ponts.remove(pont);
+                break;
+            }
+        }
+    }
+
+    public Pont getPontAt(int x, int y) {
+        // le rectangle situé à la position x,y correspond à quel pont ?
+        for (Pont pont : this.Ponts) {
+            System.out.println(pont.getBounds());
+            //si la position de la souris est dans le rectangle du pont
+            if (pont.getBounds().contains(x, y)) {
+                return pont;
+            }
+        }
+        return null;
+    }
 
     /**
      * vérifie si des coordonnées x y sont valides (pas en dehors de la table)
@@ -348,6 +416,7 @@ public class Grille extends MouseAdapter {
     public Aide estCeQueQuelquUnAUneAide( int nbDemandeAide ) {
         
         Aide aideTrouve = Aide.RIEN;
+
 
         // techniques de démarrage et techniques basiques
         for( Ile uneIle : this.Iles ) {
