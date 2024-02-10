@@ -3,7 +3,6 @@ package com.hashi.style;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 
 import javax.swing.*;
@@ -11,7 +10,7 @@ import javax.swing.*;
 public class Panel extends JPanel {
     protected String image_res;
     protected URL image_url;
-    protected BufferedImage image;
+    protected ImageIcon image;
     private StyleWrapper style;
 
     public Panel(StyleWrapper style, LayoutManager layout) {
