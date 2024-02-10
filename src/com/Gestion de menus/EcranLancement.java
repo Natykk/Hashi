@@ -11,14 +11,14 @@ public class EcranLancement extends JFrame {
     private ArrayList<String> profils;
     private JPanel panel1, panel2;
     private JLabel logoLabel;
-    //private EcranAcceuil ecranAcceuil;
+    private EcranAcceuil ecranAcceuil;
     private Menu_General Menu;
 
     public EcranLancement() {
         super("Hashi");
 
         JButton bouton = new JButton("Valider");
-        
+      
         // Charger les profils depuis le fichier "profils.txt"
         chargerprofils();
 
@@ -33,7 +33,7 @@ public class EcranLancement extends JFrame {
                 } else {
                     System.out.println("Vous avez choisi : " + profilChoisi);
                     // Changement du page => EcranAcceuil
-                    PageManager.changerPage(EcranLancement.this, Menu.getPanel());
+                    PageManager.changerPage(EcranLancement.this, ecranAcceuil.getPanel());
                 }
             }
         });
@@ -48,6 +48,7 @@ public class EcranLancement extends JFrame {
         panel1.add(new JLabel("Profil:"),createGbc(0,0));
         panel1.add(profilBox, createGbc(1,0));
         panel1.add(bouton, createGbc(2,2));
+      
         //à regler (logo)
         /*logoLabel = new JLabel(new ImageIcon("logo.png"));
         // Resize the image to fit the window
@@ -57,10 +58,9 @@ public class EcranLancement extends JFrame {
         logoLabel.setIcon(logo);
         panel1.add(logoLabel);*/
 
-
         // Initialiser panel2 avec un champ JTextField vide
         panel2 = new JPanel(new GridBagLayout());
-        Menu = new Menu_General();
+        ecranAcceuil = new EcranAcceuil();
         add(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -121,7 +121,7 @@ public class EcranLancement extends JFrame {
                         // Sélectionner le nouveau profil ajouté
                         profilBox.setSelectedItem(nouveauprofil);
                         // Afficher un message de confirmation pour le nouveau profil créé
-                        PageManager.changerPage(EcranLancement.this, Menu.getPanel());
+                        PageManager.changerPage(EcranLancement.this, ecranAcceuil.getPanel());
                     }
                 }
             });
