@@ -4,19 +4,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class CustomPanel extends JPanel {
-    private ArrayList<Ile> iles;
-    private ArrayList<Pont> ponts;
-    private Ile ileSelectionnee;
-    private Ile ileCliquee; // Ile sur laquelle on a cliqué pour créer un pont
+public class CustomPanel2 extends JPanel {
+    private ArrayList<Ile2> iles;
+    private ArrayList<Pont2> ponts;
+    private Ile2 ileSelectionnee;
     private Point pointeurSouris;
-    private boolean nouveauPontCree = false;
 
-    public CustomPanel(ArrayList<Ile> iles, ArrayList<Pont> ponts) {
+    public CustomPanel2(ArrayList<Ile2> iles, ArrayList<Pont2> ponts) {
         this.iles = iles;
         this.ponts = ponts;
         this.ileSelectionnee = null;
-        this.ileCliquee = null;
         this.pointeurSouris = null;
 
         addMouseListener(new MouseAdapter() {
@@ -41,7 +38,7 @@ public class CustomPanel extends JPanel {
     }
 
     private void gestionClicGauche(MouseEvent e) {
-        for (Ile ile : iles) {
+        for (Ile2 ile : iles) {
             if (ile.getBounds().contains(e.getPoint())) {
                 if (ileSelectionnee == null) {
                     ileSelectionnee = ile;
@@ -57,7 +54,7 @@ public class CustomPanel extends JPanel {
     
     
     private void gestionClicDroit(MouseEvent e) {
-        for (Pont pont : new ArrayList<>(ponts)) {
+        for (Pont2 pont : new ArrayList<>(ponts)) {
             if (pont.getBounds().contains(e.getPoint())) {
                 supprimerPont(pont);
                 ponts.remove(pont);
@@ -69,7 +66,7 @@ public class CustomPanel extends JPanel {
     
 
    
-    private void supprimerPont(Pont pont) {
+    private void supprimerPont(Pont2 pont) {
         if (pont != null) {
           pont.nb_pont--;
           if (pont.isEffacable()) {
@@ -79,23 +76,23 @@ public class CustomPanel extends JPanel {
         }
     }
 
-    private void creerOuDoublerPont(Ile ile1, Ile ile2) {
-        if (ile1.abs == ile2.abs || ile1.ordo == ile2.ordo) {
-            Pont pont = trouverPont(ile1, ile2);
+    private void creerOuDoublerPont(Ile2 ile1, Ile2 ile2) {
+        if (ile1.abs() == ile2.abs || ile1.ordo == ile2.ordo) {
+            Pont2 pont = trouverPont(ile1, ile2);
             if (pont != null && pont.nb_pont<2 ) {
                 pont.nb_pont ++;
             } else {
                 // Ajout de la condition pour ne pas créer un nouveau pont si un pont existe déjà
                 if (!pontExisteEntreIles(ile1, ile2)) {
-                    ponts.add(new Pont(ile1, ile2));
+                    ponts.add(new Pont2(ile1, ile2));
                 }
             }
         }
     }
     
     // Nouvelle méthode pour vérifier si un pont existe déjà entre les mêmes îles
-    private boolean pontExisteEntreIles(Ile ile1, Ile ile2) {
-        for (Pont pont : ponts) {
+    private boolean pontExisteEntreIles(Ile2 ile1, Ile2 ile2) {
+        for (Pont2 pont : ponts) {
             if ((pont.getIleDep() == ile1 && pont.getIleArr() == ile2) ||
                 (pont.getIleDep() == ile2 && pont.getIleArr() == ile1)) {
                 return true;
@@ -106,8 +103,8 @@ public class CustomPanel extends JPanel {
     
     
 
-    private Pont trouverPont(Ile ile1, Ile ile2) {
-        for (Pont pont : ponts) {
+    private Pont2 trouverPont(Ile2 ile1, Ile2 ile2) {
+        for (Pont2 pont : ponts) {
             if ((pont.getIleDep() == ile1 && pont.getIleArr() == ile2) ||
                 (pont.getIleDep() == ile2 && pont.getIleArr() == ile1)) {
                 return pont;
@@ -123,7 +120,7 @@ public class CustomPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (Ile ile : iles) {
+        for (Ile2 ile : iles) {
             ile.draw(g);
 
         }
@@ -133,7 +130,7 @@ public class CustomPanel extends JPanel {
             repaint();
 
         }
-        for (Pont pont : ponts) {
+        for (Pont2 pont : ponts) {
             pont.draw(g);
         }
     }

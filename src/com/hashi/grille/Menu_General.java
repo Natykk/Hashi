@@ -1,3 +1,4 @@
+package com.hashi.grille;
 
 import javax.swing.*;
 import java.awt.*;
@@ -165,10 +166,5 @@ public class Menu_General extends JFrame {
             // ...
         });
 
-    }
-
-    public static void main(String[] args) {
-        // Démarrage de l'application
-        SwingUtilities.invokeLater(() -> new Menu_General());
     }
 }

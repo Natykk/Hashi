@@ -1,13 +1,16 @@
+package com.hashi.grille;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.management.InvalidAttributeValueException;
 
 public class Ile extends Case {
     private int valeur;
     public ArrayList<Pont> listePont;
-    protected int x;
-    protected int y;
+    public int x;
+    public int y;
     private int tailleIle;
     private Color color;
     private ArrayList<Ile> listeVoisin;
@@ -107,7 +110,7 @@ public class Ile extends Case {
     }
     
     public String afficher() {
-        return this.valeur + "";
+        return String.valueOf(this.valeur);
     }
 
     public int getNbPonts() {
@@ -132,14 +135,6 @@ public class Ile extends Case {
             }
         }
         return nbPontGauche;
-    }
-
-    public void ajouterPont(Pont pont) {
-        this.listePont.add(pont);
-    }
-
-    public void retirerPont(Pont pont) {
-        this.listePont.remove(pont);
     }
 
     public ArrayList<Ile> getListeVoisin() {

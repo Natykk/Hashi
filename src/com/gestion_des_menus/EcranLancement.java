@@ -10,9 +10,9 @@ public class EcranLancement extends JFrame {
     private JComboBox<String> profilBox;
     private ArrayList<String> profils;
     private JPanel panel1, panel2;
-    private JLabel logoLabel;
+    //private JLabel logoLabel;
     private EcranAcceuil ecranAcceuil;
-    private Menu_General Menu;
+    //private Menu_General2 Menu;
 
     public EcranLancement() {
         super("Hashi");

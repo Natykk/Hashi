@@ -1,11 +1,16 @@
+package com.hashi.grille;
+
 import java.awt.*;
 import java.util.ArrayList;
+
+import javax.management.InvalidAttributeValueException;
 
 public class Pont extends Case {
     private Ile ile1;
     private Ile ile2;
     private int nbPont;
     private boolean estDouble;
+    private ArrayList<Case> listeCase; // Liste des cases par lesquelles passe l'Pont
     private boolean estClique;
     public int nb_pont;
 
@@ -16,6 +21,7 @@ public class Pont extends Case {
         this.nbPont = 1;
         this.estDouble = false;
         this.estClique = false;
+        this.listeCase = new ArrayList<>();
 
         this.ile1.ajouterPont(this);
         this.ile2.ajouterPont(this);
@@ -67,6 +73,10 @@ public class Pont extends Case {
         return this.ile2;
     }
 
+    public ArrayList<Case> getListeCase() {
+        return this.listeCase;
+    }
+
     public int getNbPont() {
         return this.nbPont;
     }
@@ -89,6 +99,7 @@ public class Pont extends Case {
         }
 
         return true;
+    }
 
     public void ajoutCase( Case c ) {
         this.listeCase.add(c);
@@ -122,52 +133,12 @@ public class Pont extends Case {
     
     public void supprimer() {
         while (!this.listeCase.isEmpty()) {
-            Case laCase = this.listeCase.remove(0);
+            this.listeCase.remove(0);
         }
         
         //this.ile1.getPosition().getGrille().retirerPont(this);
         this.ile1.retirerPont(this);
         this.ile2.retirerPont(this);
-    }
-  
-    public boolean estValide() {
-        if (ile1 == null || ile2 == null) {
-            return false;
-        }
-        if (this.ile1.equals(this.ile2)) {
-            return false;
-        }
-        if (this.ile1.getPosition().equals(this.ile2.getPosition())) {
-            return false;
-        }
-        if (this.ile1.getPosition().getX() == this.ile2.getPosition().getX()) {
-            if (this.ile1.getPosition().getY() == this.ile2.getPosition().getY() - 1) {
-                if (this.ile1.getNbPontDroite() == 2 || this.ile2.getNbPontGauche() == 2) {
-                    return false;
-                }
-            } else if (this.ile1.getPosition().getY() == this.ile2.getPosition().getY() + 1) {
-                if (this.ile1.getNbPontGauche() == 2 || this.ile2.getNbPontDroite() == 2) {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } else if (this.ile1.getPosition().getY() == this.ile2.getPosition().getY()) {
-            if (this.ile1.getPosition().getX() == this.ile2.getPosition().getX() - 1) {
-                if (this.ile1.getNbPontBas() == 2 || this.ile2.getNbPontHaut() == 2) {
-                    return false;
-                }
-            } else if (this.ile1.getPosition().getX() == this.ile2.getPosition().getX() + 1) {
-                if (this.ile1.getNbPontHaut() == 2 || this.ile2.getNbPontBas() == 2) {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-        return true;
     }
 
     public Ile getCaseDepart() {

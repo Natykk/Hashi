@@ -1,8 +1,12 @@
+package com.hashi;
+
 /*
  * Tests Unitaires pour les méthodes en lien avec la détection de situation où on peut fournir de l'aide, ainsi que la détection de voisins
  */
 
 import java.util.ArrayList;
+
+import com.hashi.grille.*;
 
 public class TestAide {
 	
@@ -96,7 +100,7 @@ public class TestAide {
 		Ile i2 = new Ile(2, 2, 0, g);
 		Ile i3 = new Ile(3, 0, 0, g);
 
-		ArrayList<Ile> uneListeDIle = new ArrayList<>();
+		//ArrayList<Ile> uneListeDIle = new ArrayList<>();
 		
 
 		g.ajouterIle(i3);

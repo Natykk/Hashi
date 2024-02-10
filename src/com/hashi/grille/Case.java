@@ -1,3 +1,5 @@
+package com.hashi.grille;
+
 public class Case{
     protected int x;
     protected int y;

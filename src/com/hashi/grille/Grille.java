@@ -1,13 +1,8 @@
+package com.hashi.grille;
 
-import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-//package com.hashi.grille;
-
-import org.w3c.dom.events.MouseEvent;
-
 
 
 public class Grille extends MouseAdapter {
@@ -17,7 +12,7 @@ public class Grille extends MouseAdapter {
     protected List<Pont> Ponts; // Le Tableau des ponts de la grille
     private Case selectedCase; // Case selectionnée par l'utilisateur
 
-    protected Grille(int taille){
+    public Grille(int taille){
         this.table = new Case[taille][taille];
         this.taille = taille;
         this.Iles = new ArrayList<Ile>();
@@ -43,7 +38,7 @@ public class Grille extends MouseAdapter {
         return this.table[x][y];
     }
 
-    private void setCase(int x, int y,Case new_case) {
+    public void setCase(int x, int y,Case new_case) {
         this.table[x][y] = new_case;
     }
 
@@ -149,15 +144,6 @@ public class Grille extends MouseAdapter {
     public ArrayList<Pont> getListePonts() {
         return (ArrayList<Pont>) this.Ponts;
     }
-
-    public ArrayList<Pont> getListePonts() {
-        return (ArrayList<Pont>) this.Ponts;
-    }
-
-    public ArrayList<Pont> getListePonts() {
-        return (ArrayList<Pont>) this.Ponts;
-    }
-    
 
     public String afficher() {
         String res = "";

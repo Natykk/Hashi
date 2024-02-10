@@ -1,12 +1,7 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-public class Ile {
+
+public class Ile2 {
     int valeur;
     int nb_connexion;
     int id;
@@ -14,9 +9,9 @@ public class Ile {
     int ordo;
     int tailleIle;
     Color color;
-    ArrayList<Pont> liste_pont;
-    ArrayList<Ile> liste_voisin;
-    public Ile (int valeur, int abs, int ordo, int taille, Color color){
+    ArrayList<Pont2> liste_pont;
+    ArrayList<Ile2> liste_voisin;
+    public Ile2 (int valeur, int abs, int ordo, int taille, Color color){
         this.valeur= valeur;
         this.abs=abs;
         this.ordo=ordo;
@@ -49,7 +44,7 @@ public class Ile {
         return this.ordo;
     }
 
-    public void ajouterPont(Pont p){
+    public void ajouterPont(Pont2 p){
         if(this.liste_pont.contains(p) && p.nb_pont <= 2 ){
             p.nb_pont+=1;
             this.liste_pont.add(p);
@@ -59,12 +54,12 @@ public class Ile {
             this.liste_pont.add(p);
         }
     }
-    public void ajouterVoisin(Ile voisin){
+    public void ajouterVoisin(Ile2 voisin){
         this.liste_voisin.add(voisin);
     }
     public int  nb_connexion(){
         int tot=0;
-            for( Pont n : liste_pont){
+            for( Pont2 n : liste_pont){
                 tot+=n.nb_pont;
             }
             return tot;
@@ -72,7 +67,7 @@ public class Ile {
         }
     
 
-    public Boolean supprimerPont (Pont p){
+    public Boolean supprimerPont (Pont2 p){
        
         if(this.liste_pont.contains(p)){
             int k=liste_pont.indexOf(p);
@@ -81,7 +76,7 @@ public class Ile {
                 return false;
             }
             else{
-                Pont p1 =liste_pont.get(k);
+                Pont2 p1 =liste_pont.get(k);
                 p1.nb_pont-=1;
                 this.liste_pont.remove(p);
                 this.liste_pont.add(p1);

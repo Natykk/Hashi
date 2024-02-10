@@ -1,3 +1,5 @@
+package com.hashi.grille;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -5,7 +7,7 @@ import java.util.ArrayList;
 
 public class Jeu {
     
-    ArrayList<Grille> listeGrille;
+    public ArrayList<Grille> listeGrille;
     int numGrille;
 
     public Jeu() {

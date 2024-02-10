@@ -1,3 +1,5 @@
+package com.hashi.grille;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -8,15 +10,12 @@ public class CustomPanel extends JPanel {
     private ArrayList<Ile> iles;
     private ArrayList<Pont> ponts;
     private Ile ileSelectionnee;
-    private Ile ileCliquee; // Ile sur laquelle on a cliqué pour créer un pont
     private Point pointeurSouris;
-    private boolean nouveauPontCree = false;
 
     public CustomPanel(ArrayList<Ile> iles, ArrayList<Pont> ponts) {
         this.iles = iles;
         this.ponts = ponts;
         this.ileSelectionnee = null;
-        this.ileCliquee = null;
         this.pointeurSouris = null;
 
         addMouseListener(new MouseAdapter() {

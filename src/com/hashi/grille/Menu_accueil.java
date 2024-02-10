@@ -1,3 +1,5 @@
+package com.hashi.grille;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
@@ -81,9 +83,5 @@ public class Menu_accueil extends JFrame {
         });
 
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Menu_accueil());
     }
 }

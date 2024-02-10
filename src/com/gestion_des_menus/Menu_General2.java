@@ -2,7 +2,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Menu_General extends JFrame {
+public class Menu_General2 extends JFrame {
 
     private JPanel mainPanel;
     private JLabel logoLabel;
@@ -15,7 +15,7 @@ public class Menu_General extends JFrame {
     private JButton entrainementButton;
     private Parametre param;
 
-    public Menu_General() {
+    public Menu_General2() {
         // Définition du titre de la fenêtre
         setTitle("Menu de Sélection");
 
@@ -128,7 +128,7 @@ public class Menu_General extends JFrame {
         // Action du bouton "Paramètres"
         parametresButton.addActionListener(e -> {
             // Votre code pour le bouton Paramètres
-            PageManager.changerPage(Menu_General.this, param.getJPanel());
+            PageManager.changerPage(Menu_General2.this, param.getJPanel());
         });
 
         // Action du bouton "Changer de profil"

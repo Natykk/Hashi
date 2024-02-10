@@ -39,6 +39,6 @@ public class TestStyle extends JFrame {
     }
 
     public static void main(String args[]) {
-        TestStyle frame = new TestStyle();
+        SwingUtilities.invokeLater(() -> new TestStyle());
     }
 }

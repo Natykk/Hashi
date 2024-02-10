@@ -1,12 +1,11 @@
-import java.lang.*;
 import java.awt.*;
-import java.io.FilenameFilter;
-public class Pont {
-    Ile depart;
-    Ile arrive;
+
+public class Pont2 {
+    Ile2 depart;
+    Ile2 arrive;
     int nb_pont;
 
-    public Pont(Ile depart , Ile arrIle){
+    public Pont2(Ile2 depart , Ile2 arrIle){
         this.depart=depart;
         this.arrive=arrIle;
         this.depart.ajouterPont(this);
@@ -49,10 +48,10 @@ public class Pont {
         return new Rectangle(x, y, 20, 20); // Ajustez selon les besoins
     }
 
-    public  Ile getIleDep (){
+    public  Ile2 getIleDep (){
         return this.depart;
     }
-    public  Ile getIleArr(){
+    public  Ile2 getIleArr(){
         return this.arrive;
     }
 

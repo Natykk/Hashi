@@ -1,7 +1,11 @@
+package com.hashi;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import com.hashi.grille.*;
 
 public class Hashi extends JFrame {
     private Grille grille;
@@ -123,6 +127,7 @@ public class Hashi extends JFrame {
         j.genererGrilleDepuisFichier("grille.txt");
         Grille grille = j.listeGrille.get(0);
 
+        @SuppressWarnings("unused")
         Hashi hashiInterface = new Hashi(grille);
     }
 }

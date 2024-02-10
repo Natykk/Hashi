@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
 
 
 public class Parametre extends JFrame {

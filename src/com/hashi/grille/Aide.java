@@ -1,3 +1,5 @@
+package com.hashi.grille;
+
 public enum Aide {
 	RIEN,		// pas d'aide trouvé
 	FORCE1,		// une île de valeur 1 avec un seul voisin libre 	= compléter l'île avec 1 pont

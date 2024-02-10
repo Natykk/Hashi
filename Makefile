@@ -1,5 +1,5 @@
 PACKAGE=com.hashi
-MAIN:=Main TestStyle
+MAIN:=Hashi TestStyle TestAide
 
 SRC=./src
 DOC=./doc
