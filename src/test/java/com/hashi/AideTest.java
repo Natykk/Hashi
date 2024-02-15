@@ -39,23 +39,20 @@ public class AideTest {
         Ile i2 = new Ile(2, 2, 0, g);// à droite de i3
         Ile i3 = new Ile(3, 0, 0, g);// coin haut gauche
 
+        ArrayList<Ile> listeGetVoisins = new ArrayList<>();
         ArrayList<Ile> uneListeDIle = new ArrayList<>();
 
         g.ajouterIle(i3);
         g.ajouterIle(i1);
         g.ajouterIle(i2);
 
-        uneListeDIle = i3.getVoisins();
+        listeGetVoisins = i3.getVoisins();
+        uneListeDIle.add(i1); // bas
+        uneListeDIle.add(i2); // droite
 
-        // i3 a 2 voisins
-        assertEquals( uneListeDIle.size(), 2);
+        // getVoisins() doit donner une liste contenant i1 et i2
+        assertEquals( uneListeDIle, listeGetVoisins );
 
-        // l'ordre de la recherche est : haut,bas,gauche,droite
-        // voisin du bas
-        assertEquals( i1, uneListeDIle.get(0));
-        // voisin de droite
-        assertEquals( i2, uneListeDIle.get(1));
-        
         /*
         // ==== affichage résultats
 
@@ -77,14 +74,24 @@ public class AideTest {
         Ile i2 = new Ile(2, 2, 0, g);
         Ile i3 = new Ile(3, 0, 0, g);
 
-        // ArrayList<Ile> uneListeDIle = new ArrayList<>();
+        ArrayList<Ile> uneListeDIle = new ArrayList<>();
 
         g.ajouterIle(i3);
         g.ajouterIle(i1);
         g.ajouterIle(i2);
 
-        // uneListeDIle = i3.getVoisins();
+        uneListeDIle = i3.getVoisins();
 
+        // i3 a 2 voisins
+        assertEquals( 2, uneListeDIle.size());
+
+        // l'ordre de la recherche est : haut,bas,gauche,droite
+        // voisin du bas
+        assertEquals( i1, uneListeDIle.get(0));
+        // voisin de droite
+        assertEquals( i2, uneListeDIle.get(1));
+        
+    /*
         // ==== affichage résultats
 
         System.out.println("la grille:");
@@ -92,5 +99,6 @@ public class AideTest {
 
         System.out.println("i3.techniquePontsForces()");
         System.out.println(i3.techniquePontsForces());
+        */
     }
 }
