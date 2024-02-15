@@ -9,8 +9,8 @@ import javax.management.InvalidAttributeValueException;
 public class Ile extends Case {
     private int valeur;
     public ArrayList<Pont> listePont;
-    private int xAffichage;
-    private int yAffichage;
+    private int xAffichage; // coordonnée x pour l'affichage de l'Ile
+    private int yAffichage; // coordonnée y pour l'affichage de l'Ile
     private int tailleIle;
     private Color color;
     private ArrayList<Ile> listeVoisin;
