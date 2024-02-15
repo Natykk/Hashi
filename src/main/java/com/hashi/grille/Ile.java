@@ -9,8 +9,8 @@ import javax.management.InvalidAttributeValueException;
 public class Ile extends Case {
     private int valeur;
     public ArrayList<Pont> listePont;
-    public int x;
-    public int y;
+    private int xAffichage;
+    private int yAffichage;
     private int tailleIle;
     private Color color;
     private ArrayList<Ile> listeVoisin;
@@ -19,8 +19,8 @@ public class Ile extends Case {
         super(x, y);
         this.valeur = valeur;
         this.listePont = new ArrayList<>();
-        this.x = x;
-        this.y = y;
+        this.xAffichage = x;
+        this.yAffichage = y;
         this.tailleIle = 20;
         this.color = Color.CYAN;
         this.listeVoisin = new ArrayList<>();
@@ -28,15 +28,15 @@ public class Ile extends Case {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x - tailleIle / 2, y - tailleIle / 2, tailleIle, tailleIle);
+        return new Rectangle(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);
     }
 
     public void draw(Graphics g) {
         g.setColor(color);
-        g.drawOval(x - 10, y - 10, 20, 20);
-        g.fillOval(x - 10, y - 10, 20, 20);
+        g.drawOval(xAffichage - 10, yAffichage - 10, 20, 20);
+        g.fillOval(xAffichage - 10, yAffichage - 10, 20, 20);
         g.setColor(Color.BLACK);
-        g.drawString(Integer.toString(valeur), x - 5, y + 5);
+        g.drawString(Integer.toString(valeur), xAffichage - 5, yAffichage + 5);
     }
 
     /**
@@ -75,6 +75,21 @@ public class Ile extends Case {
         return this.valeur;
     }
 
+    public int getxAffichage() {
+        return xAffichage;
+    }
+
+    public void setxAffichage(int xAffichage) {
+        this.xAffichage = xAffichage;
+    }
+
+    public int getyAffichage() {
+        return yAffichage;
+    }
+
+    public void setyAffichage(int yAffichage) {
+        this.yAffichage = yAffichage;
+    }
 
     /**
      * retirer le pont donné de la liste des ponts de cette Ile

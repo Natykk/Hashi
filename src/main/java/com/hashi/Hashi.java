@@ -41,8 +41,8 @@ public class Hashi extends JFrame {
 
                     if (grille.getCase(i, j) instanceof Ile) {
                         Ile ile = (Ile) grille.getCase(i, j);
-                        ile.x = i * cellSize + cellSize / 2;
-                        ile.y = j * cellSize + cellSize / 2;
+                        ile.setxAffichage( i * cellSize + cellSize / 2 );
+                        ile.setyAffichage( j * cellSize + cellSize / 2 );
                     }
                 }
             }
