@@ -8,7 +8,6 @@ import javax.management.InvalidAttributeValueException;
 public class Pont extends Case {
     private Ile ile1;
     private Ile ile2;
-    private int nbPont;
     private boolean estDouble;
     private ArrayList<Case> listeCase; // Liste des cases par lesquelles passe l'Pont
     private boolean estClique;
@@ -17,7 +16,6 @@ public class Pont extends Case {
         super(0, 0);
         this.ile1 = ile1;
         this.ile2 = ile2;
-        this.nbPont = 1;
         this.estDouble = false;
         this.estClique = false;
         this.listeCase = new ArrayList<>();
@@ -30,29 +28,25 @@ public class Pont extends Case {
         g.setColor(Color.BLACK);
         // efface tout les ponts
 
+        if (!this.estDouble) {
         // Dessine un pont simple si le nombre de ponts est 0
-        System.out.println("nbPont : " + this.nbPont);
-        if (this.nbPont == 0) {
-            g.drawLine(ile1.x - 5, ile1.y - 5, ile2.x - 5, ile2.y - 5);
-            g.drawLine(ile1.x + 5, ile1.y + 5, ile2.x + 5, ile2.y + 5);
-
-        } else {
+            System.out.println("Pont est Simple");
+            g.drawLine(ile1.getxAffichage() - 5, ile1.getyAffichage() - 5, ile2.getxAffichage() - 5, ile2.getyAffichage() - 5);
+            g.drawLine(ile1.getxAffichage() + 5, ile1.getyAffichage() + 5, ile2.getxAffichage() + 5, ile2.getyAffichage() + 5);
+        } 
+        else {
             // Dessine 2 ponts l'un a coté de l'autre si le nombre de ponts est 2
-            g.drawLine(ile1.x, ile1.y, ile2.x, ile2.y);
+            System.out.println("Pont est Double");
+            g.drawLine(ile1.getxAffichage(), ile1.getyAffichage(), ile2.getxAffichage(), ile2.getyAffichage());
 
         }
 
     }
 
     public Rectangle getBounds() {
-        int x = (ile1.x + ile2.x) / 2 - 5;
-        int y = (ile1.y + ile2.y) / 2 - 5;
-        return new Rectangle(x, y, 20, 20);
-    }
-
-
-    public boolean isEffacable() {
-        return nbPont == 0;
+        int xAffichage = (ile1.getxAffichage() + ile2.getxAffichage()) / 2 - 5;
+        int yAffichage = (ile1.getyAffichage() + ile2.getyAffichage()) / 2 - 5;
+        return new Rectangle(xAffichage, yAffichage, 20, 20);
     }
 
     public Ile getIleDep() {
@@ -68,10 +62,6 @@ public class Pont extends Case {
         return this.listeCase;
     }
 
-    public int getNbPont() {
-        return this.nbPont;
-    }
-
     public boolean estValide() {
         if (this.ile1.equals(this.ile2)) {
             return false;
@@ -84,7 +74,7 @@ public class Pont extends Case {
             return false;
         }
 
-        if (this.nbPont == 2 || this.ile1.nbConnexions() >= this.ile1.getValeur() ||
+        if (this.estDouble || this.ile1.nbConnexions() >= this.ile1.getValeur() ||
                 this.ile2.nbConnexions() >= this.ile2.getValeur()) {
             return false;
         }
@@ -134,14 +124,6 @@ public class Pont extends Case {
         this.ile2.retirerPont(this);
     }
 
-    public void ajouterPont() {
-        this.nbPont++;
-    }
-
-    public void retirerPont() {
-        this.nbPont--;
-    }
-
     public boolean estDouble() {
         return estDouble;
     }
@@ -166,7 +148,4 @@ public class Pont extends Case {
         return ile2;
     }
 
-    public void setNbPont(int nbPont) {
-        this.nbPont = nbPont;
-    }
 }
