@@ -24,8 +24,7 @@ public class Case {
     }
 
     public boolean estVide() {
-        return !(grille.getCase(x, y) instanceof Ile)
-                && !(grille.getCase(x, y) instanceof Pont);
+        return !estIle() && !estPont();
     }
 
     public boolean estIle() {
