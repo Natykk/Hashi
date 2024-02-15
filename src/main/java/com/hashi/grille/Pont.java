@@ -67,8 +67,8 @@ public class Pont extends Case {
             return false;
         }
 
-        int deltaX = Math.abs(ile1.x - ile2.x);
-        int deltaY = Math.abs(ile1.y - ile2.y);
+        int deltaX = Math.abs(ile1.getxAffichage() - ile2.getxAffichage());
+        int deltaY = Math.abs(ile1.getyAffichage() - ile2.getyAffichage());
 
         if (deltaX > 1 || deltaY > 1) {
             return false;
