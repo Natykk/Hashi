@@ -75,6 +75,11 @@ public class Ile extends Case {
         return this.valeur;
     }
 
+
+    /**
+     * retirer le pont donné de la liste des ponts de cette Ile
+     * @param p le pont à retirer
+     */
     public void retirerPont(Pont p) {
         this.listePont.remove(p);
     }
