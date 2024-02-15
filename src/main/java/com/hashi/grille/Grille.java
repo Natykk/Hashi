@@ -281,8 +281,13 @@ public class Grille extends MouseAdapter {
         this.Iles.remove(ile);
     }
 
+    /**
+     * Remplacer la Case aux coordonnées données par une Case vierge
+     * @param x coordonnée x de la matrice
+     * @param y coordonnée x de la matrice
+     */
     public void retirerCase(int x, int y) {
-        this.table[x][y] = null;
+        this.table[x][y] = new Case(x, y);
     }
 
     public void retirerPont(int x, int y) {
