@@ -55,22 +55,6 @@ public class Ile extends Case {
         this.listeVoisin.add(voisin);
     }
 
-    public boolean supprimerPont(Pont pont) {
-        if (this.listePont.contains(pont)) {
-            int k = listePont.indexOf(pont);
-            if (listePont.get(k).equals(pont)) {
-                this.listePont.remove(pont);
-                return false;
-            } else {
-                Pont p1 = listePont.get(k);
-                p1.setNbPont(p1.getNbPont() - 1);
-                this.listePont.remove(pont);
-                this.listePont.add(p1);
-            }
-        }
-        return true;
-    }
-
     public int getValeur() {
         return this.valeur;
     }
