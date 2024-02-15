@@ -189,9 +189,9 @@ public class Grille extends MouseAdapter {
         int[][] res = new int[this.taille][this.taille];
         for (int i = 0; i < this.taille; i++) {
             for (int j = 0; j < this.taille; j++) {
-                if (this.table[i][j] == null) {
-                    res[i][j] = 0;
-                } else {
+
+                if ( this.table[i][j].estIle()) {
+                    // si c'est une Ile, on met sa valeur
                     res[i][j] = this.table[i][j].getValeur();
                 }
             }
