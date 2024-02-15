@@ -102,15 +102,6 @@ public class Ile extends Case {
         return sum;
     }
 
-    /**
-     * vérifie si le nombre de ponts de l'île est égal à sa valeur
-     * 
-     * @return vrai si le nombre de ponts de l'île est égal à sa valeur, faux sinon
-     */
-    public boolean isComplete() {
-        return this.nbConnexions() == valeur;
-    }
-
     public String afficher() {
         return String.valueOf(this.valeur);
     }
@@ -143,8 +134,13 @@ public class Ile extends Case {
         return this.listeVoisin;
     }
 
+    /**
+     * vérifie si le nombre de ponts de l'île est égal à sa valeur
+     * 
+     * @return vrai si le nombre de ponts de l'île est égal à sa valeur, faux sinon
+     */
     public boolean estComplet() {
-        return this.valeur == this.getNbPonts();
+        return this.valeur == this.nbConnexions();
     }
 
     public boolean estValide() {
@@ -382,7 +378,7 @@ public class Ile extends Case {
     public void chercherAide() {
 
         // déjà, on fait rien sur les îles complètes
-        if (!isComplete()) {
+        if (!estComplet()) {
 
             // todo: appeler les méthodes d'aide
             // this.techniquePontsForces();

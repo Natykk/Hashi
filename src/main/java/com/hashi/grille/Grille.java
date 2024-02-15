@@ -413,7 +413,7 @@ public class Grille extends MouseAdapter {
         // techniques de démarrage et techniques basiques
         for (Ile uneIle : this.Iles) {
 
-            if (!uneIle.isComplete()
+            if (!uneIle.estComplet()
                     && aideTrouve == Aide.RIEN) {
                 // on ne s'occupe pas des îles complètes
                 aideTrouve = uneIle.techniquePontsForces();
