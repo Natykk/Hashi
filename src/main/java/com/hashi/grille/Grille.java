@@ -332,13 +332,13 @@ public class Grille extends MouseAdapter {
 
         switch (sens.toLowerCase()) {
             case "haut":
-                return chercherVoisin(uneIle, 0, -1);
+                return chercherVoisinSansPont(uneIle, 0, -1);
             case "bas":
-                return chercherVoisin(uneIle, 0, 1);
+                return chercherVoisinSansPont(uneIle, 0, 1);
             case "gauche":
-                return chercherVoisin(uneIle, -1, 0);
+                return chercherVoisinSansPont(uneIle, -1, 0);
             case "droite":
-                return chercherVoisin(uneIle, 1, 0);
+                return chercherVoisinSansPont(uneIle, 1, 0);
             default:
                 throw new IllegalArgumentException(
                         "la valeur de sens n'est pas comprise dans \"haut\", \"bas\", \"gauche\", \"droite\"");
@@ -359,7 +359,7 @@ public class Grille extends MouseAdapter {
      * @throws UnsupportedOperationException si on sort de la boucle avec un cas
      *                                       logiquement impossible
      */
-    public Ile chercherVoisin(Ile uneIle, int dx, int dy) throws UnsupportedOperationException {
+    private Ile chercherVoisinSansPont(Ile uneIle, int dx, int dy) throws UnsupportedOperationException {
         // récupérer les coordonnées de l'île
         int x = uneIle.getX();
         int y = uneIle.getY();
