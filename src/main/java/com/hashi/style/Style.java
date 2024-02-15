@@ -53,13 +53,23 @@ public abstract class Style {
         return new ImageIcon(image_url.getPath());
     }
 
+    public abstract void initPanel(Panel panel);
+
     public abstract void paintPanel(Panel panel, Graphics2D g);
+
+    public abstract void initButton(Button button);
 
     public abstract void paintButton(Button button, Graphics2D g);
 
+    public abstract void initLabel(Label label);
+
     public abstract void paintLabel(Label label, Graphics2D g);
 
+    public abstract <E> void initComboBox(ComboBox<E> combo_box);
+
     public abstract <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g);
+
+    public abstract void initTextField(TextField text_field);
 
     public abstract void paintTextField(TextField text_field, Graphics2D g);
 }

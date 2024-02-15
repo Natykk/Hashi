@@ -49,9 +49,13 @@ public class StyleTest {
                 repaint();
             });
 
+            TextField text = new TextField(style, 20);
+
+            text.setSize(100, 20);
+
             panel.add(button);
             panel.add(new Label(style, "Jouer"));
-            panel.add(new TextField(style));
+            panel.add(text);
             panel.add(new ComboBox<String>(style, combox_content));
 
             add(panel);

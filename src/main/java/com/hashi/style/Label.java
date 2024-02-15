@@ -11,18 +11,24 @@ public class Label extends JLabel {
         super();
 
         this.style = style;
+
+        style.initLabel(this);
     }
 
     public Label(StyleWrapper style, String text) {
         super(text);
 
         this.style = style;
+
+        style.initLabel(this);
     }
 
     public Label(StyleWrapper style, String text, int horizontal_alignment) {
         super(text, horizontal_alignment);
 
         this.style = style;
+
+        style.initLabel(this);
     }
 
     protected void paintComponent(Graphics g) {

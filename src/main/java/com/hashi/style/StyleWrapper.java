@@ -27,20 +27,40 @@ public class StyleWrapper extends Style {
         return style.getResourcePath(res);
     }
 
+    public void initPanel(Panel panel) {
+        style.initPanel(panel);
+    }
+
     public void paintPanel(Panel panel, Graphics2D g) {
         style.paintPanel(panel, g);
+    }
+
+    public void initButton(Button button) {
+        style.initButton(button);
     }
 
     public void paintButton(Button button, Graphics2D g) {
         style.paintButton(button, g);
     }
 
+    public void initLabel(Label label) {
+        style.initLabel(label);
+    }
+
     public void paintLabel(Label label, Graphics2D g) {
         style.paintLabel(label, g);
     }
 
+    public <E> void initComboBox(ComboBox<E> comboBox) {
+        style.initComboBox(comboBox);
+    }
+
     public <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
         style.paintComboBox(combo_box, g);
+    }
+
+    public void initTextField(TextField text_field) {
+        style.initTextField(text_field);
     }
 
     public void paintTextField(TextField text_field, Graphics2D g) {

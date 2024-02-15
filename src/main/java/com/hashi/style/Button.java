@@ -11,18 +11,24 @@ public class Button extends JButton {
         super();
 
         this.style = style;
+
+        style.initButton(this);
     }
 
     public Button(StyleWrapper style, Action a) {
         super(a);
 
         this.style = style;
+
+        style.initButton(this);
     }
 
     public Button(StyleWrapper style, String text) {
         super(text);
 
         this.style = style;
+
+        style.initButton(this);
     }
 
     protected void paintComponent(Graphics g) {

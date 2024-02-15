@@ -11,24 +11,32 @@ public class TextField extends JTextField {
         super();
 
         this.style = style;
+
+        style.initTextField(this);
     }
 
     public TextField(StyleWrapper style, String text) {
         super(text);
 
         this.style = style;
+
+        style.initTextField(this);
     }
 
     public TextField(StyleWrapper style, int columns) {
         super(columns);
 
         this.style = style;
+
+        style.initTextField(this);
     }
 
     public TextField(StyleWrapper style, String text, int columns) {
         super(text, columns);
 
         this.style = style;
+
+        style.initTextField(this);
     }
 
     protected void paintComponent(Graphics g) {

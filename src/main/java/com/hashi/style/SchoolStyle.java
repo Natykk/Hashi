@@ -7,15 +7,23 @@ import java.awt.RenderingHints;
 public class SchoolStyle extends Style {
     public SchoolStyle() {
         name = "school";
-        bg_color = Color.white;
-        fg_color = Color.black;
+        bg_color = Color.decode("#e4e099");
+        fg_color = Color.decode("#585510");
         font = getFontResource(getResourcePath("kindergarten.ttf"));
+    }
+
+    public void initPanel(Panel panel) {
+
     }
 
     public void paintPanel(Panel panel, Graphics2D g) {
         if (panel.image != null) {
             g.drawImage(panel.image.getImage(), 0, 0, panel.getWidth(), panel.getHeight(), null);
         }
+    }
+
+    public void initButton(Button button) {
+        button.setFont(font.deriveFont(0, 20));
     }
 
     public void paintButton(Button button, Graphics2D g) {
@@ -28,9 +36,13 @@ public class SchoolStyle extends Style {
                 (button.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
     }
 
+    public void initLabel(Label label) {
+        label.setFont(font.deriveFont(0, 20));
+    }
+
     public void paintLabel(Label label, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setFont(font.deriveFont(0, 15));
+        g.setFont(font.deriveFont(0, 20));
         g.setColor(fg_color);
         g.drawString(
                 label.getText(),
@@ -38,11 +50,38 @@ public class SchoolStyle extends Style {
                 (label.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
     }
 
-    public <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
+    public <E> void initComboBox(ComboBox<E> combo_box) {
+        combo_box.setFont(font.deriveFont(0, 20));
+    }
 
+    public <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setFont(font.deriveFont(0, 20));
+        g.setColor(fg_color);
+        g.drawString(
+                combo_box.getSelectedItem().toString(),
+                5,
+                (combo_box.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
+    }
+
+    public void initTextField(TextField text_field) {
+        text_field.setFont(font.deriveFont(0, 20));
     }
 
     public void paintTextField(TextField text_field, Graphics2D g) {
+        int margin = 2;
 
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setFont(font.deriveFont(0, 20));
+        g.setColor(bg_color);
+        g.fillRect(0, 0, text_field.getWidth(), text_field.getHeight());
+        g.setColor(fg_color);
+        g.drawString(
+                text_field.getText(),
+                text_field.getWidth() - Math.max(g.getFontMetrics().stringWidth(text_field.getText()) + margin * 2,
+                        text_field.getWidth()) + margin,
+                (text_field.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
+
+        text_field.getCaret().paint(g);
     }
 }

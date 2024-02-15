@@ -17,6 +17,8 @@ public class Panel extends JPanel {
         super(layout);
 
         this.style = style;
+
+        style.initPanel(this);
     }
 
     public Panel(StyleWrapper style, LayoutManager layout, String image_res) {
@@ -26,6 +28,8 @@ public class Panel extends JPanel {
         this.image_res = image_res;
         this.image_url = style.getResourcePath(image_res);
         this.image = style.getImageResource(image_url);
+
+        style.initPanel(this);
     }
 
     public void setImage(String image_res) {
