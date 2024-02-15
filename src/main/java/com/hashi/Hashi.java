@@ -86,8 +86,8 @@ public class Hashi extends JFrame {
                         Ile selectedIle = (Ile) grille.getSelectedCase();
                         if (selectedIle != clickedIle && (selectedIle.getX() == clickedIle.getX()
                                 || selectedIle.getY() == clickedIle.getY())) {
-                            if (selectedIle.getNbConnexion() < selectedIle.getValeur()
-                                    && clickedIle.getNbConnexion() < clickedIle.getValeur()) {
+                            if (selectedIle.nbConnexions() < selectedIle.getValeur()
+                                    && clickedIle.nbConnexions() < clickedIle.getValeur()) {
                                 grille.ajouterPont(new Pont(selectedIle, clickedIle));
                             }
                         }

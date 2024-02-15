@@ -91,7 +91,7 @@ public class Ile extends Case {
 
         for (Pont p : listePont) {
             // si le pont ests double, il compte pour 2
-            sum += (p.EstDouble() ? 2 : 1);
+            sum += (p.estDouble() ? 2 : 1);
         }
 
         return sum;
