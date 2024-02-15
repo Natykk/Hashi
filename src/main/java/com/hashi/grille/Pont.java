@@ -104,10 +104,6 @@ public class Pont extends Case {
         this.listeCase.add(c);
     }
 
-    public boolean EstDouble() {
-        return this.estDouble;
-    }
-
     /**
      * est-ce que le Pont est horizontal ou vertical
      * 
