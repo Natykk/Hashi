@@ -1,6 +1,8 @@
 package com.hashi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
@@ -34,17 +36,34 @@ public class GrilleTest {
                 "===================== Test ended OK : " + testInfo.getDisplayName() + " =====================");
     }
 
+	@Test
+	public void getTailleAndInitialiserTable() {
+		Grille z = new Grille(2);
+		z.initialiserTable();
+
+
+		assertEquals(2, z.getTaille());
+
+
+		for (int i=0 ; i<z.getTaille() ; i++) {
+			for (int j=0 ; j<z.getTaille() ; j++) {
+			
+				assertTrue(z.getCase(i, j).estVide());
+			}
+		}
+	}
+
     @Test
 	public void isInBound() {
-		
-		assertEquals(true, g.isInBound(0,0));
-		assertEquals(true, g.isInBound(4,4));
 
-		assertEquals(false, g.isInBound(-1,0));
-		assertEquals(false, g.isInBound(0,-1));
+		assertTrue(g.isInBound(0,0));
+		assertTrue(g.isInBound(4,4));
 
-		assertEquals(false, g.isInBound(5,0));
-		assertEquals(false, g.isInBound(0,5));
+		assertFalse(g.isInBound(-1,0));
+		assertFalse(g.isInBound(0,-1));
+
+		assertFalse(g.isInBound(5,0));
+		assertFalse(g.isInBound(0,5));
 	}
     
 }
