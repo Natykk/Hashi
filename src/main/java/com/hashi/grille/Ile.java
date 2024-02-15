@@ -39,10 +39,18 @@ public class Ile extends Case {
         g.drawString(Integer.toString(valeur), x - 5, y + 5);
     }
 
+    /**
+     * ajoute le pont donné à la liste des ponts de cette Ile
+     * @param pont le pont à ajouter
+     */
     public void ajouterPont(Pont pont) {
         this.listePont.add(pont);
     }
 
+    /**
+     * ajoute l'Ile donnée à la liste des voisins de cette Ile
+     * @param voisin l'Ile voisine à ajouter
+     */
     public void ajouterVoisin(Ile voisin) {
         this.listeVoisin.add(voisin);
     }
