@@ -91,8 +91,8 @@ public class Pont extends Case {
             return false;
         }
 
-        if (this.nbPont == 2 || this.ile1.nb_connexion() >= this.ile1.getValeur() ||
-                this.ile2.nb_connexion() >= this.ile2.getValeur()) {
+        if (this.nbPont == 2 || this.ile1.nbConnexions() >= this.ile1.getValeur() ||
+                this.ile2.nbConnexions() >= this.ile2.getValeur()) {
             return false;
         }
 

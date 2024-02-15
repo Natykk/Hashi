@@ -175,18 +175,6 @@ public class Ile extends Case {
         return this.getNbPontBas() > 1 || this.getNbPontHaut() > 1;
     }
 
-    public int nb_connexion() {
-        int nb = 0;
-        for (Pont pont : this.listePont) {
-            nb += pont.getNbPont();
-        }
-        return nb;
-    }
-
-    public int getPosition() {
-        return this.x;
-    }
-
     /**
      * vérifie si le nombre de ponts de l'île est inférieur à sa valeur
      * 
