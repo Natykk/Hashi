@@ -67,7 +67,7 @@ public class CustomPanel extends JPanel {
 
     private void supprimerPont(Pont pont) {
         if (pont != null) {
-            pont.nb_pont--;
+            pont.setNbPont( pont.getNbPont() -1 );
             if (pont.isEffacable()) {
                 ponts.remove(pont);
             }
@@ -78,8 +78,8 @@ public class CustomPanel extends JPanel {
     private void creerOuDoublerPont(Ile ile1, Ile ile2) {
         if (ile1.x == ile2.x || ile1.y == ile2.y) {
             Pont pont = trouverPont(ile1, ile2);
-            if (pont != null && pont.nb_pont < 2) {
-                pont.nb_pont++;
+            if (pont != null && pont.getNbPont < 2) {
+                pont.setNbPont( pont.getNbPont() +1 );
             } else {
                 // Ajout de la condition pour ne pas créer un nouveau pont si un pont existe
                 // déjà

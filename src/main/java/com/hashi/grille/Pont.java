@@ -12,7 +12,6 @@ public class Pont extends Case {
     private boolean estDouble;
     private ArrayList<Case> listeCase; // Liste des cases par lesquelles passe l'Pont
     private boolean estClique;
-    public int nb_pont;
 
     public Pont(Ile ile1, Ile ile2) {
         super(0, 0);
