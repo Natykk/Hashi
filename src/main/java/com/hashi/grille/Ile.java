@@ -120,11 +120,21 @@ public class Ile extends Case {
     public String afficher() {
         return String.valueOf(this.valeur);
     }
+    
 
+    /**
+     * obtenir le nombre d'objet Pont relié à cette Ile
+     * (pour une méthode qui fait la distinction entre pont simple et double, voir nbConnexions() )
+     * @return le nombre d'objet Pont de la liste de Ponts de cette Ile
+     */
     public int getNbPonts() {
         return this.listePont.size();
     }
 
+    /**
+     * calculer le nombre de ponts dont cette ile se trouve à "droite"
+     * @return le nombre de ponts connectés à cette Ile, où cette Ile est dans le champ ile1
+     */
     public int getNbPontDroite() {
         int nbPontDroite = 0;
         for (Pont pont : this.listePont) {
@@ -135,6 +145,10 @@ public class Ile extends Case {
         return nbPontDroite;
     }
 
+    /**
+     * calculer le nombre de ponts dont cette ile se trouve à "gauche"
+     * @return le nombre de ponts connectés à cette Ile, où cette Ile est dans le champ ile2
+     */
     public int getNbPontGauche() {
         int nbPontGauche = 0;
         for (Pont pont : this.listePont) {
@@ -145,6 +159,10 @@ public class Ile extends Case {
         return nbPontGauche;
     }
 
+    /**
+     * récupérer la liste des voisins de cette Ile
+     * @return une liste d'Iles
+     */
     public ArrayList<Ile> getListeVoisin() {
         return this.listeVoisin;
     }
