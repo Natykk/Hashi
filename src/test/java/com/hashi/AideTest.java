@@ -1,5 +1,7 @@
 package com.hashi;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.AfterEach;
@@ -33,9 +35,9 @@ public class AideTest {
 
     @Test
     public void getVoisins() {
-        Ile i1 = new Ile(1, 0, 2, g);
-        Ile i2 = new Ile(1, 2, 0, g);
-        Ile i3 = new Ile(3, 0, 0, g);
+        Ile i1 = new Ile(1, 0, 2, g);// en dessous de i3
+        Ile i2 = new Ile(2, 2, 0, g);// à droite de i3
+        Ile i3 = new Ile(3, 0, 0, g);// coin haut gauche
 
         ArrayList<Ile> uneListeDIle = new ArrayList<>();
 
@@ -45,6 +47,16 @@ public class AideTest {
 
         uneListeDIle = i3.getVoisins();
 
+        // i3 a 2 voisins
+        assertEquals( uneListeDIle.size(), 2);
+
+        // l'ordre de la recherche est : haut,bas,gauche,droite
+        // voisin du bas
+        assertEquals( i1, uneListeDIle.get(0));
+        // voisin de droite
+        assertEquals( i2, uneListeDIle.get(1));
+        
+        /*
         // ==== affichage résultats
 
         System.out.println("la grille:");
@@ -55,6 +67,7 @@ public class AideTest {
             System.out.print(ile.afficher() + ",");
         }
         System.out.println();
+        */
     }
 
     @Test
