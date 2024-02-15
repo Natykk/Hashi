@@ -63,10 +63,6 @@ public class Ile extends Case {
         return true;
     }
 
-    public boolean ileComplete() {
-        return listePont.size() == this.valeur;
-    }
-
     public int getValeur() {
         return this.valeur;
     }
