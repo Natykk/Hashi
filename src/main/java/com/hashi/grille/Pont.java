@@ -126,6 +126,12 @@ public class Pont extends Case {
         }
     }
 
+    /**
+     * supprime les éléments liés à ce Pont
+     * - vide sa liste de Cases
+     * - appelle retirerPont() sur les deux Iles que le pont reliait
+     * méthode appelée dans Grille
+     */
     public void supprimer() {
         while (!this.listeCase.isEmpty()) {
             this.listeCase.remove(0);

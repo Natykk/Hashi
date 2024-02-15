@@ -11,7 +11,7 @@ public class Ile extends Case {
     public ArrayList<Pont> listePont;
     private int xAffichage; // coordonnée x pour l'affichage de l'Ile
     private int yAffichage; // coordonnée y pour l'affichage de l'Ile
-    private int tailleIle;
+    private int tailleIle; // taille pour l'affichage
     private Color color;
     private ArrayList<Ile> listeVoisin;
 
@@ -117,6 +117,7 @@ public class Ile extends Case {
         return sum;
     }
 
+    // affichage sur terminal
     public String afficher() {
         return String.valueOf(this.valeur);
     }
