@@ -54,14 +54,10 @@ public class Pont extends Case {
         return new Rectangle(xAffichage, yAffichage, 20, 20);
     }
 
-    public Ile getIleDep() {
-        return this.ile1;
-    }
-
-    public Ile getIleArr() {
-        return this.ile2;
-    }
-
+    /**
+     * Retourner la liste des Cases de la matrice qui contiennent ce Pont
+     * @return la liste des Cases
+     */
     public ArrayList<Case> getListeCase() {
         return this.listeCase;
     }

@@ -93,8 +93,8 @@ public class CustomPanel extends JPanel {
     // Nouvelle méthode pour vérifier si un pont existe déjà entre les mêmes îles
     private boolean pontExisteEntreIles(Ile ile1, Ile ile2) {
         for (Pont pont : ponts) {
-            if ((pont.getIleDep() == ile1 && pont.getIleArr() == ile2) ||
-                    (pont.getIleDep() == ile2 && pont.getIleArr() == ile1)) {
+            if ((pont.getIle1() == ile1 && pont.getIle2() == ile2) ||
+                    (pont.getIle1() == ile2 && pont.getIle2() == ile1)) {
                 return true;
             }
         }
@@ -103,8 +103,8 @@ public class CustomPanel extends JPanel {
 
     private Pont trouverPont(Ile ile1, Ile ile2) {
         for (Pont pont : ponts) {
-            if ((pont.getIleDep() == ile1 && pont.getIleArr() == ile2) ||
-                    (pont.getIleDep() == ile2 && pont.getIleArr() == ile1)) {
+            if ((pont.getIle1() == ile1 && pont.getIle2() == ile2) ||
+                    (pont.getIle1() == ile2 && pont.getIle2() == ile1)) {
                 return pont;
             } else if (ile1.listePont.contains(pont) && ile2.listePont.contains(pont)) {
                 // Si les deux îles sont déjà connectées par un autre pont

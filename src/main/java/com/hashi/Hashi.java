@@ -106,11 +106,11 @@ public class Hashi extends JFrame {
                     grille.getPonts().remove(pont);
 
                     // retirer le pont de la liste des ponts de l'ile
-                    pont.getIleDep().retirerPont(pont);
+                    pont.getIle1().retirerPont(pont);
 
                     // retirer le pont de la liste des ponts de l'ile
 
-                    pont.getIleArr().retirerPont(pont);
+                    pont.getIle2().retirerPont(pont);
 
                 }
 
