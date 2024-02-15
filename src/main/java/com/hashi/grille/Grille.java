@@ -54,7 +54,7 @@ public class Grille extends MouseAdapter {
 
     /**
      * Ajoute un pont dans la matrice de la Grille (sur chaque case) et dans la
-     * liste des ponts
+     * liste des ponts de cette Grille
      * 
      * @param pont le pont à ajouter
      */

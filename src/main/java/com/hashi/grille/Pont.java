@@ -82,6 +82,11 @@ public class Pont extends Case {
         return true;
     }
 
+    /**
+     * ajouter une Case donnée à la liste des Cases de ce Pont
+     * ce sont les Cases dans la matrice où passe ce Pont
+     * @param c
+     */
     public void ajoutCase(Case c) {
         this.listeCase.add(c);
     }
@@ -126,6 +131,7 @@ public class Pont extends Case {
 
     /**
      * est-ce que le Pont est double ou simple
+     * retourne l'attribut estDouble
      * @return vrai si le Pont est double, faux s'il est simple
      */
     public boolean estDouble() {
@@ -136,6 +142,11 @@ public class Pont extends Case {
         this.estDouble = estDouble;
     }
 
+    /**
+     * est-ce que le Pont est cliqué
+     * retourne l'attribut EstClique
+     * @return vrai si le Pont est cliqué, faux sinon
+     */
     public boolean estClique() {
         return estClique;
     }
