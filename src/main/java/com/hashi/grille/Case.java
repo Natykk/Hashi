@@ -55,6 +55,10 @@ public class Case {
         }
     }
 
+    /**
+     * récupérer la valeur de l'Ile qui est cette Case
+     * @return la valeur de l'Ile, ou -1 si ce n'est pas une Ile
+     */
     public int getValeur() {
         if (this.estIle()) {
             return ((Ile) grille.getCase(x, y)).getValeur();
