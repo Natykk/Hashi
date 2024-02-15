@@ -290,15 +290,6 @@ public class Grille extends MouseAdapter {
         this.table[x][y] = new Case(x, y);
     }
 
-    public void retirerPont(int x, int y) {
-        for (Pont pont : this.Ponts) {
-            if (pont.getIle1().getX() == x && pont.getIle1().getY() == y) {
-                this.Ponts.remove(pont);
-                break;
-            }
-        }
-    }
-
     public Pont getPontAt(int x, int y) {
         // le rectangle situé à la position x,y correspond à quel pont ?
         for (Pont pont : this.Ponts) {
