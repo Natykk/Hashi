@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import javax.management.InvalidAttributeValueException;
 
 public class Pont extends Case {
-    private Ile ile1;
-    private Ile ile2;
-    private boolean estDouble;
-    private ArrayList<Case> listeCase; // Liste des cases par lesquelles passe l'Pont
-    private boolean estClique;
+    private Ile ile1; // Ile que le Pont raccorde
+    private Ile ile2; // autre Ile que le Pont raccorde
+    private boolean estDouble; // le Pont peut être simple ou double
+    private ArrayList<Case> listeCase; // Liste des Cases par lesquelles passe le Pont
+    private boolean estClique; // si le Pont est cliqué
 
     public Pont(Ile ile1, Ile ile2) {
         super(0, 0);
@@ -20,16 +20,21 @@ public class Pont extends Case {
         this.estClique = false;
         this.listeCase = new ArrayList<>();
 
+        // ajouter le Pont nouvellement créé aux 2 Iles qu'il relie
         this.ile1.ajouterPont(this);
         this.ile2.ajouterPont(this);
     }
 
+    /**
+     * dessine le pont à l'écran ?
+     * @param g
+     */
     public void draw(Graphics g) {
         g.setColor(Color.BLACK);
         // efface tout les ponts
 
         if (!this.estDouble) {
-        // Dessine un pont simple si le nombre de ponts est 0
+            // Dessine un pont simple si le nombre de ponts est 0
             System.out.println("Pont est Simple");
             g.drawLine(ile1.getxAffichage() - 5, ile1.getyAffichage() - 5, ile2.getxAffichage() - 5, ile2.getyAffichage() - 5);
             g.drawLine(ile1.getxAffichage() + 5, ile1.getyAffichage() + 5, ile2.getxAffichage() + 5, ile2.getyAffichage() + 5);
@@ -50,7 +55,6 @@ public class Pont extends Case {
     }
 
     public Ile getIleDep() {
-
         return this.ile1;
     }
 
@@ -124,6 +128,10 @@ public class Pont extends Case {
         this.ile2.retirerPont(this);
     }
 
+    /**
+     * est-ce que le Pont est double ou simple
+     * @return vrai si le Pont est double, faux s'il est simple
+     */
     public boolean estDouble() {
         return estDouble;
     }
