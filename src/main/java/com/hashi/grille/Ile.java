@@ -185,10 +185,6 @@ public class Ile extends Case {
         return nbPontHaut;
     }
 
-    public boolean estDouble() {
-        return this.getNbPontBas() > 1 || this.getNbPontHaut() > 1;
-    }
-
     /**
      * vérifie si le nombre de ponts de l'île est inférieur à sa valeur
      * 
