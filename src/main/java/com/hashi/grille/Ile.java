@@ -47,14 +47,6 @@ public class Ile extends Case {
         this.listeVoisin.add(voisin);
     }
 
-    public int getNbConnexion() {
-        int tot = 0;
-        for (Pont pont : listePont) {
-            tot += pont.getNbPont();
-        }
-        return tot;
-    }
-
     public boolean supprimerPont(Pont pont) {
         if (this.listePont.contains(pont)) {
             int k = listePont.indexOf(pont);
