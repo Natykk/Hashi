@@ -13,7 +13,7 @@ public class Ile extends Case {
     private int yAffichage; // coordonnée y pour l'affichage de l'Ile
     private int tailleIle; // taille pour l'affichage
     private Color color;
-    private ArrayList<Ile> listeVoisin;
+    private ArrayList<Ile> listeVoisin; // liste des Iles voisines (pas implémenté)
 
     public Ile(int valeur, int x, int y, Grille lagrille) {
         super(x, y);
@@ -153,14 +153,19 @@ public class Ile extends Case {
     }
 
     /**
-     * vérifie si le nombre de ponts de l'île est égal à sa valeur
+     * vérifier si le nombre de Ponts de cette Ile est égal à sa valeur
      * 
-     * @return vrai si le nombre de ponts de l'île est égal à sa valeur, faux sinon
+     * @return vrai si le nombre de Ponts de cette Ile est égal à sa valeur, faux sinon
      */
     public boolean estComplet() {
         return this.valeur == this.nbConnexions();
     }
 
+    /**
+     * vérifier si la valeur de cette Ile est supérieure ou égale à son nombre de Ponts
+     * (savoir si une Ile n'est pas valide est utile pour les aides)
+     * @return vrai si la valeur de cette Ile est supérieure ou égale à son nombre de Ponts, faux sinon
+     */
     public boolean estValide() {
         return this.valeur >= this.getNbPonts();
     }
