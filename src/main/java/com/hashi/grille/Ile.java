@@ -226,10 +226,10 @@ public class Ile extends Case {
         ArrayList<Ile> lesVoisins = new ArrayList<>();
 
         // récupération des îles voisines dans les quatre sens
-        lesVoisins.add(grille.getVoisin(this, "haut"));
-        lesVoisins.add(grille.getVoisin(this, "bas"));
-        lesVoisins.add(grille.getVoisin(this, "gauche"));
-        lesVoisins.add(grille.getVoisin(this, "droite"));
+        lesVoisins.add(grille.getVoisinSansPont(this, "haut"));
+        lesVoisins.add(grille.getVoisinSansPont(this, "bas"));
+        lesVoisins.add(grille.getVoisinSansPont(this, "gauche"));
+        lesVoisins.add(grille.getVoisinSansPont(this, "droite"));
 
         // la méthode getVoisin ne permet pas de récupérer les îles voisines qui sont
         // déjà reliées par un pont, donc

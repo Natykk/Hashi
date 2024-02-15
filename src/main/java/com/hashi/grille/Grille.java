@@ -328,7 +328,7 @@ public class Grille extends MouseAdapter {
      * @throws IllegalArgumentException si sens ne vaut pas "haut", "bas", "gauche"
      *                                  ou "droite"
      */
-    public Ile getVoisin(Ile uneIle, String sens) throws IllegalArgumentException {
+    public Ile getVoisinSansPont(Ile uneIle, String sens) throws IllegalArgumentException {
 
         switch (sens.toLowerCase()) {
             case "haut":
