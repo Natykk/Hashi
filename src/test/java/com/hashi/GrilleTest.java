@@ -53,6 +53,17 @@ public class GrilleTest {
 		}
 	}
 
+	@Test
+	public void ajouterIle() {
+		Ile ile1 = new Ile(1,0,1,g);
+		
+		g.ajouterIle(ile1);
+
+		assertEquals(ile1, g.getCase(0, 1));
+		assertEquals(ile1, g.getIleAt(0, 1));
+		
+	}
+
     @Test
 	public void isInBound() {
 
