@@ -13,7 +13,8 @@ public class Pont extends Case {
     private boolean estClique; // si le Pont est cliqué
 
     public Pont(Ile ile1, Ile ile2) {
-        super(0, 0);
+        // grille est static
+        super(0, 0, grille);
         this.ile1 = ile1;
         this.ile2 = ile2;
         this.estDouble = false;

@@ -28,7 +28,7 @@ public class Grille extends MouseAdapter {
             // ligne
             for (int j = 0; j < taille; j++) {
                 // colonne
-                this.table[i][j] = new Case(i, j);
+                this.table[i][j] = new Case(i, j, this);
 
             }
         }
@@ -141,7 +141,7 @@ public class Grille extends MouseAdapter {
             x = c.getX();
             y = c.getY();
             // on remplace la Case qui contient un Pont par une Case vide
-            this.table[x][y] = new Case(x, y);
+            this.table[x][y] = new Case(x, y, this);
         }
 
         // vider la liste de Case du Pont, et le détacher de ses deux Ile
@@ -348,7 +348,7 @@ public class Grille extends MouseAdapter {
      * @param y coordonnée x de la matrice
      */
     public void retirerCase(int x, int y) {
-        this.table[x][y] = new Case(x, y);
+        this.table[x][y] = new Case(x, y, this);
     }
 
     /**

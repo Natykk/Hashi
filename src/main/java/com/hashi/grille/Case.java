@@ -5,13 +5,10 @@ public class Case {
     protected int y; // coordonnée y pour la matrice de Grille
     static Grille grille; // référence vers la Grille où cette Case se situe
 
-    public Case(int x, int y) {
+    public Case(int x, int y, Grille laGrille) {
         this.x = x;
         this.y = y;
-    }
-
-    public void setGrille(Grille new_grille) {
-        grille = new_grille;
+        grille = laGrille;
     }
 
     public int getX() {

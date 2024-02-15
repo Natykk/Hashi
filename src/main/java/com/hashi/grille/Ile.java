@@ -16,7 +16,7 @@ public class Ile extends Case {
     private ArrayList<Ile> listeVoisin; // liste des Iles voisines (pas implémenté)
 
     public Ile(int valeur, int x, int y, Grille lagrille) {
-        super(x, y);
+        super(x, y, lagrille);
         this.valeur = valeur;
         this.listePont = new ArrayList<>();
         this.xAffichage = x;
