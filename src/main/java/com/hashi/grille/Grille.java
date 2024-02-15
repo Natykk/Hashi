@@ -20,6 +20,9 @@ public class Grille extends MouseAdapter {
         this.initialiserTable();
     }
 
+    /**
+     * initialiser la matrice Grille.table en le remplissant de Cases vierges
+     */
     public void initialiserTable() {
         for (int i = 0; i < taille; i++) {
             // ligne
@@ -39,6 +42,12 @@ public class Grille extends MouseAdapter {
         this.table[x][y] = new_case;
     }
 
+    /**
+     * ajouter une Ile donnée à la Grille
+     * l'Ile est mise dans la matrice à ses propres coordonnées x y
+     * l'Ile est aussi ajoutée à la lsite d'Iles
+     * @param ile l'Ile à ajouter
+     */
     public void ajouterIle(Ile ile) {
 
         if (this.isInBound(ile.getX(), ile.getY())) {
