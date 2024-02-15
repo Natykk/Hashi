@@ -50,13 +50,6 @@ public class Pont extends Case {
         return new Rectangle(x, y, 20, 20);
     }
 
-    public void effacer() {
-        if (this.nbPont > 0) {
-            this.nbPont = 0;
-            this.ile1.retirerPont(this);
-            this.ile2.retirerPont(this);
-        }
-    }
 
     public boolean isEffacable() {
         return nbPont == 0;
