@@ -16,7 +16,7 @@ public class TextField extends JTextField {
     }
 
     public TextField(StyleWrapper style, String text) {
-        super(text);
+        super(style.getLanguage().getString(text));
 
         this.style = style;
 
@@ -32,7 +32,7 @@ public class TextField extends JTextField {
     }
 
     public TextField(StyleWrapper style, String text, int columns) {
-        super(text, columns);
+        super(style.getLanguage().getString(text), columns);
 
         this.style = style;
 

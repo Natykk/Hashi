@@ -31,6 +31,14 @@ public class Button extends JButton {
         style.initButton(this);
     }
 
+    @Override
+    public String getText() {
+        if (style == null)
+            return "";
+
+        return style.getLanguage().getString(super.getText());
+    }
+
     protected void paintComponent(Graphics g) {
         style.paintButton(this, (Graphics2D) g);
     }

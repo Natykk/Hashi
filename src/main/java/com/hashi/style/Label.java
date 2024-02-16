@@ -31,6 +31,14 @@ public class Label extends JLabel {
         style.initLabel(this);
     }
 
+    @Override
+    public String getText() {
+        if (style == null)
+            return "";
+
+        return style.getLanguage().getString(super.getText());
+    }
+
     protected void paintComponent(Graphics g) {
         style.paintLabel(this, (Graphics2D) g);
     }

@@ -29,7 +29,7 @@ public class StyleTest {
     class StyleTestClass extends JFrame {
         private static final int default_width = 1280;
         private static final int default_height = 720;
-        public static final StyleWrapper style = new StyleWrapper((Style) new SchoolStyle());
+        public static final StyleWrapper style = new StyleWrapper((Style) new SchoolStyle(), new Language());
 
         StyleTestClass() {
             super("StyleTestClass");
@@ -42,10 +42,11 @@ public class StyleTest {
 
             String[] combox_content = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
 
-            Button button = new Button(style, "Jouer");
+            Button button = new Button(style, "test");
 
             button.addActionListener(e -> {
                 style.switchStyle((Style) new SummerStyle());
+                style.getLanguage().switchLanguage("en");
                 repaint();
             });
 
@@ -54,7 +55,7 @@ public class StyleTest {
             text.setSize(100, 20);
 
             panel.add(button);
-            panel.add(new Label(style, "Jouer"));
+            panel.add(new Label(style, "test"));
             panel.add(text);
             panel.add(new ComboBox<String>(style, combox_content));
 
