@@ -23,12 +23,12 @@ public class SchoolStyle extends Style {
     }
 
     public void initButton(Button button) {
-        button.setFont(font.deriveFont(0, 20));
+        button.setFont(font.deriveFont(0, button.getFontSize()));
     }
 
     public void paintButton(Button button, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setFont(font.deriveFont(0, 20));
+        g.setFont(font.deriveFont(0, button.getFontSize()));
         g.setColor(fg_color);
         g.drawString(
                 button.getText(),
@@ -37,12 +37,12 @@ public class SchoolStyle extends Style {
     }
 
     public void initLabel(Label label) {
-        label.setFont(font.deriveFont(0, 20));
+        label.setFont(font.deriveFont(0, label.getFontSize()));
     }
 
     public void paintLabel(Label label, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setFont(font.deriveFont(0, 20));
+        g.setFont(font.deriveFont(0, label.getFontSize()));
         g.setColor(fg_color);
         g.drawString(
                 label.getText(),
@@ -51,12 +51,12 @@ public class SchoolStyle extends Style {
     }
 
     public <E> void initComboBox(ComboBox<E> combo_box) {
-        combo_box.setFont(font.deriveFont(0, 20));
+        combo_box.setFont(font.deriveFont(0, combo_box.getFontSize()));
     }
 
     public <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setFont(font.deriveFont(0, 20));
+        g.setFont(font.deriveFont(0, combo_box.getFontSize()));
         g.setColor(fg_color);
         g.drawString(
                 combo_box.getSelectedItem().toString(),
@@ -65,14 +65,14 @@ public class SchoolStyle extends Style {
     }
 
     public void initTextField(TextField text_field) {
-        text_field.setFont(font.deriveFont(0, 20));
+        text_field.setFont(font.deriveFont(0, text_field.getFontSize()));
     }
 
     public void paintTextField(TextField text_field, Graphics2D g) {
         int margin = 2;
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setFont(font.deriveFont(0, 20));
+        g.setFont(font.deriveFont(0, text_field.getFontSize()));
         g.setColor(bg_color);
         g.fillRect(0, 0, text_field.getWidth(), text_field.getHeight());
         g.setColor(fg_color);

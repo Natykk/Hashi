@@ -4,8 +4,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.*;
 
-public class Button extends JButton {
+public class Button extends JButton implements FontSize<Button> {
     private StyleWrapper style;
+    private int font_size = 20;
 
     public Button(StyleWrapper style) {
         super();
@@ -29,6 +30,18 @@ public class Button extends JButton {
         this.style = style;
 
         style.initButton(this);
+    }
+
+    public Button setFontSize(int size) {
+        font_size = size;
+
+        style.initButton(this);
+
+        return this;
+    }
+
+    public int getFontSize() {
+        return font_size;
     }
 
     @Override

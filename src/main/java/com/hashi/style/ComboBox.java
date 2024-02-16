@@ -6,8 +6,9 @@ import java.util.Vector;
 
 import javax.swing.*;
 
-public class ComboBox<E> extends JComboBox<E> {
+public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
     private StyleWrapper style;
+    private int font_size = 20;
 
     public ComboBox(StyleWrapper style) {
         super();
@@ -31,6 +32,18 @@ public class ComboBox<E> extends JComboBox<E> {
         this.style = style;
 
         style.initComboBox(this);
+    }
+
+    public ComboBox<E> setFontSize(int size) {
+        font_size = size;
+
+        style.initComboBox(this);
+
+        return this;
+    }
+
+    public int getFontSize() {
+        return font_size;
     }
 
     protected void paintComponent(Graphics g) {
