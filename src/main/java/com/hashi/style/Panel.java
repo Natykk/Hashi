@@ -15,19 +15,21 @@ public class Panel extends JPanel {
 
     public Panel(StyleWrapper style, LayoutManager layout) {
         super(layout);
-
-        this.style = style;
-
-        style.initPanel(this);
+        init(style);
     }
 
     public Panel(StyleWrapper style, LayoutManager layout, String image_res) {
         super(layout);
 
-        this.style = style;
         this.image_res = image_res;
         this.image_url = style.getResourcePath(image_res);
         this.image = style.getImageResource(image_url);
+
+        init(style);
+    }
+
+    private void init(StyleWrapper style) {
+        this.style = style;
 
         style.initPanel(this);
     }

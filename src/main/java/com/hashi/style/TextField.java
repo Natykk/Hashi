@@ -10,31 +10,25 @@ public class TextField extends JTextField implements FontSize<TextField> {
 
     public TextField(StyleWrapper style) {
         super();
-
-        this.style = style;
-
-        style.initTextField(this);
+        init(style);
     }
 
     public TextField(StyleWrapper style, String text) {
         super(style.getLanguage().getString(text));
-
-        this.style = style;
-
-        style.initTextField(this);
+        init(style);
     }
 
     public TextField(StyleWrapper style, int columns) {
         super(columns);
-
-        this.style = style;
-
-        style.initTextField(this);
+        init(style);
     }
 
     public TextField(StyleWrapper style, String text, int columns) {
         super(style.getLanguage().getString(text), columns);
+        init(style);
+    }
 
+    private void init(StyleWrapper style) {
         this.style = style;
 
         style.initTextField(this);

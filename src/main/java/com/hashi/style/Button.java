@@ -10,23 +10,20 @@ public class Button extends JButton implements FontSize<Button> {
 
     public Button(StyleWrapper style) {
         super();
-
-        this.style = style;
-
-        style.initButton(this);
+        init(style);
     }
 
     public Button(StyleWrapper style, Action a) {
         super(a);
-
-        this.style = style;
-
-        style.initButton(this);
+        init(style);
     }
 
     public Button(StyleWrapper style, String text) {
         super(text);
+        init(style);
+    }
 
+    private void init(StyleWrapper style) {
         this.style = style;
 
         style.initButton(this);

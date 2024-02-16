@@ -12,23 +12,20 @@ public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
 
     public ComboBox(StyleWrapper style) {
         super();
-
-        this.style = style;
-
-        style.initComboBox(this);
+        init(style);
     }
 
     public ComboBox(StyleWrapper style, E[] items) {
         super(items);
-
-        this.style = style;
-
-        style.initComboBox(this);
+        init(style);
     }
 
     public ComboBox(StyleWrapper style, Vector<E> items) {
         super(items);
+        init(style);
+    }
 
+    private void init(StyleWrapper style) {
         this.style = style;
 
         style.initComboBox(this);
