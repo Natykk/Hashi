@@ -21,7 +21,7 @@ public class Ile extends Case {
         this.listePont = new ArrayList<>();
         this.x = x;
         this.y = y;
-        this.tailleIle = 20;
+        this.tailleIle = 35;
         this.color = Color.CYAN;
         this.listeVoisin = new ArrayList<>();
         grille = lagrille;
@@ -33,10 +33,12 @@ public class Ile extends Case {
 
     public void draw(Graphics g) {
         g.setColor(color);
-        g.drawOval(x - 10, y - 10, 20, 20);
-        g.fillOval(x - 10, y - 10, 20, 20);
+        g.drawOval(x - 10, y - 10, tailleIle, tailleIle);
+        g.fillOval(x - 10, y - 10, tailleIle, tailleIle);
         g.setColor(Color.BLACK);
-        g.drawString(Integer.toString(valeur), x - 5, y + 5);
+        // on ecrie la valeur de l'ile dans le cercle de l'ile au centre
+        g.drawString(String.valueOf(valeur), x, y); 
+
     }
 
     public void ajouterPont(Pont pont) {
@@ -62,10 +64,10 @@ public class Ile extends Case {
                 this.listePont.remove(pont);
                 return false;
             } else {
-                Pont p1 = listePont.get(k);
-                p1.setNbPont(p1.getNbPont() - 1);
+                //Pont p1 = listePont.get(k);
+                //p1.setNbPont(p1.getNbPont() - 1);
                 this.listePont.remove(pont);
-                this.listePont.add(p1);
+                //this.listePont.add(p1);
             }
         }
         return true;
@@ -169,19 +171,23 @@ public class Ile extends Case {
         }
         return nbPontHaut;
     }
-
+    /*
+     * retourne vrai si l'île a plus d'un pont dans une direction
+     * @return vrai si l'île a plus d'un pont dans une direction
+     * 
+     */
     public boolean estDouble() {
         return this.getNbPontBas() > 1 || this.getNbPontHaut() > 1;
     }
 
     public int nb_connexion() {
-        int nb = 0;
-        for (Pont pont : this.listePont) {
-            nb += pont.getNbPont();
-        }
-        return nb;
+        return this.listePont.size();
     }
 
+    /*
+     * retourne la position de l'île
+     * @return la position de l'île
+     */
     public int getPosition() {
         return this.x;
     }
@@ -398,6 +404,11 @@ public class Ile extends Case {
             // todo: appeler les méthodes d'aide
             // this.techniquePontsForces();
         }
+    }
+
+    public Component getListePont() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getListePont'");
     }
 
 }
