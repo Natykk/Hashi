@@ -54,7 +54,7 @@ public class MenuGeneral2 extends JFrame {
         entrainementButton.setMaximumSize(new Dimension(20, 25));
 
         // Ajout d'une image d'arrière-plan a la fenêtre
-        ImageIcon bg = new ImageIcon(getClass().getResource("../theme/school/bg-1.png"));
+        ImageIcon bg = new ImageIcon(getClass().getResource("../theme/school/bg-principal.png"));
         JLabel background = new JLabel(bg);
         mainPanel.add(background);
 

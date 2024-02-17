@@ -38,7 +38,7 @@ public class StyleTest {
             setSize(default_width, default_height);
             setMinimumSize(new Dimension(default_width, default_height));
 
-            Panel panel = new Panel(style, new FlowLayout(FlowLayout.LEFT), "bg-1.png");
+            Panel panel = new Panel(style, new FlowLayout(FlowLayout.LEFT), "bg-principal.png");
 
             String[] combox_content = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
 
