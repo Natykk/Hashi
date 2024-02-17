@@ -5,20 +5,19 @@ import java.util.ArrayList;
 
 import javax.management.InvalidAttributeValueException;
 
+
+
 public class Pont extends Case {
     private Ile ile1;
     private Ile ile2;
-    private int nbPont;
     private boolean estDouble;
-    private ArrayList<Case> listeCase; // Liste des cases par lesquelles passe l'Pont
+    private ArrayList<Case> listeCase; // Liste des cases par lesquelles passe le pont
     private boolean estClique;
-    public int nb_pont;
 
     public Pont(Ile ile1, Ile ile2) {
         super(0, 0);
         this.ile1 = ile1;
         this.ile2 = ile2;
-        this.nbPont = 1;
         this.estDouble = false;
         this.estClique = false;
         this.listeCase = new ArrayList<>();
@@ -27,22 +26,57 @@ public class Pont extends Case {
         this.ile2.ajouterPont(this);
     }
 
-    public void draw(Graphics g) {
-        g.setColor(Color.BLACK);
-        // efface tout les ponts
+    public void draw(Graphics g)  {
+        g.setColor(Color.ORANGE);
+        System.out.println("-Pont : " + this.ile1.nbConnexions() + " " + this.ile2.nbConnexions());
 
-        // Dessine un pont simple si le nombre de ponts est 0
-        System.out.println("nbPont : " + this.nbPont);
-        if (this.nbPont == 0) {
-            g.drawLine(ile1.x - 5, ile1.y - 5, ile2.x - 5, ile2.y - 5);
-            g.drawLine(ile1.x + 5, ile1.y + 5, ile2.x + 5, ile2.y + 5);
-
-        } else {
-            // Dessine 2 ponts l'un a coté de l'autre si le nombre de ponts est 2
-            g.drawLine(ile1.x, ile1.y, ile2.x, ile2.y);
-
+        if (this.ile1.nb_connexion() <= 1 || this.ile2.nb_connexion() <= 1) {
+            System.out.println("--Pont simple");
+            
+            try {
+                if (this.estHorizontal()) {
+                    System.out.println("---Pont horizontal");
+                    g.setColor(Color.RED);
+                    // Le pont est horizontal donc on dessine un pont horizontal
+                    g.drawLine(ile1.x, ile1.y - 10, ile2.x, ile2.y - 5);
+                } else {
+                    System.out.println("---Pont vertical");
+                    g.setColor(Color.BLUE);
+                    // Le pont est vertical donc on dessine un pont vertical
+                    g.drawLine(ile1.x + 10, ile1.y, ile2.x + 10, ile2.y);
+                }
+            } catch (InvalidAttributeValueException e) {
+                e.printStackTrace();
+            }
         }
 
+        // Efface le pont déjà existant et affiche un pont double
+        if (this.ile1.nb_connexion() > 1 || this.ile2.nb_connexion() > 1) {
+            System.out.println("--Pont double");
+
+            try {
+                if (this.estHorizontal()) {
+                    System.out.println("---Pont horizontal");
+                    g.setColor(Color.YELLOW);
+                    // Le pont est horizontal donc on dessine un pont horizontal
+                    g.drawLine(ile1.x - 5, ile1.y - 10, ile2.x - 5, ile2.y - 10);
+                    g.setColor(Color.GREEN);
+                    // Fait un autre pont légèrement à droite
+                    g.drawLine(ile1.x + 5, ile1.y + 10, ile2.x + 5, ile2.y + 10);
+                } else {
+                    System.out.println("---Pont vertical");
+                    g.setColor(Color.MAGENTA);
+                    // Le pont est vertical donc on dessine un pont vertical
+                    g.drawLine(ile1.x - 10, ile1.y + 5, ile2.x - 10, ile2.y + 5);
+                    // Fait un autre pont légèrement en bas
+                    g.setColor(Color.PINK);
+                    g.drawLine(ile1.x + 10, ile1.y - 5, ile2.x + 10, ile2.y - 5);
+                }
+            } catch (InvalidAttributeValueException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("-Pont dessiné");
     }
 
     public Rectangle getBounds() {
@@ -52,15 +86,12 @@ public class Pont extends Case {
     }
 
     public void effacer() {
-        if (this.nbPont > 0) {
-            this.nbPont = 0;
-            this.ile1.retirerPont(this);
-            this.ile2.retirerPont(this);
-        }
+        this.ile1.retirerPont(this);
+        this.ile2.retirerPont(this);
     }
 
     public boolean isEffacable() {
-        return nbPont == 0;
+        return this.ile1.nb_connexion() == 0 && this.ile2.nb_connexion() == 0;
     }
 
     public Ile getIleDep() {
@@ -77,7 +108,7 @@ public class Pont extends Case {
     }
 
     public int getNbPont() {
-        return this.nbPont;
+        return this.estDouble ? 2 : 1;
     }
 
     public boolean estValide() {
@@ -92,7 +123,7 @@ public class Pont extends Case {
             return false;
         }
 
-        if (this.nbPont == 2 || this.ile1.nb_connexion() >= this.ile1.getValeur() ||
+        if (this.estDouble || this.ile1.nb_connexion() >= this.ile1.getValeur() ||
                 this.ile2.nb_connexion() >= this.ile2.getValeur()) {
             return false;
         }
@@ -126,9 +157,9 @@ public class Pont extends Case {
             // si les 2 îles que le pont relie sont sur le même axe Y (vertical)
             // c'est un pont vertical
             return false;
-        } else {
-            throw new InvalidAttributeValueException();
         }
+        // si les 2 îles que le pont relie ne sont pas alignées horizontalement ni verticalement
+        throw new InvalidAttributeValueException("Les 2 îles que le pont relie ne sont pas alignées horizontalement ni verticalement");
     }
 
     public void supprimer() {
@@ -150,11 +181,11 @@ public class Pont extends Case {
     }
 
     public void ajouterPont() {
-        this.nbPont++;
+        this.estDouble = true;
     }
 
     public void retirerPont() {
-        this.nbPont--;
+        this.estDouble = false;
     }
 
     public boolean estDouble() {
@@ -181,7 +212,7 @@ public class Pont extends Case {
         return ile2;
     }
 
-    public void setNbPont(int nbPont) {
-        this.nbPont = nbPont;
+    public void DejaUneIle(){
+        
     }
 }

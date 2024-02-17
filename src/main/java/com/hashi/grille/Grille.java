@@ -297,9 +297,10 @@ public class Grille extends MouseAdapter {
     public Pont getPontAt(int x, int y) {
         // le rectangle situé à la position x,y correspond à quel pont ?
         for (Pont pont : this.Ponts) {
-            System.out.println(pont.getBounds());
+            
             // si la position de la souris est dans le rectangle du pont
             if (pont.getBounds().contains(x, y)) {
+                System.out.println("Un pont ce situe au coordonnées "+pont.getBounds());
                 return pont;
             }
         }
