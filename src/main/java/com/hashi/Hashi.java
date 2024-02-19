@@ -30,7 +30,7 @@ public class Hashi extends JFrame {
     private int currentIndex;
     private TimerManager timerManager;
 
-    private static final int default_width = 1230;
+    private static final int default_width = 1280;
     private static final int default_height = 720;
     public static final StyleWrapper style = new StyleWrapper((Style) new SchoolStyle(), new Language());
 
@@ -41,6 +41,7 @@ public class Hashi extends JFrame {
 
         setSize(default_width, default_height);
         setMinimumSize(new Dimension(default_width, default_height));
+        setResizable(false);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         Panel mainPanel = new Panel(style, new BorderLayout(), "bg-jeu.png");
