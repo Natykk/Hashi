@@ -10,6 +10,7 @@ import com.hashi.style.Style;
 import com.hashi.style.StyleWrapper;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
+import com.hashi.style.Button;
 import com.hashi.grille.Action;
 
 import javax.management.InvalidAttributeValueException;
@@ -23,8 +24,8 @@ public class Hashi extends JFrame {
     private Grille grille;
     static protected int cellSize = 40;
 
-    private JButton undoButton;
-    private JButton redoButton;
+    private Button undoButton;
+    private Button redoButton;
     private List<Action> actions;
     private int currentIndex;
     private TimerManager timerManager;
@@ -50,12 +51,12 @@ public class Hashi extends JFrame {
             buttonPanel.add(button);
         }
 
-        undoButton = new JButton("Revenir en arrière");
-        redoButton = new JButton("Revenir en avant");
+        undoButton = new Button(style).setImage("btn-arriere.png");
+        redoButton = new Button(style).setImage("btn-avant.png");
         buttonPanel.add(undoButton);
         buttonPanel.add(redoButton);
 
-        Label timerLabel = new Label(style, "00:00").setFontSize(100);
+        Label timerLabel = new Label(style, "00:00").setAsRawText().setFontSize(100);
         mainPanel.add(timerLabel, BorderLayout.NORTH);
         this.timerManager = new TimerManager(timerLabel);
 

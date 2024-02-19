@@ -7,6 +7,7 @@ import javax.swing.*;
 public class Label extends JLabel implements FontSize<Label> {
     private StyleWrapper style;
     private int font_size = 20;
+    private boolean is_raw_text = false;
 
     public Label(StyleWrapper style) {
         super();
@@ -22,6 +23,12 @@ public class Label extends JLabel implements FontSize<Label> {
         this.style = style;
 
         style.initLabel(this);
+    }
+
+    public Label setAsRawText() {
+        is_raw_text = true;
+
+        return this;
     }
 
     public Label setFontSize(int size) {
@@ -41,10 +48,13 @@ public class Label extends JLabel implements FontSize<Label> {
         if (style == null)
             return "";
 
+        if (is_raw_text)
+            return super.getText();
+
         try {
             return style.getLanguage().getString(super.getText());
         } catch (Exception e) {
-            return super.getText();
+            return "";
         }
     }
 

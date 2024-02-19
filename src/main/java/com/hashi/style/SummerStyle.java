@@ -16,8 +16,8 @@ public class SummerStyle extends Style {
     }
 
     public void paintPanel(Panel panel, Graphics2D g) {
-        if (panel.image != null) {
-            g.drawImage(panel.image.getImage(), 0, 0, panel.getWidth(), panel.getHeight(), null);
+        if (panel.getImage() != null) {
+            g.drawImage(panel.getImage(), 0, 0, panel.getWidth(), panel.getHeight(), null);
         }
     }
 

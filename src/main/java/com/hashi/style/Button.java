@@ -4,9 +4,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.*;
 
-public class Button extends JButton implements FontSize<Button> {
+public class Button extends JButton implements FontSize<Button>, ImageComponent<Button> {
     private StyleWrapper style;
     private int font_size = 20;
+    private Image image;
 
     public Button(StyleWrapper style) {
         super();
@@ -25,8 +26,19 @@ public class Button extends JButton implements FontSize<Button> {
 
     private void init(StyleWrapper style) {
         this.style = style;
+        this.image = new Image(style, this);
 
         style.initButton(this);
+    }
+
+    public Button setImage(String image_res) {
+        image.setImage(image_res);
+
+        return this;
+    }
+
+    public java.awt.Image getImage() {
+        return image.getImage();
     }
 
     public Button setFontSize(int size) {
@@ -43,7 +55,7 @@ public class Button extends JButton implements FontSize<Button> {
 
     @Override
     public String getText() {
-        if (style == null)
+        if (style == null || super.getText().isEmpty())
             return "";
 
         return style.getLanguage().getString(super.getText());

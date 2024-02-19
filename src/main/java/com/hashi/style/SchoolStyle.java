@@ -1,6 +1,7 @@
 package com.hashi.style;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
@@ -12,28 +13,35 @@ public class SchoolStyle extends Style {
         font = getFontResource(getResourcePath("kindergarten.ttf"));
     }
 
+    private <T extends Component & ImageComponent<?>> void drawImage(T image_component, Graphics2D g,
+            boolean contained) {
+        if (image_component.getImage() != null) {
+            float panel_ratio = (float) image_component.getWidth() / (float) image_component.getHeight();
+            float image_ratio = (float) image_component.getImage().getWidth(null)
+                    / (float) image_component.getImage().getHeight(null);
+
+            if ((!contained && panel_ratio < image_ratio) || (contained && panel_ratio >= image_ratio)) {
+                int width = (int) (image_ratio * image_component.getHeight());
+
+                g.drawImage(image_component.getImage(), (image_component.getWidth() - width) / 2, 0, width,
+                        image_component.getHeight(),
+                        null);
+            } else {
+                int height = (int) (image_component.getWidth() / image_ratio);
+
+                g.drawImage(image_component.getImage(), 0, (image_component.getHeight() - height) / 2,
+                        image_component.getWidth(), height,
+                        null);
+            }
+        }
+    }
+
     public void initPanel(Panel panel) {
 
     }
 
     public void paintPanel(Panel panel, Graphics2D g) {
-        if (panel.image != null) {
-            float panel_ratio = (float) panel.getWidth() / (float) panel.getHeight();
-            float image_ratio = (float) panel.image.getImage().getWidth(null)
-                    / (float) panel.image.getImage().getHeight(null);
-
-            if (panel_ratio < image_ratio) {
-                int width = (int) (image_ratio * panel.getHeight());
-
-                g.drawImage(panel.image.getImage(), (panel.getWidth() - width) / 2, 0, width, panel.getHeight(),
-                        null);
-            } else {
-                int height = (int) (panel.getWidth() / image_ratio);
-
-                g.drawImage(panel.image.getImage(), 0, (panel.getHeight() - height) / 2, panel.getWidth(), height,
-                        null);
-            }
-        }
+        drawImage(panel, g, false);
     }
 
     public void initButton(Button button) {
@@ -41,6 +49,8 @@ public class SchoolStyle extends Style {
     }
 
     public void paintButton(Button button, Graphics2D g) {
+        drawImage(button, g, true);
+
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setFont(font.deriveFont(0, button.getFontSize()));
         g.setColor(fg_color);

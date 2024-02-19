@@ -6,10 +6,8 @@ import java.awt.LayoutManager;
 
 import javax.swing.*;
 
-public class Panel extends JPanel {
-    protected String image_res;
-    protected String image_url;
-    protected ImageIcon image;
+public class Panel extends JPanel implements ImageComponent<Panel> {
+    private Image image;
     private StyleWrapper style;
 
     public Panel(StyleWrapper style) {
@@ -30,34 +28,22 @@ public class Panel extends JPanel {
 
     private void init(StyleWrapper style) {
         this.style = style;
+        this.image = new Image(style, this);
 
         style.initPanel(this);
     }
 
-    public void setImage(String image_res) {
-        if (image_res == null) {
-            this.image = null;
+    public Panel setImage(String image_res) {
+        image.setImage(image_res);
 
-            return;
-        }
+        return this;
+    }
 
-        this.image_res = image_res;
-        this.image_url = style.getResourcePath(image_res);
-        this.image = style.getImageResource(image_url);
-
-        repaint();
+    public java.awt.Image getImage() {
+        return image.getImage();
     }
 
     protected void paintComponent(Graphics g) {
-        if (image != null) {
-            String new_image_url = style.getResourcePath(image_res);
-
-            if (image_url != new_image_url) {
-                image_url = new_image_url;
-                image = style.getImageResource(image_url);
-            }
-        }
-
         style.paintPanel(this, (Graphics2D) g);
     }
 }
