@@ -5,6 +5,11 @@ import com.hashi.grille.Ile;
 import com.hashi.grille.Jeu;
 import com.hashi.grille.Pont;
 import com.hashi.grille.TimerManager;
+import com.hashi.style.SchoolStyle;
+import com.hashi.style.Style;
+import com.hashi.style.StyleWrapper;
+import com.hashi.style.Label;
+import com.hashi.style.Panel;
 import com.hashi.grille.Action;
 
 import javax.management.InvalidAttributeValueException;
@@ -24,22 +29,22 @@ public class Hashi extends JFrame {
     private int currentIndex;
     private TimerManager timerManager;
 
+    private static final int default_width = 1230;
+    private static final int default_height = 720;
+    public static final StyleWrapper style = new StyleWrapper((Style) new SchoolStyle(), new Language());
+
     public Hashi(Grille grille) {
+        super("Hashi Puzzle");
+
         this.grille = grille;
-        setTitle("Hashi Puzzle");
-        setSize(1000, 1000);
+
+        setSize(default_width, default_height);
+        setMinimumSize(new Dimension(default_width, default_height));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        // met l'image de fond
-        //setContentPane(new JLabel(new ImageIcon("../../../resources/com/hashi/theme/school/bg-1.png")));
+        Panel mainPanel = new Panel(style, new BorderLayout(), "bg-jeu.png");
 
-
-
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(8, 1));
+        Panel buttonPanel = new Panel(style, new GridLayout(8, 1));
         for (int i = 0; i < 6; i++) {
             JButton button = new JButton("Bouton " + (i + 1));
             buttonPanel.add(button);
@@ -50,12 +55,12 @@ public class Hashi extends JFrame {
         buttonPanel.add(undoButton);
         buttonPanel.add(redoButton);
 
-        JLabel timerLabel = new JLabel("Temps : 00:00");
+        Label timerLabel = new Label(style, "00:00").setFontSize(100);
         mainPanel.add(timerLabel, BorderLayout.NORTH);
         this.timerManager = new TimerManager(timerLabel);
 
         mainPanel.add(buttonPanel, BorderLayout.WEST);
-        mainPanel.add(new PuzzlePanel(), BorderLayout.CENTER);
+        mainPanel.add(new PuzzlePanel(style), BorderLayout.CENTER);
 
         add(mainPanel);
         setLocationRelativeTo(null);
@@ -69,7 +74,7 @@ public class Hashi extends JFrame {
         redoButton.addActionListener(e -> redoAction());
     }
 
-    class PuzzlePanel extends JPanel {
+    class PuzzlePanel extends Panel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -114,7 +119,9 @@ public class Hashi extends JFrame {
             }
         }
 
-        public PuzzlePanel() {
+        public PuzzlePanel(StyleWrapper style) {
+            super(style);
+
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -151,8 +158,10 @@ public class Hashi extends JFrame {
 
         private void handleIslandSelection(Ile clickedIle) {
             Ile selectedIle = (Ile) grille.getSelectedCase();
-            if (selectedIle != clickedIle && (selectedIle.getX() == clickedIle.getX() || selectedIle.getY() == clickedIle.getY())) {
-                if (selectedIle.getNbConnexion() < selectedIle.getValeur() && clickedIle.getNbConnexion() < clickedIle.getValeur()) {
+            if (selectedIle != clickedIle
+                    && (selectedIle.getX() == clickedIle.getX() || selectedIle.getY() == clickedIle.getY())) {
+                if (selectedIle.getNbConnexion() < selectedIle.getValeur()
+                        && clickedIle.getNbConnexion() < clickedIle.getValeur()) {
                     Pont newPont = new Pont(selectedIle, clickedIle);
                     grille.ajouterPont(newPont);
                     addAction(new AddPontAction(newPont));

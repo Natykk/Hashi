@@ -25,6 +25,6 @@ public class TimerManager implements ActionListener {
         long elapsedTime = System.currentTimeMillis() - startTime;
         long minutes = (elapsedTime / 1000) / 60;
         long seconds = (elapsedTime / 1000) % 60;
-        timerLabel.setText(String.format("Temps : %02d:%02d", minutes, seconds));
+        timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
     }
 }

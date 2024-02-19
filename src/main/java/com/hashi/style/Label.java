@@ -41,7 +41,11 @@ public class Label extends JLabel implements FontSize<Label> {
         if (style == null)
             return "";
 
-        return style.getLanguage().getString(super.getText());
+        try {
+            return style.getLanguage().getString(super.getText());
+        } catch (Exception e) {
+            return super.getText();
+        }
     }
 
     protected void paintComponent(Graphics g) {
