@@ -18,7 +18,21 @@ public class SchoolStyle extends Style {
 
     public void paintPanel(Panel panel, Graphics2D g) {
         if (panel.image != null) {
-            g.drawImage(panel.image.getImage(), 0, 0, panel.getWidth(), panel.getHeight(), null);
+            float panel_ratio = (float) panel.getWidth() / (float) panel.getHeight();
+            float image_ratio = (float) panel.image.getImage().getWidth(null)
+                    / (float) panel.image.getImage().getHeight(null);
+
+            if (panel_ratio < image_ratio) {
+                int width = (int) (image_ratio * panel.getHeight());
+
+                g.drawImage(panel.image.getImage(), (panel.getWidth() - width) / 2, 0, width, panel.getHeight(),
+                        null);
+            } else {
+                int height = (int) (panel.getWidth() / image_ratio);
+
+                g.drawImage(panel.image.getImage(), 0, (panel.getHeight() - height) / 2, panel.getWidth(), height,
+                        null);
+            }
         }
     }
 
