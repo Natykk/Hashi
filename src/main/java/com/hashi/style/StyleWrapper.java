@@ -1,6 +1,7 @@
 package com.hashi.style;
 
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import com.hashi.Language;
 
@@ -39,6 +40,9 @@ public class StyleWrapper extends Style {
     }
 
     public void paintPanel(Panel panel, Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
         style.paintPanel(panel, g);
     }
 
@@ -47,6 +51,9 @@ public class StyleWrapper extends Style {
     }
 
     public void paintButton(Button button, Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
         style.paintButton(button, g);
     }
 
@@ -55,6 +62,9 @@ public class StyleWrapper extends Style {
     }
 
     public void paintLabel(Label label, Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
         style.paintLabel(label, g);
     }
 
@@ -63,6 +73,9 @@ public class StyleWrapper extends Style {
     }
 
     public <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
         style.paintComboBox(combo_box, g);
     }
 
@@ -71,6 +84,9 @@ public class StyleWrapper extends Style {
     }
 
     public void paintTextField(TextField text_field, Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
         style.paintTextField(text_field, g);
     }
 }

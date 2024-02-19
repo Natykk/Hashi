@@ -3,7 +3,6 @@ package com.hashi.style;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 
 public class SchoolStyle extends Style {
     public SchoolStyle() {
@@ -51,7 +50,6 @@ public class SchoolStyle extends Style {
     public void paintButton(Button button, Graphics2D g) {
         drawImage(button, g, true);
 
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setFont(font.deriveFont(0, button.getFontSize()));
         g.setColor(fg_color);
         g.drawString(
@@ -65,7 +63,6 @@ public class SchoolStyle extends Style {
     }
 
     public void paintLabel(Label label, Graphics2D g) {
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setFont(font.deriveFont(0, label.getFontSize()));
         g.setColor(fg_color);
         g.drawString(
@@ -79,7 +76,6 @@ public class SchoolStyle extends Style {
     }
 
     public <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setFont(font.deriveFont(0, combo_box.getFontSize()));
         g.setColor(fg_color);
         g.drawString(
@@ -95,7 +91,6 @@ public class SchoolStyle extends Style {
     public void paintTextField(TextField text_field, Graphics2D g) {
         int margin = 2;
 
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setFont(font.deriveFont(0, text_field.getFontSize()));
         g.setColor(bg_color);
         g.fillRect(0, 0, text_field.getWidth(), text_field.getHeight());
