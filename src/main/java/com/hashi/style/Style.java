@@ -5,8 +5,6 @@ import java.awt.FontFormatException;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.IOException;
-import java.net.URL;
-import java.io.File;
 import javax.swing.ImageIcon;
 
 public abstract class Style {
@@ -31,15 +29,15 @@ public abstract class Style {
         return font;
     }
 
-    public URL getResourcePath(String res) {
-        return Style.class.getResource("../theme/" + name + "/" + res);
+    public String getResourcePath(String res) {
+        return "/com/hashi/theme/" + name + "/" + res;
     }
 
-    public Font getFontResource(URL font_url) {
+    public Font getFontResource(String font_url) {
         Font font = null;
 
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File(font_url.getPath()));
+            font = Font.createFont(Font.TRUETYPE_FONT, Style.class.getResourceAsStream(font_url));
         } catch (FontFormatException e) {
             System.err.println("Impossible de charger la police mauvais format <" + font_url + "> : " + e);
         } catch (IOException e) {
@@ -49,8 +47,8 @@ public abstract class Style {
         return font;
     }
 
-    public ImageIcon getImageResource(URL image_url) {
-        return new ImageIcon(image_url.getPath());
+    public ImageIcon getImageResource(String image_url) {
+        return new ImageIcon(Style.class.getResource(image_url));
     }
 
     public abstract void initPanel(Panel panel);

@@ -1,7 +1,6 @@
 package com.hashi.style;
 
 import java.awt.Graphics2D;
-import java.net.URL;
 
 import com.hashi.Language;
 
@@ -31,7 +30,7 @@ public class StyleWrapper extends Style {
     }
 
     @Override
-    public URL getResourcePath(String res) {
+    public String getResourcePath(String res) {
         return style.getResourcePath(res);
     }
 
