@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 public class StyleManager extends Style {
-    private static final StyleManager instance = new StyleManager();
+    private static StyleManager instance;
     private Style style;
 
     private StyleManager() {
@@ -12,6 +12,9 @@ public class StyleManager extends Style {
     }
 
     public static StyleManager getInstance() {
+        if (instance == null)
+            instance = new StyleManager();
+
         return instance;
     }
 

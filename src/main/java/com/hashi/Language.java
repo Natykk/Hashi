@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
  * La classe {@link com.hashi.Language} gère l'internationalisation du jeu.
  */
 public class Language {
-    private static final Language instance = new Language();
+    private static Language instance;
     private ResourceBundle bundle;
 
     private Language() {
@@ -17,6 +17,9 @@ public class Language {
      * Récupère une instance de la classe {@link com.hashi.Language}.
      */
     public static Language getInstance() {
+        if (instance == null)
+            instance = new Language();
+
         return instance;
     }
 
