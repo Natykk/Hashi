@@ -3,15 +3,15 @@ package com.hashi.style;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-public class StyleWrapper extends Style {
-    private static final StyleWrapper instance = new StyleWrapper();
+public class StyleManager extends Style {
+    private static final StyleManager instance = new StyleManager();
     private Style style;
 
-    private StyleWrapper() {
+    private StyleManager() {
         switchStyle(new SchoolStyle());
     }
 
-    public static StyleWrapper getInstance() {
+    public static StyleManager getInstance() {
         return instance;
     }
 

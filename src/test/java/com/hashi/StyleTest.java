@@ -44,7 +44,7 @@ public class StyleTest {
             Button button = new Button("test");
 
             button.addActionListener(e -> {
-                StyleWrapper.getInstance().switchStyle((Style) new SummerStyle());
+                StyleManager.getInstance().switchStyle((Style) new SummerStyle());
                 Language.getInstance().setLanguage("en");
                 repaint();
             });

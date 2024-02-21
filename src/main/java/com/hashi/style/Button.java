@@ -23,7 +23,7 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
     private void init() {
         this.image = new Image(this);
 
-        StyleWrapper.getInstance().initButton(this);
+        StyleManager.getInstance().initButton(this);
     }
 
     public Button setImage(String image_res) {
@@ -39,7 +39,7 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
     public Button setFontSize(int size) {
         font_size = size;
 
-        StyleWrapper.getInstance().initButton(this);
+        StyleManager.getInstance().initButton(this);
 
         return this;
     }
@@ -58,11 +58,11 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
 
     @Override
     protected void paintComponent(Graphics g) {
-        StyleWrapper.getInstance().paintButton(this, (Graphics2D) g);
+        StyleManager.getInstance().paintButton(this, (Graphics2D) g);
     }
 
     @Override
     protected void paintBorder(Graphics g) {
-        StyleWrapper.getInstance().paintButtonBorder(this, (Graphics2D) g);
+        StyleManager.getInstance().paintButtonBorder(this, (Graphics2D) g);
     }
 }

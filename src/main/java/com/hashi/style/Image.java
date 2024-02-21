@@ -22,19 +22,19 @@ public class Image {
         }
 
         this.image_res = image_res;
-        image_url = StyleWrapper.getInstance().getResourcePath(image_res);
-        image = StyleWrapper.getInstance().getImageResource(image_url);
+        image_url = StyleManager.getInstance().getResourcePath(image_res);
+        image = StyleManager.getInstance().getImageResource(image_url);
 
         parent.repaint();
     }
 
     public java.awt.Image getImage() {
         if (image != null) {
-            String new_image_url = StyleWrapper.getInstance().getResourcePath(image_res);
+            String new_image_url = StyleManager.getInstance().getResourcePath(image_res);
 
             if (image_url != new_image_url) {
                 image_url = new_image_url;
-                image = StyleWrapper.getInstance().getImageResource(image_url);
+                image = StyleManager.getInstance().getImageResource(image_url);
             }
 
             return image.getImage();

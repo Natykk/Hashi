@@ -25,13 +25,13 @@ public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
     }
 
     private void init() {
-        StyleWrapper.getInstance().initComboBox(this);
+        StyleManager.getInstance().initComboBox(this);
     }
 
     public ComboBox<E> setFontSize(int size) {
         font_size = size;
 
-        StyleWrapper.getInstance().initComboBox(this);
+        StyleManager.getInstance().initComboBox(this);
 
         return this;
     }
@@ -42,11 +42,11 @@ public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
 
     @Override
     protected void paintComponent(Graphics g) {
-        StyleWrapper.getInstance().paintComboBox(this, (Graphics2D) g);
+        StyleManager.getInstance().paintComboBox(this, (Graphics2D) g);
     }
 
     @Override
     protected void paintBorder(Graphics g) {
-        StyleWrapper.getInstance().paintComboBoxBorder(this, (Graphics2D) g);
+        StyleManager.getInstance().paintComboBoxBorder(this, (Graphics2D) g);
     }
 }

@@ -30,13 +30,13 @@ public class TextField extends JTextField implements FontSize<TextField> {
     }
 
     private void init() {
-        StyleWrapper.getInstance().initTextField(this);
+        StyleManager.getInstance().initTextField(this);
     }
 
     public TextField setFontSize(int size) {
         font_size = size;
 
-        StyleWrapper.getInstance().initTextField(this);
+        StyleManager.getInstance().initTextField(this);
 
         return this;
     }
@@ -47,11 +47,11 @@ public class TextField extends JTextField implements FontSize<TextField> {
 
     @Override
     protected void paintComponent(Graphics g) {
-        StyleWrapper.getInstance().paintTextField(this, (Graphics2D) g);
+        StyleManager.getInstance().paintTextField(this, (Graphics2D) g);
     }
 
     @Override
     protected void paintBorder(Graphics g) {
-        StyleWrapper.getInstance().paintTextFieldBorder(this, (Graphics2D) g);
+        StyleManager.getInstance().paintTextFieldBorder(this, (Graphics2D) g);
     }
 }

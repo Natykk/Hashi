@@ -21,7 +21,7 @@ public class Label extends JLabel implements FontSize<Label> {
     }
 
     private void init() {
-        StyleWrapper.getInstance().initLabel(this);
+        StyleManager.getInstance().initLabel(this);
     }
 
     public Label setAsRawText() {
@@ -33,7 +33,7 @@ public class Label extends JLabel implements FontSize<Label> {
     public Label setFontSize(int size) {
         font_size = size;
 
-        StyleWrapper.getInstance().initLabel(this);
+        StyleManager.getInstance().initLabel(this);
 
         return this;
     }
@@ -56,11 +56,11 @@ public class Label extends JLabel implements FontSize<Label> {
 
     @Override
     protected void paintComponent(Graphics g) {
-        StyleWrapper.getInstance().paintLabel(this, (Graphics2D) g);
+        StyleManager.getInstance().paintLabel(this, (Graphics2D) g);
     }
 
     @Override
     protected void paintBorder(Graphics g) {
-        StyleWrapper.getInstance().paintLabelBorder(this, (Graphics2D) g);
+        StyleManager.getInstance().paintLabelBorder(this, (Graphics2D) g);
     }
 }

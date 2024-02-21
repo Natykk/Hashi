@@ -28,7 +28,7 @@ public class Panel extends JPanel implements ImageComponent<Panel> {
     private void init() {
         this.image = new Image(this);
 
-        StyleWrapper.getInstance().initPanel(this);
+        StyleManager.getInstance().initPanel(this);
     }
 
     public Panel setImage(String image_res) {
@@ -43,11 +43,11 @@ public class Panel extends JPanel implements ImageComponent<Panel> {
 
     @Override
     protected void paintComponent(Graphics g) {
-        StyleWrapper.getInstance().paintPanel(this, (Graphics2D) g);
+        StyleManager.getInstance().paintPanel(this, (Graphics2D) g);
     }
 
     @Override
     protected void paintBorder(Graphics g) {
-        StyleWrapper.getInstance().paintPanelBorder(this, (Graphics2D) g);
+        StyleManager.getInstance().paintPanelBorder(this, (Graphics2D) g);
     }
 }
