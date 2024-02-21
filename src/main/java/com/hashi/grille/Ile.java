@@ -412,4 +412,45 @@ public class Ile extends Case {
         return this.valeur - this.nbConnexions();
     }
 
+
+
+    /**
+     * compte le nombre maximum de positions de ponts(connexions) possibles qu'a cette Ile actuellement, en respectant la valeur de ses voisins et les Ponts déjà placés
+     * @return nombre maximum de ponts supplémentaires que cette Ile peut recevoir
+     */
+    public int nbPontsPossibles() {
+
+        int nbPontsPossibles=0; // nombre de Ponts max qu'on peut placer sur une Ile, en respectant le nombre de Ponts restants de ses voisins
+        Pont unPont;
+
+        for( Ile unVoisin : this.getVoisins()) {
+            // pour chaque voisin
+            if( !unVoisin.estComplet() ) {
+                // si il n'est pas complété
+
+                if( (unPont = getPontEntreIles(unVoisin)) == null ) {
+                    // s'il n'existe pas de Pont entre cette Ile et ce voisin, 
+                    if( unVoisin.pontRestants() >= 2 ) {
+                        // et qu'il peut encore recevoir au moins 2 ponts
+                        // le nombre de ponts qu'on peut avoir avec ce voisin est donc 2
+                        nbPontsPossibles += 2;
+                    }
+                    else if( unVoisin.pontRestants() == 1 )  {
+                        // et qu'il ne peut plus avoir qu'un pont avec une Ile
+                        // le nombre de ponts qu'on peut avoir avec ce voisin est donc 1
+                        nbPontsPossibles += 1;
+                    }
+                }
+                else if(!unPont.estDouble()) {
+                    // s'il existe un Pont entre cette Ile et ce voisin
+                    // et qu'il n'est pas double
+                    // le nombre de ponts supplémentaires qu'on peut avoir avec ce voisin est donc 1
+                    nbPontsPossibles += 1;
+                }
+            }
+        }
+
+        return nbPontsPossibles;
+    }
+
 }
