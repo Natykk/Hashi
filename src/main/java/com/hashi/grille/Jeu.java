@@ -62,6 +62,7 @@ public class Jeu {
 
             // Add the last grid to the list
             this.listeGrille.add(grilleTemp);
+            this.numGrille++;
 
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
