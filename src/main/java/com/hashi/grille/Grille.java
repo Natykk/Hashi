@@ -128,7 +128,7 @@ public class Grille extends MouseAdapter {
     }
 
     /**
-     * supprime la présence d'un Pont donné
+     * supprime la présence d'un Pont donné.
      * toutes ses références dans Grille et Ile sont supprimées
      * @param pont le Pont à supprimer
      */
