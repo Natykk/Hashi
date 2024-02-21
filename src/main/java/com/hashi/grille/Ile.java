@@ -369,13 +369,44 @@ public class Ile extends Case {
                 break;
             case 4:
                 // une île qui a besoin de 4 ponts,
-                // en a actuellement moins de 3 dans des sens différents
-                // et qui a 2 voisins libres
-                if (this.nbVoisinsLibres() == 1
-                        && this.nbConnexions() < this.valeur) {
+                // et qui a 2 voisins libres, car certains sont complétés
+                // et qui a moins de 3 Ponts dans des sens différents (?)
 
-                    return Aide.BLOQUE3;
+            /* prend en compte des cas qui ne sont pas BLOQUE41
+                if (this.nbVoisinsLibres() == 2 
+                    && this.getNbPonts() < 3 ) {
+                    // création d'une Ile qui a comme valeur le nombre de ponts restants à connecter à cette Ile-ci
+                    IlePlusFaible = new Ile(   this.pontRestants()   ,this.x,this.y, grille);
+
+                    if( IlePlusFaible.techniquePontsForces() == Aide.FORCE3) {
+                        // si, dans cette situation où l'Ile créée peut appliquer une technique, 
+                        // c'est que cette technique peut être appliquée à cette Ile-ci
+                        return Aide.BLOQUE41;
+                    }
                 }
+            */
+
+            /*
+                // une île qui a besoin de 4 ponts,
+                // qui a 2 voisins libres
+                // et qui a moins de 3 ponts dans des sens différents (?)
+                if (this.nbVoisinsLibres() == 2
+                    && this.getNbPonts() < 3) {
+
+                    this.nbPontsPossibles();
+                    
+
+                    return Aide.BLOQUE41;
+                }
+                
+                // une île de valeur 4 qui a 1 voisin libres et 1 pont avec 2 voisins qui sont
+				// complétés = on peut compléter l'île avec 2 ponts sur son 3e et dernier voisin
+                if(this.nbVoisinsLibres() == 1
+                    && this.valeur == 2) {
+
+                    return Aide.BLOQUE42;
+                }
+            */
                 break;
             case 5:
 
