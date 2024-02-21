@@ -415,6 +415,28 @@ public class Ile extends Case {
 
 
     /**
+     * recherche le Pont qui relie cette Ile avec son voisin passé en paramètre
+     * @param unVoisin une Ile voisine à cette Ile
+     * @return le Pont qui relie ces deux Iles, 
+     *      ou null s'il n'y en pas, ou si ces Iles ne sont pas voisines
+     */
+    public Pont getPontEntreIles(Ile unVoisin) {
+
+        for (Pont p : this.listePont) {
+            // on parcourt les Ponts reliés à cette Ile
+            if( (p.getIle1() == this && p.getIle1() == unVoisin)
+             || (p.getIle2() == this && p.getIle2() == unVoisin) ) {
+                // si les deux Iles que ce Pont relient sont cette Ile et ce voisin, c'est le Pont qu'on recherche
+                return p;
+            }
+        }
+        
+        return null;
+    }
+
+
+
+    /**
      * compte le nombre maximum de positions de ponts(connexions) possibles qu'a cette Ile actuellement, en respectant la valeur de ses voisins et les Ponts déjà placés
      * @return nombre maximum de ponts supplémentaires que cette Ile peut recevoir
      */
