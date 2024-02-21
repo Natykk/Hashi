@@ -52,8 +52,6 @@ public class Jeu {
                             // il y a une Ile
                             Ile ile = new Ile(value, row, col, grilleTemp);
                             grilleTemp.ajouterIle(ile);
-
-                            grilleTemp.setCase(row, col, ile);
                         }
                     }
                 }
