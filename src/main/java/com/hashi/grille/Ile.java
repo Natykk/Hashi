@@ -404,8 +404,12 @@ public class Ile extends Case {
         }
     }
 
-    private int combienDePontsIlResteAMonVoisin(Ile voisin){
-        return voisin.valeur - voisin.getNbPonts();
+    /**
+     * calcule combien de Ponts manquent à cette Ile
+     * @return la valeur de l'Ile moins son nombre de connexions
+     */
+    private int pontRestants(){
+        return this.valeur - this.nbConnexions();
     }
 
 }
