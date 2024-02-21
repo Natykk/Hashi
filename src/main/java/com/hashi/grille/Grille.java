@@ -156,8 +156,8 @@ public class Grille extends MouseAdapter {
      * récupérer la liste des Ponts de la Grille
      * @return la liste des Ponts présents sur la Grille
      */
-    public ArrayList<Pont> getListePonts() {
-        return (ArrayList<Pont>) this.Ponts;
+    public List<Pont> getListePonts() {
+        return (List<Pont>) this.Ponts;
     }
 
     // affichage sur terminal    

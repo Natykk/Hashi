@@ -5,14 +5,15 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomPanel extends JPanel {
-    private ArrayList<Ile> iles;
-    private ArrayList<Pont> ponts;
+    private List<Ile> iles;
+    private List<Pont> ponts;
     private Ile ileSelectionnee;
     private Point pointeurSouris;
 
-    public CustomPanel(ArrayList<Ile> iles, ArrayList<Pont> ponts) {
+    public CustomPanel(List<Ile> iles, List<Pont> ponts) {
         this.iles = iles;
         this.ponts = ponts;
         this.ileSelectionnee = null;

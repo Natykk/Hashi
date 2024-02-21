@@ -3,6 +3,7 @@ package com.hashi;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -39,8 +40,8 @@ public class AideTest {
         Ile i2 = new Ile(2, 2, 0, g);// à droite de i3
         Ile i3 = new Ile(3, 0, 0, g);// coin haut gauche
 
-        ArrayList<Ile> listeGetVoisins = new ArrayList<>();
-        ArrayList<Ile> uneListeDIle = new ArrayList<>();
+        List<Ile> listeGetVoisins = new ArrayList<>();
+        List<Ile> uneListeDIle = new ArrayList<>();
 
         g.ajouterIle(i3);
         g.ajouterIle(i1);
@@ -74,7 +75,7 @@ public class AideTest {
         Ile i2 = new Ile(2, 2, 0, g);
         Ile i3 = new Ile(3, 0, 0, g);
 
-        ArrayList<Ile> uneListeDIle = new ArrayList<>();
+        List<Ile> uneListeDIle = new ArrayList<>();
 
         g.ajouterIle(i3);
         g.ajouterIle(i1);

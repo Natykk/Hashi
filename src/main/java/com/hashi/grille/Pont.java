@@ -2,6 +2,7 @@ package com.hashi.grille;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.management.InvalidAttributeValueException;
 
@@ -9,7 +10,7 @@ public class Pont extends Case {
     private Ile ile1; // Ile que le Pont raccorde
     private Ile ile2; // autre Ile que le Pont raccorde
     private boolean estDouble; // le Pont peut être simple ou double
-    private ArrayList<Case> listeCase; // Liste des Cases par lesquelles passe le Pont
+    private List<Case> listeCase; // Liste des Cases par lesquelles passe le Pont
     private boolean estClique; // si le Pont est cliqué
 
     public Pont(Ile ile1, Ile ile2) {
@@ -59,7 +60,7 @@ public class Pont extends Case {
      * Retourner la liste des Cases de la matrice qui contiennent ce Pont
      * @return la liste des Cases
      */
-    public ArrayList<Case> getListeCase() {
+    public List<Case> getListeCase() {
         return this.listeCase;
     }
 

@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.hashi.Hashi;
 
 public class Jeu {
 
-    public ArrayList<Grille> listeGrille;
+    public List<Grille> listeGrille;
     int numGrille;
 
     public Jeu() {

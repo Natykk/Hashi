@@ -8,12 +8,12 @@ import javax.management.InvalidAttributeValueException;
 
 public class Ile extends Case {
     private int valeur;
-    public ArrayList<Pont> listePont;
+    public List<Pont> listePont;
     private int xAffichage; // coordonnée x pour l'affichage de l'Ile
     private int yAffichage; // coordonnée y pour l'affichage de l'Ile
     private int tailleIle; // taille pour l'affichage
     private Color color;
-    private ArrayList<Ile> listeVoisin; // liste des Iles voisines (pas implémenté)
+    private List<Ile> listeVoisin; // liste des Iles voisines (pas implémenté)
 
     public Ile(int valeur, int x, int y, Grille lagrille) {
         super(x, y, lagrille);
@@ -148,7 +148,7 @@ public class Ile extends Case {
      * récupérer la liste des voisins de cette Ile
      * @return une liste d'Iles
      */
-    public ArrayList<Ile> getListeVoisin() {
+    public List<Ile> getListeVoisin() {
         return this.listeVoisin;
     }
 
@@ -207,9 +207,9 @@ public class Ile extends Case {
      * @return une liste d'îles qui sont les îles voisines, ou null si l'île n'a
      *         aucune voisine
      */
-    public ArrayList<Ile> getVoisins() {
+    public List<Ile> getVoisins() {
 
-        ArrayList<Ile> lesVoisins = new ArrayList<>();
+        List<Ile> lesVoisins = new ArrayList<>();
 
         // récupération des îles voisines dans les quatre sens
         lesVoisins.add(grille.getVoisinSansPont(this, "haut"));
@@ -253,7 +253,7 @@ public class Ile extends Case {
      */
     public int nbVoisinsLibres() {
         // récupérer la liste de voisins de l'île
-        ArrayList<Ile> lesVoisins = this.getVoisins();
+        List<Ile> lesVoisins = this.getVoisins();
 
         // pas besoin de faire toutes les étapes en-dessous si la liste est vide
         if (lesVoisins.isEmpty()) {
