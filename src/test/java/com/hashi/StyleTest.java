@@ -52,7 +52,7 @@ public class StyleTest {
 
             panel.add(button);
             panel.add(new Label(style, "test").setFontSize(50));
-            panel.add(new TextField(style, 20).setFontSize(30));
+            panel.add(new TextField(style, 10).setFontSize(30));
             panel.add(new ComboBox<String>(style, combox_content));
 
             add(panel);

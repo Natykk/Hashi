@@ -46,6 +46,13 @@ public class StyleWrapper extends Style {
         style.paintPanel(panel, g);
     }
 
+    public void paintPanelBorder(Panel panel, Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
+        style.paintPanelBorder(panel, g);
+    }
+
     public void initButton(Button button) {
         style.initButton(button);
     }
@@ -55,6 +62,13 @@ public class StyleWrapper extends Style {
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         style.paintButton(button, g);
+    }
+
+    public void paintButtonBorder(Button button, Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
+        style.paintButtonBorder(button, g);
     }
 
     public void initLabel(Label label) {
@@ -68,6 +82,13 @@ public class StyleWrapper extends Style {
         style.paintLabel(label, g);
     }
 
+    public void paintLabelBorder(Label label, Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
+        style.paintLabelBorder(label, g);
+    }
+
     public <E> void initComboBox(ComboBox<E> comboBox) {
         style.initComboBox(comboBox);
     }
@@ -79,6 +100,13 @@ public class StyleWrapper extends Style {
         style.paintComboBox(combo_box, g);
     }
 
+    public <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
+        style.paintComboBoxBorder(combo_box, g);
+    }
+
     public void initTextField(TextField text_field) {
         style.initTextField(text_field);
     }
@@ -88,5 +116,12 @@ public class StyleWrapper extends Style {
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         style.paintTextField(text_field, g);
+    }
+
+    public void paintTextFieldBorder(TextField text_field, Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
+        style.paintTextFieldBorder(text_field, g);
     }
 }
