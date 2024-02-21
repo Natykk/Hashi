@@ -21,11 +21,19 @@ public class SummerStyle extends Style {
         }
     }
 
+    public void paintPanelBorder(Panel panel, Graphics2D g) {
+
+    }
+
     public void initButton(Button button) {
 
     }
 
     public void paintButton(Button button, Graphics2D g) {
+
+    }
+
+    public void paintButtonBorder(Button button, Graphics2D g) {
 
     }
 
@@ -37,6 +45,10 @@ public class SummerStyle extends Style {
 
     }
 
+    public void paintLabelBorder(Label label, Graphics2D g) {
+
+    }
+
     public <E> void initComboBox(ComboBox<E> combo_box) {
 
     }
@@ -45,11 +57,19 @@ public class SummerStyle extends Style {
 
     }
 
+    public <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g) {
+
+    }
+
     public void initTextField(TextField text_field) {
 
     }
 
     public void paintTextField(TextField text_field, Graphics2D g) {
+
+    }
+
+    public void paintTextFieldBorder(TextField text_field, Graphics2D g) {
 
     }
 }

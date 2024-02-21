@@ -46,4 +46,8 @@ public class Panel extends JPanel implements ImageComponent<Panel> {
     protected void paintComponent(Graphics g) {
         style.paintPanel(this, (Graphics2D) g);
     }
+
+    protected void paintBorder(Graphics g) {
+        style.paintPanelBorder(this, (Graphics2D) g);
+    }
 }

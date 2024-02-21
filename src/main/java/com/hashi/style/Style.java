@@ -55,19 +55,29 @@ public abstract class Style {
 
     public abstract void paintPanel(Panel panel, Graphics2D g);
 
+    public abstract void paintPanelBorder(Panel panel, Graphics2D g);
+
     public abstract void initButton(Button button);
 
     public abstract void paintButton(Button button, Graphics2D g);
+
+    public abstract void paintButtonBorder(Button button, Graphics2D g);
 
     public abstract void initLabel(Label label);
 
     public abstract void paintLabel(Label label, Graphics2D g);
 
+    public abstract void paintLabelBorder(Label label, Graphics2D g);
+
     public abstract <E> void initComboBox(ComboBox<E> combo_box);
 
     public abstract <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g);
 
+    public abstract <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g);
+
     public abstract void initTextField(TextField text_field);
 
     public abstract void paintTextField(TextField text_field, Graphics2D g);
+
+    public abstract void paintTextFieldBorder(TextField text_field, Graphics2D g);
 }
