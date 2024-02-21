@@ -13,8 +13,8 @@ public class MenuGeneral2 extends JPanel {
     private JButton arcadeButton;
     private JButton histoireButton;
     private JButton entrainementButton;
-    private Parametre param;
     private PageManager pageManager;
+
     public MenuGeneral2(PageManager pageManager) {
         this.pageManager = pageManager;
         // Initialisation du panneau principal
@@ -29,7 +29,7 @@ public class MenuGeneral2 extends JPanel {
         ImageIcon logo = new ImageIcon(img2);
         logoLabel.setIcon(logo);
 
-this        .add(logoLabel, BorderLayout.NORTH);
+        this.add(logoLabel, BorderLayout.NORTH);
 
         // Création des boutons
         parametresButton = new JButton("Paramètres");
@@ -83,10 +83,10 @@ this        .add(logoLabel, BorderLayout.NORTH);
          * this);
          * 
          * // Rafraîchissement de la fenêtre
-        
-        this .revalidate();
-        
-        this.repaint();
+         * 
+         * this .revalidate();
+         * 
+         * this.repaint();
          * 
          * // Définition de la taille de la fenêtre
          * setSize(600, 400);
@@ -111,7 +111,7 @@ this        .add(logoLabel, BorderLayout.NORTH);
         this.add(groupPanel1, BorderLayout.CENTER);
         this.add(groupPanel2, BorderLayout.SOUTH);
 
-this        .setPreferredSize(new Dimension(5, 2));
+        this.setPreferredSize(new Dimension(5, 2));
 
         // Fermeture de l'application lors de la fermeture de la fenêtre
 
@@ -161,6 +161,5 @@ this        .setPreferredSize(new Dimension(5, 2));
             // Votre code pour le bouton Entraînement
             // ...
         });
-        param = new Parametre(pageManager);
     }
 }

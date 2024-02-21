@@ -12,9 +12,7 @@ public class EcranLancement extends JPanel {
     private JComboBox<String> profilBox;
     private ArrayList<String> profils;
     private JPanel panel1, panel2;
-    // private JLabel logoLabel;
     private PageManager pageManager;
-    private MenuGeneral2 Menu;
 
     public EcranLancement(PageManager pageManager) {
         JButton bouton = new JButton("Valider");
@@ -63,7 +61,6 @@ public class EcranLancement extends JPanel {
 
         // Initialiser panel2 avec un champ JTextField vide
         panel2 = new JPanel(new GridBagLayout());
-        Menu = new MenuGeneral2(pageManager);
         add(panel1);
     }
 

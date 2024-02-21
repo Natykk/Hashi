@@ -147,6 +147,17 @@ public class Hashi extends JFrame {
                 grille.setSelectedCase(null);
             }
 
+            /*
+             * @Test
+             * public void menuGenerale() throws InvocationTargetException,
+             * InterruptedException {
+             * MenuGeneral2 menuGenerale = new MenuGeneral2();
+             * 
+             * while (menuGenerale.isVisible()) {
+             * Thread.sleep(1000);
+             * }
+             * }
+             */
             repaint();
         }
 
