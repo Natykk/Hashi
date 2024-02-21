@@ -5,15 +5,10 @@ import com.hashi.grille.Ile;
 import com.hashi.grille.Jeu;
 import com.hashi.grille.Pont;
 import com.hashi.grille.TimerManager;
-import com.hashi.style.SchoolStyle;
-import com.hashi.style.Style;
-import com.hashi.style.StyleWrapper;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
 import com.hashi.style.Button;
 import com.hashi.grille.Action;
-import com.hashi.*;
-import com.hashi.grille.*;
 
 import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
@@ -43,12 +38,6 @@ public class Hashi extends JFrame {
     private static final int default_height = 720;
 
     /**
-     * {@link com.hashi.style.StyleWrapper} contenant le thème grahique courant du
-     * jeu.
-     */
-    public static final StyleWrapper style = new StyleWrapper((Style) new SchoolStyle());
-
-    /**
      * Créer la {@link javax.swing.JFrame} du jeu.
      * 
      * @param grille la grille contenant la logique du jeu.
@@ -63,25 +52,25 @@ public class Hashi extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        Panel mainPanel = new Panel(style, new BorderLayout(), "bg-jeu.png");
+        Panel mainPanel = new Panel(new BorderLayout(), "bg-jeu.png");
 
-        Panel buttonPanel = new Panel(style, new GridLayout(8, 1));
+        Panel buttonPanel = new Panel(new GridLayout(8, 1));
         for (int i = 0; i < 6; i++) {
             JButton button = new JButton("Bouton " + (i + 1));
             buttonPanel.add(button);
         }
 
-        undoButton = new Button(style).setImage("btn-arriere.png");
-        redoButton = new Button(style).setImage("btn-avant.png");
+        undoButton = new Button().setImage("btn-arriere.png");
+        redoButton = new Button().setImage("btn-avant.png");
         buttonPanel.add(undoButton);
         buttonPanel.add(redoButton);
 
-        Label timerLabel = new Label(style, "00:00").setAsRawText().setFontSize(100);
+        Label timerLabel = new Label("00:00").setAsRawText().setFontSize(100);
         mainPanel.add(timerLabel, BorderLayout.NORTH);
         this.timerManager = new TimerManager(timerLabel);
 
         mainPanel.add(buttonPanel, BorderLayout.WEST);
-        mainPanel.add(new PuzzlePanel(style), BorderLayout.CENTER);
+        mainPanel.add(new PuzzlePanel(), BorderLayout.CENTER);
 
         add(mainPanel);
         setLocationRelativeTo(null);
@@ -145,9 +134,7 @@ public class Hashi extends JFrame {
             System.out.println("Nombre de ponts : " + grille.getPonts().size());
         }
 
-        public PuzzlePanel(StyleWrapper style) {
-            super(style);
-
+        public PuzzlePanel() {
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {

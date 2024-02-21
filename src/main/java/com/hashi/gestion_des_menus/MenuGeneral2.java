@@ -15,6 +15,7 @@ public class MenuGeneral2 extends JPanel {
     private JButton entrainementButton;
     private Parametre param;
     private PageManager pageManager;
+
     public MenuGeneral2(PageManager pageManager) {
         this.pageManager = pageManager;
         // Initialisation du panneau principal

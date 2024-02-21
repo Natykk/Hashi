@@ -4,10 +4,15 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 public class StyleWrapper extends Style {
+    private static final StyleWrapper instance = new StyleWrapper();
     private Style style;
 
-    public StyleWrapper(Style style) {
-        switchStyle(style);
+    private StyleWrapper() {
+        switchStyle(new SchoolStyle());
+    }
+
+    public static StyleWrapper getInstance() {
+        return instance;
     }
 
     public void switchStyle(Style style) {

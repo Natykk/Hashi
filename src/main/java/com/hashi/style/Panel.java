@@ -8,29 +8,27 @@ import javax.swing.*;
 
 public class Panel extends JPanel implements ImageComponent<Panel> {
     private Image image;
-    private StyleWrapper style;
 
-    public Panel(StyleWrapper style) {
+    public Panel() {
         super();
-        init(style);
+        init();
     }
 
-    public Panel(StyleWrapper style, LayoutManager layout) {
+    public Panel(LayoutManager layout) {
         super(layout);
-        init(style);
+        init();
     }
 
-    public Panel(StyleWrapper style, LayoutManager layout, String image_res) {
+    public Panel(LayoutManager layout, String image_res) {
         super(layout);
-        init(style);
+        init();
         setImage(image_res);
     }
 
-    private void init(StyleWrapper style) {
-        this.style = style;
-        this.image = new Image(style, this);
+    private void init() {
+        this.image = new Image(this);
 
-        style.initPanel(this);
+        StyleWrapper.getInstance().initPanel(this);
     }
 
     public Panel setImage(String image_res) {
@@ -45,11 +43,11 @@ public class Panel extends JPanel implements ImageComponent<Panel> {
 
     @Override
     protected void paintComponent(Graphics g) {
-        style.paintPanel(this, (Graphics2D) g);
+        StyleWrapper.getInstance().paintPanel(this, (Graphics2D) g);
     }
 
     @Override
     protected void paintBorder(Graphics g) {
-        style.paintPanelBorder(this, (Graphics2D) g);
+        StyleWrapper.getInstance().paintPanelBorder(this, (Graphics2D) g);
     }
 }

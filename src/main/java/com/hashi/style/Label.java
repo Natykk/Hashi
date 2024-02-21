@@ -7,24 +7,21 @@ import javax.swing.*;
 import com.hashi.Language;
 
 public class Label extends JLabel implements FontSize<Label> {
-    private StyleWrapper style;
     private int font_size = 20;
     private boolean is_raw_text = false;
 
-    public Label(StyleWrapper style) {
+    public Label() {
         super();
-        init(style);
+        init();
     }
 
-    public Label(StyleWrapper style, String text) {
+    public Label(String text) {
         super(text);
-        init(style);
+        init();
     }
 
-    private void init(StyleWrapper style) {
-        this.style = style;
-
-        style.initLabel(this);
+    private void init() {
+        StyleWrapper.getInstance().initLabel(this);
     }
 
     public Label setAsRawText() {
@@ -36,7 +33,7 @@ public class Label extends JLabel implements FontSize<Label> {
     public Label setFontSize(int size) {
         font_size = size;
 
-        style.initLabel(this);
+        StyleWrapper.getInstance().initLabel(this);
 
         return this;
     }
@@ -47,9 +44,6 @@ public class Label extends JLabel implements FontSize<Label> {
 
     @Override
     public String getText() {
-        if (style == null)
-            return "";
-
         if (is_raw_text)
             return super.getText();
 
@@ -62,11 +56,11 @@ public class Label extends JLabel implements FontSize<Label> {
 
     @Override
     protected void paintComponent(Graphics g) {
-        style.paintLabel(this, (Graphics2D) g);
+        StyleWrapper.getInstance().paintLabel(this, (Graphics2D) g);
     }
 
     @Override
     protected void paintBorder(Graphics g) {
-        style.paintLabelBorder(this, (Graphics2D) g);
+        StyleWrapper.getInstance().paintLabelBorder(this, (Graphics2D) g);
     }
 }
