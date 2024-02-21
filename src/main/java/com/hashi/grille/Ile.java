@@ -217,7 +217,7 @@ public class Ile extends Case {
         lesVoisins.add(grille.getVoisinSansPont(this, "gauche"));
         lesVoisins.add(grille.getVoisinSansPont(this, "droite"));
 
-        // la méthode getVoisin ne permet pas de récupérer les îles voisines qui sont
+        // la méthode getVoisinSansPont ne permet pas de récupérer les îles voisines qui sont
         // déjà reliées par un pont, donc
         List<Pont> sesPonts = this.listePont;
 
