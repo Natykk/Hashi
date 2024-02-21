@@ -22,16 +22,6 @@ public class MenuGeneral2 extends JPanel {
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createLineBorder(Color.black));
 
-        // Ajout du logo
-        logoLabel = new JLabel(new ImageIcon(getClass().getResource("../theme/school/logo.png")));
-        // Resize the image to fit the window
-        Image img = new ImageIcon(getClass().getResource("../theme/school/logo.png")).getImage();
-        Image img2 = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        ImageIcon logo = new ImageIcon(img2);
-        logoLabel.setIcon(logo);
-
-        this.add(logoLabel, BorderLayout.NORTH);
-
         // Création des boutons
         parametresButton = new JButton("Paramètres");
         changerProfilButton = new JButton("Changer de profil");
@@ -49,11 +39,6 @@ public class MenuGeneral2 extends JPanel {
         arcadeButton.setMaximumSize(new Dimension(20, 25));
         histoireButton.setMaximumSize(new Dimension(20, 25));
         entrainementButton.setMaximumSize(new Dimension(20, 25));
-
-        // Ajout d'une image d'arrière-plan a la fenêtre
-        ImageIcon bg = new ImageIcon(getClass().getResource("../theme/school/bg-principal.png"));
-        JLabel background = new JLabel(bg);
-        this.add(background);
 
         // Ajout des boutons au panneau principal
 

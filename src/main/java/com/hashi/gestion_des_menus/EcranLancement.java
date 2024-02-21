@@ -48,17 +48,6 @@ public class EcranLancement extends JPanel {
         panel1.add(profilBox, createGbc(1, 0));
         panel1.add(bouton, createGbc(2, 2));
 
-        // à regler (logo)
-        /*
-         * logoLabel = new JLabel(new ImageIcon("logo.png"));
-         * // Resize the image to fit the window
-         * Image img = new ImageIcon("logo.png").getImage();
-         * Image img2 = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-         * ImageIcon logo = new ImageIcon(img2);
-         * logoLabel.setIcon(logo);
-         * panel1.add(logoLabel);
-         */
-
         // Initialiser panel2 avec un champ JTextField vide
         panel2 = new JPanel(new GridBagLayout());
         add(panel1);
@@ -80,17 +69,6 @@ public class EcranLancement extends JPanel {
     private void PageNouveauProfil() {
         // si elle est vide on va creer la page du nouveau profil
         if (estPageVide()) {
-            // à regler (logo)
-            /*
-             * logoLabel = new JLabel(new ImageIcon("logo.png"));
-             * // Resize the image to fit the window
-             * Image img = new ImageIcon("logo.png").getImage();
-             * Image img2 = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-             * ImageIcon logo = new ImageIcon(img2);
-             * logoLabel.setIcon(logo);
-             * panel2.add(logoLabel);
-             */
-
             JTextField nouveauprofilField;
             panel2.add(new JLabel("Créer un nouveau profil : "), createGbc(0, 0));
             panel2.add(nouveauprofilField = new JTextField(8), createGbc(1, 0));

@@ -14,13 +14,14 @@ public class Parametre extends JPanel {
 
         // Créer un panel pour contenir les boutons
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS)); // Utiliser BoxLayout pour aligner les composants verticalement
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS)); // Utiliser BoxLayout pour aligner les
+                                                                               // composants verticalement
 
         // Ajouter un espace vertical au-dessus des boutons pour les centrer
         buttonsPanel.add(Box.createVerticalGlue());
 
         // Création d'un bouton déroulant pour les thèmes
-        String[] themes = {"Thème 1", "Thème 2", "Thème 3"}; // Exemple de thèmes
+        String[] themes = { "Thème 1", "Thème 2", "Thème 3" }; // Exemple de thèmes
         JComboBox<String> themeBox = new JComboBox<>(themes);
         themeBox.setPreferredSize(new Dimension(150, 30)); // Ajuster la taille du bouton déroulant
         themeBox.setMaximumSize(new Dimension(150, 30)); // Définir une taille maximale
@@ -32,7 +33,7 @@ public class Parametre extends JPanel {
         buttonsPanel.add(Box.createVerticalStrut(20)); // Espacement de 20 pixels
 
         // Création d'un autre bouton déroulant pour les options
-        String[] options = {"Option 1", "Option 2", "Option 3"}; // Exemple d'options
+        String[] options = { "Option 1", "Option 2", "Option 3" }; // Exemple d'options
         JComboBox<String> optionsBox = new JComboBox<>(options);
         optionsBox.setPreferredSize(new Dimension(150, 30)); // Ajuster la taille du bouton déroulant
         optionsBox.setMaximumSize(new Dimension(150, 30)); // Définir une taille maximale
@@ -54,10 +55,3 @@ public class Parametre extends JPanel {
         add(buttonsPanel, BorderLayout.CENTER);
     }
 }
-
-
-
-
-
-
-

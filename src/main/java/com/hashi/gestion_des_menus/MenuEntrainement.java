@@ -12,14 +12,12 @@ public class MenuEntrainement extends JFrame {
     public MenuEntrainement() {
         super("Menu de Sélection de Niveau - Hashi");
 
-
-
         // Bouton Retour en haut à droite
         JButton retourButton = new JButton("Retour");
 
         // Création des boutons de niveaux
         JButton[][] niveauButtons = new JButton[3][6];
-        String[] niveaux = {"Facile", "Moyen", "Difficile"};
+        String[] niveaux = { "Facile", "Moyen", "Difficile" };
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 6; j++) {
@@ -45,7 +43,6 @@ public class MenuEntrainement extends JFrame {
         mainPanel.add(retourButton, BorderLayout.NORTH);
         mainPanel.add(niveauPanel, BorderLayout.CENTER);
 
-
         // Ajout du panel principal à la fenêtre
         add(mainPanel);
 
@@ -69,18 +66,17 @@ public class MenuEntrainement extends JFrame {
                     Jeu jd = new Jeu();
                     jd.genererGrilleDepuisFichier("grille.txt");
                     Grille grille;
-                    if(finalI == 0){
-                         grille = jd.listeGrille.get(finalJ);
-                    }else{
-                         grille = jd.listeGrille.get(finalJ*finalI);
+                    if (finalI == 0) {
+                        grille = jd.listeGrille.get(finalJ);
+                    } else {
+                        grille = jd.listeGrille.get(finalJ * finalI);
                     }
-                    
-                    //affiche la grille dans une fenêtre
+
+                    // affiche la grille dans une fenêtre
                     Hashi hashi = new Hashi(grille);
                 });
             }
         }
-
 
     }
 

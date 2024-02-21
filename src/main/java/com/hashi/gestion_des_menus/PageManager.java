@@ -2,8 +2,8 @@ package com.hashi.gestion_des_menus;
 
 import javax.swing.*;
 
-public class PageManager extends JFrame{
-    public PageManager(){
+public class PageManager extends JFrame {
+    public PageManager() {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(1280, 720);
