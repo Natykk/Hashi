@@ -165,11 +165,13 @@ public class Grille extends MouseAdapter {
         String res = "";
         for (int i = 0; i < this.taille; i++) {
             for (int j = 0; j < this.taille; j++) {
-                if (this.table[i][j] == null) {
-                    res += " ";
+                if (this.table[i][j].estVide()) {
+                    res += "_";
                 } else {
                     res += this.table[i][j].afficher();
                 }
+
+                res += " ";
             }
             res += "\n";
         }
