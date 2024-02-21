@@ -8,7 +8,10 @@ public class StyleManager extends Style {
     private Style style;
 
     private StyleManager() {
-        switchStyle(new SchoolStyle());
+        this.style = new SchoolStyle();
+        this.bg_color = this.style.bg_color;
+        this.fg_color = this.style.fg_color;
+        this.font = this.style.font;
     }
 
     public static StyleManager getInstance() {
@@ -18,11 +21,11 @@ public class StyleManager extends Style {
         return instance;
     }
 
-    public void switchStyle(Style style) {
-        this.style = style;
-        bg_color = style.bg_color;
-        fg_color = style.fg_color;
-        font = style.font;
+    public static void setStyle(Style style) {
+        getInstance().style = style;
+        getInstance().bg_color = style.bg_color;
+        getInstance().fg_color = style.fg_color;
+        getInstance().font = style.font;
     }
 
     @Override
@@ -35,90 +38,90 @@ public class StyleManager extends Style {
         return style.getResourcePath(res);
     }
 
-    public void initPanel(Panel panel) {
+    protected void initPanel(Panel panel) {
         style.initPanel(panel);
     }
 
-    public void paintPanel(Panel panel, Graphics2D g) {
+    protected void paintPanel(Panel panel, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         style.paintPanel(panel, g);
     }
 
-    public void paintPanelBorder(Panel panel, Graphics2D g) {
+    protected void paintPanelBorder(Panel panel, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         style.paintPanelBorder(panel, g);
     }
 
-    public void initButton(Button button) {
+    protected void initButton(Button button) {
         style.initButton(button);
     }
 
-    public void paintButton(Button button, Graphics2D g) {
+    protected void paintButton(Button button, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         style.paintButton(button, g);
     }
 
-    public void paintButtonBorder(Button button, Graphics2D g) {
+    protected void paintButtonBorder(Button button, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         style.paintButtonBorder(button, g);
     }
 
-    public void initLabel(Label label) {
+    protected void initLabel(Label label) {
         style.initLabel(label);
     }
 
-    public void paintLabel(Label label, Graphics2D g) {
+    protected void paintLabel(Label label, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         style.paintLabel(label, g);
     }
 
-    public void paintLabelBorder(Label label, Graphics2D g) {
+    protected void paintLabelBorder(Label label, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         style.paintLabelBorder(label, g);
     }
 
-    public <E> void initComboBox(ComboBox<E> comboBox) {
+    protected <E> void initComboBox(ComboBox<E> comboBox) {
         style.initComboBox(comboBox);
     }
 
-    public <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
+    protected <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         style.paintComboBox(combo_box, g);
     }
 
-    public <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g) {
+    protected <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         style.paintComboBoxBorder(combo_box, g);
     }
 
-    public void initTextField(TextField text_field) {
+    protected void initTextField(TextField text_field) {
         style.initTextField(text_field);
     }
 
-    public void paintTextField(TextField text_field, Graphics2D g) {
+    protected void paintTextField(TextField text_field, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         style.paintTextField(text_field, g);
     }
 
-    public void paintTextFieldBorder(TextField text_field, Graphics2D g) {
+    protected void paintTextFieldBorder(TextField text_field, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 

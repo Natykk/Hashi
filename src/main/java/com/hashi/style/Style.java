@@ -51,33 +51,33 @@ public abstract class Style {
         return new ImageIcon(Style.class.getResource(image_url));
     }
 
-    public abstract void initPanel(Panel panel);
+    protected abstract void initPanel(Panel panel);
 
-    public abstract void paintPanel(Panel panel, Graphics2D g);
+    protected abstract void paintPanel(Panel panel, Graphics2D g);
 
-    public abstract void paintPanelBorder(Panel panel, Graphics2D g);
+    protected abstract void paintPanelBorder(Panel panel, Graphics2D g);
 
-    public abstract void initButton(Button button);
+    protected abstract void initButton(Button button);
 
-    public abstract void paintButton(Button button, Graphics2D g);
+    protected abstract void paintButton(Button button, Graphics2D g);
 
-    public abstract void paintButtonBorder(Button button, Graphics2D g);
+    protected abstract void paintButtonBorder(Button button, Graphics2D g);
 
-    public abstract void initLabel(Label label);
+    protected abstract void initLabel(Label label);
 
-    public abstract void paintLabel(Label label, Graphics2D g);
+    protected abstract void paintLabel(Label label, Graphics2D g);
 
-    public abstract void paintLabelBorder(Label label, Graphics2D g);
+    protected abstract void paintLabelBorder(Label label, Graphics2D g);
 
-    public abstract <E> void initComboBox(ComboBox<E> combo_box);
+    protected abstract <E> void initComboBox(ComboBox<E> combo_box);
 
-    public abstract <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g);
+    protected abstract <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g);
 
-    public abstract <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g);
+    protected abstract <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g);
 
-    public abstract void initTextField(TextField text_field);
+    protected abstract void initTextField(TextField text_field);
 
-    public abstract void paintTextField(TextField text_field, Graphics2D g);
+    protected abstract void paintTextField(TextField text_field, Graphics2D g);
 
-    public abstract void paintTextFieldBorder(TextField text_field, Graphics2D g);
+    protected abstract void paintTextFieldBorder(TextField text_field, Graphics2D g);
 }
