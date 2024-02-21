@@ -27,23 +27,20 @@ public class Pont extends Case {
     }
 
     public void draw(Graphics g)  {
-        g.setColor(Color.ORANGE);
+        
         System.out.println("-Pont : " + this.ile1.nbConnexions() + " " + this.ile2.nbConnexions());
 
-        if (this.ile1.nb_connexion() <= 1 || this.ile2.nb_connexion() <= 1) {
-            System.out.println("--Pont simple");
-            
+        if (!this.estDouble) {
+            System.out.println("--Pont simple / " + this.estDouble);
+            System.out.println("Pont qui relie " + this.ile1.getValeur() + " à " + this.ile2.getValeur());
             try {
-                if (this.estHorizontal()) {
+                g.setColor(Color.ORANGE);
+                if(!this.estHorizontal()){
                     System.out.println("---Pont horizontal");
-                    g.setColor(Color.RED);
-                    // Le pont est horizontal donc on dessine un pont horizontal
-                    g.drawLine(ile1.x, ile1.y - 10, ile2.x, ile2.y - 5);
+                    g.drawLine(ile1.x, ile1.y, ile2.x, ile2.y);
                 } else {
                     System.out.println("---Pont vertical");
-                    g.setColor(Color.BLUE);
-                    // Le pont est vertical donc on dessine un pont vertical
-                    g.drawLine(ile1.x + 10, ile1.y, ile2.x + 10, ile2.y);
+                    g.drawLine(ile1.x, ile1.y, ile2.x, ile2.y);
                 }
             } catch (InvalidAttributeValueException e) {
                 e.printStackTrace();
@@ -51,32 +48,28 @@ public class Pont extends Case {
         }
 
         // Efface le pont déjà existant et affiche un pont double
-        if (this.ile1.nb_connexion() > 1 || this.ile2.nb_connexion() > 1) {
-            System.out.println("--Pont double");
-
+        if (this.estDouble) {
+            System.out.println("--Pont double"+this.estDouble());
+            System.out.println("Pont qui relie " + this.ile1.getValeur() + " à " + this.ile2.getValeur());
             try {
-                if (this.estHorizontal()) {
+                g.setColor(Color.RED);
+                if(!this.estHorizontal()){
                     System.out.println("---Pont horizontal");
-                    g.setColor(Color.YELLOW);
-                    // Le pont est horizontal donc on dessine un pont horizontal
-                    g.drawLine(ile1.x - 5, ile1.y - 10, ile2.x - 5, ile2.y - 10);
-                    g.setColor(Color.GREEN);
-                    // Fait un autre pont légèrement à droite
-                    g.drawLine(ile1.x + 5, ile1.y + 10, ile2.x + 5, ile2.y + 10);
+                    g.drawLine(ile1.x, ile1.y, ile2.x, ile2.y);
+                    g.drawLine(ile1.x, ile1.y + 1, ile2.x, ile2.y + 1);
                 } else {
                     System.out.println("---Pont vertical");
-                    g.setColor(Color.MAGENTA);
-                    // Le pont est vertical donc on dessine un pont vertical
-                    g.drawLine(ile1.x - 10, ile1.y + 5, ile2.x - 10, ile2.y + 5);
-                    // Fait un autre pont légèrement en bas
-                    g.setColor(Color.PINK);
-                    g.drawLine(ile1.x + 10, ile1.y - 5, ile2.x + 10, ile2.y - 5);
+                    g.drawLine(ile1.x, ile1.y, ile2.x, ile2.y);
+                    g.drawLine(ile1.x + 1, ile1.y, ile2.x + 1, ile2.y);
                 }
             } catch (InvalidAttributeValueException e) {
+                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
+        
         System.out.println("-Pont dessiné");
+
     }
 
     public Rectangle getBounds() {
