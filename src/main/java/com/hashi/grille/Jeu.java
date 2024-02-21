@@ -29,13 +29,14 @@ public class Jeu {
             while ((line = br.readLine()) != null) {
 
                 if (line.trim().isEmpty()) {
+                    // si la ligne est vide, on passe
                     continue;
                 }
 
                 if (line.trim().equals("-")) {
-
-                    this.listeGrille.add(grilleTemp);
-                    grilleTemp = new Grille(7);
+                    // si la ligne contient juste un "-", la grille créée dans grilleTemp est finie
+                    this.listeGrille.add(grilleTemp); // ajouter la grille à la liste de Grilles du Jeu
+                    grilleTemp = new Grille(7); // créer une nouvelle grille
                     this.numGrille++;
                     row = 0; // Reset row for the new grid
                     continue;
@@ -48,6 +49,7 @@ public class Jeu {
                         int value = Integer.parseInt(values[col]);
 
                         if (value > 0) {
+                            // il y a une Ile
                             Ile ile = new Ile(value, row, col, grilleTemp);
                             grilleTemp.ajouterIle(ile);
 
@@ -55,7 +57,7 @@ public class Jeu {
                         }
                     }
                 }
-
+                // on passe à a ligne suivante
                 row++;
             }
 
