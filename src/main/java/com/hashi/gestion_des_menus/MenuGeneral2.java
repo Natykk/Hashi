@@ -13,8 +13,8 @@ public class MenuGeneral2 extends JPanel {
     private JButton arcadeButton;
     private JButton histoireButton;
     private JButton entrainementButton;
+    private Parametre param;
     private PageManager pageManager;
-
     public MenuGeneral2(PageManager pageManager) {
         this.pageManager = pageManager;
         // Initialisation du panneau principal
@@ -77,24 +77,6 @@ public class MenuGeneral2 extends JPanel {
         groupButton2.setOpaque(false);
         this.add(groupButton2, BorderLayout.SOUTH);
 
-        // Ajout du panneau principal à la fenêtre
-        /*
-         * setContentPa
-         * this);
-         * 
-         * // Rafraîchissement de la fenêtre
-         * 
-         * this .revalidate();
-         * 
-         * this.repaint();
-         * 
-         * // Définition de la taille de la fenêtre
-         * setSize(600, 400);
-         * 
-         * // Affichage de la fenêtre
-         * setVisible(true);
-         */
-
         // Panneau pour le groupe 1
         JPanel groupPanel1 = new JPanel();
         groupPanel1.setLayout(new BorderLayout());
@@ -122,30 +104,29 @@ public class MenuGeneral2 extends JPanel {
 
         // Action du bouton "Paramètres"
         parametresButton.addActionListener(e -> {
-            // Votre code pour le bouton Paramètres
-            System.out.println("test");
+            // changement de page -> parametre
             pageManager.changerPage(new Parametre(pageManager));
         });
 
         // Action du bouton "Changer de profil"
 
         changerProfilButton.addActionListener(e -> {
-            // Votre code pour le bouton Changer de profil
-            // ...
+            // changement de page -> changer profil
+            pageManager.changerPage(new EcranLancement(pageManager));
         });
 
         // Action du bouton "Règles"
 
         reglesButton.addActionListener(e -> {
-            // Votre code pour le bouton Règles
+            // changement de page -> Aide
             // ...
         });
 
         // Action du bouton "Arcade"
 
         arcadeButton.addActionListener(e -> {
-            // Votre code pour le bouton Arcade
-            // ...
+            // changement de page -> Mode Arcade
+            pageManager.changerPage(new PageMode(pageManager));
         });
 
         // Action du bouton "Histoire"
@@ -161,5 +142,6 @@ public class MenuGeneral2 extends JPanel {
             // Votre code pour le bouton Entraînement
             // ...
         });
+        param = new Parametre(pageManager);
     }
 }
