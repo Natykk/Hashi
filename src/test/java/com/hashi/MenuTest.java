@@ -7,8 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import com.hashi.gestion_des_menus.EcranLancement;
-import com.hashi.gestion_des_menus.MenuGeneral2;
+import com.hashi.gestion_des_menus.PageManager;
 
 public class MenuTest {
     @BeforeEach
@@ -24,20 +23,11 @@ public class MenuTest {
     }
 
     @Test
-    public void ecranLancement() throws InvocationTargetException,
+    public void pageManager() throws InvocationTargetException,
             InterruptedException {
-        EcranLancement ecranLancement = new EcranLancement();
+        PageManager pageManager = new PageManager();
 
-        while (ecranLancement.isVisible()) {
-            Thread.sleep(1000);
-        }
-    }
-
-    @Test
-    public void menuGenerale() throws InvocationTargetException, InterruptedException {
-        MenuGeneral2 menuGenerale = new MenuGeneral2();
-
-        while (menuGenerale.isVisible()) {
+        while (pageManager.isVisible()) {
             Thread.sleep(1000);
         }
     }

@@ -61,4 +61,8 @@ public class Label extends JLabel implements FontSize<Label> {
     protected void paintComponent(Graphics g) {
         style.paintLabel(this, (Graphics2D) g);
     }
+
+    protected void paintBorder(Graphics g) {
+        style.paintLabelBorder(this, (Graphics2D) g);
+    }
 }

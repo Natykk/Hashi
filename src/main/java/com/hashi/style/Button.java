@@ -64,4 +64,8 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
     protected void paintComponent(Graphics g) {
         style.paintButton(this, (Graphics2D) g);
     }
+
+    protected void paintBorder(Graphics g) {
+        style.paintButtonBorder(this, (Graphics2D) g);
+    }
 }

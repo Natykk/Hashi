@@ -3,9 +3,8 @@ package com.hashi.gestion_des_menus;
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuGeneral2 extends JFrame {
+public class MenuGeneral2 extends JPanel {
 
-    private JPanel mainPanel;
     private JLabel logoLabel;
     private JButton parametresButton;
     private JButton changerProfilButton;
@@ -14,16 +13,13 @@ public class MenuGeneral2 extends JFrame {
     private JButton arcadeButton;
     private JButton histoireButton;
     private JButton entrainementButton;
-    private Parametre param;
+    private PageManager pageManager;
 
-    public MenuGeneral2() {
-        // Définition du titre de la fenêtre
-        setTitle("Menu de Sélection");
-
+    public MenuGeneral2(PageManager pageManager) {
+        this.pageManager = pageManager;
         // Initialisation du panneau principal
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-        mainPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.setLayout(new BorderLayout());
+        this.setBorder(BorderFactory.createLineBorder(Color.black));
 
         // Ajout du logo
         logoLabel = new JLabel(new ImageIcon(getClass().getResource("../theme/school/logo.png")));
@@ -33,7 +29,7 @@ public class MenuGeneral2 extends JFrame {
         ImageIcon logo = new ImageIcon(img2);
         logoLabel.setIcon(logo);
 
-        mainPanel.add(logoLabel, BorderLayout.NORTH);
+        this.add(logoLabel, BorderLayout.NORTH);
 
         // Création des boutons
         parametresButton = new JButton("Paramètres");
@@ -56,7 +52,7 @@ public class MenuGeneral2 extends JFrame {
         // Ajout d'une image d'arrière-plan a la fenêtre
         ImageIcon bg = new ImageIcon(getClass().getResource("../theme/school/bg-principal.png"));
         JLabel background = new JLabel(bg);
-        mainPanel.add(background);
+        this.add(background);
 
         // Ajout des boutons au panneau principal
 
@@ -68,7 +64,7 @@ public class MenuGeneral2 extends JFrame {
         groupButton.add(histoireButton);
         groupButton.add(entrainementButton);
         groupButton.setOpaque(false);
-        mainPanel.add(groupButton, BorderLayout.CENTER);
+        this.add(groupButton, BorderLayout.CENTER);
 
         // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
         // paramètres, changer de profil, règles et quitter
@@ -79,15 +75,18 @@ public class MenuGeneral2 extends JFrame {
         groupButton2.add(reglesButton);
         groupButton2.add(quitterButton);
         groupButton2.setOpaque(false);
-        mainPanel.add(groupButton2, BorderLayout.SOUTH);
+        this.add(groupButton2, BorderLayout.SOUTH);
 
         // Ajout du panneau principal à la fenêtre
         /*
-         * setContentPane(mainPanel);
+         * setContentPa
+         * this);
          * 
          * // Rafraîchissement de la fenêtre
-         * mainPanel.revalidate();
-         * mainPanel.repaint();
+         * 
+         * this .revalidate();
+         * 
+         * this.repaint();
          * 
          * // Définition de la taille de la fenêtre
          * setSize(600, 400);
@@ -109,13 +108,12 @@ public class MenuGeneral2 extends JFrame {
         groupPanel2.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 
         // Ajout des panneaux au panneau principal
-        mainPanel.add(groupPanel1, BorderLayout.CENTER);
-        mainPanel.add(groupPanel2, BorderLayout.SOUTH);
+        this.add(groupPanel1, BorderLayout.CENTER);
+        this.add(groupPanel2, BorderLayout.SOUTH);
 
-        mainPanel.setPreferredSize(new Dimension(5, 2));
+        this.setPreferredSize(new Dimension(5, 2));
 
         // Fermeture de l'application lors de la fermeture de la fenêtre
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         // Action du bouton "Quitter"
         quitterButton.addActionListener(e -> {
@@ -125,7 +123,8 @@ public class MenuGeneral2 extends JFrame {
         // Action du bouton "Paramètres"
         parametresButton.addActionListener(e -> {
             // Votre code pour le bouton Paramètres
-            PageManager.changerPage(MenuGeneral2.this, param.getJPanel());
+            System.out.println("test");
+            pageManager.changerPage(new Parametre(pageManager));
         });
 
         // Action du bouton "Changer de profil"
@@ -162,14 +161,5 @@ public class MenuGeneral2 extends JFrame {
             // Votre code pour le bouton Entraînement
             // ...
         });
-
-        add(mainPanel);
-        setLocationRelativeTo(null);
-        setSize(400, 400);
-        setVisible(true);
-    }
-
-    public JPanel getPanel() {
-        return mainPanel;
     }
 }

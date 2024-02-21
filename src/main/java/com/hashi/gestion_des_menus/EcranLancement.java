@@ -7,20 +7,16 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 
-public class EcranLancement extends JFrame {
+public class EcranLancement extends JPanel {
 
     private JComboBox<String> profilBox;
     private ArrayList<String> profils;
     private JPanel panel1, panel2;
-    // private JLabel logoLabel;
-    private EcranAcceuil ecranAcceuil;
-    // private Menu_General2 Menu;
+    private PageManager pageManager;
 
-    public EcranLancement() {
-        super("Hashi");
-
+    public EcranLancement(PageManager pageManager) {
         JButton bouton = new JButton("Valider");
-
+        this.pageManager = pageManager;
         // Charger les profils depuis le fichier "profils.txt"
         chargerprofils();
 
@@ -35,8 +31,8 @@ public class EcranLancement extends JFrame {
                     PageNouveauProfil();
                 } else {
                     System.out.println("Vous avez choisi : " + profilChoisi);
-                    // Changement du page => EcranAcceuil
-                    PageManager.changerPage(EcranLancement.this, ecranAcceuil.getPanel());
+                    // Changement du page => Menu
+                    pageManager.changerPage(new MenuGeneral2(pageManager));
                 }
             }
         });
@@ -65,12 +61,7 @@ public class EcranLancement extends JFrame {
 
         // Initialiser panel2 avec un champ JTextField vide
         panel2 = new JPanel(new GridBagLayout());
-        ecranAcceuil = new EcranAcceuil();
         add(panel1);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setSize(400, 400);
-        setVisible(true);
     }
 
     // vérifier si la page est vide
@@ -111,11 +102,11 @@ public class EcranLancement extends JFrame {
                     String nouveauprofil = nouveauprofilField.getText();
                     // si on saisie rien il affiche un message d'erreur
                     if (nouveauprofil.trim().isEmpty()) {
-                        PageManager.MessageErreur(EcranLancement.this, "Veuillez entrer un nom du profil valide.",
+                        pageManager.MessageErreur("Veuillez entrer un nom du profil valide.",
                                 "Erreur");
                         // si on saisie un message déjà exsistant on affiche un message d'erreur
                     } else if (profilExisteDeja(nouveauprofil)) {
-                        PageManager.MessageErreur(EcranLancement.this, "Ce profil existe déja",
+                        pageManager.MessageErreur("Ce profil existe déja",
                                 "Erreur");
                     } else {
                         System.out.println("Nouveau profil créé : " + nouveauprofil);
@@ -128,7 +119,7 @@ public class EcranLancement extends JFrame {
                         // Sélectionner le nouveau profil ajouté
                         profilBox.setSelectedItem(nouveauprofil);
                         // Afficher un message de confirmation pour le nouveau profil créé
-                        PageManager.changerPage(EcranLancement.this, ecranAcceuil.getPanel());
+                        pageManager.changerPage(new MenuGeneral2(pageManager));
                     }
                 }
             });
@@ -139,16 +130,16 @@ public class EcranLancement extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Retour à la page précédente (panel1)
-                    PageManager.changerPage(EcranLancement.this, panel1);
+                    pageManager.changerPage(panel1);
                 }
             });
             panel2.add(annuler, createGbc(0, 1));
 
             // Changer de page vers panel2
-            PageManager.changerPage(this, panel2);
+            pageManager.changerPage(panel2);
         } else {
             // La page n'est pas vide, simplement changer de page vers panel2
-            PageManager.changerPage(this, panel2);
+            pageManager.changerPage(panel2);
         }
 
     }

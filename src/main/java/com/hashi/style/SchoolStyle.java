@@ -3,13 +3,17 @@ package com.hashi.style;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics2D;
+import java.awt.Image;
 
 public class SchoolStyle extends Style {
+    private Image button_border_image;
+
     public SchoolStyle() {
         name = "school";
         bg_color = Color.decode("#e4e099");
         fg_color = Color.decode("#585510");
         font = getFontResource(getResourcePath("kindergarten.ttf"));
+        button_border_image = getImageResource(getResourcePath("btn-border.png")).getImage();
     }
 
     private <T extends Component & ImageComponent<?>> void drawImage(T image_component, Graphics2D g,
@@ -43,6 +47,10 @@ public class SchoolStyle extends Style {
         drawImage(panel, g, false);
     }
 
+    public void paintPanelBorder(Panel panel, Graphics2D g) {
+
+    }
+
     public void initButton(Button button) {
         button.setFont(font.deriveFont(0, button.getFontSize()));
     }
@@ -58,6 +66,11 @@ public class SchoolStyle extends Style {
                 (button.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
     }
 
+    public void paintButtonBorder(Button button, Graphics2D g) {
+        if (button.getImage() == null)
+            g.drawImage(button_border_image, 0, 0, button.getWidth(), button.getHeight(), null);
+    }
+
     public void initLabel(Label label) {
         label.setFont(font.deriveFont(0, label.getFontSize()));
     }
@@ -71,6 +84,10 @@ public class SchoolStyle extends Style {
                 (label.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
     }
 
+    public void paintLabelBorder(Label label, Graphics2D g) {
+
+    }
+
     public <E> void initComboBox(ComboBox<E> combo_box) {
         combo_box.setFont(font.deriveFont(0, combo_box.getFontSize()));
     }
@@ -82,6 +99,10 @@ public class SchoolStyle extends Style {
                 combo_box.getSelectedItem().toString(),
                 5,
                 (combo_box.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
+    }
+
+    public <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g) {
+        g.drawImage(button_border_image, 0, 0, combo_box.getWidth(), combo_box.getHeight(), null);
     }
 
     public void initTextField(TextField text_field) {
@@ -102,5 +123,10 @@ public class SchoolStyle extends Style {
                 (text_field.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
 
         text_field.getCaret().paint(g);
+    }
+
+    public void paintTextFieldBorder(TextField text_field, Graphics2D g) {
+        g.drawImage(button_border_image, -text_field.getColumns() / 2, 0,
+                text_field.getWidth() + text_field.getColumns(), text_field.getHeight(), null);
     }
 }
