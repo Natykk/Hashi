@@ -404,4 +404,8 @@ public class Ile extends Case {
         }
     }
 
+    private int combienDePontsIlResteAMonVoisin(Ile voisin){
+        return voisin.valeur - voisin.getNbPonts();
+    }
+
 }
