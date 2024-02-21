@@ -26,6 +26,7 @@ public class Jeu {
 
             Grille grilleTemp = new Grille(7);
 
+            // on parcourt toutes les lignes du fichier
             while ((line = br.readLine()) != null) {
 
                 if (line.trim().isEmpty()) {
