@@ -4,11 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Parametre extends JPanel {
-    private PageManager pageManager;
 
-    public Parametre(PageManager pageManager) {
-        this.pageManager = pageManager;
-        pageManager.setTitle("Paramètre");
+    public Parametre() {
+        PageManager.getInstance().setTitle("Paramètre");
 
         setLayout(new BorderLayout()); // Utiliser BorderLayout pour organiser les composants verticalement
 

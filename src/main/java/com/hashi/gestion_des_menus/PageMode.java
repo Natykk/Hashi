@@ -12,11 +12,7 @@ public class PageMode extends JPanel {
     private JButton regles;
     private JButton quitter;
 
-    private PageManager pageManager;
-
-    public PageMode(PageManager pageManager) {
-        this.pageManager = pageManager;
-
+    public PageMode() {
         retour = new JButton("Retour au menu");
         nouvellePartie = new JButton("NOUVELLE PARTIE");
         charger = new JButton("CHARGER");
@@ -65,13 +61,13 @@ public class PageMode extends JPanel {
             // pass
         });
         parametre.addActionListener(e -> {
-            pageManager.changerPage(new Parametre(pageManager));
+            PageManager.changerPage(new Parametre());
         });
         changerProfil.addActionListener(e -> {
-            pageManager.changerPage(new EcranLancement(pageManager));
+            PageManager.changerPage(new EcranLancement());
         });
         retour.addActionListener(e -> {
-            pageManager.changerPage(new MenuGeneral2(pageManager));
+            PageManager.changerPage(new MenuGeneral2());
         });
     }
 }

@@ -12,11 +12,9 @@ public class EcranLancement extends JPanel {
     private JComboBox<String> profilBox;
     private ArrayList<String> profils;
     private JPanel panel1, panel2;
-    private PageManager pageManager;
 
-    public EcranLancement(PageManager pageManager) {
+    public EcranLancement() {
         JButton bouton = new JButton("Valider");
-        this.pageManager = pageManager;
         // Charger les profils depuis le fichier "profils.txt"
         chargerprofils();
 
@@ -32,7 +30,7 @@ public class EcranLancement extends JPanel {
                 } else {
                     System.out.println("Vous avez choisi : " + profilChoisi);
                     // Changement du page => Menu
-                    pageManager.changerPage(new MenuGeneral2(pageManager));
+                    PageManager.changerPage(new MenuGeneral2());
                 }
             }
         });
@@ -69,9 +67,9 @@ public class EcranLancement extends JPanel {
     private void PageNouveauProfil() {
         // si elle est vide on va creer la page du nouveau profil
         if (estPageVide()) {
-            JTextField nouveauprofilField;
+            JTextField nouveauprofilField = new JTextField(8);
             panel2.add(new JLabel("Créer un nouveau profil : "), createGbc(0, 0));
-            panel2.add(nouveauprofilField = new JTextField(8), createGbc(1, 0));
+            panel2.add(nouveauprofilField, createGbc(1, 0));
 
             JButton validerNouveauprofil = new JButton("Valider");
             validerNouveauprofil.addActionListener(new ActionListener() {
@@ -80,11 +78,11 @@ public class EcranLancement extends JPanel {
                     String nouveauprofil = nouveauprofilField.getText();
                     // si on saisie rien il affiche un message d'erreur
                     if (nouveauprofil.trim().isEmpty()) {
-                        pageManager.MessageErreur("Veuillez entrer un nom du profil valide.",
+                        PageManager.MessageErreur("Veuillez entrer un nom du profil valide.",
                                 "Erreur");
                         // si on saisie un message déjà exsistant on affiche un message d'erreur
                     } else if (profilExisteDeja(nouveauprofil)) {
-                        pageManager.MessageErreur("Ce profil existe déja",
+                        PageManager.MessageErreur("Ce profil existe déja",
                                 "Erreur");
                     } else {
                         System.out.println("Nouveau profil créé : " + nouveauprofil);
@@ -97,7 +95,7 @@ public class EcranLancement extends JPanel {
                         // Sélectionner le nouveau profil ajouté
                         profilBox.setSelectedItem(nouveauprofil);
                         // Afficher un message de confirmation pour le nouveau profil créé
-                        pageManager.changerPage(new MenuGeneral2(pageManager));
+                        PageManager.changerPage(new MenuGeneral2());
                     }
                 }
             });
@@ -108,16 +106,16 @@ public class EcranLancement extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Retour à la page précédente (panel1)
-                    pageManager.changerPage(panel1);
+                    PageManager.changerPage(panel1);
                 }
             });
             panel2.add(annuler, createGbc(0, 1));
 
             // Changer de page vers panel2
-            pageManager.changerPage(panel2);
+            PageManager.changerPage(panel2);
         } else {
             // La page n'est pas vide, simplement changer de page vers panel2
-            pageManager.changerPage(panel2);
+            PageManager.changerPage(panel2);
         }
 
     }

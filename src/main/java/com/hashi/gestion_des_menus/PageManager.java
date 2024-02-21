@@ -3,28 +3,36 @@ package com.hashi.gestion_des_menus;
 import javax.swing.*;
 
 public class PageManager extends JFrame {
-    public PageManager() {
+    private static PageManager instance;
+
+    private PageManager() {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(1280, 720);
 
-        changerPage(new EcranLancement(this));
-
+        getContentPane().add(new EcranLancement());
         setVisible(true);
     }
 
-    public void changerPage(JPanel nouvellePage) {
-        this.getContentPane().removeAll();
-        this.getContentPane().add(nouvellePage);
-        this.revalidate();
-        this.repaint();
+    public static PageManager getInstance() {
+        if (instance == null)
+            instance = new PageManager();
+
+        return instance;
     }
 
-    public void afficherMessage(String message) {
-        JOptionPane.showMessageDialog(this, message);
+    public static void changerPage(JPanel nouvellePage) {
+        getInstance().getContentPane().removeAll();
+        getInstance().getContentPane().add(nouvellePage);
+        getInstance().revalidate();
+        getInstance().repaint();
     }
 
-    public void MessageErreur(String m1, String m2) {
-        JOptionPane.showMessageDialog(this, m1, m2, JOptionPane.ERROR_MESSAGE);
+    public static void afficherMessage(String message) {
+        JOptionPane.showMessageDialog(getInstance(), message);
+    }
+
+    public static void MessageErreur(String m1, String m2) {
+        JOptionPane.showMessageDialog(getInstance(), m1, m2, JOptionPane.ERROR_MESSAGE);
     }
 }

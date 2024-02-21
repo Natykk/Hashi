@@ -5,7 +5,6 @@ import java.awt.*;
 
 public class MenuGeneral2 extends JPanel {
 
-    private JLabel logoLabel;
     private JButton parametresButton;
     private JButton changerProfilButton;
     private JButton reglesButton;
@@ -13,11 +12,8 @@ public class MenuGeneral2 extends JPanel {
     private JButton arcadeButton;
     private JButton histoireButton;
     private JButton entrainementButton;
-    private Parametre param;
-    private PageManager pageManager;
 
-    public MenuGeneral2(PageManager pageManager) {
-        this.pageManager = pageManager;
+    public MenuGeneral2() {
         // Initialisation du panneau principal
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -91,14 +87,14 @@ public class MenuGeneral2 extends JPanel {
         // Action du bouton "Paramètres"
         parametresButton.addActionListener(e -> {
             // changement de page -> parametre
-            pageManager.changerPage(new Parametre(pageManager));
+            PageManager.changerPage(new Parametre());
         });
 
         // Action du bouton "Changer de profil"
 
         changerProfilButton.addActionListener(e -> {
             // changement de page -> changer profil
-            pageManager.changerPage(new EcranLancement(pageManager));
+            PageManager.changerPage(new EcranLancement());
         });
 
         // Action du bouton "Règles"
@@ -112,7 +108,7 @@ public class MenuGeneral2 extends JPanel {
 
         arcadeButton.addActionListener(e -> {
             // changement de page -> Mode Arcade
-            pageManager.changerPage(new PageMode(pageManager));
+            PageManager.changerPage(new PageMode());
         });
 
         // Action du bouton "Histoire"
@@ -128,6 +124,5 @@ public class MenuGeneral2 extends JPanel {
             // Votre code pour le bouton Entraînement
             // ...
         });
-        param = new Parametre(pageManager);
     }
 }

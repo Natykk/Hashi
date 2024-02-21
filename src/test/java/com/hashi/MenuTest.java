@@ -23,11 +23,8 @@ public class MenuTest {
     }
 
     @Test
-    public void pageManager() throws InvocationTargetException,
-            InterruptedException {
-        PageManager pageManager = new PageManager();
-
-        while (pageManager.isVisible()) {
+    public void pageManager() throws InvocationTargetException, InterruptedException {
+        while (PageManager.getInstance().isVisible()) {
             Thread.sleep(1000);
         }
     }
