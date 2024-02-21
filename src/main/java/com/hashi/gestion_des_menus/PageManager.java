@@ -6,7 +6,7 @@ public class PageManager extends JFrame{
     public PageManager(){
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setSize(400, 400);
+        setSize(1280, 720);
 
         changerPage(new EcranLancement(this));
 
