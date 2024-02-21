@@ -20,8 +20,15 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe principale du jeu.
+ */
 public class Hashi extends JFrame {
     private Grille grille;
+
+    /**
+     * Taille des cellules.
+     */
     static protected int cellSize = 40;
 
     private Button undoButton;
@@ -32,8 +39,18 @@ public class Hashi extends JFrame {
 
     private static final int default_width = 1280;
     private static final int default_height = 720;
+
+    /**
+     * {@link com.hashi.style.StyleWrapper} contenant le thème grahique courant du
+     * jeu.
+     */
     public static final StyleWrapper style = new StyleWrapper((Style) new SchoolStyle(), new Language());
 
+    /**
+     * Créer la {@link javax.swing.JFrame} du jeu.
+     * 
+     * @param grille la grille contenant la logique du jeu.
+     */
     public Hashi(Grille grille) {
         super("Hashi Puzzle");
 
@@ -147,17 +164,6 @@ public class Hashi extends JFrame {
                 grille.setSelectedCase(null);
             }
 
-            /*
-             * @Test
-             * public void menuGenerale() throws InvocationTargetException,
-             * InterruptedException {
-             * MenuGeneral2 menuGenerale = new MenuGeneral2();
-             * 
-             * while (menuGenerale.isVisible()) {
-             * Thread.sleep(1000);
-             * }
-             * }
-             */
             repaint();
         }
 
@@ -192,6 +198,11 @@ public class Hashi extends JFrame {
         }
     }
 
+    /**
+     * Point d'entrée du jeu.
+     * 
+     * @param args arguments de la ligne de commande du jeu.
+     */
     public static void main(String[] args) {
         Jeu j = new Jeu();
         j.genererGrilleDepuisFichier("grille.txt");

@@ -46,10 +46,12 @@ public class TextField extends JTextField implements FontSize<TextField> {
         return font_size;
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         style.paintTextField(this, (Graphics2D) g);
     }
 
+    @Override
     protected void paintBorder(Graphics g) {
         style.paintTextFieldBorder(this, (Graphics2D) g);
     }

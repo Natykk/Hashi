@@ -14,11 +14,6 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
         init(style);
     }
 
-    public Button(StyleWrapper style, Action a) {
-        super(a);
-        init(style);
-    }
-
     public Button(StyleWrapper style, String text) {
         super(text);
         init(style);
@@ -61,10 +56,12 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
         return style.getLanguage().getString(super.getText());
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         style.paintButton(this, (Graphics2D) g);
     }
 
+    @Override
     protected void paintBorder(Graphics g) {
         style.paintButtonBorder(this, (Graphics2D) g);
     }

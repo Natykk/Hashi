@@ -43,10 +43,12 @@ public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
         return font_size;
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         style.paintComboBox(this, (Graphics2D) g);
     }
 
+    @Override
     protected void paintBorder(Graphics g) {
         style.paintComboBoxBorder(this, (Graphics2D) g);
     }
