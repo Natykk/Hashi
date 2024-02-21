@@ -29,7 +29,7 @@ public class StyleTest {
     class StyleTestClass extends JFrame {
         private static final int default_width = 1280;
         private static final int default_height = 720;
-        public static final StyleWrapper style = new StyleWrapper((Style) new SchoolStyle(), new Language());
+        public static final StyleWrapper style = new StyleWrapper((Style) new SchoolStyle());
 
         StyleTestClass() {
             super("StyleTestClass");
@@ -46,7 +46,7 @@ public class StyleTest {
 
             button.addActionListener(e -> {
                 style.switchStyle((Style) new SummerStyle());
-                style.getLanguage().switchLanguage("en");
+                Language.getInstance().setLanguage("en");
                 repaint();
             });
 

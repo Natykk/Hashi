@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.*;
 
+import com.hashi.Language;
+
 public class TextField extends JTextField implements FontSize<TextField> {
     private StyleWrapper style;
     private int font_size = 20;
@@ -14,7 +16,7 @@ public class TextField extends JTextField implements FontSize<TextField> {
     }
 
     public TextField(StyleWrapper style, String text) {
-        super(style.getLanguage().getString(text));
+        super(Language.getInstance().getString(text));
         init(style);
     }
 
@@ -24,7 +26,7 @@ public class TextField extends JTextField implements FontSize<TextField> {
     }
 
     public TextField(StyleWrapper style, String text, int columns) {
-        super(style.getLanguage().getString(text), columns);
+        super(Language.getInstance().getString(text), columns);
         init(style);
     }
 

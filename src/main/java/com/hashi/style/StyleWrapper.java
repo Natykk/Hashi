@@ -3,14 +3,10 @@ package com.hashi.style;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-import com.hashi.Language;
-
 public class StyleWrapper extends Style {
     private Style style;
-    private Language language;
 
-    public StyleWrapper(Style style, Language language) {
-        this.language = language;
+    public StyleWrapper(Style style) {
         switchStyle(style);
     }
 
@@ -19,10 +15,6 @@ public class StyleWrapper extends Style {
         bg_color = style.bg_color;
         fg_color = style.fg_color;
         font = style.font;
-    }
-
-    public Language getLanguage() {
-        return language;
     }
 
     @Override

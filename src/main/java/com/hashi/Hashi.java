@@ -46,7 +46,7 @@ public class Hashi extends JFrame {
      * {@link com.hashi.style.StyleWrapper} contenant le thème grahique courant du
      * jeu.
      */
-    public static final StyleWrapper style = new StyleWrapper((Style) new SchoolStyle(), new Language());
+    public static final StyleWrapper style = new StyleWrapper((Style) new SchoolStyle());
 
     /**
      * Créer la {@link javax.swing.JFrame} du jeu.

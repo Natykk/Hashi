@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.*;
 
+import com.hashi.Language;
+
 public class Button extends JButton implements FontSize<Button>, ImageComponent<Button> {
     private StyleWrapper style;
     private int font_size = 20;
@@ -53,7 +55,7 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
         if (style == null || super.getText().isEmpty())
             return "";
 
-        return style.getLanguage().getString(super.getText());
+        return Language.getInstance().getString(super.getText());
     }
 
     @Override
