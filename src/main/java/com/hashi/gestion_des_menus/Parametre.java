@@ -1,23 +1,18 @@
 package com.hashi.gestion_des_menus;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class Parametre extends JFrame {
-    private JPanel panel;
+public class Parametre extends JPanel {
     /*
      * private JComboBox<String> themeBox;
      * private ArrayList<String> themes;
      */
+    private PageManager pageManager;
+    public Parametre(PageManager pageManager) {
+        this.pageManager = pageManager;
+        pageManager.setTitle("Paramètre");
 
-    public Parametre() {
-
-        setTitle("Paramètre");
-
-        panel = new JPanel();
-        panel.add(new JLabel("Thèmes: "));
-    }
-
-    public JPanel getJPanel() {
-        return panel;
+        this.add(new JLabel("Thèmes: "));
     }
 }
