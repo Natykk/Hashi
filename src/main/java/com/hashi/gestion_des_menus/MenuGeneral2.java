@@ -131,7 +131,6 @@ public class MenuGeneral2 extends JPanel {
 
         changerProfilButton.addActionListener(e -> {
             // Votre code pour le bouton Changer de profil
-            // ...
         });
 
         // Action du bouton "Règles"

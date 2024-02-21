@@ -425,4 +425,13 @@ public class Grille extends MouseAdapter {
         return aideTrouve;
     }
 
+    public Pont getPont(Ile selectedIle, Ile clickedIle) {
+        for (Pont pont : this.Ponts) {
+            if (pont.getIle1() == selectedIle && pont.getIle2() == clickedIle) {
+                return pont;
+            }
+        }
+        return null;
+    }
+
 }

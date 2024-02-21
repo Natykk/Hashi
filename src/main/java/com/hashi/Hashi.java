@@ -12,6 +12,8 @@ import com.hashi.style.Label;
 import com.hashi.style.Panel;
 import com.hashi.style.Button;
 import com.hashi.grille.Action;
+import com.hashi.*;
+import com.hashi.grille.*;
 
 import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
@@ -96,10 +98,11 @@ public class Hashi extends JFrame {
     class PuzzlePanel extends Panel {
         @Override
         protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
+            // super.paintComponent(g);
 
             Graphics2D g2d = (Graphics2D) g;
             g2d.setStroke(new BasicStroke(3));
+            g2d.clearRect(0, 0, getWidth(), getHeight());
             drawGrid(g2d);
             drawIslands(g2d);
             try {
@@ -133,9 +136,13 @@ public class Hashi extends JFrame {
         }
 
         private void drawBridges(Graphics2D g2d) throws InvalidAttributeValueException {
+            System.out.println("---------------");
             for (Pont pont : grille.getPonts()) {
                 pont.draw(g2d);
+
             }
+            System.out.println("*---------------*");
+            System.out.println("Nombre de ponts : " + grille.getPonts().size());
         }
 
         public PuzzlePanel(StyleWrapper style) {
@@ -181,9 +188,20 @@ public class Hashi extends JFrame {
                     && (selectedIle.getX() == clickedIle.getX() || selectedIle.getY() == clickedIle.getY())) {
                 if (selectedIle.getNbConnexion() < selectedIle.getValeur()
                         && clickedIle.getNbConnexion() < clickedIle.getValeur()) {
-                    Pont newPont = new Pont(selectedIle, clickedIle);
-                    grille.ajouterPont(newPont);
-                    addAction(new AddPontAction(newPont));
+                    // si un pont simple est deja présent alors on le transforme en pont double
+                    Pont pontAller = grille.getPont(selectedIle, clickedIle);
+                    Pont pontRetour = grille.getPont(clickedIle, selectedIle);
+                    if (pontAller != null) {
+                        pontAller.setEstDouble(true);
+                        addAction(new AddPontAction(pontAller));
+                    } else if (pontRetour != null) {
+                        pontRetour.setEstDouble(true);
+                        addAction(new AddPontAction(pontRetour));
+                    } else {
+                        Pont newPont = new Pont(selectedIle, clickedIle);
+                        grille.ajouterPont(newPont);
+                        addAction(new AddPontAction(newPont));
+                    }
                 }
             }
             grille.setSelectedCase(null);
@@ -195,20 +213,8 @@ public class Hashi extends JFrame {
             pont.getIleDep().retirerPont(pont);
             pont.getIleArr().retirerPont(pont);
             addAction(new RemovePontAction(pont));
+            repaint();
         }
-    }
-
-    /**
-     * Point d'entrée du jeu.
-     * 
-     * @param args arguments de la ligne de commande du jeu.
-     */
-    public static void main(String[] args) {
-        Jeu j = new Jeu();
-        j.genererGrilleDepuisFichier("grille.txt");
-        Grille grille = j.listeGrille.get(0);
-
-        SwingUtilities.invokeLater(() -> new Hashi(grille));
     }
 
     private void addAction(Action action) {
@@ -283,4 +289,16 @@ public class Hashi extends JFrame {
         }
     }
 
+    /**
+     * Point d'entrée du jeu.
+     * 
+     * @param args arguments de la ligne de commande du jeu.
+     */
+    public static void main(String[] args) {
+        Jeu j = new Jeu();
+        j.genererGrilleDepuisFichier("grille.txt");
+        Grille grille = j.listeGrille.get(0);
+
+        SwingUtilities.invokeLater(() -> new Hashi(grille));
+    }
 }
