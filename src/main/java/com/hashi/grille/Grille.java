@@ -417,10 +417,14 @@ public class Grille extends MouseAdapter {
      * voisine ou non
      * 
      * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
-     * @param dx     le déplacement horizontal sur la grille (-1 : vers la gauche ;
-     *               1 : vers la droite ; 0 : aucun déplacement horizontal)
-     * @param dy     le déplacement vertical sur la grille (-1 : vers le haut ; 1 :
-     *               vers le bas ; 0 : aucun déplacement vertical)
+     * @param dx     le déplacement horizontal sur la grille (
+     *                  -1 : vers la gauche ;
+     *                  1 : vers la droite ; 
+     *                  0 : aucun déplacement horizontal)
+     * @param dy     le déplacement vertical sur la grille (
+     *                  -1 : vers le haut ; 
+     *                  1 : vers le bas ; 
+     *                  0 : aucun déplacement vertical)
      * @return l'île voisine à l'île passée en paramètre par rapport au sens donné.
      *         ou null s'il n'y a pas d'île voisine dans ce sens
      * @throws UnsupportedOperationException si on sort de la boucle avec un cas
