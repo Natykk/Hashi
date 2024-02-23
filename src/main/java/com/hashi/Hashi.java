@@ -32,7 +32,6 @@ public class Hashi extends JFrame {
     private Button redoButton;
     private List<Action> actions;
     private int currentIndex;
-    private TimerManager timerManager;
 
     private static final int default_width = 1280;
     private static final int default_height = 720;
@@ -67,7 +66,8 @@ public class Hashi extends JFrame {
 
         Label timerLabel = new Label("00:00").setAsRawText().setFontSize(100);
         mainPanel.add(timerLabel, BorderLayout.NORTH);
-        this.timerManager = new TimerManager(timerLabel);
+
+        new TimerManager(timerLabel);
 
         mainPanel.add(buttonPanel, BorderLayout.WEST);
         mainPanel.add(new PuzzlePanel(), BorderLayout.CENTER);

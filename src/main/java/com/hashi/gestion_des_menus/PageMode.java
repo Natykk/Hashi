@@ -67,7 +67,7 @@ public class PageMode extends JPanel {
             PageManager.changerPage(new EcranLancement());
         });
         retour.addActionListener(e -> {
-            PageManager.changerPage(new MenuGeneral2());
+            PageManager.changerPage(new MenuGeneral());
         });
     }
 }

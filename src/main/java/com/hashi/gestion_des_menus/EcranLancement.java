@@ -30,7 +30,7 @@ public class EcranLancement extends JPanel {
                 } else {
                     System.out.println("Vous avez choisi : " + profilChoisi);
                     // Changement du page => Menu
-                    PageManager.changerPage(new MenuGeneral2());
+                    PageManager.changerPage(new MenuGeneral());
                 }
             }
         });
@@ -95,7 +95,7 @@ public class EcranLancement extends JPanel {
                         // Sélectionner le nouveau profil ajouté
                         profilBox.setSelectedItem(nouveauprofil);
                         // Afficher un message de confirmation pour le nouveau profil créé
-                        PageManager.changerPage(new MenuGeneral2());
+                        PageManager.changerPage(new MenuGeneral());
                     }
                 }
             });
