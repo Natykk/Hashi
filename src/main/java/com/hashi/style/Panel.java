@@ -26,6 +26,8 @@ public class Panel extends JPanel implements ImageComponent<Panel> {
     }
 
     private void init() {
+        setOpaque(false);
+
         this.image = new Image(this);
 
         StyleManager.getInstance().initPanel(this);

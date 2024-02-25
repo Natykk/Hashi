@@ -91,7 +91,6 @@ public class Hashi extends JFrame {
 
             Graphics2D g2d = (Graphics2D) g;
             g2d.setStroke(new BasicStroke(3));
-            g2d.clearRect(0, 0, getWidth(), getHeight());
             drawGrid(g2d);
             drawIslands(g2d);
             try {
