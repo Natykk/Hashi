@@ -45,10 +45,15 @@ public class EcranLancement extends JPanel {
         panel1.add(new JLabel("Profil:"), createGbc(0, 0));
         panel1.add(profilBox, createGbc(1, 0));
         panel1.add(bouton, createGbc(2, 2));
-
+        setLayout(new GridBagLayout()); // Définition du layout principal en GridBagLayout
+        GridBagConstraints gbc = createGbc(0, 0); // Création de GridBagConstraints
+        gbc.weightx = 1; // Poids en X pour permettre l'expansion horizontale
+        gbc.weighty = 1; // Poids en Y pour permettre l'expansion verticale
+        gbc.fill = GridBagConstraints.CENTER; // Remplissage pour centrer le contenu
+        add(panel1, gbc); 
         // Initialiser panel2 avec un champ JTextField vide
         panel2 = new JPanel(new GridBagLayout());
-        add(panel1);
+
     }
 
     // vérifier si la page est vide

@@ -8,48 +8,53 @@ public class Parametre extends JPanel {
     public Parametre() {
         PageManager.getInstance().setTitle("Paramètre");
 
-        setLayout(new BorderLayout()); // Utiliser BorderLayout pour organiser les composants verticalement
+        setLayout(new BorderLayout()); 
+
+        // Créer un JLabel pour le titre "Paramètre"
+        JLabel titleLabel = new JLabel("Paramètre");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20)); 
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER); 
+        add(titleLabel, BorderLayout.NORTH);
 
         // Créer un panel pour contenir les boutons
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS)); // Utiliser BoxLayout pour aligner les
-                                                                               // composants verticalement
+        JPanel buttonsPanel = new JPanel(new GridBagLayout()); 
 
-        // Ajouter un espace vertical au-dessus des boutons pour les centrer
-        buttonsPanel.add(Box.createVerticalGlue());
-
-        // Création d'un bouton déroulant pour les thèmes
-        String[] themes = { "Thème 1", "Thème 2", "Thème 3" }; // Exemple de thèmes
+       
+        GridBagConstraints gbc = createGbc(0, 1);
+        buttonsPanel.add(new JLabel("Thèmes: "), gbc);
+        gbc.gridx++;
+        String[] themes = { "Thème 1", "Thème 2", "Thème 3" }; 
         JComboBox<String> themeBox = new JComboBox<>(themes);
-        themeBox.setPreferredSize(new Dimension(150, 30)); // Ajuster la taille du bouton déroulant
-        themeBox.setMaximumSize(new Dimension(150, 30)); // Définir une taille maximale
-        themeBox.setMinimumSize(new Dimension(150, 30)); // Définir une taille minimale
-        buttonsPanel.add(new JLabel("Thèmes: "));
-        buttonsPanel.add(themeBox);
+        themeBox.setPreferredSize(new Dimension(150, 30)); 
+        buttonsPanel.add(themeBox, gbc);
 
-        // Ajouter un espace vertical entre les boutons
-        buttonsPanel.add(Box.createVerticalStrut(20)); // Espacement de 20 pixels
-
-        // Création d'un autre bouton déroulant pour les options
-        String[] options = { "Option 1", "Option 2", "Option 3" }; // Exemple d'options
+        
+        gbc = createGbc(0, 2);
+        buttonsPanel.add(new JLabel("Options: "), gbc);
+        gbc.gridx++;
+        String[] options = { "Option 1", "Option 2", "Option 3" }; 
         JComboBox<String> optionsBox = new JComboBox<>(options);
-        optionsBox.setPreferredSize(new Dimension(150, 30)); // Ajuster la taille du bouton déroulant
-        optionsBox.setMaximumSize(new Dimension(150, 30)); // Définir une taille maximale
-        optionsBox.setMinimumSize(new Dimension(150, 30)); // Définir une taille minimale
-        buttonsPanel.add(new JLabel("Options: "));
-        buttonsPanel.add(optionsBox);
-
-        // Ajouter un espace vertical entre les boutons et le bouton "Valider"
-        buttonsPanel.add(Box.createVerticalStrut(20)); // Espacement de 20 pixels
-
-        // Ajouter le bouton "Valider"
-        JButton validerButton = new JButton("Valider");
-        buttonsPanel.add(validerButton);
-
-        // Ajouter un espace vertical en dessous des boutons pour les centrer
-        buttonsPanel.add(Box.createVerticalGlue());
-
-        // Ajouter le panel des boutons au centre de la fenêtre
+        optionsBox.setPreferredSize(new Dimension(150, 30));
+        buttonsPanel.add(optionsBox, gbc);
         add(buttonsPanel, BorderLayout.CENTER);
+
+        JButton validerButton = new JButton("Valider");
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); 
+        bottomPanel.add(validerButton);
+        add(bottomPanel, BorderLayout.SOUTH);
+    }
+
+    private GridBagConstraints createGbc(int x, int y) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = x;
+        gbc.gridy = y;
+        gbc.anchor = GridBagConstraints.LINE_START; 
+        gbc.insets = new Insets(5, 5, 5, 5); 
+        return gbc;
     }
 }
+
+
+
+

@@ -1,5 +1,4 @@
 package com.hashi.gestion_des_menus;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,38 +20,13 @@ public class PageMode extends JPanel {
         regles = new JButton("Règles");
         quitter = new JButton("Quitter le jeu");
 
-        JPanel groupButton = new JPanel();
-        groupButton.setLayout(new GridLayout(1, 3, 5, 5));
-        groupButton.add(parametre);
-        groupButton.add(changerProfil);
-        groupButton.add(regles);
-        groupButton.add(quitter);
-        groupButton.setOpaque(false);
-        this.add(groupButton, BorderLayout.SOUTH);
-
-        JPanel groupPanel1 = new JPanel();
-        groupPanel1.setLayout(new BorderLayout());
-        groupPanel1.add(groupButton, BorderLayout.SOUTH);
-        groupPanel1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        JPanel group = new JPanel();
-        group.setLayout(new GridLayout(1, 3, 5, 5));
-        group.add(retour);
-        this.add(group, BorderLayout.NORTH);
-
-        JPanel groupCentre = new JPanel();
-        groupCentre.setLayout(new GridLayout(1, 3, 5, 5));
-        groupCentre.add(nouvellePartie);
-        groupCentre.add(charger);
-        this.add(groupCentre, BorderLayout.CENTER);
-
-        this.add(groupPanel1, BorderLayout.SOUTH);
+        positionnerBoutons();
 
         quitter.addActionListener(e -> {
             System.exit(0);
         });
         regles.addActionListener(e -> {
-            // pass
+            PageManager.changerPage(new Regle());
         });
         nouvellePartie.addActionListener(e -> {
             // pass
@@ -70,4 +44,44 @@ public class PageMode extends JPanel {
             PageManager.changerPage(new MenuGeneral());
         });
     }
+
+    private void positionnerBoutons() {
+
+        JPanel boutonsHaut = new JPanel();
+        boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT)); // Alignement à droite
+        boutonsHaut.add(retour);
+
+        JPanel boutonsCentre = new JPanel(new GridBagLayout());
+        boutonsCentre.add(nouvellePartie, createGbc(0, 0));
+        boutonsCentre.add(charger, createGbc(0, 1));
+
+
+        JPanel boutonsBas = new JPanel();
+        boutonsBas.setLayout(new GridLayout(1, 3, 5, 5));
+        boutonsBas.add(parametre);
+        boutonsBas.add(changerProfil);
+        boutonsBas.add(Box.createHorizontalStrut(10)); 
+        boutonsBas.add(regles);
+        boutonsBas.add(quitter);
+
+
+        JPanel contenu = new JPanel(new BorderLayout());
+        contenu.add(boutonsHaut, BorderLayout.NORTH);
+        contenu.add(boutonsCentre, BorderLayout.CENTER);
+        contenu.add(boutonsBas, BorderLayout.SOUTH);
+
+        this.setLayout(new BorderLayout());
+        this.add(contenu, BorderLayout.CENTER);
+    }
+
+    private GridBagConstraints createGbc(int x, int y) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = x;
+        gbc.gridy = y;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(5, 5, 5, 5); // Marge
+        return gbc;
+    }
 }
+
+

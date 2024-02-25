@@ -14,9 +14,6 @@ public class MenuGeneral extends JPanel {
     private JButton entrainementButton;
 
     public MenuGeneral() {
-        // Initialisation du panneau principal
-        this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createLineBorder(Color.black));
 
         // Création des boutons
         parametresButton = new JButton("Paramètres");
@@ -27,57 +24,7 @@ public class MenuGeneral extends JPanel {
         histoireButton = new JButton("Histoire");
         entrainementButton = new JButton("Entraînement");
 
-        // Définition de la taille des boutons
-        parametresButton.setMaximumSize(new Dimension(20, 25));
-        changerProfilButton.setMaximumSize(new Dimension(20, 25));
-        reglesButton.setMaximumSize(new Dimension(20, 25));
-        quitterButton.setMaximumSize(new Dimension(20, 25));
-        arcadeButton.setMaximumSize(new Dimension(20, 25));
-        histoireButton.setMaximumSize(new Dimension(20, 25));
-        entrainementButton.setMaximumSize(new Dimension(20, 25));
-
-        // Ajout des boutons au panneau principal
-
-        // Ajout du groupe de boutons en millieu de la fenêtre contenant les boutons
-        // arcade, histoire et entrainement avec les boutons rangé verticalement
-        JPanel groupButton = new JPanel();
-        groupButton.setLayout(new GridLayout(1, 3, 5, 5));
-        groupButton.add(arcadeButton);
-        groupButton.add(histoireButton);
-        groupButton.add(entrainementButton);
-        groupButton.setOpaque(false);
-        this.add(groupButton, BorderLayout.CENTER);
-
-        // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
-        // paramètres, changer de profil, règles et quitter
-        JPanel groupButton2 = new JPanel();
-        groupButton2.setLayout(new GridLayout(1, 4, 5, 5));
-        groupButton2.add(parametresButton);
-        groupButton2.add(changerProfilButton);
-        groupButton2.add(reglesButton);
-        groupButton2.add(quitterButton);
-        groupButton2.setOpaque(false);
-        this.add(groupButton2, BorderLayout.SOUTH);
-
-        // Panneau pour le groupe 1
-        JPanel groupPanel1 = new JPanel();
-        groupPanel1.setLayout(new BorderLayout());
-        groupPanel1.add(groupButton, BorderLayout.CENTER);
-        groupPanel1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        // Panneau pour le groupe 2
-        JPanel groupPanel2 = new JPanel();
-        groupPanel2.setLayout(new BorderLayout());
-        groupPanel2.add(groupButton2, BorderLayout.CENTER);
-        groupPanel2.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
-
-        // Ajout des panneaux au panneau principal
-        this.add(groupPanel1, BorderLayout.CENTER);
-        this.add(groupPanel2, BorderLayout.SOUTH);
-
-        this.setPreferredSize(new Dimension(5, 2));
-
-        // Fermeture de l'application lors de la fermeture de la fenêtre
+        positionnerBoutons1();
 
         // Action du bouton "Quitter"
         quitterButton.addActionListener(e -> {
@@ -101,21 +48,20 @@ public class MenuGeneral extends JPanel {
 
         reglesButton.addActionListener(e -> {
             // changement de page -> Aide
-            // ...
+            PageManager.changerPage(new Regle());
         });
 
         // Action du bouton "Arcade"
 
         arcadeButton.addActionListener(e -> {
             // changement de page -> Mode Arcade
-            PageManager.changerPage(new PageMode());
         });
 
         // Action du bouton "Histoire"
 
         histoireButton.addActionListener(e -> {
             // Votre code pour le bouton Histoire
-            // ...
+            PageManager.changerPage(new PageMode());
         });
 
         // Action du bouton "Entraînement"
@@ -125,4 +71,42 @@ public class MenuGeneral extends JPanel {
             // ...
         });
     }
+    private void positionnerBoutons1(){
+
+        JPanel groupButton = new JPanel();
+        groupButton.setLayout(new GridBagLayout()); // Utilisation de GridBagLayout
+        GridBagConstraints gbc = createGbc(0, 0);
+        gbc.anchor = GridBagConstraints.CENTER;
+        groupButton.add(arcadeButton, gbc);
+        gbc.gridx = 1;
+        groupButton.add(histoireButton, gbc);
+        gbc.gridx = 2;
+        groupButton.add(entrainementButton, gbc);
+    
+        // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
+        // paramètres, changer de profil, règles et quitter
+        JPanel groupButton2 = new JPanel();
+        groupButton2.setLayout(new GridLayout(1, 4, 5, 5));
+        groupButton2.add(parametresButton);
+        groupButton2.add(changerProfilButton);
+        groupButton2.add(reglesButton);
+        groupButton2.add(quitterButton);
+    
+        JPanel contenu=new JPanel(new BorderLayout());
+        contenu.add(groupButton,BorderLayout.CENTER);
+        contenu.add(groupButton2,BorderLayout.SOUTH);
+    
+        this.setLayout(new BorderLayout());
+        this.add(contenu, BorderLayout.CENTER);
+        
+    }
+    private GridBagConstraints createGbc(int x, int y) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = x;
+        gbc.gridy = y;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(5, 5, 5, 5); // Marge
+        return gbc;
+    }
+    
 }
