@@ -10,13 +10,15 @@ public class PageManager extends JFrame {
         setLocationRelativeTo(null);
         setSize(1280, 720);
 
+        instance = this;
+
         getContentPane().add(new EcranLancement());
         setVisible(true);
     }
 
     public static PageManager getInstance() {
         if (instance == null)
-            instance = new PageManager();
+            new PageManager();
 
         return instance;
     }
