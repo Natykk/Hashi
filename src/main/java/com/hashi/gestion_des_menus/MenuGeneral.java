@@ -14,6 +14,7 @@ public class MenuGeneral extends JPanel {
     private JButton entrainementButton;
 
     public MenuGeneral() {
+        PageManager.setPageTitle("Hashi");
 
         // Création des boutons
         parametresButton = new JButton("Paramètres");
@@ -71,7 +72,8 @@ public class MenuGeneral extends JPanel {
             // ...
         });
     }
-    private void positionnerBoutons1(){
+
+    private void positionnerBoutons1() {
 
         JPanel groupButton = new JPanel();
         groupButton.setLayout(new GridBagLayout()); // Utilisation de GridBagLayout
@@ -82,7 +84,7 @@ public class MenuGeneral extends JPanel {
         groupButton.add(histoireButton, gbc);
         gbc.gridx = 2;
         groupButton.add(entrainementButton, gbc);
-    
+
         // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
         // paramètres, changer de profil, règles et quitter
         JPanel groupButton2 = new JPanel();
@@ -91,15 +93,16 @@ public class MenuGeneral extends JPanel {
         groupButton2.add(changerProfilButton);
         groupButton2.add(reglesButton);
         groupButton2.add(quitterButton);
-    
-        JPanel contenu=new JPanel(new BorderLayout());
-        contenu.add(groupButton,BorderLayout.CENTER);
-        contenu.add(groupButton2,BorderLayout.SOUTH);
-    
+
+        JPanel contenu = new JPanel(new BorderLayout());
+        contenu.add(groupButton, BorderLayout.CENTER);
+        contenu.add(groupButton2, BorderLayout.SOUTH);
+
         this.setLayout(new BorderLayout());
         this.add(contenu, BorderLayout.CENTER);
-        
+
     }
+
     private GridBagConstraints createGbc(int x, int y) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = x;
@@ -108,5 +111,5 @@ public class MenuGeneral extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5); // Marge
         return gbc;
     }
-    
+
 }

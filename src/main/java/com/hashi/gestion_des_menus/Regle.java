@@ -10,10 +10,12 @@ public class Regle extends JPanel {
     private JButton validerButton;
 
     public Regle() {
+        PageManager.setPageTitle("Hashi - Règle");
+
         setLayout(new BorderLayout());
         setOpaque(false);
 
-        // Création du titre 
+        // Création du titre
         titleLabel = new JLabel("Règles");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -21,7 +23,7 @@ public class Regle extends JPanel {
         titleLabel.setOpaque(false);
         add(titleLabel, BorderLayout.NORTH);
 
-        // Création de la zone de texte 
+        // Création de la zone de texte
         text = new JTextArea();
         text.setEditable(false);
         text.setOpaque(false);
@@ -31,20 +33,21 @@ public class Regle extends JPanel {
 
         // Ajout des règles dans la zone de texte
         text.setText(
-                "Le Hashi est un jeu de réflexion qui consiste à relier des îles entre elles avec des ponts en suivants les règles suivantes :\n\n" +
+                "Le Hashi est un jeu de réflexion qui consiste à relier des îles entre elles avec des ponts en suivants les règles suivantes :\n\n"
+                        +
                         "1. Les ponts doivent être horizontaux ou verticaux et ils ne se croisent pas.\n" +
                         "2. Il peut y avoir au plus deux ponts entre deux îles données.\n" +
-                        "3. Chaque île se voit attribuer un chiffre entre 1 et 8 représentant le nombre de ponts auquel elle doit être connectée.\n" +
+                        "3. Chaque île se voit attribuer un chiffre entre 1 et 8 représentant le nombre de ponts auquel elle doit être connectée.\n"
+                        +
                         "On doit pouvoir relier toutes les îles entre elles grâce aux ponts.");
 
-        
         JScrollPane scrollPane = new JScrollPane(text);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder()); 
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         add(scrollPane, BorderLayout.CENTER);
 
         validerButton = new JButton("Valider");
         validerButton.addActionListener(e -> {
-           //j'ai pas penser encore comment faire
+            // j'ai pas penser encore comment faire
         });
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));

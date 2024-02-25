@@ -14,6 +14,8 @@ public class EcranLancement extends JPanel {
     private JPanel panel1, panel2;
 
     public EcranLancement() {
+        PageManager.setPageTitle("Hashi - Sélection du profil");
+
         JButton bouton = new JButton("Valider");
         // Charger les profils depuis le fichier "profils.txt"
         chargerprofils();
@@ -50,7 +52,7 @@ public class EcranLancement extends JPanel {
         gbc.weightx = 1; // Poids en X pour permettre l'expansion horizontale
         gbc.weighty = 1; // Poids en Y pour permettre l'expansion verticale
         gbc.fill = GridBagConstraints.CENTER; // Remplissage pour centrer le contenu
-        add(panel1, gbc); 
+        add(panel1, gbc);
         // Initialiser panel2 avec un champ JTextField vide
         panel2 = new JPanel(new GridBagLayout());
 

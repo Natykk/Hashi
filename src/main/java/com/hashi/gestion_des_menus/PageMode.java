@@ -1,4 +1,5 @@
 package com.hashi.gestion_des_menus;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,6 +13,8 @@ public class PageMode extends JPanel {
     private JButton quitter;
 
     public PageMode() {
+        PageManager.setPageTitle("Hashi - Sélection du mode de jeu");
+
         retour = new JButton("Retour au menu");
         nouvellePartie = new JButton("NOUVELLE PARTIE");
         charger = new JButton("CHARGER");
@@ -55,15 +58,13 @@ public class PageMode extends JPanel {
         boutonsCentre.add(nouvellePartie, createGbc(0, 0));
         boutonsCentre.add(charger, createGbc(0, 1));
 
-
         JPanel boutonsBas = new JPanel();
         boutonsBas.setLayout(new GridLayout(1, 3, 5, 5));
         boutonsBas.add(parametre);
         boutonsBas.add(changerProfil);
-        boutonsBas.add(Box.createHorizontalStrut(10)); 
+        boutonsBas.add(Box.createHorizontalStrut(10));
         boutonsBas.add(regles);
         boutonsBas.add(quitter);
-
 
         JPanel contenu = new JPanel(new BorderLayout());
         contenu.add(boutonsHaut, BorderLayout.NORTH);
@@ -83,5 +84,3 @@ public class PageMode extends JPanel {
         return gbc;
     }
 }
-
-
