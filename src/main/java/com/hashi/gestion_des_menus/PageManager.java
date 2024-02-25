@@ -6,8 +6,6 @@ public class PageManager extends JFrame {
     private static PageManager instance;
 
     private PageManager() {
-        instance = this;
-
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(1280, 720);
@@ -18,13 +16,9 @@ public class PageManager extends JFrame {
 
     public static PageManager getInstance() {
         if (instance == null)
-            new PageManager();
+            instance = new PageManager();
 
         return instance;
-    }
-
-    public static void setPageTitle(String title) {
-        getInstance().setTitle(title);
     }
 
     public static void changerPage(JPanel nouvellePage) {

@@ -14,7 +14,7 @@ public class MenuGeneral extends JPanel {
     private JButton entrainementButton;
 
     public MenuGeneral() {
-        PageManager.setPageTitle("Hashi");
+        PageManager.getInstance().setTitle("Hashi");
 
         // Création des boutons
         parametresButton = new JButton("Paramètres");

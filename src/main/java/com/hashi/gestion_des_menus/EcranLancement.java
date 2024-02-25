@@ -14,7 +14,7 @@ public class EcranLancement extends JPanel {
     private JPanel panel1, panel2;
 
     public EcranLancement() {
-        PageManager.setPageTitle("Hashi - Sélection du profil");
+        PageManager.getInstance().setTitle("Hashi - Sélection du profil");
 
         JButton bouton = new JButton("Valider");
         // Charger les profils depuis le fichier "profils.txt"

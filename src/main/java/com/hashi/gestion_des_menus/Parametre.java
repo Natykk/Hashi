@@ -6,7 +6,7 @@ import java.awt.*;
 public class Parametre extends JPanel {
 
     public Parametre() {
-        PageManager.setPageTitle("Hashi - Paramètre");
+        PageManager.getInstance().setTitle("Hashi - Paramètre");
 
         setLayout(new BorderLayout());
 

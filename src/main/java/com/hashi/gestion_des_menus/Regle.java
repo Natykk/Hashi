@@ -10,7 +10,7 @@ public class Regle extends JPanel {
     private JButton validerButton;
 
     public Regle() {
-        PageManager.setPageTitle("Hashi - Règle");
+        PageManager.getInstance().setTitle("Hashi - Règle");
 
         setLayout(new BorderLayout());
         setOpaque(false);

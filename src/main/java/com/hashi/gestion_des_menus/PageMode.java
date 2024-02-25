@@ -13,7 +13,7 @@ public class PageMode extends JPanel {
     private JButton quitter;
 
     public PageMode() {
-        PageManager.setPageTitle("Hashi - Sélection du mode de jeu");
+        PageManager.getInstance().setTitle("Hashi - Sélection du mode de jeu");
 
         retour = new JButton("Retour au menu");
         nouvellePartie = new JButton("NOUVELLE PARTIE");
