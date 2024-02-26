@@ -29,9 +29,20 @@ public class MenuGeneral extends Panel {
         changerProfilButton = new Button().setImage("btn-switch-profil.png");
         reglesButton = new Button().setImage("btn-aide.png");
         quitterButton = new Button().setImage("btn-quitter.png");
-        arcadeButton = new Button("arcade").setFontSize(50);
-        histoireButton = new Button("history").setFontSize(50);
-        entrainementButton = new Button("training").setFontSize(50);
+        arcadeButton = new Button("arcade").setFontSize(35);
+        histoireButton = new Button("history").setFontSize(35);
+        entrainementButton = new Button("training").setFontSize(35);
+
+        Dimension size = new Dimension(150, 90);
+
+        parametresButton.setPreferredSize(size);
+        changerProfilButton.setPreferredSize(size);
+        reglesButton.setPreferredSize(size);
+        quitterButton.setPreferredSize(size);
+
+        arcadeButton.setPreferredSize(new Dimension(250, 100));
+        histoireButton.setPreferredSize(new Dimension(250, 100));
+        entrainementButton.setPreferredSize(new Dimension(250, 100));
 
         positionnerBoutons1();
 
@@ -95,12 +106,6 @@ public class MenuGeneral extends Panel {
 
         // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
         // paramètres, changer de profil, règles et quitter
-        int size = 100;
-
-        parametresButton.setPreferredSize(new Dimension(size, size));
-        changerProfilButton.setPreferredSize(new Dimension(size, size));
-        reglesButton.setPreferredSize(new Dimension(size, size));
-        quitterButton.setPreferredSize(new Dimension(size, size));
 
         Panel groupButton2 = new Panel();
         groupButton2.setLayout(new GridBagLayout());
