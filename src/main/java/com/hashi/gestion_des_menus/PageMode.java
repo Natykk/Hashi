@@ -40,7 +40,7 @@ public class PageMode extends Panel {
             // pass
         });
         parametre.addActionListener(e -> {
-            PageManager.changerPage(new Parametre());
+            PageManager.changerPage(new Parametre(this));
         });
         changerProfil.addActionListener(e -> {
             PageManager.changerPage(new EcranLancement());

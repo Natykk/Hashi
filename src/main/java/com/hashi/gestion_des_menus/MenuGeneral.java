@@ -54,7 +54,7 @@ public class MenuGeneral extends Panel {
         // Action du bouton "Paramètres"
         parametresButton.addActionListener(e -> {
             // changement de page -> parametre
-            PageManager.changerPage(new Parametre());
+            PageManager.changerPage(new Parametre(this));
         });
 
         // Action du bouton "Changer de profil"
