@@ -1,67 +1,53 @@
 package com.hashi.gestion_des_menus;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import com.hashi.Language;
+import com.hashi.style.Button;
 import com.hashi.style.Panel;
+import com.hashi.style.StyleManager;
 
 public class Regle extends Panel {
 
-    private JLabel titleLabel;
     private JTextArea text;
-    private JButton validerButton;
+    private Button retourButton;
 
-    public Regle() {
+    public Regle(Panel returnPanel) {
+        super(new BorderLayout(), "bg-victoire.png");
+
         PageManager.getInstance().setTitle("Hashi - Règle");
-
-        setLayout(new BorderLayout());
-        setOpaque(false);
-
-        // Création du titre
-        titleLabel = new JLabel("Règles");
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
-        titleLabel.setOpaque(false);
-        add(titleLabel, BorderLayout.NORTH);
 
         // Création de la zone de texte
         text = new JTextArea();
         text.setEditable(false);
         text.setOpaque(false);
-        text.setFont(new Font("Arial", Font.PLAIN, 14));
+        text.setForeground(StyleManager.getInstance().getFgColor());
+        text.setFont(StyleManager.getInstance().getFont().deriveFont(0, 25));
         text.setLineWrap(true);
         text.setWrapStyleWord(true);
 
         // Ajout des règles dans la zone de texte
-        text.setText(
-                "Le Hashi est un jeu de réflexion qui consiste à relier des îles entre elles avec des ponts en suivants les règles suivantes :\n\n"
-                        +
-                        "1. Les ponts doivent être horizontaux ou verticaux et ils ne se croisent pas.\n" +
-                        "2. Il peut y avoir au plus deux ponts entre deux îles données.\n" +
-                        "3. Chaque île se voit attribuer un chiffre entre 1 et 8 représentant le nombre de ponts auquel elle doit être connectée.\n"
-                        +
-                        "On doit pouvoir relier toutes les îles entre elles grâce aux ponts.");
+        text.setText(Language.getString("rules"));
 
         JScrollPane scrollPane = new JScrollPane(text);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(270, 270, 0, 270));
         add(scrollPane, BorderLayout.CENTER);
 
-        validerButton = new JButton("Valider");
-        validerButton.addActionListener(e -> {
-            // j'ai pas penser encore comment faire
+        retourButton = new Button("return").setFontSize(50);
+        retourButton.addActionListener(e -> {
+            PageManager.changerPage(returnPanel);
         });
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        Panel buttonPanel = new Panel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.setOpaque(false);
-        buttonPanel.add(validerButton);
+        buttonPanel.add(retourButton);
         add(buttonPanel, BorderLayout.SOUTH);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, getHeight() / 20));
-        text.setFont(new Font("Arial", Font.PLAIN, getHeight() / 40));
     }
 }

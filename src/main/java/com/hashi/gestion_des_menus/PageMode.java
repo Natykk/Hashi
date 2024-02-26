@@ -31,7 +31,7 @@ public class PageMode extends Panel {
             System.exit(0);
         });
         regles.addActionListener(e -> {
-            PageManager.changerPage(new Regle());
+            PageManager.changerPage(new Regle(this));
         });
         nouvellePartie.addActionListener(e -> {
             // pass

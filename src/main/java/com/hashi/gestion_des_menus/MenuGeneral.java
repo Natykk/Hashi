@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.BorderFactory;
+
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
@@ -68,7 +70,7 @@ public class MenuGeneral extends Panel {
 
         reglesButton.addActionListener(e -> {
             // changement de page -> Aide
-            PageManager.changerPage(new Regle());
+            PageManager.changerPage(new Regle(this));
         });
 
         // Action du bouton "Arcade"
@@ -93,7 +95,6 @@ public class MenuGeneral extends Panel {
     }
 
     private void positionnerBoutons1() {
-
         Panel groupButton = new Panel();
         groupButton.setLayout(new GridBagLayout()); // Utilisation de GridBagLayout
         GridBagConstraints gbc = createGbc(0, 0);
@@ -103,6 +104,7 @@ public class MenuGeneral extends Panel {
         groupButton.add(histoireButton, gbc);
         gbc.gridx = 2;
         groupButton.add(entrainementButton, gbc);
+        groupButton.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
 
         // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
         // paramètres, changer de profil, règles et quitter
