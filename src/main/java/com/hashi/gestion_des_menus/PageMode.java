@@ -1,32 +1,44 @@
 package com.hashi.gestion_des_menus;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
+import com.hashi.style.Button;
 import com.hashi.style.Panel;
-
-
 
 public class PageMode extends Panel {
     private final String TITLE = "title";
-    private JButton retour;
-    private JButton nouvellePartie;
-    private JButton charger;
-    private JButton parametre;
-    private JButton changerProfil;
-    private JButton regles;
-    private JButton quitter;
+    private Button retour;
+    private Button nouvellePartie;
+    private Button charger;
+    private Button parametre;
+    private Button changerProfil;
+    private Button regles;
+    private Button quitter;
 
     public PageMode(Panel returnPanel, String returnTitle) {
+        super(new BorderLayout(), "bg-histoire.png");
+
         PageManager.getInstance().setTitle(TITLE);
 
-        retour = new JButton("Retour");
-        nouvellePartie = new JButton("NOUVELLE PARTIE");
-        charger = new JButton("CHARGER");
-        parametre = new JButton("Parametres");
-        changerProfil = new JButton("Changer de profil");
-        regles = new JButton("Règles");
-        quitter = new JButton("Quitter le jeu");
+        retour = new Button("return").setFontSize(50);
+        nouvellePartie = new Button("new_game").setFontSize(40);
+        charger = new Button("load_game").setFontSize(40);
+        parametre = new Button().setImage("btn-option.png");
+        changerProfil = new Button().setImage("btn-switch-profil.png");
+        regles = new Button().setImage("btn-aide.png");
+        quitter = new Button().setImage("btn-quitter.png");
+
+        Dimension size = new Dimension(150, 90);
+
+        parametre.setPreferredSize(size);
+        changerProfil.setPreferredSize(size);
+        regles.setPreferredSize(size);
+        quitter.setPreferredSize(size);
 
         positionnerBoutons();
 
@@ -56,29 +68,32 @@ public class PageMode extends Panel {
 
     private void positionnerBoutons() {
 
-        JPanel boutonsHaut = new JPanel();
+        Panel boutonsHaut = new Panel();
         boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT)); // Alignement à droite
         boutonsHaut.add(retour);
 
-        JPanel boutonsCentre = new JPanel(new GridBagLayout());
+        Panel boutonsCentre = new Panel(new GridBagLayout());
         boutonsCentre.add(nouvellePartie, createGbc(0, 0));
         boutonsCentre.add(charger, createGbc(0, 1));
 
-        JPanel boutonsBas = new JPanel();
-        boutonsBas.setLayout(new GridLayout(1, 3, 5, 5));
-        boutonsBas.add(parametre);
-        boutonsBas.add(changerProfil);
-        boutonsBas.add(Box.createHorizontalStrut(10));
-        boutonsBas.add(regles);
-        boutonsBas.add(quitter);
+        Panel boutonsBas = new Panel(new GridBagLayout());
+        GridBagConstraints gbc = createGbc(0, 0);
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridx = 0;
+        boutonsBas.add(parametre, gbc);
+        gbc.gridx = 1;
+        boutonsBas.add(changerProfil, gbc);
+        gbc.gridx = 2;
+        boutonsBas.add(regles, gbc);
+        gbc.gridx = 3;
+        boutonsBas.add(quitter, gbc);
 
-        JPanel contenu = new JPanel(new BorderLayout());
+        Panel contenu = new Panel(new BorderLayout());
         contenu.add(boutonsHaut, BorderLayout.NORTH);
         contenu.add(boutonsCentre, BorderLayout.CENTER);
         contenu.add(boutonsBas, BorderLayout.SOUTH);
 
-        this.setLayout(new BorderLayout());
-        this.add(contenu, BorderLayout.CENTER);
+        add(contenu, BorderLayout.CENTER);
     }
 
     private GridBagConstraints createGbc(int x, int y) {

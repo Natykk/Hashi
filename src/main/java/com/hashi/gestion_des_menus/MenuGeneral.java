@@ -11,7 +11,6 @@ import javax.swing.BorderFactory;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
-
 public class MenuGeneral extends Panel {
     private static final String TITLE = "title";
     private Button parametresButton;
@@ -84,7 +83,7 @@ public class MenuGeneral extends Panel {
 
         histoireButton.addActionListener(e -> {
             // Votre code pour le bouton Histoire
-            PageManager.changerPage(new PageMode(this,TITLE));
+            PageManager.changerPage(new PageMode(this, TITLE));
         });
 
         // Action du bouton "Entraînement"
@@ -110,8 +109,7 @@ public class MenuGeneral extends Panel {
         // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
         // paramètres, changer de profil, règles et quitter
 
-        Panel groupButton2 = new Panel();
-        groupButton2.setLayout(new GridBagLayout());
+        Panel groupButton2 = new Panel(new GridBagLayout());
         gbc.gridx = 0;
         groupButton2.add(parametresButton, gbc);
         gbc.gridx = 1;
