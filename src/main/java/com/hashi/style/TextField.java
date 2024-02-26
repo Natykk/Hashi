@@ -30,6 +30,8 @@ public class TextField extends JTextField implements FontSize<TextField> {
     }
 
     private void init() {
+        setOpaque(false);
+
         StyleManager.getInstance().initTextField(this);
     }
 

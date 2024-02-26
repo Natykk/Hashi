@@ -25,6 +25,8 @@ public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
     }
 
     private void init() {
+        setOpaque(false);
+
         StyleManager.getInstance().initComboBox(this);
     }
 
