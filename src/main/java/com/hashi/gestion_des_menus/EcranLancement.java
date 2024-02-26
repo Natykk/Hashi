@@ -18,7 +18,7 @@ public class EcranLancement extends Panel {
     private Panel panel1, panel2;
 
     public EcranLancement() {
-        //super(new GridBagLayout(), "bg-profil.png");
+        super(new GridBagLayout(), "bg-profil.png");
         PageManager.getInstance().setTitle("title_profile_selection");
 
         // Charger les profils depuis le fichier "profils.txt"
