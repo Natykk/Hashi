@@ -12,7 +12,7 @@ import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
 public class MenuGeneral extends Panel {
-
+    private static final String TITLE = "title";
     private Button parametresButton;
     private Button changerProfilButton;
     private Button reglesButton;
@@ -24,7 +24,7 @@ public class MenuGeneral extends Panel {
     public MenuGeneral() {
         super(new BorderLayout(), "bg-principal.png");
 
-        PageManager.getInstance().setTitle("title");
+        PageManager.getInstance().setTitle(TITLE);
 
         // Création des boutons
         parametresButton = new Button().setImage("btn-option.png");
@@ -56,7 +56,7 @@ public class MenuGeneral extends Panel {
         // Action du bouton "Paramètres"
         parametresButton.addActionListener(e -> {
             // changement de page -> parametre
-            PageManager.changerPage(new Parametre(this, "title"));
+            PageManager.changerPage(new Parametre(this, TITLE));
         });
 
         // Action du bouton "Changer de profil"
@@ -70,7 +70,7 @@ public class MenuGeneral extends Panel {
 
         reglesButton.addActionListener(e -> {
             // changement de page -> Aide
-            PageManager.changerPage(new Regle(this, "title"));
+            PageManager.changerPage(new Regle(this, TITLE));
         });
 
         // Action du bouton "Arcade"

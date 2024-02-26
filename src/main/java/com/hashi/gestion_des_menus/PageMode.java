@@ -6,6 +6,7 @@ import java.awt.*;
 import com.hashi.style.Panel;
 
 public class PageMode extends Panel {
+    private final String TITLE = "title";
     private JButton retour;
     private JButton nouvellePartie;
     private JButton charger;
@@ -15,7 +16,7 @@ public class PageMode extends Panel {
     private JButton quitter;
 
     public PageMode() {
-        PageManager.getInstance().setTitle("title_game_mode_selection");
+        PageManager.getInstance().setTitle(TITLE);
 
         retour = new JButton("Retour au menu");
         nouvellePartie = new JButton("NOUVELLE PARTIE");
@@ -31,7 +32,7 @@ public class PageMode extends Panel {
             System.exit(0);
         });
         regles.addActionListener(e -> {
-            PageManager.changerPage(new Regle(this, "title_game_mode_selection"));
+            PageManager.changerPage(new Regle(this, TITLE));
         });
         nouvellePartie.addActionListener(e -> {
             // pass
@@ -40,7 +41,7 @@ public class PageMode extends Panel {
             // pass
         });
         parametre.addActionListener(e -> {
-            PageManager.changerPage(new Parametre(this, "title_game_mode_selection"));
+            PageManager.changerPage(new Parametre(this, TITLE));
         });
         changerProfil.addActionListener(e -> {
             PageManager.changerPage(new EcranLancement());
