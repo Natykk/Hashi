@@ -1,31 +1,37 @@
 package com.hashi.gestion_des_menus;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
+import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
 public class MenuGeneral extends Panel {
 
-    private JButton parametresButton;
-    private JButton changerProfilButton;
-    private JButton reglesButton;
-    private JButton quitterButton;
-    private JButton arcadeButton;
-    private JButton histoireButton;
-    private JButton entrainementButton;
+    private Button parametresButton;
+    private Button changerProfilButton;
+    private Button reglesButton;
+    private Button quitterButton;
+    private Button arcadeButton;
+    private Button histoireButton;
+    private Button entrainementButton;
 
     public MenuGeneral() {
+        super(new BorderLayout(), "bg-principal.png");
+
         PageManager.getInstance().setTitle("Hashi");
 
         // Création des boutons
-        parametresButton = new JButton("Paramètres");
-        changerProfilButton = new JButton("Changer de profil");
-        reglesButton = new JButton("Règles");
-        quitterButton = new JButton("Quitter");
-        arcadeButton = new JButton("Arcade");
-        histoireButton = new JButton("Histoire");
-        entrainementButton = new JButton("Entraînement");
+        parametresButton = new Button().setImage("btn-option.png");
+        changerProfilButton = new Button().setImage("btn-switch-profil.png");
+        reglesButton = new Button().setImage("btn-aide.png");
+        quitterButton = new Button().setImage("btn-quitter.png");
+        arcadeButton = new Button("arcade").setFontSize(50);
+        histoireButton = new Button("history").setFontSize(50);
+        entrainementButton = new Button("training").setFontSize(50);
 
         positionnerBoutons1();
 
@@ -77,7 +83,7 @@ public class MenuGeneral extends Panel {
 
     private void positionnerBoutons1() {
 
-        JPanel groupButton = new JPanel();
+        Panel groupButton = new Panel();
         groupButton.setLayout(new GridBagLayout()); // Utilisation de GridBagLayout
         GridBagConstraints gbc = createGbc(0, 0);
         gbc.anchor = GridBagConstraints.CENTER;
@@ -89,20 +95,29 @@ public class MenuGeneral extends Panel {
 
         // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
         // paramètres, changer de profil, règles et quitter
-        JPanel groupButton2 = new JPanel();
-        groupButton2.setLayout(new GridLayout(1, 4, 5, 5));
-        groupButton2.add(parametresButton);
-        groupButton2.add(changerProfilButton);
-        groupButton2.add(reglesButton);
-        groupButton2.add(quitterButton);
+        int size = 100;
 
-        JPanel contenu = new JPanel(new BorderLayout());
+        parametresButton.setPreferredSize(new Dimension(size, size));
+        changerProfilButton.setPreferredSize(new Dimension(size, size));
+        reglesButton.setPreferredSize(new Dimension(size, size));
+        quitterButton.setPreferredSize(new Dimension(size, size));
+
+        Panel groupButton2 = new Panel();
+        groupButton2.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        groupButton2.add(parametresButton, gbc);
+        gbc.gridx = 1;
+        groupButton2.add(changerProfilButton, gbc);
+        gbc.gridx = 2;
+        groupButton2.add(reglesButton, gbc);
+        gbc.gridx = 3;
+        groupButton2.add(quitterButton, gbc);
+
+        Panel contenu = new Panel(new BorderLayout());
         contenu.add(groupButton, BorderLayout.CENTER);
         contenu.add(groupButton2, BorderLayout.SOUTH);
 
-        this.setLayout(new BorderLayout());
-        this.add(contenu, BorderLayout.CENTER);
-
+        add(contenu, BorderLayout.CENTER);
     }
 
     private GridBagConstraints createGbc(int x, int y) {
@@ -113,5 +128,4 @@ public class MenuGeneral extends Panel {
         gbc.insets = new Insets(5, 5, 5, 5); // Marge
         return gbc;
     }
-
 }

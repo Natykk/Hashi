@@ -3,7 +3,6 @@ package com.hashi.gestion_des_menus;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -47,7 +46,7 @@ public class EcranLancement extends Panel {
 
         // Ajout d'une action lorsque le bouton valider (dans la première page) est
         // cliqué
-        bouton.addActionListener((ActionEvent e) -> {
+        bouton.addActionListener(e -> {
             String profilChoisi = profilBox.getItemAt(profilBox.getSelectedIndex());
             // Vérifier si "Nouveau profil" est sélectionné
             if (profilChoisi.equals(Language.getString("new_profile"))) {
@@ -79,7 +78,7 @@ public class EcranLancement extends Panel {
         panel2.add(nouveauprofilField, createGbc(1, 0));
 
         Button validerNouveauprofil = new Button("validate").setFontSize(50);
-        validerNouveauprofil.addActionListener((ActionEvent e) -> {
+        validerNouveauprofil.addActionListener(e -> {
             String nouveauprofil = nouveauprofilField.getText();
             // si on saisie rien il affiche un message d'erreur
             if (nouveauprofil.trim().isEmpty()) {
@@ -106,7 +105,7 @@ public class EcranLancement extends Panel {
         panel2.add(validerNouveauprofil, createGbc(1, 1));
 
         Button annuler = new Button("cancel").setFontSize(50);
-        annuler.addActionListener((ActionEvent e) -> {
+        annuler.addActionListener(e -> {
             // Retour à la page précédente (panel1)
             PageManager.changerPage(panel1);
         });
