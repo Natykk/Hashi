@@ -53,7 +53,7 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
         if (super.getText().isEmpty())
             return "";
 
-        return Language.getInstance().getString(super.getText());
+        return Language.getString(super.getText());
     }
 
     @Override

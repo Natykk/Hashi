@@ -97,8 +97,8 @@ public class SchoolStyle extends Style {
         g.setColor(fg_color);
         g.drawString(
                 combo_box.getSelectedItem().toString(),
-                5,
-                (combo_box.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
+                20,
+                (combo_box.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent() - 5);
     }
 
     protected <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g) {

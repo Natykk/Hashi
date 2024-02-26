@@ -25,7 +25,7 @@ public class TextField extends JTextField implements FontSize<TextField> {
     }
 
     public TextField(String text, int columns) {
-        super(Language.getInstance().getString(text), columns);
+        super(Language.getString(text), columns);
         init();
     }
 

@@ -28,8 +28,8 @@ public class Language {
      * 
      * @param language la nouvelle langue cible.
      */
-    public void setLanguage(String language) {
-        bundle = ResourceBundle.getBundle("com.hashi.language." + language);
+    public static void setLanguage(String language) {
+        getInstance().bundle = ResourceBundle.getBundle("com.hashi.language." + language);
     }
 
     /**
@@ -38,7 +38,7 @@ public class Language {
      * @param key la clé correspondant au texte devant être afficher.
      * @return le texte demandé sous forme de {@link java.lang.String}
      */
-    public String getString(String key) {
-        return bundle.getString(key);
+    public static String getString(String key) {
+        return getInstance().bundle.getString(key);
     }
 }
