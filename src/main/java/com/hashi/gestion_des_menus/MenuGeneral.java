@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
+
 public class MenuGeneral extends Panel {
     private static final String TITLE = "title";
     private Button parametresButton;
@@ -83,14 +84,14 @@ public class MenuGeneral extends Panel {
 
         histoireButton.addActionListener(e -> {
             // Votre code pour le bouton Histoire
-            PageManager.changerPage(new PageMode());
+            PageManager.changerPage(new PageMode(this,TITLE));
         });
 
         // Action du bouton "Entraînement"
 
         entrainementButton.addActionListener(e -> {
             // Votre code pour le bouton Entraînement
-            // ...
+            PageManager.changerPage(new MenuEntrainement());
         });
     }
 

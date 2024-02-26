@@ -1,86 +1,93 @@
 package com.hashi.gestion_des_menus;
 
-import com.hashi.Hashi;
-import com.hashi.grille.Grille;
-import com.hashi.grille.Jeu;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.BorderLayout;
 
-public class MenuEntrainement extends JFrame {
+
+import com.hashi.style.Panel;
+
+
+
+public class MenuEntrainement extends Panel {
+    private final String TITLE = "title";
+    private JButton retour;
+    private JButton parametre;
+    private JButton changerProfil;
+    private JButton regles;
+    private JButton quitter;
+    private JButton sept;
+    private JButton dix;
+    private JButton vignt;
 
     public MenuEntrainement() {
-        super("Menu de Sélection de Niveau - Hashi");
 
-        // Bouton Retour en haut à droite
-        JButton retourButton = new JButton("Retour");
+        super(new BorderLayout(), "bg-selection-grille.png");
+        PageManager.getInstance().setTitle(TITLE);
+        
+        retour = new JButton("Retour");
+        parametre = new JButton("Parametres");
+        changerProfil = new JButton("Changer de profil");
+        regles = new JButton("Règles");
+        quitter = new JButton("Quitter le jeu");
+        sept=new JButton("7X7");
+        dix=new JButton("10X10");
+        vignt=new JButton("25X25");
 
-        // Création des boutons de niveaux
-        JButton[][] niveauButtons = new JButton[3][6];
-        String[] niveaux = { "Facile", "Moyen", "Difficile" };
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 6; j++) {
-                niveauButtons[i][j] = new JButton(niveaux[i] + " " + (j + 1));
-            }
-        }
-
-        // Création du panel principal
-        JPanel mainPanel = new JPanel(new BorderLayout());
-
-        // Création du panel pour les boutons de niveaux
-        JPanel niveauPanel = new JPanel(new GridLayout(3, 6));
-
-        // Ajout des boutons de niveaux au panel
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 6; j++) {
-                niveauPanel.add(niveauButtons[i][j]);
-            }
-        }
-
-        // Ajout des panels au panel principal
-
-        mainPanel.add(retourButton, BorderLayout.NORTH);
-        mainPanel.add(niveauPanel, BorderLayout.CENTER);
-
-        // Ajout du panel principal à la fenêtre
-        add(mainPanel);
-
-        // Configuration de la fenêtre
-        setSize(800, 600);
-        setLocationRelativeTo(null);
-
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setVisible(true);
-
-        // si on clique sur le bouton retour, on ferme la fenêtre
-        retourButton.addActionListener(e -> dispose());
-
-        // si on clique sur un bouton de niveau, on lance le niveau correspondant
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 6; j++) {
-                int finalI = i;
-                int finalJ = j;
-                niveauButtons[i][j].addActionListener(e -> {
-                    dispose();
-                    Jeu jd = new Jeu();
-                    jd.genererGrilleDepuisFichier("grille.txt");
-                    Grille grille;
-                    if (finalI == 0) {
-                        grille = jd.listeGrille.get(finalJ);
-                    } else {
-                        grille = jd.listeGrille.get(finalJ * finalI);
-                    }
-
-                    // affiche la grille dans une fenêtre
-                    Hashi hashi = new Hashi(grille);
-                });
-            }
-        }
+        positionnerBoutons2();
+        
+        retour.addActionListener(e -> {
+            PageManager.changerPage(new MenuGeneral());
+        });
+        quitter.addActionListener(e -> {
+            System.exit(0);
+        });
+        regles.addActionListener(e -> {
+            PageManager.changerPage(new Regle(this, TITLE));
+        });
+        parametre.addActionListener(e -> {
+            PageManager.changerPage(new Parametre(this, TITLE));
+        });
+        changerProfil.addActionListener(e -> {
+            PageManager.changerPage(new EcranLancement());
+        });
+        sept.addActionListener(e -> {
+            PageManager.changerPage(new Puzzle(this, TITLE));
+        });
+        dix.addActionListener(e -> {
+            PageManager.changerPage(new Puzzle(this, TITLE));
+        });
+        vignt.addActionListener(e -> {
+            PageManager.changerPage(new Puzzle(this, TITLE));
+        });
 
     }
+    private void positionnerBoutons2() {
+        JPanel boutonsHaut = new JPanel();
+        boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT)); // Alignement à droite
+        boutonsHaut.add(retour);
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MenuEntrainement());
+        JPanel boutonsCentre = new JPanel(new GridBagLayout());
+        boutonsCentre.add(sept);
+        boutonsCentre.add(dix);
+        boutonsCentre.add(vignt);
+
+        JPanel boutonsBas = new JPanel();
+        boutonsBas.setLayout(new GridLayout(1, 3, 5, 5));
+        boutonsBas.add(parametre);
+        boutonsBas.add(changerProfil);
+        boutonsBas.add(Box.createHorizontalStrut(10));
+        boutonsBas.add(regles);
+        boutonsBas.add(quitter);
+
+        JPanel contenu = new JPanel(new BorderLayout());
+        contenu.add(boutonsHaut, BorderLayout.NORTH);
+        contenu.add(boutonsCentre, BorderLayout.CENTER);
+        contenu.add(boutonsBas, BorderLayout.SOUTH);
+
+        this.setLayout(new BorderLayout());
+        this.add(contenu, BorderLayout.CENTER);
     }
+
+
 }

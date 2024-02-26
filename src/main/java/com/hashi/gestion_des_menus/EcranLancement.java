@@ -10,7 +10,7 @@ import javax.swing.SwingUtilities;
 
 import com.hashi.Language;
 import com.hashi.style.*;
-
+import com.hashi.style.Panel;
 public class EcranLancement extends Panel {
 
     private ComboBox<String> profilBox;
@@ -18,8 +18,7 @@ public class EcranLancement extends Panel {
     private Panel panel1, panel2;
 
     public EcranLancement() {
-        super(new GridBagLayout(), "bg-profil.png");
-
+        //super(new GridBagLayout(), "bg-profil.png");
         PageManager.getInstance().setTitle("title_profile_selection");
 
         // Charger les profils depuis le fichier "profils.txt"
@@ -89,7 +88,7 @@ public class EcranLancement extends Panel {
                 PageManager.MessageErreur("Ce profil existe déja",
                         "Erreur");
             } else {
-                System.out.println("Nouveau profil créé : " + nouveauprofil);
+                System.out.println("Nouveau profil: " + nouveauprofil);
                 // Ajouter le nouveau profil au fichier
                 ajouterprofil(nouveauprofil);
                 // Mettre à jour la liste des profils

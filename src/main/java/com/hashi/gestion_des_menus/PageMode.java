@@ -5,6 +5,8 @@ import java.awt.*;
 
 import com.hashi.style.Panel;
 
+
+
 public class PageMode extends Panel {
     private final String TITLE = "title";
     private JButton retour;
@@ -15,10 +17,10 @@ public class PageMode extends Panel {
     private JButton regles;
     private JButton quitter;
 
-    public PageMode() {
+    public PageMode(Panel returnPanel, String returnTitle) {
         PageManager.getInstance().setTitle(TITLE);
 
-        retour = new JButton("Retour au menu");
+        retour = new JButton("Retour");
         nouvellePartie = new JButton("NOUVELLE PARTIE");
         charger = new JButton("CHARGER");
         parametre = new JButton("Parametres");
@@ -47,7 +49,8 @@ public class PageMode extends Panel {
             PageManager.changerPage(new EcranLancement());
         });
         retour.addActionListener(e -> {
-            PageManager.changerPage(new MenuGeneral());
+            PageManager.changerPage(returnPanel);
+            PageManager.getInstance().setTitle(returnTitle);
         });
     }
 
