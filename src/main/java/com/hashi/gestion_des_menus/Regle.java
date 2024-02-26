@@ -3,7 +3,9 @@ package com.hashi.gestion_des_menus;
 import javax.swing.*;
 import java.awt.*;
 
-public class Regle extends JPanel {
+import com.hashi.style.Panel;
+
+public class Regle extends Panel {
 
     private JLabel titleLabel;
     private JTextArea text;

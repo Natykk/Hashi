@@ -2,6 +2,8 @@ package com.hashi.gestion_des_menus;
 
 import javax.swing.*;
 
+import com.hashi.style.Panel;
+
 public class PageManager extends JFrame {
     private static PageManager instance;
 
@@ -23,7 +25,7 @@ public class PageManager extends JFrame {
         return instance;
     }
 
-    public static void changerPage(JPanel nouvellePage) {
+    public static void changerPage(Panel nouvellePage) {
         getInstance().getContentPane().removeAll();
         getInstance().getContentPane().add(nouvellePage);
         getInstance().revalidate();

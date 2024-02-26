@@ -3,7 +3,9 @@ package com.hashi.gestion_des_menus;
 import javax.swing.*;
 import java.awt.*;
 
-public class PageMode extends JPanel {
+import com.hashi.style.Panel;
+
+public class PageMode extends Panel {
     private JButton retour;
     private JButton nouvellePartie;
     private JButton charger;

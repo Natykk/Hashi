@@ -87,8 +87,6 @@ public class Hashi extends JFrame {
     class PuzzlePanel extends Panel {
         @Override
         protected void paintComponent(Graphics g) {
-            // super.paintComponent(g);
-
             Graphics2D g2d = (Graphics2D) g;
             g2d.setStroke(new BasicStroke(3));
             drawGrid(g2d);

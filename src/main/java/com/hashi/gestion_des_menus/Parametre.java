@@ -3,7 +3,9 @@ package com.hashi.gestion_des_menus;
 import javax.swing.*;
 import java.awt.*;
 
-public class Parametre extends JPanel {
+import com.hashi.style.Panel;
+
+public class Parametre extends Panel {
 
     public Parametre() {
         PageManager.getInstance().setTitle("Hashi - Paramètre");

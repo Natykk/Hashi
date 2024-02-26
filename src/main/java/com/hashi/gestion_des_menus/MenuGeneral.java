@@ -3,7 +3,9 @@ package com.hashi.gestion_des_menus;
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuGeneral extends JPanel {
+import com.hashi.style.Panel;
+
+public class MenuGeneral extends Panel {
 
     private JButton parametresButton;
     private JButton changerProfilButton;
