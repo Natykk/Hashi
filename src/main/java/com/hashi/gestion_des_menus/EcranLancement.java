@@ -20,7 +20,7 @@ public class EcranLancement extends Panel {
     public EcranLancement() {
         super(new GridBagLayout(), "bg-profil.png");
 
-        PageManager.getInstance().setTitle("Hashi - Sélection du profil");
+        PageManager.getInstance().setTitle("title_profile_selection");
 
         // Charger les profils depuis le fichier "profils.txt"
         chargerprofils();
@@ -65,7 +65,7 @@ public class EcranLancement extends Panel {
 
         profilBox = new ComboBox<>(profilsArray).setFontSize(50);
         panel1 = new Panel(new GridBagLayout(), "bg-profil.png");
-        panel1.add(new Label("profil").setFontSize(50), createGbc(0, 0));
+        panel1.add(new Label("select_profile").setFontSize(50), createGbc(0, 0));
         panel1.add(profilBox, createGbc(1, 0));
         panel1.add(bouton, createGbc(1, 1));
     }

@@ -24,7 +24,7 @@ public class MenuGeneral extends Panel {
     public MenuGeneral() {
         super(new BorderLayout(), "bg-principal.png");
 
-        PageManager.getInstance().setTitle("Hashi");
+        PageManager.getInstance().setTitle("title");
 
         // Création des boutons
         parametresButton = new Button().setImage("btn-option.png");
@@ -56,7 +56,7 @@ public class MenuGeneral extends Panel {
         // Action du bouton "Paramètres"
         parametresButton.addActionListener(e -> {
             // changement de page -> parametre
-            PageManager.changerPage(new Parametre(this));
+            PageManager.changerPage(new Parametre(this, "title"));
         });
 
         // Action du bouton "Changer de profil"
@@ -70,7 +70,7 @@ public class MenuGeneral extends Panel {
 
         reglesButton.addActionListener(e -> {
             // changement de page -> Aide
-            PageManager.changerPage(new Regle(this));
+            PageManager.changerPage(new Regle(this, "title"));
         });
 
         // Action du bouton "Arcade"

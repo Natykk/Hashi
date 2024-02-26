@@ -2,6 +2,7 @@ package com.hashi.gestion_des_menus;
 
 import javax.swing.*;
 
+import com.hashi.Language;
 import com.hashi.style.Panel;
 
 public class PageManager extends JFrame {
@@ -15,6 +16,11 @@ public class PageManager extends JFrame {
 
         getContentPane().add(new EcranLancement());
         setVisible(true);
+    }
+
+    @Override
+    public void setTitle(String title_key) {
+        super.setTitle(Language.getString(title_key));
     }
 
     public static PageManager getInstance() {

@@ -15,7 +15,7 @@ public class PageMode extends Panel {
     private JButton quitter;
 
     public PageMode() {
-        PageManager.getInstance().setTitle("Hashi - Sélection du mode de jeu");
+        PageManager.getInstance().setTitle("title_game_mode_selection");
 
         retour = new JButton("Retour au menu");
         nouvellePartie = new JButton("NOUVELLE PARTIE");
@@ -31,7 +31,7 @@ public class PageMode extends Panel {
             System.exit(0);
         });
         regles.addActionListener(e -> {
-            PageManager.changerPage(new Regle(this));
+            PageManager.changerPage(new Regle(this, "title_game_mode_selection"));
         });
         nouvellePartie.addActionListener(e -> {
             // pass
@@ -40,7 +40,7 @@ public class PageMode extends Panel {
             // pass
         });
         parametre.addActionListener(e -> {
-            PageManager.changerPage(new Parametre(this));
+            PageManager.changerPage(new Parametre(this, "title_game_mode_selection"));
         });
         changerProfil.addActionListener(e -> {
             PageManager.changerPage(new EcranLancement());

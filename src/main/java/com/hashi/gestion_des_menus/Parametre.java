@@ -21,10 +21,10 @@ import com.hashi.style.SummerStyle;
 
 public class Parametre extends Panel {
 
-    public Parametre(Panel returnPanel) {
+    public Parametre(Panel returnPanel, String returnTitle) {
         super(new BorderLayout(), "bg-parametre.png");
 
-        PageManager.getInstance().setTitle("Hashi - Paramètre");
+        PageManager.getInstance().setTitle("title_parameters");
 
         // Créer un panel pour contenir les boutons
         Panel buttonsPanel = new Panel(new GridBagLayout());
@@ -49,6 +49,7 @@ public class Parametre extends Panel {
         ComboBox<String> languagesBox = new ComboBox<>(languages).setFontSize(50);
         languagesBox.addActionListener(e -> {
             Language.setLanguage(languages_key[languagesBox.getSelectedIndex()]);
+            PageManager.getInstance().setTitle("title_parameters");
             PageManager.changerPage(this);
         });
         buttonsPanel.add(languagesBox, gbc);
@@ -58,6 +59,7 @@ public class Parametre extends Panel {
         validerButton.setPreferredSize(new Dimension(250, 100));
         validerButton.addActionListener(e -> {
             PageManager.changerPage(returnPanel);
+            PageManager.getInstance().setTitle(returnTitle);
         });
         Panel bottomPanel = new Panel(new FlowLayout(FlowLayout.RIGHT));
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 80, 130));

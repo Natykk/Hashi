@@ -17,10 +17,10 @@ public class Regle extends Panel {
     private JTextArea text;
     private Button retourButton;
 
-    public Regle(Panel returnPanel) {
+    public Regle(Panel returnPanel, String returnTitle) {
         super(new BorderLayout(), "bg-victoire.png");
 
-        PageManager.getInstance().setTitle("Hashi - Règle");
+        PageManager.getInstance().setTitle("title_rules");
 
         // Création de la zone de texte
         text = new JTextArea();
@@ -43,6 +43,7 @@ public class Regle extends Panel {
         retourButton = new Button("return").setFontSize(50);
         retourButton.addActionListener(e -> {
             PageManager.changerPage(returnPanel);
+            PageManager.getInstance().setTitle(returnTitle);
         });
 
         Panel buttonPanel = new Panel(new FlowLayout(FlowLayout.CENTER));
