@@ -113,8 +113,6 @@ public class SchoolStyle extends Style {
         int margin = 2;
 
         g.setFont(font.deriveFont(0, text_field.getFontSize()));
-        g.setColor(bg_color);
-        g.fillRect(0, 0, text_field.getWidth(), text_field.getHeight());
         g.setColor(fg_color);
         g.drawString(
                 text_field.getText(),

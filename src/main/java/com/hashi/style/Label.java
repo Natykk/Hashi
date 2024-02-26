@@ -21,6 +21,8 @@ public class Label extends JLabel implements FontSize<Label> {
     }
 
     private void init() {
+        setOpaque(false);
+
         StyleManager.getInstance().initLabel(this);
     }
 

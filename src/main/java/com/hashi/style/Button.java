@@ -21,6 +21,8 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
     }
 
     private void init() {
+        setOpaque(false);
+
         this.image = new Image(this);
 
         StyleManager.getInstance().initButton(this);
