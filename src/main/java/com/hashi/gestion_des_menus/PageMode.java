@@ -11,7 +11,7 @@ import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
 public class PageMode extends Panel {
-    private final String TITLE = "title";
+    private final String TITLE = "title_history";
     private Button retour;
     private Button nouvellePartie;
     private Button charger;

@@ -42,9 +42,11 @@ public class MenuGeneral extends Panel {
         reglesButton.setPreferredSize(size);
         quitterButton.setPreferredSize(size);
 
-        arcadeButton.setPreferredSize(new Dimension(250, 100));
-        histoireButton.setPreferredSize(new Dimension(250, 100));
-        entrainementButton.setPreferredSize(new Dimension(250, 100));
+        size = new Dimension(250, 100);
+
+        arcadeButton.setPreferredSize(size);
+        histoireButton.setPreferredSize(size);
+        entrainementButton.setPreferredSize(size);
 
         positionnerBoutons1();
 
@@ -104,7 +106,7 @@ public class MenuGeneral extends Panel {
         groupButton.add(histoireButton, gbc);
         gbc.gridx = 2;
         groupButton.add(entrainementButton, gbc);
-        groupButton.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+        groupButton.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
 
         // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
         // paramètres, changer de profil, règles et quitter
