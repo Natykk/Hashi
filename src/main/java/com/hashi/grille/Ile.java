@@ -6,13 +6,14 @@ import java.util.List;
 
 import javax.management.InvalidAttributeValueException;
 
+import com.hashi.style.StyleManager;
+
 public class Ile extends Case {
     private int valeur;
     public ArrayList<Pont> listePont;
     public int x;
     public int y;
     private int tailleIle;
-    private Color color;
     private ArrayList<Ile> listeVoisin;
 
     public Ile(int valeur, int x, int y, Grille lagrille) {
@@ -22,7 +23,6 @@ public class Ile extends Case {
         this.x = x;
         this.y = y;
         this.tailleIle = 35;
-        this.color = Color.CYAN;
         this.listeVoisin = new ArrayList<>();
         grille = lagrille;
     }
@@ -32,13 +32,30 @@ public class Ile extends Case {
     }
 
     public void draw(Graphics g) {
-        g.setColor(color);
-        g.drawOval(x - 10, y - 10, tailleIle, tailleIle);
-        g.fillOval(x - 10, y - 10, tailleIle, tailleIle);
-        g.setColor(Color.BLACK);
-        // on ecrie la valeur de l'ile dans le cercle de l'ile au centre
-        g.drawString(String.valueOf(valeur), x, y); 
+        if (valeur == getNbConnexion()) {
+            g.setColor(StyleManager.getInstance().getFgColor());
+            g.fillOval(x - tailleIle / 2, y - tailleIle / 2, tailleIle, tailleIle);
+        } else {
+            g.setColor(StyleManager.getInstance().getBgColor());
+            g.fillOval(x - tailleIle / 2, y - tailleIle / 2, tailleIle, tailleIle);
+        }
 
+        g.setColor(StyleManager.getInstance().getFgColor());
+        g.drawOval(x - tailleIle / 2, y - tailleIle / 2, tailleIle, tailleIle);
+
+        if (valeur == getNbConnexion())
+            g.setColor(StyleManager.getInstance().getBgColor());
+        else
+            g.setColor(StyleManager.getInstance().getFgColor());
+
+        // on ecrie la valeur de l'ile dans le cercle de l'ile au centre
+        String text = String.valueOf(valeur);
+
+        g.setFont(StyleManager.getInstance().getFont().deriveFont(0, 20));
+        g.drawString(
+                text,
+                x - g.getFontMetrics().stringWidth(text) / 2,
+                y - g.getFontMetrics().getHeight() / 2 + g.getFontMetrics().getAscent());
     }
 
     public void ajouterPont(Pont pont) {
@@ -64,10 +81,10 @@ public class Ile extends Case {
                 this.listePont.remove(pont);
                 return false;
             } else {
-                //Pont p1 = listePont.get(k);
-                //p1.setNbPont(p1.getNbPont() - 1);
+                // Pont p1 = listePont.get(k);
+                // p1.setNbPont(p1.getNbPont() - 1);
                 this.listePont.remove(pont);
-                //this.listePont.add(p1);
+                // this.listePont.add(p1);
             }
         }
         return true;
@@ -171,8 +188,10 @@ public class Ile extends Case {
         }
         return nbPontHaut;
     }
+
     /*
      * retourne vrai si l'île a plus d'un pont dans une direction
+     * 
      * @return vrai si l'île a plus d'un pont dans une direction
      * 
      */
@@ -186,6 +205,7 @@ public class Ile extends Case {
 
     /*
      * retourne la position de l'île
+     * 
      * @return la position de l'île
      */
     public int getPosition() {

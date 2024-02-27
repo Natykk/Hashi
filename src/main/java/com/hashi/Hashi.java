@@ -90,12 +90,12 @@ public class Hashi extends JFrame {
             Graphics2D g2d = (Graphics2D) g;
             g2d.setStroke(new BasicStroke(3));
             drawGrid(g2d);
-            drawIslands(g2d);
             try {
                 drawBridges(g2d);
             } catch (InvalidAttributeValueException e) {
                 e.printStackTrace();
             }
+            drawIslands(g2d);
         }
 
         private void drawGrid(Graphics2D g2d) {
