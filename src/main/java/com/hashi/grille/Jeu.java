@@ -23,7 +23,7 @@ public class Jeu {
             String line = "";
             int row = 0;
 
-            Grille grilleTemp = new Grille(7);
+            Grille grilleTemp = null;
 
             while ((line = br.readLine()) != null) {
 
@@ -32,9 +32,7 @@ public class Jeu {
                 }
 
                 if (line.trim().equals("-")) {
-
                     this.listeGrille.add(grilleTemp);
-                    grilleTemp = new Grille(7);
                     this.numGrille++;
                     row = 0; // Reset row for the new grid
                     continue;
@@ -42,15 +40,18 @@ public class Jeu {
 
                 String[] values = line.split(" ");
 
+                if (row == 0)
+                    grilleTemp = new Grille(values.length);
+
                 for (int col = 0; col < values.length; col++) {
                     if (!values[col].isEmpty()) {
                         int value = Integer.parseInt(values[col]);
 
                         if (value > 0) {
-                            Ile ile = new Ile(value, row, col, grilleTemp);
-                            grilleTemp.ajouterIle(ile);
+                            Ile ile = new Ile(value, col, row, grilleTemp);
 
-                            grilleTemp.setCase(row, col, ile);
+                            grilleTemp.ajouterIle(ile);
+                            grilleTemp.setCase(col, row, ile);
                         }
                     }
                 }
