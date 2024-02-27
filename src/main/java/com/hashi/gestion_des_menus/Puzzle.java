@@ -1,52 +1,59 @@
 package com.hashi.gestion_des_menus;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
 //il me reste de faire fonctionner les boutons 
 public class Puzzle extends Panel {
+    private Button retour;
+    private Button[][] boutons;
 
-    private JButton retour;
-    private JButton[][] boutons;
+    public Puzzle() {
+        super(new BorderLayout(), "bg-entrainement.png");
 
-    public Puzzle(Panel returnPanel, String returnTitle) {
-        retour = new JButton("Retour");
+        PageManager.getInstance().setTitle("title_puzzle");
 
-        boutons = new JButton[3][6]; // 3 niveaux de puzzle chaque niveau avec 6 boutons
+        retour = new Button("return").setFontSize(50);
+        boutons = new Button[3][6]; // 3 niveaux de puzzle chaque niveau avec 6 boutons
 
         positionnerBoutons3();
 
         retour.addActionListener(e -> {
-            PageManager.changerPage(returnPanel);
-            PageManager.getInstance().setTitle(returnTitle);
+            PageManager.changerPage(new MenuEntrainement());
         });
     }
 
     private void positionnerBoutons3() {
-        JPanel boutonsHaut = new JPanel();
+        Panel boutonsHaut = new Panel();
         boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT));
         boutonsHaut.add(retour);
-        JPanel contenu = new JPanel(new GridLayout(3, 1));
-        String[] labels = { "Facile", "Moyen", "Difficile" };
+        Panel contenu = new Panel(new GridLayout(3, 1));
+        contenu.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 120));
 
         // Boucle pour créer les boutons pour chaque niveau de puzzle
         for (int i = 0; i < 3; i++) {
-            JPanel panelNiveau = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            panelNiveau.add(new JLabel(labels[i]));
+            Panel panelNiveau = new Panel(new FlowLayout(FlowLayout.CENTER));
+            panelNiveau.setBorder(BorderFactory.createEmptyBorder(55, 0, 0, 0));
 
             for (int j = 0; j < 6; j++) {
-                boutons[i][j] = new JButton("Bouton " + (j + 1));
+                boutons[i][j] = new Button("puzzle_" + (j + 1)).setFontSize(70);
+                boutons[i][j].setPreferredSize(new Dimension(90, 90));
                 panelNiveau.add(boutons[i][j]);
-
-                contenu.add(panelNiveau);
             }
 
-            // Ajout du contenu à ce panneau Puzzle
-            this.setLayout(new BorderLayout());
-            this.add(contenu, BorderLayout.CENTER);
-            this.add(boutonsHaut, BorderLayout.NORTH);
+            contenu.add(panelNiveau);
         }
+
+        // Ajout du contenu à ce panneau Puzzle
+        add(contenu, BorderLayout.CENTER);
+        add(boutonsHaut, BorderLayout.NORTH);
     }
 }

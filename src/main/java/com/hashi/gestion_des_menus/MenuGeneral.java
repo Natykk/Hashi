@@ -85,7 +85,7 @@ public class MenuGeneral extends Panel {
 
         histoireButton.addActionListener(e -> {
             // Votre code pour le bouton Histoire
-            PageManager.changerPage(new PageMode(this, TITLE));
+            PageManager.changerPage(new PageMode());
         });
 
         // Action du bouton "Entraînement"

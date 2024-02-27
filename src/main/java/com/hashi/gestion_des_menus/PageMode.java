@@ -20,7 +20,7 @@ public class PageMode extends Panel {
     private Button regles;
     private Button quitter;
 
-    public PageMode(Panel returnPanel, String returnTitle) {
+    public PageMode() {
         super(new BorderLayout(), "bg-histoire.png");
 
         PageManager.getInstance().setTitle(TITLE);
@@ -61,8 +61,7 @@ public class PageMode extends Panel {
             PageManager.changerPage(new EcranLancement());
         });
         retour.addActionListener(e -> {
-            PageManager.changerPage(returnPanel);
-            PageManager.getInstance().setTitle(returnTitle);
+            PageManager.changerPage(new MenuGeneral());
         });
     }
 

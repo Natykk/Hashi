@@ -11,7 +11,7 @@ import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
 public class MenuEntrainement extends Panel {
-    private final String TITLE = "title";
+    private final String TITLE = "title_training";
     private Button retour;
     private Button parametre;
     private Button changerProfil;
@@ -66,13 +66,13 @@ public class MenuEntrainement extends Panel {
             PageManager.changerPage(new EcranLancement());
         });
         sept.addActionListener(e -> {
-            PageManager.changerPage(new Puzzle(this, TITLE));
+            PageManager.changerPage(new Puzzle());
         });
         dix.addActionListener(e -> {
-            PageManager.changerPage(new Puzzle(this, TITLE));
+            PageManager.changerPage(new Puzzle());
         });
         vignt.addActionListener(e -> {
-            PageManager.changerPage(new Puzzle(this, TITLE));
+            PageManager.changerPage(new Puzzle());
         });
 
     }
