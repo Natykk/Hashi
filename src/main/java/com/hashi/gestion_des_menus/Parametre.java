@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 
@@ -33,10 +34,12 @@ public class Parametre extends Panel {
         buttonsPanel.add(new Label("select_theme").setFontSize(50), gbc);
         gbc.gridx++;
         String[] themes = { "School", "Summer" };
-        Style[] themes_key = { new SchoolStyle(), new SummerStyle() };
+        List<String> themes_key = List.of("school", "summer");
+        Style[] themes_style = { new SchoolStyle(), new SummerStyle() };
         ComboBox<String> themeBox = new ComboBox<>(themes).setFontSize(50);
+        themeBox.setSelectedIndex(themes_key.indexOf(StyleManager.getInstance().getName()));
         themeBox.addActionListener(e -> {
-            StyleManager.setStyle(themes_key[themeBox.getSelectedIndex()]);
+            StyleManager.setStyle(themes_style[themeBox.getSelectedIndex()]);
             PageManager.changerPage(this);
         });
         buttonsPanel.add(themeBox, gbc);
@@ -45,10 +48,11 @@ public class Parametre extends Panel {
         buttonsPanel.add(new Label("select_language").setFontSize(50), gbc);
         gbc.gridx++;
         String[] languages = { "Francais", "English" };
-        String[] languages_key = { "fr", "en" };
+        List<String> languages_key = List.of("fr", "en");
         ComboBox<String> languagesBox = new ComboBox<>(languages).setFontSize(50);
+        languagesBox.setSelectedIndex(languages_key.indexOf(Language.getLanguage()));
         languagesBox.addActionListener(e -> {
-            Language.setLanguage(languages_key[languagesBox.getSelectedIndex()]);
+            Language.setLanguage(languages_key.get(languagesBox.getSelectedIndex()));
             PageManager.getInstance().setTitle("title_parameters");
             PageManager.changerPage(this);
         });
