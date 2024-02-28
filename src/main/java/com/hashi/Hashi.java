@@ -64,11 +64,15 @@ public class Hashi extends JFrame {
         buttonPanel.add(undoButton);
         buttonPanel.add(redoButton);
 
+        Panel timerPanel = new Panel(new FlowLayout(FlowLayout.RIGHT));
         Label timerLabel = new Label("00:00").setAsRawText().setFontSize(100);
-        mainPanel.add(timerLabel, BorderLayout.NORTH);
+        timerPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 150));
+        timerPanel.add(timerLabel);
+        mainPanel.add(timerPanel, BorderLayout.NORTH);
 
         new TimerManager(timerLabel);
 
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 10, 0));
         mainPanel.add(buttonPanel, BorderLayout.WEST);
         mainPanel.add(new PuzzlePanel(), BorderLayout.CENTER);
 
@@ -172,6 +176,25 @@ public class Hashi extends JFrame {
                     && (selectedIle.getX() == clickedIle.getX() || selectedIle.getY() == clickedIle.getY())) {
                 if (selectedIle.getNbConnexion() < selectedIle.getValeur()
                         && clickedIle.getNbConnexion() < clickedIle.getValeur()) {
+                    // empêche de placer un pont si une ile se trouve entre les deux iles
+                    if (selectedIle.getX() == clickedIle.getX()) {
+                        int yEnd = Math.max(selectedIle.getY(), clickedIle.getY());
+
+                        for (int y = Math.min(selectedIle.getY(), clickedIle.getY()) + 1; y < yEnd; y++) {
+                            if (grille.getIleAt(selectedIle.getX(), y) != null)
+                                return;
+                        }
+                    } else {
+                        if (selectedIle.getX() == clickedIle.getX()) {
+                            int xEnd = Math.max(selectedIle.getX(), clickedIle.getX());
+
+                            for (int x = Math.min(selectedIle.getX(), clickedIle.getX()) + 1; x < xEnd; x++) {
+                                if (grille.getIleAt(x, selectedIle.getY()) != null)
+                                    return;
+                            }
+                        }
+                    }
+
                     // si un pont simple est deja présent alors on le transforme en pont double
                     Pont pontAller = grille.getPont(selectedIle, clickedIle);
                     Pont pontRetour = grille.getPont(clickedIle, selectedIle);

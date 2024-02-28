@@ -94,6 +94,15 @@ public class Ile extends Case {
         return listePont.size() == this.valeur;
     }
 
+    /**
+     * Donne la taille en pixel de l'{@link com.hashi.grille.Ile}
+     * 
+     * @return la taille en pixel
+     */
+    public int getTaille() {
+        return tailleIle;
+    }
+
     public int getValeur() {
         return this.valeur;
     }
@@ -427,7 +436,6 @@ public class Ile extends Case {
     }
 
     public Component getListePont() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getListePont'");
     }
 
