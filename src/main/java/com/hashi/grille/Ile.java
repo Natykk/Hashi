@@ -11,8 +11,8 @@ import com.hashi.style.StyleManager;
 public class Ile extends Case {
     private int valeur;
     public List<Pont> listePont;
-    private int xAffichage;
-    private int yAffichage;
+    private int xAffichage; // coordonnée x pour l'affichage de l'Ile
+    private int yAffichage; // coordonnée y pour l'affichage de l'Ile
     private int tailleIle; // taille pour l'affichage
     private List<Ile> listeVoisin; // liste des Iles voisines (pas implémenté)
 

@@ -1,8 +1,8 @@
 package com.hashi.grille;
 
 public class Case {
-    protected int x; // coordonnée x pour l'affichage de l'Ile
-    protected int y; // coordonnée y pour l'affichage de l'Ile
+    protected int x;
+    protected int y;
     static Grille grille; // référence vers la Grille où cette Case se situe
 
     public Case(int x, int y, Grille laGrille) {
