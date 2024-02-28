@@ -112,8 +112,8 @@ public class Hashi extends JFrame {
                 for (int j = 0; j < grille.getTaille(); j++) {
                     if (grille.getCase(i, j) instanceof Ile) {
                         Ile ile = (Ile) grille.getCase(i, j);
-                        ile.x = xOffset + i * cellSize + cellSize / 2;
-                        ile.y = yOffset + j * cellSize + cellSize / 2;
+                        ile.setxAffichage(xOffset + i * cellSize + cellSize / 2);
+                        ile.setyAffichage(yOffset + j * cellSize + cellSize / 2);
                     }
                 }
             }
@@ -126,12 +126,9 @@ public class Hashi extends JFrame {
         }
 
         private void drawBridges(Graphics2D g2d) throws InvalidAttributeValueException {
-            System.out.println("---------------");
             for (Pont pont : grille.getPonts()) {
                 pont.draw(g2d);
-
             }
-            System.out.println("*---------------*");
             System.out.println("Nombre de ponts : " + grille.getPonts().size());
         }
 
@@ -172,6 +169,7 @@ public class Hashi extends JFrame {
 
         private void handleIslandSelection(Ile clickedIle) {
             Ile selectedIle = (Ile) grille.getSelectedCase();
+
             if (selectedIle != clickedIle
                     && (selectedIle.getX() == clickedIle.getX() || selectedIle.getY() == clickedIle.getY())) {
                 if (selectedIle.getNbConnexion() < selectedIle.getValeur()
