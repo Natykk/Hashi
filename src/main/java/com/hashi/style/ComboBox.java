@@ -6,28 +6,49 @@ import java.util.Vector;
 
 import javax.swing.*;
 
-public class ComboBox<E> extends JComboBox<E> {
-    private StyleWrapper style;
+public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
+    private int font_size = 20;
 
-    public ComboBox(StyleWrapper style) {
+    public ComboBox() {
         super();
-
-        this.style = style;
+        init();
     }
 
-    public ComboBox(StyleWrapper style, E[] items) {
+    public ComboBox(E[] items) {
         super(items);
-
-        this.style = style;
+        init();
     }
 
-    public ComboBox(StyleWrapper style, Vector<E> items) {
+    public ComboBox(Vector<E> items) {
         super(items);
-
-        this.style = style;
+        init();
     }
 
+    private void init() {
+        setOpaque(false);
+
+        StyleManager.getInstance().initComboBox(this);
+    }
+
+    public ComboBox<E> setFontSize(int size) {
+        font_size = size;
+
+        StyleManager.getInstance().initComboBox(this);
+
+        return this;
+    }
+
+    public int getFontSize() {
+        return font_size;
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
-        style.paintComboBox(this, (Graphics2D) g);
+        StyleManager.getInstance().paintComboBox(this, (Graphics2D) g);
+    }
+
+    @Override
+    protected void paintBorder(Graphics g) {
+        StyleManager.getInstance().paintComboBoxBorder(this, (Graphics2D) g);
     }
 }

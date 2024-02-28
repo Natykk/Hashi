@@ -11,25 +11,65 @@ public class SummerStyle extends Style {
         font = getFontResource(getResourcePath("kindergarten.ttf"));
     }
 
-    public void paintPanel(Panel panel, Graphics2D g) {
-        if (panel.image != null) {
-            g.drawImage(panel.image.getImage(), 0, 0, panel.getWidth(), panel.getHeight(), null);
+    protected void initPanel(Panel panel) {
+
+    }
+
+    protected void paintPanel(Panel panel, Graphics2D g) {
+        if (panel.getImage() != null) {
+            g.drawImage(panel.getImage(), 0, 0, panel.getWidth(), panel.getHeight(), null);
         }
     }
 
-    public void paintButton(Button button, Graphics2D g) {
+    protected void paintPanelBorder(Panel panel, Graphics2D g) {
 
     }
 
-    public void paintLabel(Label label, Graphics2D g) {
+    protected void initButton(Button button) {
 
     }
 
-    public <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
+    protected void paintButton(Button button, Graphics2D g) {
 
     }
 
-    public void paintTextField(TextField text_field, Graphics2D g) {
+    protected void paintButtonBorder(Button button, Graphics2D g) {
+
+    }
+
+    protected void initLabel(Label label) {
+
+    }
+
+    protected void paintLabel(Label label, Graphics2D g) {
+
+    }
+
+    protected void paintLabelBorder(Label label, Graphics2D g) {
+
+    }
+
+    protected <E> void initComboBox(ComboBox<E> combo_box) {
+
+    }
+
+    protected <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
+
+    }
+
+    protected <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g) {
+
+    }
+
+    protected void initTextField(TextField text_field) {
+
+    }
+
+    protected void paintTextField(TextField text_field, Graphics2D g) {
+
+    }
+
+    protected void paintTextFieldBorder(TextField text_field, Graphics2D g) {
 
     }
 }

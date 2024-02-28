@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Grille extends MouseAdapter {
-    private int taille; // coté de la grille²
+    private int taille; // coté de la grille
     private Case[][] table; // La matrice des Case de la grille
     private List<Ile> Iles; // Le Tableau des Iles de la grille
     protected List<Pont> Ponts; // Le Tableau des ponts de la grille
@@ -46,6 +46,7 @@ public class Grille extends MouseAdapter {
      * ajouter une Ile donnée à la Grille
      * l'Ile est mise dans la matrice à ses propres coordonnées x y
      * l'Ile est aussi ajoutée à la lsite d'Iles
+     * 
      * @param ile l'Ile à ajouter
      */
     public void ajouterIle(Ile ile) {
@@ -75,6 +76,28 @@ public class Grille extends MouseAdapter {
 
             if (pont.estHorizontal()) {
                 // l'axe horizontal du pont
+                int y = pont.getIle1().getY();
+
+                if (pont.getIle1().getX() < pont.getIle2().getX()) {
+                    // l'île 1 est au-dessus de l'île 2
+                    for (int x = pont.getIle1().getX() + 1; x < pont.getIle2().getX(); x++) {
+                        // on parcourt toutes les cases entre ses deux îles (îles exclues)
+                        // on ajoute le pont dans chaque case de la matrice, entre les deux îles
+                        pont.ajoutCase(this.getCase(x, y));
+                        this.setCase(x, y, pont);
+                    }
+
+                } else {
+                    // l'île 1 est en-dessous de l'île 2
+                    for (int x = (pont.getIle1().getX()) - 1; x > (pont.getIle2().getX()); x--) {
+                        // on parcourt toutes les cases entre ses deux îles (îles exclues)
+                        // on ajoute le pont dans chaque case de la matrice, entre les deux îles
+                        pont.ajoutCase(this.getCase(x, y));
+                        this.setCase(x, y, pont);
+                    }
+                }
+            } else {
+                // l'axe vertical du pont
                 int x = pont.getIle1().getX();
 
                 if (pont.getIle1().getY() < pont.getIle2().getY()) {
@@ -88,31 +111,10 @@ public class Grille extends MouseAdapter {
 
                 } else {
                     // l'île 1 est à la droite de l'île 2
-                    for (int y = (pont.getIle1().getY()) - 1; y >= (pont.getIle2().getY()); y--) {
+                    for (int y = (pont.getIle1().getY()) - 1; y > (pont.getIle2().getY()); y--) {
                         // on parcourt toutes les cases entre ses deux îles (îles exclues)
                         // on ajoute le pont dans chaque case de la matrice, entre les deux îles
                         pont.ajoutCase(this.getCase(x, y));
-                        this.setCase(x, y, pont);
-                    }
-                }
-            } else {
-                // vertical
-                // l'axe vertical du pont
-                int y = pont.getIle1().getY();
-
-                if (pont.getIle1().getX() < pont.getIle2().getX()) {
-                    // l'île 1 est au-dessus de l'île 2
-                    for (int x = pont.getIle1().getX() + 1; x < pont.getIle2().getX(); x++) {
-                        // on parcourt toutes les cases entre ses deux îles (îles exclues)
-                        // on ajoute le pont dans chaque case de la matrice, entre les deux îles
-                        this.setCase(x, y, pont);
-                    }
-
-                } else {
-                    // l'île 1 est en-dessous de l'île 2
-                    for (int x = (pont.getIle1().getX()) - 1; x >= (pont.getIle2().getX()); x--) {
-                        // on parcourt toutes les cases entre ses deux îles (îles exclues)
-                        // on ajoute le pont dans chaque case de la matrice, entre les deux îles
                         this.setCase(x, y, pont);
                     }
                 }
@@ -130,18 +132,14 @@ public class Grille extends MouseAdapter {
     /**
      * supprime la présence d'un Pont donné.
      * toutes ses références dans Grille et Ile sont supprimées
+     * 
      * @param pont le Pont à supprimer
      */
     public void retirerPont(Pont pont) {
-
-        int x, y;
-
         for (Case c : pont.getListeCase()) {
             // pour toutes les cases où on a mit le pont, dans la matrice
-            x = c.getX();
-            y = c.getY();
             // on remplace la Case qui contient un Pont par une Case vide
-            this.table[x][y] = new Case(x, y, this);
+            this.table[c.getX()][c.getY()] = new Case(c.getX(), c.getY(), this);
         }
 
         // vider la liste de Case du Pont, et le détacher de ses deux Ile
@@ -149,18 +147,18 @@ public class Grille extends MouseAdapter {
 
         // enlever le Pont de la liste des ponts
         this.Ponts.remove(pont);
-
     }
 
     /**
      * récupérer la liste des Ponts de la Grille
+     * 
      * @return la liste des Ponts présents sur la Grille
      */
     public List<Pont> getListePonts() {
         return (List<Pont>) this.Ponts;
     }
 
-    // affichage sur terminal    
+    // affichage sur terminal
     public String afficher() {
         String res = "";
         for (int i = 0; i < this.taille; i++) {
@@ -213,6 +211,7 @@ public class Grille extends MouseAdapter {
      * transforme cette Grille en matrice
      * avec les valeurs des Iles dans la matrice
      * et zéro s'il n'y a pas d'Ile
+     * 
      * @return une matrice d'entier qui représente cette Grille
      */
     public int[][] getGridAsArray() {
@@ -221,9 +220,9 @@ public class Grille extends MouseAdapter {
         for (int i = 0; i < this.taille; i++) {
             for (int j = 0; j < this.taille; j++) {
 
-                if ( this.table[i][j].estIle()) {
+                if (this.table[i][j].estIle()) {
                     // si c'est une Ile, on met sa valeur
-                    res[i][j] = this.table[i][j].getValeur();
+                    res[i][j] = ((Ile) this.table[i][j]).getValeur();
                 } else {
                     // sinon, que ce soit une Case vide ou un Pont, c'est zéro
                     res[i][j] = 0;
@@ -236,6 +235,7 @@ public class Grille extends MouseAdapter {
     /**
      * Methode qui verifie si le pont à créer est valide ( les ponts ne se croisent
      * pas, les ponts ne sont pas en diagonale, les ponts ne sont pas superposés)
+     * 
      * @param pont le pont à créer
      * @return vrai si le pont à créer est valide, faux sinon
      */
@@ -283,6 +283,7 @@ public class Grille extends MouseAdapter {
     /**
      * récupérer un Pont à partir de coordonnées données
      * ( c'est le Pont dont l'attribut ile1 a les coordonnées données )
+     * 
      * @param x coordonnée x sur la matrice
      * @param y coordonnée x sur la matrice
      * @return le Pont présent aux coordonnées données, ou null s'il n'y en a pas
@@ -299,6 +300,7 @@ public class Grille extends MouseAdapter {
 
     /**
      * retourner la liste des Iles de cette Grille
+     * 
      * @return la liste des Iles de cette Grille
      */
     public List<Ile> getIles() {
@@ -307,6 +309,7 @@ public class Grille extends MouseAdapter {
 
     /**
      * retourner la liste des Ponts de cette Grille
+     * 
      * @return la liste des Ponts de cette Grille
      */
     public List<Pont> getPonts() {
@@ -315,6 +318,7 @@ public class Grille extends MouseAdapter {
 
     /**
      * récupérer une Ile à partir de coordonnées données
+     * 
      * @param x coordonnée x sur la matrice
      * @param y coordonnée x sur la matrice
      * @return l'Ile présent aux coordonnées données, ou null s'il n'y en a pas
@@ -338,6 +342,7 @@ public class Grille extends MouseAdapter {
 
     /**
      * retirer une Ile donnée de la liste des Iles de cette Grille
+     * 
      * @param ile l'Ile à retirer de la liste
      */
     public void retirerIle(Ile ile) {
@@ -346,6 +351,7 @@ public class Grille extends MouseAdapter {
 
     /**
      * Remplacer la Case aux coordonnées données par une Case vierge
+     * 
      * @param x coordonnée x de la matrice
      * @param y coordonnée x de la matrice
      */
@@ -355,16 +361,19 @@ public class Grille extends MouseAdapter {
 
     /**
      * Récupérer le Pont qui se trouve aux coordonnées données, s'il y en a un
+     * 
      * @param xAffichage coordonnée x à l'écran
      * @param yAffichage coordonnée y à l'écran
-     * @return le Pont où se situe les coordonnées données, ou null s'il n'y en a pas
+     * @return le Pont où se situe les coordonnées données, ou null s'il n'y en a
+     *         pas
      */
     public Pont getPontAt(int xAffichage, int yAffichage) {
         // le rectangle situé à la position x,y correspond à quel pont ?
         for (Pont pont : this.Ponts) {
-            System.out.println(pont.getBounds());
+
             // si la position de la souris est dans le rectangle du pont
             if (pont.getBounds().contains(xAffichage, yAffichage)) {
+                System.out.println("Un pont ce situe au coordonnées " + pont.getBounds());
                 return pont;
             }
         }
@@ -372,7 +381,8 @@ public class Grille extends MouseAdapter {
     }
 
     /**
-     * vérifie si des coordonnées x y sont valides (pas en dehors de la table (matrice))
+     * vérifie si des coordonnées x y sont valides (pas en dehors de la table
+     * (matrice))
      * 
      * @param x le numéro de ligne de la matrice
      * @param y le numéro de colonne de la matrice
@@ -420,13 +430,13 @@ public class Grille extends MouseAdapter {
      * 
      * @param uneIle l'île dont on cherche un voisin sur son axe cardinal
      * @param dx     le déplacement horizontal sur la grille (
-     *                  -1 : vers la gauche ;
-     *                  1 : vers la droite ; 
-     *                  0 : aucun déplacement horizontal)
+     *               -1 : vers la gauche ;
+     *               1 : vers la droite ;
+     *               0 : aucun déplacement horizontal)
      * @param dy     le déplacement vertical sur la grille (
-     *                  -1 : vers le haut ; 
-     *                  1 : vers le bas ; 
-     *                  0 : aucun déplacement vertical)
+     *               -1 : vers le haut ;
+     *               1 : vers le bas ;
+     *               0 : aucun déplacement vertical)
      * @return l'île voisine à l'île passée en paramètre par rapport au sens donné.
      *         ou null s'il n'y a pas d'île voisine dans ce sens
      * @throws UnsupportedOperationException si on sort de la boucle avec un cas
@@ -476,21 +486,28 @@ public class Grille extends MouseAdapter {
      * @return une aide applicable à la grille, dans sa configuraiton actuelle
      */
     public Aide estCeQueQuelquUnAUneAide(int nbDemandeAide) {
-
         Aide aideTrouve = Aide.RIEN;
 
         // techniques de démarrage et techniques basiques
         for (Ile uneIle : this.Iles) {
-
             if (!uneIle.estComplet()
                     && aideTrouve == Aide.RIEN) {
                 // on ne s'occupe pas des îles complètes
                 aideTrouve = uneIle.techniquePontsForces();
-
             }
         }
 
         return aideTrouve;
+    }
+
+    public Pont getPont(Ile selectedIle, Ile clickedIle) {
+        for (Pont pont : this.Ponts) {
+            if (pont.getIle1() == selectedIle && pont.getIle2() == clickedIle) {
+                return pont;
+            }
+        }
+
+        return null;
     }
 
 }

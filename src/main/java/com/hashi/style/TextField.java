@@ -4,34 +4,56 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.*;
 
-public class TextField extends JTextField {
-    private StyleWrapper style;
+import com.hashi.Language;
 
-    public TextField(StyleWrapper style) {
+public class TextField extends JTextField implements FontSize<TextField> {
+    private int font_size = 20;
+
+    public TextField() {
         super();
-
-        this.style = style;
+        init();
     }
 
-    public TextField(StyleWrapper style, String text) {
-        super(text);
-
-        this.style = style;
+    public TextField(String text) {
+        super(Language.getString(text));
+        init();
     }
 
-    public TextField(StyleWrapper style, int columns) {
+    public TextField(int columns) {
         super(columns);
-
-        this.style = style;
+        init();
     }
 
-    public TextField(StyleWrapper style, String text, int columns) {
-        super(text, columns);
-
-        this.style = style;
+    public TextField(String text, int columns) {
+        super(Language.getString(text), columns);
+        init();
     }
 
+    private void init() {
+        setOpaque(false);
+
+        StyleManager.getInstance().initTextField(this);
+    }
+
+    public TextField setFontSize(int size) {
+        font_size = size;
+
+        StyleManager.getInstance().initTextField(this);
+
+        return this;
+    }
+
+    public int getFontSize() {
+        return font_size;
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
-        style.paintTextField(this, (Graphics2D) g);
+        StyleManager.getInstance().paintTextField(this, (Graphics2D) g);
+    }
+
+    @Override
+    protected void paintBorder(Graphics g) {
+        StyleManager.getInstance().paintTextFieldBorder(this, (Graphics2D) g);
     }
 }
