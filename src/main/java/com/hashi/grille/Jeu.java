@@ -24,7 +24,7 @@ public class Jeu {
             String line = "";
             int row = 0;
 
-            Grille grilleTemp = new Grille(7);
+            Grille grilleTemp = null;
 
             // on parcourt toutes les lignes du fichier
             while ((line = br.readLine()) != null) {
@@ -35,9 +35,7 @@ public class Jeu {
                 }
 
                 if (line.trim().equals("-")) {
-                    // si la ligne contient juste un "-", la grille créée dans grilleTemp est finie
-                    this.listeGrille.add(grilleTemp); // ajouter la grille à la liste de Grilles du Jeu
-                    grilleTemp = new Grille(7); // créer une nouvelle grille
+                    this.listeGrille.add(grilleTemp);
                     this.numGrille++;
                     row = 0; // Reset row for the new grid
                     continue;
@@ -45,14 +43,18 @@ public class Jeu {
 
                 String[] values = line.split(" ");
 
+                if (row == 0)
+                    grilleTemp = new Grille(values.length);
+
                 for (int col = 0; col < values.length; col++) {
                     if (!values[col].isEmpty()) {
                         int value = Integer.parseInt(values[col]);
 
                         if (value > 0) {
-                            // il y a une Ile
-                            Ile ile = new Ile(value, row, col, grilleTemp);
+                            Ile ile = new Ile(value, col, row, grilleTemp);
+
                             grilleTemp.ajouterIle(ile);
+                            grilleTemp.setCase(col, row, ile);
                         }
                     }
                 }

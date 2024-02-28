@@ -4,28 +4,65 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.*;
 
-public class Label extends JLabel {
-    private StyleWrapper style;
+import com.hashi.Language;
 
-    public Label(StyleWrapper style) {
+public class Label extends JLabel implements FontSize<Label> {
+    private int font_size = 20;
+    private boolean is_raw_text = false;
+
+    public Label() {
         super();
-
-        this.style = style;
+        init();
     }
 
-    public Label(StyleWrapper style, String text) {
+    public Label(String text) {
         super(text);
-
-        this.style = style;
+        init();
     }
 
-    public Label(StyleWrapper style, String text, int horizontal_alignment) {
-        super(text, horizontal_alignment);
+    private void init() {
+        setOpaque(false);
 
-        this.style = style;
+        StyleManager.getInstance().initLabel(this);
     }
 
+    public Label setAsRawText() {
+        is_raw_text = true;
+
+        return this;
+    }
+
+    public Label setFontSize(int size) {
+        font_size = size;
+
+        StyleManager.getInstance().initLabel(this);
+
+        return this;
+    }
+
+    public int getFontSize() {
+        return font_size;
+    }
+
+    @Override
+    public String getText() {
+        if (is_raw_text)
+            return super.getText();
+
+        try {
+            return Language.getString(super.getText());
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
-        style.paintLabel(this, (Graphics2D) g);
+        StyleManager.getInstance().paintLabel(this, (Graphics2D) g);
+    }
+
+    @Override
+    protected void paintBorder(Graphics g) {
+        StyleManager.getInstance().paintLabelBorder(this, (Graphics2D) g);
     }
 }

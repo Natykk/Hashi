@@ -3,45 +3,53 @@ package com.hashi.style;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
-import java.net.URL;
 
 import javax.swing.*;
 
-public class Panel extends JPanel {
-    protected String image_res;
-    protected URL image_url;
-    protected ImageIcon image;
-    private StyleWrapper style;
+public class Panel extends JPanel implements ImageComponent<Panel> {
+    private Image image;
 
-    public Panel(StyleWrapper style, LayoutManager layout) {
+    public Panel() {
+        super();
+        init();
+    }
+
+    public Panel(LayoutManager layout) {
         super(layout);
-
-        this.style = style;
+        init();
     }
 
-    public Panel(StyleWrapper style, LayoutManager layout, String image_res) {
+    public Panel(LayoutManager layout, String image_res) {
         super(layout);
-
-        this.style = style;
-        this.image_res = image_res;
-        this.image_url = style.getResourcePath(image_res);
-        this.image = style.getImageResource(image_url);
+        init();
+        setImage(image_res);
     }
 
-    public void setImage(String image_res) {
-        this.image_res = image_res;
+    private void init() {
+        setOpaque(false);
 
-        repaint();
+        this.image = new Image(this);
+
+        StyleManager.getInstance().initPanel(this);
     }
 
+    public Panel setImage(String image_res) {
+        image.setImage(image_res);
+
+        return this;
+    }
+
+    public java.awt.Image getImage() {
+        return image.getImage();
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
-        URL new_image_url = style.getResourcePath(image_res);
+        StyleManager.getInstance().paintPanel(this, (Graphics2D) g);
+    }
 
-        if (image_url != new_image_url) {
-            image_url = new_image_url;
-            image = style.getImageResource(image_url);
-        }
-
-        style.paintPanel(this, (Graphics2D) g);
+    @Override
+    protected void paintBorder(Graphics g) {
+        StyleManager.getInstance().paintPanelBorder(this, (Graphics2D) g);
     }
 }

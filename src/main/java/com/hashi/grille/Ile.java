@@ -6,13 +6,14 @@ import java.util.List;
 
 import javax.management.InvalidAttributeValueException;
 
+import com.hashi.style.StyleManager;
+
 public class Ile extends Case {
     private int valeur;
     public List<Pont> listePont;
-    private int xAffichage; // coordonnée x pour l'affichage de l'Ile
-    private int yAffichage; // coordonnée y pour l'affichage de l'Ile
+    private int xAffichage;
+    private int yAffichage;
     private int tailleIle; // taille pour l'affichage
-    private Color color;
     private List<Ile> listeVoisin; // liste des Iles voisines (pas implémenté)
 
     public Ile(int valeur, int x, int y, Grille lagrille) {
@@ -21,8 +22,7 @@ public class Ile extends Case {
         this.listePont = new ArrayList<>();
         this.xAffichage = x;
         this.yAffichage = y;
-        this.tailleIle = 20;
-        this.color = Color.CYAN;
+        this.tailleIle = 35;
         this.listeVoisin = new ArrayList<>();
         grille = lagrille;
     }
@@ -32,15 +32,35 @@ public class Ile extends Case {
     }
 
     public void draw(Graphics g) {
-        g.setColor(color);
-        g.drawOval(xAffichage - 10, yAffichage - 10, 20, 20);
-        g.fillOval(xAffichage - 10, yAffichage - 10, 20, 20);
-        g.setColor(Color.BLACK);
-        g.drawString(Integer.toString(valeur), xAffichage - 5, yAffichage + 5);
+        if (valeur == getNbConnexion()) {
+            g.setColor(StyleManager.getInstance().getFgColor());
+            g.fillOval(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);
+        } else {
+            g.setColor(StyleManager.getInstance().getBgColor());
+            g.fillOval(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);
+        }
+
+        g.setColor(StyleManager.getInstance().getFgColor());
+        g.drawOval(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);
+
+        if (valeur == getNbConnexion())
+            g.setColor(StyleManager.getInstance().getBgColor());
+        else
+            g.setColor(StyleManager.getInstance().getFgColor());
+
+        // on ecrie la valeur de l'ile dans le cercle de l'ile au centre
+        String text = String.valueOf(valeur);
+
+        g.setFont(StyleManager.getInstance().getFont().deriveFont(0, 20));
+        g.drawString(
+                text,
+                xAffichage - g.getFontMetrics().stringWidth(text) / 2,
+                yAffichage - g.getFontMetrics().getHeight() / 2 + g.getFontMetrics().getAscent());
     }
 
     /**
      * ajoute le pont donné à la liste des ponts de cette Ile
+     * 
      * @param pont le pont à ajouter
      */
     public void ajouterPont(Pont pont) {
@@ -49,10 +69,48 @@ public class Ile extends Case {
 
     /**
      * ajoute l'Ile donnée à la liste des voisins de cette Ile
+     * 
      * @param voisin l'Ile voisine à ajouter
      */
     public void ajouterVoisin(Ile voisin) {
         this.listeVoisin.add(voisin);
+    }
+
+    public int getNbConnexion() {
+        int tot = 0;
+        for (Pont pont : listePont) {
+            tot += pont.getNbPont();
+        }
+        return tot;
+    }
+
+    public boolean supprimerPont(Pont pont) {
+        if (this.listePont.contains(pont)) {
+            int k = listePont.indexOf(pont);
+            if (listePont.get(k).equals(pont)) {
+                this.listePont.remove(pont);
+                return false;
+            } else {
+                // Pont p1 = listePont.get(k);
+                // p1.setNbPont(p1.getNbPont() - 1);
+                this.listePont.remove(pont);
+                // this.listePont.add(p1);
+            }
+        }
+        return true;
+    }
+
+    public boolean ileComplete() {
+        return listePont.size() == this.valeur;
+    }
+
+    /**
+     * Donne la taille en pixel de l'{@link com.hashi.grille.Ile}
+     * 
+     * @return la taille en pixel
+     */
+    public int getTaille() {
+        return tailleIle;
     }
 
     public int getValeur() {
@@ -77,6 +135,7 @@ public class Ile extends Case {
 
     /**
      * retirer le pont donné de la liste des ponts de cette Ile
+     * 
      * @param p le pont à retirer
      */
     public void retirerPont(Pont p) {
@@ -105,11 +164,12 @@ public class Ile extends Case {
     public String afficher() {
         return String.valueOf(this.valeur);
     }
-    
 
     /**
      * obtenir le nombre d'objet Pont relié à cette Ile
-     * (pour une méthode qui fait la distinction entre pont simple et double, voir nbConnexions() )
+     * (pour une méthode qui fait la distinction entre pont simple et double, voir
+     * nbConnexions() )
+     * 
      * @return le nombre d'objet Pont de la liste de Ponts de cette Ile
      */
     public int getNbPonts() {
@@ -118,7 +178,9 @@ public class Ile extends Case {
 
     /**
      * calculer le nombre de ponts dont cette ile se trouve à "droite"
-     * @return le nombre de ponts connectés à cette Ile, où cette Ile est dans le champ ile1
+     * 
+     * @return le nombre de ponts connectés à cette Ile, où cette Ile est dans le
+     *         champ ile1
      */
     public int getNbPontDroite() {
         int nbPontDroite = 0;
@@ -132,7 +194,9 @@ public class Ile extends Case {
 
     /**
      * calculer le nombre de ponts dont cette ile se trouve à "gauche"
-     * @return le nombre de ponts connectés à cette Ile, où cette Ile est dans le champ ile2
+     * 
+     * @return le nombre de ponts connectés à cette Ile, où cette Ile est dans le
+     *         champ ile2
      */
     public int getNbPontGauche() {
         int nbPontGauche = 0;
@@ -146,6 +210,7 @@ public class Ile extends Case {
 
     /**
      * récupérer la liste des voisins de cette Ile
+     * 
      * @return une liste d'Iles
      */
     public List<Ile> getListeVoisin() {
@@ -155,16 +220,20 @@ public class Ile extends Case {
     /**
      * vérifier si le nombre de Ponts de cette Ile est égal à sa valeur
      * 
-     * @return vrai si le nombre de Ponts de cette Ile est égal à sa valeur, faux sinon
+     * @return vrai si le nombre de Ponts de cette Ile est égal à sa valeur, faux
+     *         sinon
      */
     public boolean estComplet() {
         return this.valeur == this.nbConnexions();
     }
 
     /**
-     * vérifier si la valeur de cette Ile est supérieure ou égale à son nombre de Ponts
+     * vérifier si la valeur de cette Ile est supérieure ou égale à son nombre de
+     * Ponts
      * (savoir si une Ile n'est pas valide est utile pour les aides)
-     * @return vrai si la valeur de cette Ile est supérieure ou égale à son nombre de Ponts, faux sinon
+     * 
+     * @return vrai si la valeur de cette Ile est supérieure ou égale à son nombre
+     *         de Ponts, faux sinon
      */
     public boolean estValide() {
         return this.valeur >= this.getNbPonts();
@@ -188,6 +257,16 @@ public class Ile extends Case {
             }
         }
         return nbPontHaut;
+    }
+
+    /*
+     * retourne vrai si l'île a plus d'un pont dans une direction
+     * 
+     * @return vrai si l'île a plus d'un pont dans une direction
+     * 
+     */
+    public boolean estDouble() {
+        return this.getNbPontBas() > 1 || this.getNbPontHaut() > 1;
     }
 
     /**
@@ -217,7 +296,8 @@ public class Ile extends Case {
         lesVoisins.add(grille.getVoisinSansPont(this, "gauche"));
         lesVoisins.add(grille.getVoisinSansPont(this, "droite"));
 
-        // la méthode getVoisinSansPont ne permet pas de récupérer les îles voisines qui sont
+        // la méthode getVoisinSansPont ne permet pas de récupérer les îles voisines qui
+        // sont
         // déjà reliées par un pont, donc
         List<Pont> sesPonts = this.listePont;
 
@@ -372,41 +452,45 @@ public class Ile extends Case {
                 // et qui a 2 voisins libres, car certains sont complétés
                 // et qui a moins de 3 Ponts dans des sens différents (?)
 
-            /* prend en compte des cas qui ne sont pas BLOQUE41
-                if (this.nbVoisinsLibres() == 2 
-                    && this.getNbPonts() < 3 ) {
-                    // création d'une Ile qui a comme valeur le nombre de ponts restants à connecter à cette Ile-ci
-                    IlePlusFaible = new Ile(   this.pontRestants()   ,this.x,this.y, grille);
+                /*
+                 * prend en compte des cas qui ne sont pas BLOQUE41
+                 * if (this.nbVoisinsLibres() == 2
+                 * && this.getNbPonts() < 3 ) {
+                 * // création d'une Ile qui a comme valeur le nombre de ponts restants à
+                 * connecter à cette Ile-ci
+                 * IlePlusFaible = new Ile( this.pontRestants() ,this.x,this.y, grille);
+                 * 
+                 * if( IlePlusFaible.techniquePontsForces() == Aide.FORCE3) {
+                 * // si, dans cette situation où l'Ile créée peut appliquer une technique,
+                 * // c'est que cette technique peut être appliquée à cette Ile-ci
+                 * return Aide.BLOQUE41;
+                 * }
+                 * }
+                 */
 
-                    if( IlePlusFaible.techniquePontsForces() == Aide.FORCE3) {
-                        // si, dans cette situation où l'Ile créée peut appliquer une technique, 
-                        // c'est que cette technique peut être appliquée à cette Ile-ci
-                        return Aide.BLOQUE41;
-                    }
-                }
-            */
-
-            /*
-                // une île qui a besoin de 4 ponts,
-                // qui a 2 voisins libres
-                // et qui a moins de 3 ponts dans des sens différents (?)
-                if (this.nbVoisinsLibres() == 2
-                    && this.getNbPonts() < 3) {
-
-                    this.nbPontsPossibles();
-                    
-
-                    return Aide.BLOQUE41;
-                }
-                
-                // une île de valeur 4 qui a 1 voisin libres et 1 pont avec 2 voisins qui sont
-				// complétés = on peut compléter l'île avec 2 ponts sur son 3e et dernier voisin
-                if(this.nbVoisinsLibres() == 1
-                    && this.valeur == 2) {
-
-                    return Aide.BLOQUE42;
-                }
-            */
+                /*
+                 * // une île qui a besoin de 4 ponts,
+                 * // qui a 2 voisins libres
+                 * // et qui a moins de 3 ponts dans des sens différents (?)
+                 * if (this.nbVoisinsLibres() == 2
+                 * && this.getNbPonts() < 3) {
+                 * 
+                 * this.nbPontsPossibles();
+                 * 
+                 * 
+                 * return Aide.BLOQUE41;
+                 * }
+                 * 
+                 * // une île de valeur 4 qui a 1 voisin libres et 1 pont avec 2 voisins qui
+                 * sont
+                 * // complétés = on peut compléter l'île avec 2 ponts sur son 3e et dernier
+                 * voisin
+                 * if(this.nbVoisinsLibres() == 1
+                 * && this.valeur == 2) {
+                 * 
+                 * return Aide.BLOQUE42;
+                 * }
+                 */
                 break;
             case 5:
 
@@ -437,64 +521,65 @@ public class Ile extends Case {
 
     /**
      * calcule combien de Ponts manquent à cette Ile
+     * 
      * @return la valeur de l'Ile moins son nombre de connexions
      */
-    private int pontRestants(){
+    private int pontRestants() {
         return this.valeur - this.nbConnexions();
     }
 
-
-
     /**
      * recherche le Pont qui relie cette Ile avec son voisin passé en paramètre
+     * 
      * @param unVoisin une Ile voisine à cette Ile
-     * @return le Pont qui relie ces deux Iles, 
-     *      ou null s'il n'y en pas, ou si ces Iles ne sont pas voisines
+     * @return le Pont qui relie ces deux Iles,
+     *         ou null s'il n'y en pas, ou si ces Iles ne sont pas voisines
      */
     public Pont getPontEntreIles(Ile unVoisin) {
 
         for (Pont p : this.listePont) {
             // on parcourt les Ponts reliés à cette Ile
-            if( (p.getIle1() == this && p.getIle1() == unVoisin)
-             || (p.getIle2() == this && p.getIle2() == unVoisin) ) {
-                // si les deux Iles que ce Pont relient sont cette Ile et ce voisin, c'est le Pont qu'on recherche
+            if ((p.getIle1() == this && p.getIle1() == unVoisin)
+                    || (p.getIle2() == this && p.getIle2() == unVoisin)) {
+                // si les deux Iles que ce Pont relient sont cette Ile et ce voisin, c'est le
+                // Pont qu'on recherche
                 return p;
             }
         }
-        
+
         return null;
     }
 
-
-
     /**
-     * compte le nombre maximum de positions de ponts(connexions) possibles qu'a cette Ile actuellement, en respectant la valeur de ses voisins et les Ponts déjà placés
+     * compte le nombre maximum de positions de ponts(connexions) possibles qu'a
+     * cette Ile actuellement, en respectant la valeur de ses voisins et les Ponts
+     * déjà placés
+     * 
      * @return nombre maximum de ponts supplémentaires que cette Ile peut recevoir
      */
     public int nbPontsPossibles() {
 
-        int nbPontsPossibles=0; // nombre de Ponts max qu'on peut placer sur une Ile, en respectant le nombre de Ponts restants de ses voisins
+        int nbPontsPossibles = 0; // nombre de Ponts max qu'on peut placer sur une Ile, en respectant le nombre de
+                                  // Ponts restants de ses voisins
         Pont unPont;
 
-        for( Ile unVoisin : this.getVoisins()) {
+        for (Ile unVoisin : this.getVoisins()) {
             // pour chaque voisin
-            if( !unVoisin.estComplet() ) {
+            if (!unVoisin.estComplet()) {
                 // si il n'est pas complété
 
-                if( (unPont = getPontEntreIles(unVoisin)) == null ) {
-                    // s'il n'existe pas de Pont entre cette Ile et ce voisin, 
-                    if( unVoisin.pontRestants() >= 2 ) {
+                if ((unPont = getPontEntreIles(unVoisin)) == null) {
+                    // s'il n'existe pas de Pont entre cette Ile et ce voisin,
+                    if (unVoisin.pontRestants() >= 2) {
                         // et qu'il peut encore recevoir au moins 2 ponts
                         // le nombre de ponts qu'on peut avoir avec ce voisin est donc 2
                         nbPontsPossibles += 2;
-                    }
-                    else if( unVoisin.pontRestants() == 1 )  {
+                    } else if (unVoisin.pontRestants() == 1) {
                         // et qu'il ne peut plus avoir qu'un pont avec une Ile
                         // le nombre de ponts qu'on peut avoir avec ce voisin est donc 1
                         nbPontsPossibles += 1;
                     }
-                }
-                else if(!unPont.estDouble()) {
+                } else if (!unPont.estDouble()) {
                     // s'il existe un Pont entre cette Ile et ce voisin
                     // et qu'il n'est pas double
                     // le nombre de ponts supplémentaires qu'on peut avoir avec ce voisin est donc 1

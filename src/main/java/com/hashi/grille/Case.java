@@ -1,8 +1,8 @@
 package com.hashi.grille;
 
 public class Case {
-    protected int x; // coordonnée x pour la matrice de Grille
-    protected int y; // coordonnée y pour la matrice de Grille
+    protected int x; // coordonnée x pour l'affichage de l'Ile
+    protected int y; // coordonnée y pour l'affichage de l'Ile
     static Grille grille; // référence vers la Grille où cette Case se situe
 
     public Case(int x, int y, Grille laGrille) {
@@ -21,6 +21,7 @@ public class Case {
 
     /**
      * est-ce que cette Case n'est ni une Ile, ni un Pont
+     * 
      * @return vrai si cette Case n'est ni une Ile, ni un Pont. faux sinon
      */
     public boolean estVide() {
@@ -29,6 +30,7 @@ public class Case {
 
     /**
      * est-ce que cette Case est une Ile
+     * 
      * @return vrai si cette Case est une Ile, faux sinon
      */
     public boolean estIle() {
@@ -37,6 +39,7 @@ public class Case {
 
     /**
      * est-ce que cette Case est un Pont
+     * 
      * @return vrai si cette Case est un Pont, faux sinon
      */
     public boolean estPont() {
@@ -51,17 +54,4 @@ public class Case {
             return grille.getCase(x, y).afficher();
         }
     }
-
-    /**
-     * récupérer la valeur de l'Ile qui est cette Case
-     * @return la valeur de l'Ile, ou -1 si ce n'est pas une Ile
-     */
-    public int getValeur() {
-        if (this.estIle()) {
-            return ((Ile) grille.getCase(x, y)).getValeur();
-        } else {
-            return -1;
-        }
-    }
-
 }
