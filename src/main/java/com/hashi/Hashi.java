@@ -41,8 +41,8 @@ public class Hashi extends JFrame {
 
                     if (grille.getCase(i, j) instanceof Ile) {
                         Ile ile = (Ile) grille.getCase(i, j);
-                        ile.x = i * cellSize + cellSize / 2;
-                        ile.y = j * cellSize + cellSize / 2;
+                        ile.setxAffichage( i * cellSize + cellSize / 2 );
+                        ile.setyAffichage( j * cellSize + cellSize / 2 );
                     }
                 }
             }
@@ -86,8 +86,8 @@ public class Hashi extends JFrame {
                         Ile selectedIle = (Ile) grille.getSelectedCase();
                         if (selectedIle != clickedIle && (selectedIle.getX() == clickedIle.getX()
                                 || selectedIle.getY() == clickedIle.getY())) {
-                            if (selectedIle.getNbConnexion() < selectedIle.getValeur()
-                                    && clickedIle.getNbConnexion() < clickedIle.getValeur()) {
+                            if (selectedIle.nbConnexions() < selectedIle.getValeur()
+                                    && clickedIle.nbConnexions() < clickedIle.getValeur()) {
                                 grille.ajouterPont(new Pont(selectedIle, clickedIle));
                             }
                         }
@@ -101,17 +101,6 @@ public class Hashi extends JFrame {
                 if (pont != null) {
                     // supprimer le pont
                     grille.retirerPont(pont);
-
-                    // retirer le pont de la liste des ponts
-                    grille.getPonts().remove(pont);
-
-                    // retirer le pont de la liste des ponts de l'ile
-                    pont.getIleDep().retirerPont(pont);
-
-                    // retirer le pont de la liste des ponts de l'ile
-
-                    pont.getIleArr().retirerPont(pont);
-
                 }
 
             } else {

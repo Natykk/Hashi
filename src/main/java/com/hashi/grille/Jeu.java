@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.hashi.Hashi;
 
 public class Jeu {
 
-    public ArrayList<Grille> listeGrille;
+    public List<Grille> listeGrille;
     int numGrille;
 
     public Jeu() {
@@ -25,16 +26,18 @@ public class Jeu {
 
             Grille grilleTemp = new Grille(7);
 
+            // on parcourt toutes les lignes du fichier
             while ((line = br.readLine()) != null) {
 
                 if (line.trim().isEmpty()) {
+                    // si la ligne est vide, on passe
                     continue;
                 }
 
                 if (line.trim().equals("-")) {
-
-                    this.listeGrille.add(grilleTemp);
-                    grilleTemp = new Grille(7);
+                    // si la ligne contient juste un "-", la grille créée dans grilleTemp est finie
+                    this.listeGrille.add(grilleTemp); // ajouter la grille à la liste de Grilles du Jeu
+                    grilleTemp = new Grille(7); // créer une nouvelle grille
                     this.numGrille++;
                     row = 0; // Reset row for the new grid
                     continue;
@@ -47,19 +50,19 @@ public class Jeu {
                         int value = Integer.parseInt(values[col]);
 
                         if (value > 0) {
+                            // il y a une Ile
                             Ile ile = new Ile(value, row, col, grilleTemp);
                             grilleTemp.ajouterIle(ile);
-
-                            grilleTemp.setCase(row, col, ile);
                         }
                     }
                 }
-
+                // on passe à a ligne suivante
                 row++;
             }
 
             // Add the last grid to the list
             this.listeGrille.add(grilleTemp);
+            this.numGrille++;
 
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
