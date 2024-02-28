@@ -183,13 +183,11 @@ public class Hashi extends JFrame {
                                 return;
                         }
                     } else {
-                        if (selectedIle.getX() == clickedIle.getX()) {
-                            int xEnd = Math.max(selectedIle.getX(), clickedIle.getX());
+                        int xEnd = Math.max(selectedIle.getX(), clickedIle.getX());
 
-                            for (int x = Math.min(selectedIle.getX(), clickedIle.getX()) + 1; x < xEnd; x++) {
-                                if (grille.getIleAt(x, selectedIle.getY()) != null)
-                                    return;
-                            }
+                        for (int x = Math.min(selectedIle.getX(), clickedIle.getX()) + 1; x < xEnd; x++) {
+                            if (grille.getIleAt(x, selectedIle.getY()) != null)
+                                return;
                         }
                     }
 
