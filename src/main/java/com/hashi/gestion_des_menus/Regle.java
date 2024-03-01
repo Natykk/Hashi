@@ -18,7 +18,7 @@ public class Regle extends Panel {
     private Button retourButton;
 
     public Regle(Panel returnPanel, String returnTitle) {
-        super(new BorderLayout(), "bg-victoire.png");
+        super(new BorderLayout(), "bg-regle.png");
 
         PageManager.getInstance().setTitle("title_rules");
 
