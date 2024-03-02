@@ -10,8 +10,8 @@ import java.awt.Insets;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
-public class PageMode extends Panel {
-    private final String TITLE = "title_history";
+public class PageModeEntrainement extends Panel {
+    private final String TITLE = "title_entrainement_sauv";
     private Button retour;
     private Button nouvellePartie;
     private Button charger;
@@ -20,8 +20,8 @@ public class PageMode extends Panel {
     private Button regles;
     private Button quitter;
 
-    public PageMode() {
-        super(new BorderLayout(), "bg-histoire.png");
+    public PageModeEntrainement() {
+        super(new BorderLayout(), "bg-puzzle.png");
 
         PageManager.getInstance().setTitle(TITLE);
 
@@ -49,11 +49,11 @@ public class PageMode extends Panel {
             PageManager.changerPage(new Regle(this, TITLE));
         });
         nouvellePartie.addActionListener(e -> {
-            //juste pour tester la page etoiles
-            PageManager.changerPage(new VictoireHistoire());
+            //juste pour tester l'affichage du page score
+            PageManager.changerPage(new VictoireEntrainement());
         });
         charger.addActionListener(e -> {
-            //grille sauvegarder
+            //grille auvegarder
         });
         parametre.addActionListener(e -> {
             PageManager.changerPage(new Parametre(this, TITLE));

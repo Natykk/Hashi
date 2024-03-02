@@ -8,10 +8,13 @@ import javax.swing.BorderFactory;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import com.hashi.gestion_des_menus.MenuEntrainement;
+import com.hashi.gestion_des_menus.MenuGeneral;
+import com.hashi.gestion_des_menus.PageModeEntrainement;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
-//il me reste de faire fonctionner les boutons 
+
 public class Puzzle extends Panel {
     private Button retour;
     private Button[][] boutons;
@@ -22,7 +25,7 @@ public class Puzzle extends Panel {
         PageManager.getInstance().setTitle("title_puzzle");
 
         retour = new Button("return").setFontSize(50);
-        boutons = new Button[3][6]; // 3 niveaux de puzzle chaque niveau avec 6 boutons
+        boutons = new Button[3][6]; 
 
         positionnerBoutons3();
 
@@ -46,13 +49,16 @@ public class Puzzle extends Panel {
             for (int j = 0; j < 6; j++) {
                 boutons[i][j] = new Button(String.valueOf(j + 1)).setAsRawText().setFontSize(70);
                 boutons[i][j].setPreferredSize(new Dimension(90, 90));
+                boutons[i][j].addActionListener(e -> {
+                    PageManager.changerPage(new PageModeEntrainement());
+                });
                 panelNiveau.add(boutons[i][j]);
             }
 
             contenu.add(panelNiveau);
         }
 
-        // Ajout du contenu à ce panneau Puzzle
+
         add(contenu, BorderLayout.CENTER);
         add(boutonsHaut, BorderLayout.NORTH);
     }
