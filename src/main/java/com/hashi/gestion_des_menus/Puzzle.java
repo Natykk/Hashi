@@ -44,7 +44,7 @@ public class Puzzle extends Panel {
             panelNiveau.setBorder(BorderFactory.createEmptyBorder(55, 0, 0, 0));
 
             for (int j = 0; j < 6; j++) {
-                boutons[i][j] = new Button("puzzle_" + (j + 1)).setFontSize(70);
+                boutons[i][j] = new Button(String.valueOf(j + 1)).setAsRawText().setFontSize(70);
                 boutons[i][j].setPreferredSize(new Dimension(90, 90));
                 panelNiveau.add(boutons[i][j]);
             }

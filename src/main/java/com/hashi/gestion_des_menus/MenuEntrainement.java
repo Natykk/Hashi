@@ -31,9 +31,9 @@ public class MenuEntrainement extends Panel {
         changerProfil = new Button().setImage("btn-switch-profil.png");
         regles = new Button().setImage("btn-aide.png");
         quitter = new Button().setImage("btn-quitter.png");
-        sept = new Button("grid_size_7").setFontSize(50);
-        dix = new Button("grid_size_10").setFontSize(50);
-        vignt = new Button("grid_size_25").setFontSize(50);
+        sept = new Button("7x7").setAsRawText().setFontSize(50);
+        dix = new Button("10x10").setAsRawText().setFontSize(50);
+        vignt = new Button("25x25").setAsRawText().setFontSize(50);
 
         Dimension size = new Dimension(150, 90);
 

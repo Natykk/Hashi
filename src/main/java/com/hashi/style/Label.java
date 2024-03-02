@@ -46,6 +46,9 @@ public class Label extends JLabel implements FontSize<Label> {
 
     @Override
     public String getText() {
+        if (super.getText().isEmpty())
+            return "";
+
         if (is_raw_text)
             return super.getText();
 

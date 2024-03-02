@@ -8,6 +8,7 @@ import com.hashi.Language;
 
 public class Button extends JButton implements FontSize<Button>, ImageComponent<Button> {
     private int font_size = 20;
+    private boolean is_raw_text = false;
     private Image image;
 
     public Button() {
@@ -26,6 +27,12 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
         this.image = new Image(this);
 
         StyleManager.getInstance().initButton(this);
+    }
+
+    public Button setAsRawText() {
+        is_raw_text = true;
+
+        return this;
     }
 
     public Button setImage(String image_res) {
@@ -55,7 +62,14 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
         if (super.getText().isEmpty())
             return "";
 
-        return Language.getString(super.getText());
+        if (is_raw_text)
+            return super.getText();
+
+        try {
+            return Language.getString(super.getText());
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     @Override
