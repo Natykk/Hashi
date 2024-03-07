@@ -3,7 +3,7 @@ package com.hashi.grid;
 public class Case {
     protected int x;
     protected int y;
-    static Grille grille; // référence vers la Grille où cette Case se situe
+    protected Grille grille; // référence vers la Grille où cette Case se situe
 
     public Case(int x, int y, Grille laGrille) {
         this.x = x;

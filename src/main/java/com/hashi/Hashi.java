@@ -201,7 +201,7 @@ public class Hashi extends JFrame {
                         pontRetour.setEstDouble(true);
                         addAction(new AddPontAction(pontRetour));
                     } else {
-                        Pont newPont = new Pont(selectedIle, clickedIle);
+                        Pont newPont = new Pont(selectedIle, clickedIle, grille);
                         grille.ajouterPont(newPont);
                         addAction(new AddPontAction(newPont));
                     }

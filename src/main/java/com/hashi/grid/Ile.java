@@ -28,10 +28,14 @@ public class Ile extends Case {
     }
 
     public Rectangle getBounds() {
+        tailleIle = (grille.getSelectedCase() == this) ? 45 : 35;
+
         return new Rectangle(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);
     }
 
     public void draw(Graphics g) {
+        tailleIle = (grille.getSelectedCase() == this) ? 45 : 35;
+
         if (valeur == getNbConnexion()) {
             g.setColor(StyleManager.getInstance().getFgColor());
             g.fillOval(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);

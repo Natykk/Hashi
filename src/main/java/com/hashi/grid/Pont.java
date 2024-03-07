@@ -15,7 +15,7 @@ public class Pont extends Case {
     private List<Case> listeCase; // Liste des Cases par lesquelles passe le Pont
     private boolean estClique; // si le Pont est cliqué
 
-    public Pont(Ile ile1, Ile ile2) {
+    public Pont(Ile ile1, Ile ile2, Grille grille) {
         // grille est static
         super(0, 0, grille);
         this.ile1 = ile1;
