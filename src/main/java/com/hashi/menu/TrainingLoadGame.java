@@ -1,4 +1,4 @@
-package com.hashi.gestion_des_menus;
+package com.hashi.menu;
 
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
@@ -10,8 +10,8 @@ import java.awt.Insets;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
-public class PageMode extends Panel {
-    private final String TITLE = "title_history";
+public class TrainingLoadGame extends Panel {
+    private final String TITLE = "title_training_load_game";
     private Button retour;
     private Button nouvellePartie;
     private Button charger;
@@ -20,8 +20,8 @@ public class PageMode extends Panel {
     private Button regles;
     private Button quitter;
 
-    public PageMode() {
-        super(new BorderLayout(), "bg-histoire.png");
+    public TrainingLoadGame() {
+        super(new BorderLayout(), "bg-training-load-game.png");
 
         PageManager.getInstance().setTitle(TITLE);
 
@@ -30,8 +30,8 @@ public class PageMode extends Panel {
         charger = new Button("load_game").setFontSize(40);
         parametre = new Button().setImage("btn-option.png");
         changerProfil = new Button().setImage("btn-switch-profil.png");
-        regles = new Button().setImage("btn-aide.png");
-        quitter = new Button().setImage("btn-quitter.png");
+        regles = new Button().setImage("btn-help.png");
+        quitter = new Button().setImage("btn-quit.png");
 
         Dimension size = new Dimension(150, 90);
 
@@ -46,23 +46,23 @@ public class PageMode extends Panel {
             System.exit(0);
         });
         regles.addActionListener(e -> {
-            PageManager.changerPage(new Regle(this, TITLE));
+            PageManager.changerPage(new Rule(this, TITLE));
         });
         nouvellePartie.addActionListener(e -> {
-            //juste pour tester la page etoiles
-            PageManager.changerPage(new VictoireHistoire());
+            // juste pour tester l'affichage du page score
+            PageManager.changerPage(new TrainingVictory());
         });
         charger.addActionListener(e -> {
-            //grille sauvegarder
+            // grille auvegarder
         });
         parametre.addActionListener(e -> {
-            PageManager.changerPage(new Parametre(this, TITLE));
+            PageManager.changerPage(new Parameter(this, TITLE));
         });
         changerProfil.addActionListener(e -> {
-            PageManager.changerPage(new EcranLancement());
+            PageManager.changerPage(new StartScreen());
         });
         retour.addActionListener(e -> {
-            PageManager.changerPage(new Puzzle());
+            PageManager.changerPage(new TrainingGridSelection());
         });
     }
 

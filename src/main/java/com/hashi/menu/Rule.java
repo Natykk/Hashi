@@ -1,4 +1,4 @@
-package com.hashi.gestion_des_menus;
+package com.hashi.menu;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -7,18 +7,18 @@ import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import com.hashi.Language;
+import com.hashi.LanguageManager;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 import com.hashi.style.StyleManager;
 
-public class Regle extends Panel {
+public class Rule extends Panel {
 
     private JTextArea text;
     private Button retourButton;
 
-    public Regle(Panel returnPanel, String returnTitle) {
-        super(new BorderLayout(), "bg-regle.png");
+    public Rule(Panel returnPanel, String returnTitle) {
+        super(new BorderLayout(), "bg-rule.png");
 
         PageManager.getInstance().setTitle("title_rules");
 
@@ -32,7 +32,7 @@ public class Regle extends Panel {
         text.setWrapStyleWord(true);
 
         // Ajout des règles dans la zone de texte
-        text.setText(Language.getString("rules"));
+        text.setText(LanguageManager.getString("rules"));
 
         JScrollPane scrollPane = new JScrollPane(text);
         scrollPane.setOpaque(false);

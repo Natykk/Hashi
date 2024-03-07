@@ -3,24 +3,25 @@ package com.hashi;
 import java.util.ResourceBundle;
 
 /**
- * La classe {@link com.hashi.Language} gère l'internationalisation du jeu.
+ * La classe {@link com.hashi.LanguageManager} gère l'internationalisation du
+ * jeu.
  */
-public class Language {
-    private static Language instance;
+public class LanguageManager {
+    private static LanguageManager instance;
     private ResourceBundle bundle;
     private String language;
 
-    private Language() {
+    private LanguageManager() {
         language = "fr";
         bundle = ResourceBundle.getBundle("com.hashi.language.fr");
     }
 
     /**
-     * Récupère une instance de la classe {@link com.hashi.Language}.
+     * Récupère une instance de la classe {@link com.hashi.LanguageManager}.
      */
-    public static Language getInstance() {
+    public static LanguageManager getInstance() {
         if (instance == null)
-            instance = new Language();
+            instance = new LanguageManager();
 
         return instance;
     }

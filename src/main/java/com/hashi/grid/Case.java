@@ -1,4 +1,4 @@
-package com.hashi.grille;
+package com.hashi.grid;
 
 public class Case {
     protected int x;

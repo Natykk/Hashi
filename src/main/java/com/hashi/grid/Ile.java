@@ -1,4 +1,4 @@
-package com.hashi.grille;
+package com.hashi.grid;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -105,7 +105,7 @@ public class Ile extends Case {
     }
 
     /**
-     * Donne la taille en pixel de l'{@link com.hashi.grille.Ile}
+     * Donne la taille en pixel de l'{@link com.hashi.grid.Ile}
      * 
      * @return la taille en pixel
      */

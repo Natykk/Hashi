@@ -1,4 +1,4 @@
-package com.hashi.grille;
+package com.hashi.grid;
 
 public enum Aide {
 	RIEN, // pas d'aide trouvé
@@ -13,10 +13,11 @@ public enum Aide {
 	FORCE7, // une île de valeur 7 = on peut ajouter 1 pont pour chaque voisin
 	FORCE8, // une île de valeur 8 = compléter l'île avec 8 ponts
 
-	BLOQUE3, // une île de valeur 3 qui a 2 voisins, dont 1 libre et 1 pont avec un voisin qui est
+	BLOQUE3, // une île de valeur 3 qui a 2 voisins, dont 1 libre et 1 pont avec un voisin
+				// qui est
 				// complété = on peut compléter l'île avec 2 ponts sur son autre voisin
-	BLOQUE41, // une île de valeur 4 qui a 3 voisins, dont 2 libres et le 3e est complété 
-				//avec 1 pont lié à cette Ile = on peut ajouter 1 Pont pour chaque autre voisin
+	BLOQUE41, // une île de valeur 4 qui a 3 voisins, dont 2 libres et le 3e est complété
+				// avec 1 pont lié à cette Ile = on peut ajouter 1 Pont pour chaque autre voisin
 	BLOQUE42, // une île de valeur 4 qui a 1 voisin libre et 1 pont avec 2 voisins qui sont
 				// complétés = on peut compléter l'île avec 2 ponts sur son 3e et dernier voisin
 	BLOQUE5, // une île de valeur 5 qui a 3 voisins libres et 1 pont avec un voisin qui est

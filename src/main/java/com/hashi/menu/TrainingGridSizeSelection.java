@@ -1,4 +1,4 @@
-package com.hashi.gestion_des_menus;
+package com.hashi.menu;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -10,8 +10,8 @@ import java.awt.Insets;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
-public class MenuEntrainement extends Panel {
-    private final String TITLE = "title_training";
+public class TrainingGridSizeSelection extends Panel {
+    private final String TITLE = "title_training_grid_size_selection";
     private Button retour;
     private Button parametre;
     private Button changerProfil;
@@ -21,16 +21,16 @@ public class MenuEntrainement extends Panel {
     private Button dix;
     private Button vignt;
 
-    public MenuEntrainement() {
-        super(new BorderLayout(), "bg-selection-grille.png");
+    public TrainingGridSizeSelection() {
+        super(new BorderLayout(), "bg-training-grid-size-selection.png");
 
         PageManager.getInstance().setTitle(TITLE);
 
         retour = new Button("return").setFontSize(50);
         parametre = new Button().setImage("btn-option.png");
         changerProfil = new Button().setImage("btn-switch-profil.png");
-        regles = new Button().setImage("btn-aide.png");
-        quitter = new Button().setImage("btn-quitter.png");
+        regles = new Button().setImage("btn-help.png");
+        quitter = new Button().setImage("btn-quit.png");
         sept = new Button("7x7").setAsRawText().setFontSize(50);
         dix = new Button("10x10").setAsRawText().setFontSize(50);
         vignt = new Button("25x25").setAsRawText().setFontSize(50);
@@ -51,28 +51,28 @@ public class MenuEntrainement extends Panel {
         positionnerBoutons2();
 
         retour.addActionListener(e -> {
-            PageManager.changerPage(new MenuGeneral());
+            PageManager.changerPage(new HomeMenu());
         });
         quitter.addActionListener(e -> {
             System.exit(0);
         });
         regles.addActionListener(e -> {
-            PageManager.changerPage(new Regle(this, TITLE));
+            PageManager.changerPage(new Rule(this, TITLE));
         });
         parametre.addActionListener(e -> {
-            PageManager.changerPage(new Parametre(this, TITLE));
+            PageManager.changerPage(new Parameter(this, TITLE));
         });
         changerProfil.addActionListener(e -> {
-            PageManager.changerPage(new EcranLancement());
+            PageManager.changerPage(new StartScreen());
         });
         sept.addActionListener(e -> {
-            PageManager.changerPage(new Puzzle());
+            PageManager.changerPage(new TrainingGridSelection());
         });
         dix.addActionListener(e -> {
-            PageManager.changerPage(new Puzzle());
+            PageManager.changerPage(new TrainingGridSelection());
         });
         vignt.addActionListener(e -> {
-            PageManager.changerPage(new Puzzle());
+            PageManager.changerPage(new TrainingGridSelection());
         });
 
     }

@@ -1,4 +1,4 @@
-package com.hashi.grille;
+package com.hashi.grid;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -5,6 +5,9 @@ import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
+import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicComboBoxUI;
+
 public class SchoolStyle extends Style {
     private Image button_border_image;
 
@@ -89,6 +92,17 @@ public class SchoolStyle extends Style {
     }
 
     protected <E> void initComboBox(ComboBox<E> combo_box) {
+        combo_box.setUI(new BasicComboBoxUI() {
+            @Override
+            protected JButton createArrowButton() {
+                return new JButton() {
+                    @Override
+                    public int getWidth() {
+                        return 0;
+                    }
+                };
+            }
+        });
         combo_box.setFont(font.deriveFont(0, combo_box.getFontSize()));
     }
 

@@ -1,4 +1,4 @@
-package com.hashi.gestion_des_menus;
+package com.hashi.menu;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 
-import com.hashi.Language;
+import com.hashi.LanguageManager;
 import com.hashi.style.Button;
 import com.hashi.style.ComboBox;
 import com.hashi.style.Label;
@@ -20,10 +20,10 @@ import com.hashi.style.Style;
 import com.hashi.style.StyleManager;
 import com.hashi.style.SummerStyle;
 
-public class Parametre extends Panel {
+public class Parameter extends Panel {
 
-    public Parametre(Panel returnPanel, String returnTitle) {
-        super(new BorderLayout(), "bg-parametre.png");
+    public Parameter(Panel returnPanel, String returnTitle) {
+        super(new BorderLayout(), "bg-parameter.png");
 
         PageManager.getInstance().setTitle("title_parameters");
 
@@ -50,9 +50,9 @@ public class Parametre extends Panel {
         String[] languages = { "Francais", "English" };
         List<String> languages_key = List.of("fr", "en");
         ComboBox<String> languagesBox = new ComboBox<>(languages).setFontSize(50);
-        languagesBox.setSelectedIndex(languages_key.indexOf(Language.getLanguage()));
+        languagesBox.setSelectedIndex(languages_key.indexOf(LanguageManager.getLanguage()));
         languagesBox.addActionListener(e -> {
-            Language.setLanguage(languages_key.get(languagesBox.getSelectedIndex()));
+            LanguageManager.setLanguage(languages_key.get(languagesBox.getSelectedIndex()));
             PageManager.getInstance().setTitle("title_parameters");
             PageManager.changerPage(this);
         });

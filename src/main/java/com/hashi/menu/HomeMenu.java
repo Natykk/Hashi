@@ -1,4 +1,4 @@
-package com.hashi.gestion_des_menus;
+package com.hashi.menu;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -11,7 +11,7 @@ import javax.swing.BorderFactory;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
-public class MenuGeneral extends Panel {
+public class HomeMenu extends Panel {
     private static final String TITLE = "title";
     private Button parametresButton;
     private Button changerProfilButton;
@@ -21,16 +21,16 @@ public class MenuGeneral extends Panel {
     private Button histoireButton;
     private Button entrainementButton;
 
-    public MenuGeneral() {
-        super(new BorderLayout(), "bg-principal.png");
+    public HomeMenu() {
+        super(new BorderLayout(), "bg-home-menu.png");
 
         PageManager.getInstance().setTitle(TITLE);
 
         // Création des boutons
         parametresButton = new Button().setImage("btn-option.png");
         changerProfilButton = new Button().setImage("btn-switch-profil.png");
-        reglesButton = new Button().setImage("btn-aide.png");
-        quitterButton = new Button().setImage("btn-quitter.png");
+        reglesButton = new Button().setImage("btn-help.png");
+        quitterButton = new Button().setImage("btn-quit.png");
         arcadeButton = new Button("arcade").setFontSize(35);
         histoireButton = new Button("history").setFontSize(35);
         entrainementButton = new Button("training").setFontSize(35);
@@ -58,21 +58,21 @@ public class MenuGeneral extends Panel {
         // Action du bouton "Paramètres"
         parametresButton.addActionListener(e -> {
             // changement de page -> parametre
-            PageManager.changerPage(new Parametre(this, TITLE));
+            PageManager.changerPage(new Parameter(this, TITLE));
         });
 
         // Action du bouton "Changer de profil"
 
         changerProfilButton.addActionListener(e -> {
             // changement de page -> changer profil
-            PageManager.changerPage(new EcranLancement());
+            PageManager.changerPage(new StartScreen());
         });
 
         // Action du bouton "Règles"
 
         reglesButton.addActionListener(e -> {
             // changement de page -> Aide
-            PageManager.changerPage(new Regle(this, TITLE));
+            PageManager.changerPage(new Rule(this, TITLE));
         });
 
         // Action du bouton "Arcade"
@@ -85,14 +85,14 @@ public class MenuGeneral extends Panel {
 
         histoireButton.addActionListener(e -> {
             // Votre code pour le bouton Histoire
-            PageManager.changerPage(new PageMode());
+            PageManager.changerPage(new HistoryLoadGame());
         });
 
         // Action du bouton "Entraînement"
 
         entrainementButton.addActionListener(e -> {
             // Votre code pour le bouton Entraînement
-            PageManager.changerPage(new MenuEntrainement());
+            PageManager.changerPage(new TrainingGridSizeSelection());
         });
     }
 

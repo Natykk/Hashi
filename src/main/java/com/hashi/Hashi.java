@@ -1,14 +1,14 @@
 package com.hashi;
 
-import com.hashi.grille.Grille;
-import com.hashi.grille.Ile;
-import com.hashi.grille.Jeu;
-import com.hashi.grille.Pont;
-import com.hashi.grille.TimerManager;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
+import com.hashi.grid.Action;
+import com.hashi.grid.Grille;
+import com.hashi.grid.Ile;
+import com.hashi.grid.Jeu;
+import com.hashi.grid.Pont;
+import com.hashi.grid.TimerManager;
 import com.hashi.style.Button;
-import com.hashi.grille.Action;
 
 import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
@@ -51,7 +51,7 @@ public class Hashi extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        Panel mainPanel = new Panel(new BorderLayout(), "bg-jeu.png");
+        Panel mainPanel = new Panel(new BorderLayout(), "bg-game.png");
 
         Panel buttonPanel = new Panel(new GridLayout(8, 1));
         for (int i = 0; i < 6; i++) {
@@ -59,8 +59,8 @@ public class Hashi extends JFrame {
             buttonPanel.add(button);
         }
 
-        undoButton = new Button().setImage("btn-arriere.png");
-        redoButton = new Button().setImage("btn-avant.png");
+        undoButton = new Button().setImage("btn-backward.png");
+        redoButton = new Button().setImage("btn-forward.png");
         buttonPanel.add(undoButton);
         buttonPanel.add(redoButton);
 

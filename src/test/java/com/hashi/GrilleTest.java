@@ -10,8 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import com.hashi.grille.Grille;
-import com.hashi.grille.Ile;
+import com.hashi.grid.Grille;
+import com.hashi.grid.Ile;
 
 public class GrilleTest {
 	static Grille g = new Grille(5);

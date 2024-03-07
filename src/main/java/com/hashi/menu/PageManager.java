@@ -1,8 +1,8 @@
-package com.hashi.gestion_des_menus;
+package com.hashi.menu;
 
 import javax.swing.*;
 
-import com.hashi.Language;
+import com.hashi.LanguageManager;
 import com.hashi.style.Panel;
 
 public class PageManager extends JFrame {
@@ -15,13 +15,13 @@ public class PageManager extends JFrame {
 
         instance = this;
 
-        getContentPane().add(new EcranLancement());
+        getContentPane().add(new StartScreen());
         setVisible(true);
     }
 
     @Override
     public void setTitle(String title_key) {
-        super.setTitle(Language.getString(title_key));
+        super.setTitle(LanguageManager.getString(title_key));
     }
 
     public static PageManager getInstance() {

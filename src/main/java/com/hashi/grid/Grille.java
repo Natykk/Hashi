@@ -1,4 +1,4 @@
-package com.hashi.grille;
+package com.hashi.grid;
 
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;

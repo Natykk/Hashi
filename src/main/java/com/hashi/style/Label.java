@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.*;
 
-import com.hashi.Language;
+import com.hashi.LanguageManager;
 
 public class Label extends JLabel implements FontSize<Label> {
     private int font_size = 20;
@@ -53,7 +53,7 @@ public class Label extends JLabel implements FontSize<Label> {
             return super.getText();
 
         try {
-            return Language.getString(super.getText());
+            return LanguageManager.getString(super.getText());
         } catch (Exception e) {
             return "";
         }
