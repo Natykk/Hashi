@@ -6,19 +6,41 @@ import java.util.Vector;
 
 import javax.swing.*;
 
+/**
+ * Menu déroulant stylisé.<br>
+ * <br>
+ * 
+ * Pour changer le style il faut passé par le
+ * {@link com.hashi.style.StyleManager} et lui donner un
+ * {@link com.hashi.style.Style}.<br>
+ */
 public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
     private int font_size = 20;
 
+    /**
+     * Créer un menu déroulant vide.
+     */
     public ComboBox() {
         super();
         init();
     }
 
+    /**
+     * Créer un menu déroulant à partir d'une liste d'éléments.
+     * 
+     * @param items La liste des éléments du menu déroulant sous forme de tableau.
+     */
     public ComboBox(E[] items) {
         super(items);
         init();
     }
 
+    /**
+     * Créer un menu déroulant à partir d'une liste d'éléments.
+     * 
+     * @param items La liste des éléments du menu déroulant sous forme de
+     *              {@link java.util.Vector}.
+     */
     public ComboBox(Vector<E> items) {
         super(items);
         init();
@@ -30,6 +52,13 @@ public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
         StyleManager.getInstance().initComboBox(this);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return Retourne une {@link com.hashi.style.ComboBox} afin de
+     *         pouvoir chainer
+     *         les appels de fonctions.
+     */
     public ComboBox<E> setFontSize(int size) {
         font_size = size;
 
