@@ -316,6 +316,14 @@ public class Grille extends MouseAdapter {
         return this.Ponts;
     }
 
+    public int getNbPonts() {
+        int nbPonts = 0;
+        for (Pont pont : this.Ponts) {
+            nbPonts += pont.estDouble() ? 2 : 1;
+        }
+        return nbPonts;
+    }
+
     /**
      * récupérer une Ile à partir de coordonnées données
      * 
