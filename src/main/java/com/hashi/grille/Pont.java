@@ -84,12 +84,12 @@ public class Pont extends Case {
             return new Rectangle(ile1.getxAffichage() - 15, ile1.getyAffichage() + ile1.getTaille() / 2, 30,
                     ile2.getyAffichage() - ile1.getyAffichage() - (ile1.getTaille() + ile2.getTaille()) / 2);
     }
-
+/* 
     public void effacer() {
         this.ile1.retirerPont(this);
         this.ile2.retirerPont(this);
     }
-
+*/
     public boolean isEffacable() {
         return this.ile1.nbConnexions() == 0 && this.ile2.nbConnexions() == 0;
     }
