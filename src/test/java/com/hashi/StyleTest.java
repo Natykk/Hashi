@@ -29,7 +29,6 @@ public class StyleTest {
     class StyleTestClass extends JFrame {
         private static final int default_width = 1280;
         private static final int default_height = 720;
-        public static final StyleWrapper style = new StyleWrapper((Style) new SchoolStyle());
 
         StyleTestClass() {
             super("StyleTestClass");
@@ -38,21 +37,22 @@ public class StyleTest {
             setSize(default_width, default_height);
             setMinimumSize(new Dimension(default_width, default_height));
 
-            Panel panel = new Panel(style, new FlowLayout(FlowLayout.LEFT), "bg-1.png");
+            Panel panel = new Panel(new FlowLayout(FlowLayout.LEFT), "bg-principal.png");
 
             String[] combox_content = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
 
-            Button button = new Button(style, "Jouer");
+            Button button = new Button("test");
 
             button.addActionListener(e -> {
-                style.switchStyle((Style) new SummerStyle());
+                StyleManager.setStyle((Style) new SummerStyle());
+                Language.setLanguage("en");
                 repaint();
             });
 
             panel.add(button);
-            panel.add(new Label(style, "Jouer"));
-            panel.add(new TextField(style));
-            panel.add(new ComboBox<String>(style, combox_content));
+            panel.add(new Label("test").setFontSize(50));
+            panel.add(new TextField(10).setFontSize(30));
+            panel.add(new ComboBox<String>(combox_content));
 
             add(panel);
             setVisible(true);

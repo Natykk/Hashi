@@ -1,81 +1,35 @@
 package com.hashi.gestion_des_menus;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.io.*;
 import java.util.ArrayList;
 
-public class EcranLancement extends JFrame {
+import javax.swing.SwingUtilities;
 
-    private JComboBox<String> profilBox;
+import com.hashi.Language;
+import com.hashi.style.*;
+import com.hashi.style.Panel;
+public class EcranLancement extends Panel {
+
+    private ComboBox<String> profilBox;
     private ArrayList<String> profils;
-    private JPanel panel1, panel2;
-    // private JLabel logoLabel;
-    private EcranAcceuil ecranAcceuil;
-    // private Menu_General2 Menu;
+    private Panel panel1, panel2;
 
     public EcranLancement() {
-        super("Hashi");
-
-        JButton bouton = new JButton("Valider");
+        super(new GridBagLayout(), "bg-profil.png");
+        PageManager.getInstance().setTitle("title_profile_selection");
 
         // Charger les profils depuis le fichier "profils.txt"
         chargerprofils();
 
-        // Ajout d'une action lorsque le bouton valider (dans la première page) est
-        // cliqué
-        bouton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String profilChoisi = profilBox.getItemAt(profilBox.getSelectedIndex());
-                // Vérifier si "Nouveau profil" est sélectionné
-                if (profilChoisi.equals("Nouveau profil")) {
-                    PageNouveauProfil();
-                } else {
-                    System.out.println("Vous avez choisi : " + profilChoisi);
-                    // Changement du page => EcranAcceuil
-                    PageManager.changerPage(EcranLancement.this, ecranAcceuil.getPanel());
-                }
-            }
+        PageProfil();
+        PageNouveauProfil();
+
+        SwingUtilities.invokeLater(() -> {
+            PageManager.changerPage(panel1);
         });
-
-        // Convertir l'ArrayList en tableau de chaînes
-        String[] profilsArray = profils.toArray(new String[profils.size() + 1]);
-        // Ajouter "Nouveau profil" à la fin du tableau
-        profilsArray[profils.size()] = "Nouveau profil";
-
-        profilBox = new JComboBox<>(profilsArray);
-        panel1 = new JPanel(new GridBagLayout());
-        panel1.add(new JLabel("Profil:"), createGbc(0, 0));
-        panel1.add(profilBox, createGbc(1, 0));
-        panel1.add(bouton, createGbc(2, 2));
-
-        // à regler (logo)
-        /*
-         * logoLabel = new JLabel(new ImageIcon("logo.png"));
-         * // Resize the image to fit the window
-         * Image img = new ImageIcon("logo.png").getImage();
-         * Image img2 = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-         * ImageIcon logo = new ImageIcon(img2);
-         * logoLabel.setIcon(logo);
-         * panel1.add(logoLabel);
-         */
-
-        // Initialiser panel2 avec un champ JTextField vide
-        panel2 = new JPanel(new GridBagLayout());
-        ecranAcceuil = new EcranAcceuil();
-        add(panel1);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setSize(400, 400);
-        setVisible(true);
-    }
-
-    // vérifier si la page est vide
-    private boolean estPageVide() {
-        return panel2.getComponentCount() == 0;
     }
 
     private GridBagConstraints createGbc(int x, int y) {
@@ -86,71 +40,75 @@ public class EcranLancement extends JFrame {
         return gbc;
     }
 
+    private void PageProfil() {
+        Button bouton = new Button("validate").setFontSize(50);
+
+        // Ajout d'une action lorsque le bouton valider (dans la première page) est
+        // cliqué
+        bouton.addActionListener(e -> {
+            String profilChoisi = profilBox.getItemAt(profilBox.getSelectedIndex());
+            // Vérifier si "Nouveau profil" est sélectionné
+            if (profilChoisi.equals(Language.getString("new_profile"))) {
+                PageManager.changerPage(panel2);
+            } else {
+                System.out.println("Vous avez choisi : " + profilChoisi);
+                // Changement du page => Menu
+                PageManager.changerPage(new MenuGeneral());
+            }
+        });
+
+        // Convertir l'ArrayList en tableau de chaînes
+        String[] profilsArray = profils.toArray(new String[profils.size() + 1]);
+        // Ajouter "Nouveau profil" à la fin du tableau
+        profilsArray[profils.size()] = Language.getString("new_profile");
+
+        profilBox = new ComboBox<>(profilsArray).setFontSize(50);
+        panel1 = new Panel(new GridBagLayout(), "bg-profil.png");
+        panel1.add(new Label("select_profile").setFontSize(50), createGbc(0, 0));
+        panel1.add(profilBox, createGbc(1, 0));
+        panel1.add(bouton, createGbc(1, 1));
+    }
+
     private void PageNouveauProfil() {
-        // si elle est vide on va creer la page du nouveau profil
-        if (estPageVide()) {
-            // à regler (logo)
-            /*
-             * logoLabel = new JLabel(new ImageIcon("logo.png"));
-             * // Resize the image to fit the window
-             * Image img = new ImageIcon("logo.png").getImage();
-             * Image img2 = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-             * ImageIcon logo = new ImageIcon(img2);
-             * logoLabel.setIcon(logo);
-             * panel2.add(logoLabel);
-             */
+        panel2 = new Panel(new GridBagLayout(), "bg-profil.png");
 
-            JTextField nouveauprofilField;
-            panel2.add(new JLabel("Créer un nouveau profil : "), createGbc(0, 0));
-            panel2.add(nouveauprofilField = new JTextField(8), createGbc(1, 0));
+        TextField nouveauprofilField = new TextField(8).setFontSize(50);
+        panel2.add(new Label("create_profile").setFontSize(50), createGbc(0, 0));
+        panel2.add(nouveauprofilField, createGbc(1, 0));
 
-            JButton validerNouveauprofil = new JButton("Valider");
-            validerNouveauprofil.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String nouveauprofil = nouveauprofilField.getText();
-                    // si on saisie rien il affiche un message d'erreur
-                    if (nouveauprofil.trim().isEmpty()) {
-                        PageManager.MessageErreur(EcranLancement.this, "Veuillez entrer un nom du profil valide.",
-                                "Erreur");
-                        // si on saisie un message déjà exsistant on affiche un message d'erreur
-                    } else if (profilExisteDeja(nouveauprofil)) {
-                        PageManager.MessageErreur(EcranLancement.this, "Ce profil existe déja",
-                                "Erreur");
-                    } else {
-                        System.out.println("Nouveau profil créé : " + nouveauprofil);
-                        // Ajouter le nouveau profil au fichier
-                        ajouterprofil(nouveauprofil);
-                        // Mettre à jour la liste des profils
-                        chargerprofils();
-                        // Ajouter le nouveau profil au JComboBox
-                        profilBox.addItem(nouveauprofil);
-                        // Sélectionner le nouveau profil ajouté
-                        profilBox.setSelectedItem(nouveauprofil);
-                        // Afficher un message de confirmation pour le nouveau profil créé
-                        PageManager.changerPage(EcranLancement.this, ecranAcceuil.getPanel());
-                    }
-                }
-            });
-            panel2.add(validerNouveauprofil, createGbc(1, 1));
+        Button validerNouveauprofil = new Button("validate").setFontSize(50);
+        validerNouveauprofil.addActionListener(e -> {
+            String nouveauprofil = nouveauprofilField.getText();
+            // si on saisie rien il affiche un message d'erreur
+            if (nouveauprofil.trim().isEmpty()) {
+                PageManager.MessageErreur("Veuillez entrer un nom du profil valide.",
+                        "Erreur");
+                // si on saisie un message déjà exsistant on affiche un message d'erreur
+            } else if (profilExisteDeja(nouveauprofil)) {
+                PageManager.MessageErreur("Ce profil existe déja",
+                        "Erreur");
+            } else {
+                System.out.println("Nouveau profil: " + nouveauprofil);
+                // Ajouter le nouveau profil au fichier
+                ajouterprofil(nouveauprofil);
+                // Mettre à jour la liste des profils
+                chargerprofils();
+                // Ajouter le nouveau profil au ComboBox
+                profilBox.addItem(nouveauprofil);
+                // Sélectionner le nouveau profil ajouté
+                profilBox.setSelectedItem(nouveauprofil);
+                // Afficher un message de confirmation pour le nouveau profil créé
+                PageManager.changerPage(new MenuGeneral());
+            }
+        });
+        panel2.add(validerNouveauprofil, createGbc(1, 1));
 
-            JButton annuler = new JButton("Annuler");
-            annuler.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Retour à la page précédente (panel1)
-                    PageManager.changerPage(EcranLancement.this, panel1);
-                }
-            });
-            panel2.add(annuler, createGbc(0, 1));
-
-            // Changer de page vers panel2
-            PageManager.changerPage(this, panel2);
-        } else {
-            // La page n'est pas vide, simplement changer de page vers panel2
-            PageManager.changerPage(this, panel2);
-        }
-
+        Button annuler = new Button("cancel").setFontSize(50);
+        annuler.addActionListener(e -> {
+            // Retour à la page précédente (panel1)
+            PageManager.changerPage(panel1);
+        });
+        panel2.add(annuler, createGbc(0, 1));
     }
 
     public boolean profilExisteDeja(String nouveauprofil) {

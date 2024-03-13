@@ -4,28 +4,67 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.*;
 
-public class Button extends JButton {
-    private StyleWrapper style;
+import com.hashi.Language;
 
-    public Button(StyleWrapper style) {
+public class Button extends JButton implements FontSize<Button>, ImageComponent<Button> {
+    private int font_size = 20;
+    private Image image;
+
+    public Button() {
         super();
-
-        this.style = style;
+        init();
     }
 
-    public Button(StyleWrapper style, Action a) {
-        super(a);
-
-        this.style = style;
-    }
-
-    public Button(StyleWrapper style, String text) {
+    public Button(String text) {
         super(text);
-
-        this.style = style;
+        init();
     }
 
+    private void init() {
+        setOpaque(false);
+
+        this.image = new Image(this);
+
+        StyleManager.getInstance().initButton(this);
+    }
+
+    public Button setImage(String image_res) {
+        image.setImage(image_res);
+
+        return this;
+    }
+
+    public java.awt.Image getImage() {
+        return image.getImage();
+    }
+
+    public Button setFontSize(int size) {
+        font_size = size;
+
+        StyleManager.getInstance().initButton(this);
+
+        return this;
+    }
+
+    public int getFontSize() {
+        return font_size;
+    }
+
+    @Override
+    public String getText() {
+        if (super.getText().isEmpty())
+            return "";
+
+        return Language.getString(super.getText());
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
-        style.paintButton(this, (Graphics2D) g);
+        StyleManager.getInstance().paintButton(this, (Graphics2D) g);
+    }
+
+    @Override
+    protected void paintBorder(Graphics g) {
+        StyleManager.getInstance().paintButtonBorder(this, (Graphics2D) g);
     }
 }
