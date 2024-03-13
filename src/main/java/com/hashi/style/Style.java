@@ -7,24 +7,60 @@ import java.awt.Graphics2D;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 
+/**
+ * Classe abstaite contenant toutes les fonctions pour afficher les éléments
+ * stylisé.
+ */
 public abstract class Style {
+    /**
+     * Nom du dossier qui contient le style.
+     */
     protected String name;
+    /**
+     * Couleur de fond.
+     */
     protected Color bg_color;
+    /**
+     * Couleur d'avant plan.
+     */
     protected Color fg_color;
+    /**
+     * Police d'écriture.
+     */
     protected Font font;
 
+    /**
+     * Récupère le nom de dossier du style.
+     * 
+     * @return le nom de dossier.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Récupère la couleur de fond.
+     * 
+     * @return la couleur de fond.
+     */
     public Color getBgColor() {
         return bg_color;
     }
 
+    /**
+     * Récupère la couleur d'avant plan.
+     * 
+     * @return la couleur d'avant plan.
+     */
     public Color getFgColor() {
         return fg_color;
     }
 
+    /**
+     * Récupère la police d'écriture.
+     * 
+     * @return la police d'écriture.
+     */
     public Font getFont() {
         return font;
     }
