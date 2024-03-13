@@ -493,7 +493,13 @@ public class Grille extends MouseAdapter {
             if (!uneIle.estComplet()
                     && aideTrouve == Aide.RIEN) {
                 // on ne s'occupe pas des îles complètes
-                aideTrouve = uneIle.techniquePontsForces();
+
+                try {
+                    aideTrouve = uneIle.techniquePontsForces();
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    
+                }
             }
         }
 
