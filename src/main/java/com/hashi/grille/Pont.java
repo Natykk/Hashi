@@ -227,10 +227,10 @@ public class Pont extends Case {
     }
 
     public Ile getIle1() {
-        return ile1;
+        return this.ile1;
     }
 
     public Ile getIle2() {
-        return ile2;
+        return this.ile2;
     }
 }
