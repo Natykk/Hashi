@@ -14,6 +14,9 @@ public enum Aide {
 	FORCE8, // une île de valeur 8 = compléter l'île avec 8 ponts
 
 	BLOQUE3, // une île de valeur 3 qui a 2 voisins, dont 1 libre et 1 pont avec un voisin qui est
+				// complété = on peut compléter l'île avec 2 ponts sur son autre voisin (libre)
+				// ou: 3 voisins, 1 libre, 1 pont avec chacun des 2 autres voisins complétés
+				// = on peut compléter l'île avec 1 pont sur son autre voisin (libre)
 
 	// ci-dessous: pas encore appliqués
 	BLOQUE41, // une île de valeur 4 qui a 3 voisins, dont 2 libres et le 3e est complété 
