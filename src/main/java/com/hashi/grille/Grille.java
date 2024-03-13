@@ -481,26 +481,27 @@ public class Grille extends MouseAdapter {
      * interroge toutes les îles de la grille en appelant leur méthodes de recherche
      * d'aide
      * 
-     * @return une aide applicable à la grille, dans sa configuraiton actuelle
+     * @return une liste d'Aide applicable à la grille, dans sa configuraiton actuelle
+     *          si aucune Aide n'a été trouvée, la Liste contient juste Aide.RIEN
      */
-    public Aide estCeQueQuelquUnAUneAide() {
-        Aide aideTrouve = Aide.RIEN;
+    public List<Aide> estCeQueQuelquUnAUneAide() {
+        
+        List<Aide> aidesTrouve = new ArrayList<>();
 
         // techniques de démarrage et techniques basiques
         for (Ile uneIle : this.Iles) {
-            if (!uneIle.estComplet()
-                    && aideTrouve == Aide.RIEN) {
+            if (!uneIle.estComplet()) {
                 // on ne s'occupe pas des îles complètes
 
                 try {
-                    aideTrouve = uneIle.techniquePontsForces();
+                    aidesTrouve.add( uneIle.techniquePontsForces() );
                 } catch (Exception e) {
                     // TODO: handle exception
                     System.err.println("Erreur: Attribut -valeur de l'Ile incorrect");
                 }
 
                 try {
-                    aideTrouve = uneIle.techniquePontsBloques();
+                    aidesTrouve.add( uneIle.techniquePontsBloques() );
                 } catch (Exception e) {
                     // TODO: handle exception
                     System.err.println("Erreur: Attribut -valeur de l'Ile incorrect");
@@ -508,7 +509,15 @@ public class Grille extends MouseAdapter {
             }
         }
 
-        return aideTrouve;
+        //TODO: enlever tous les Aide.RIEN de la List
+        //aidesTrouve = tream.distinct().toList();
+        
+        if (aidesTrouve.isEmpty()) {
+            // si on a trouvé aucune aide, on renvoit une List qui contient seulement Aide.RIEN
+            aidesTrouve.add( Aide.RIEN );
+        }
+
+        return aidesTrouve;
     }
 
     public Pont getPont(Ile selectedIle, Ile clickedIle) {
