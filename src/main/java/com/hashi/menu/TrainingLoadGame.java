@@ -7,6 +7,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.SwingUtilities;
+
+import com.hashi.Hashi;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
@@ -53,7 +56,9 @@ public class TrainingLoadGame extends Panel {
             PageManager.changerPage(new TrainingVictory());
         });
         charger.addActionListener(e -> {
-            // grille auvegarder
+            // grille sauvegarder
+            //PageManager.changerPage(new Help());
+            SwingUtilities.invokeLater(() -> new Help());
         });
         parametre.addActionListener(e -> {
             PageManager.changerPage(new Parameter(this, TITLE));
@@ -69,7 +74,7 @@ public class TrainingLoadGame extends Panel {
     private void positionnerBoutons() {
 
         Panel boutonsHaut = new Panel();
-        boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT)); // Alignement à droite
+        boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT)); 
         boutonsHaut.add(retour);
 
         Panel boutonsCentre = new Panel(new GridBagLayout());
@@ -101,7 +106,7 @@ public class TrainingLoadGame extends Panel {
         gbc.gridx = x;
         gbc.gridy = y;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(5, 5, 5, 5); // Marge
+        gbc.insets = new Insets(5, 5, 5, 5); 
         return gbc;
     }
 }
