@@ -190,14 +190,6 @@ public class Pont extends Case {
         this.ile2.retirerPont(this);
     }
 
-    public Ile getCaseDepart() {
-        return this.ile1;
-    }
-
-    public Ile getCaseArrivee() {
-        return this.ile2;
-    }
-
     public void ajouterPont() {
         this.estDouble = true;
     }
