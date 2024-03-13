@@ -481,11 +481,9 @@ public class Grille extends MouseAdapter {
      * interroge toutes les îles de la grille en appelant leur méthodes de recherche
      * d'aide
      * 
-     * @param nbDemandeAide le nombre de fois que l'utilisateur a cliqué sur le
-     *                      bouton d'aide sans avoir modifié la grille
      * @return une aide applicable à la grille, dans sa configuraiton actuelle
      */
-    public Aide estCeQueQuelquUnAUneAide(int nbDemandeAide) {
+    public Aide estCeQueQuelquUnAUneAide() {
         Aide aideTrouve = Aide.RIEN;
 
         // techniques de démarrage et techniques basiques
@@ -498,7 +496,7 @@ public class Grille extends MouseAdapter {
                     aideTrouve = uneIle.techniquePontsForces();
                 } catch (Exception e) {
                     // TODO: handle exception
-                    
+
                 }
             }
         }
