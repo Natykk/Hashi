@@ -91,7 +91,7 @@ public class Pont extends Case {
     }
 */
     public boolean isEffacable() {
-        return this.ile1.nbConnexions() == 0 && this.ile2.nbConnexions() == 0;
+        return this.ile1.getNbConnexion() == 0 && this.ile2.getNbConnexion() == 0;
     }
 
     public Ile getIleDep() {
@@ -132,8 +132,8 @@ public class Pont extends Case {
             return false;
         }
 
-        if (this.estDouble || this.ile1.nbConnexions() >= this.ile1.getValeur() ||
-                this.ile2.nbConnexions() >= this.ile2.getValeur()) {
+        if (this.estDouble || this.ile1.getNbConnexion() >= this.ile1.getValeur() ||
+                this.ile2.getNbConnexion() >= this.ile2.getValeur()) {
             return false;
         }
 
@@ -196,16 +196,6 @@ public class Pont extends Case {
 
     public void retirerPont() {
         this.estDouble = false;
-    }
-
-    /**
-     * est-ce que le Pont est double ou simple
-     * retourne l'attribut estDouble
-     * 
-     * @return vrai si le Pont est double, faux s'il est simple
-     */
-    public boolean estDouble() {
-        return estDouble;
     }
 
     public void setEstDouble(boolean estDouble) {

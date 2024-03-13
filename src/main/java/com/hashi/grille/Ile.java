@@ -76,6 +76,13 @@ public class Ile extends Case {
         this.listeVoisin.add(voisin);
     }
 
+    /**
+     * retourne le nombre de ponts reliés à cette île EN PRENANT EN COMPTE LES PONTS
+     * DOUBLES
+     * 
+     * @return le nombre de ponts en comptant les ponts doubles pour 2 reliés à
+     *         cette île
+     */
     public int getNbConnexion() {
         int tot = 0;
         for (Pont pont : listePont) {
@@ -83,7 +90,7 @@ public class Ile extends Case {
         }
         return tot;
     }
-
+/* 
     public boolean supprimerPont(Pont pont) {
         if (this.listePont.contains(pont)) {
             int k = listePont.indexOf(pont);
@@ -99,7 +106,7 @@ public class Ile extends Case {
         }
         return true;
     }
-
+*/
     public boolean ileComplete() {
         return listePont.size() == this.valeur;
     }
@@ -142,24 +149,6 @@ public class Ile extends Case {
         this.listePont.remove(p);
     }
 
-    /**
-     * retourne le nombre de ponts reliés à cette île EN PRENANT EN COMPTE LES PONTS
-     * DOUBLES
-     * 
-     * @return le nombre de ponts en comptant les ponts doubles pour 2 reliés à
-     *         cette île
-     */
-    public int nbConnexions() {
-        int sum = 0;
-
-        for (Pont p : listePont) {
-            // si le pont ests double, il compte pour 2
-            sum += (p.estDouble() ? 2 : 1);
-        }
-
-        return sum;
-    }
-
     // affichage sur terminal
     public String afficher() {
         return String.valueOf(this.valeur);
@@ -168,7 +157,7 @@ public class Ile extends Case {
     /**
      * obtenir le nombre d'objet Pont relié à cette Ile
      * (pour une méthode qui fait la distinction entre pont simple et double, voir
-     * nbConnexions() )
+     * getNbConnexion() )
      * 
      * @return le nombre d'objet Pont de la liste de Ponts de cette Ile
      */
@@ -224,7 +213,7 @@ public class Ile extends Case {
      *         sinon
      */
     public boolean estComplet() {
-        return this.valeur == this.nbConnexions();
+        return this.valeur == this.getNbConnexion();
     }
 
     /**
@@ -259,7 +248,7 @@ public class Ile extends Case {
         return nbPontHaut;
     }
 
-    /*
+    /**
      * retourne vrai si l'île a plus d'un pont dans une direction
      * 
      * @return vrai si l'île a plus d'un pont dans une direction
@@ -276,7 +265,7 @@ public class Ile extends Case {
      *         sinon
      */
     public boolean estLibre() {
-        return this.nbConnexions() < valeur;
+        return this.getNbConnexion() < valeur;
     }
 
     /**
@@ -367,7 +356,7 @@ public class Ile extends Case {
                 // en a actuellement moins de 2
                 // et qui n'a qu'un seul voisin libre
                 if (this.nbVoisinsLibres() == 1
-                        && this.nbConnexions() < this.valeur) {
+                        && this.getNbConnexion() < this.valeur) {
                     // la même condition peut s'appliquer pour le cas 1 et 2
                     // renvoie FORCE1 si la valeur de l'île est 1. respectivement FORCE2 et 2
                     return this.valeur == 1 ? Aide.FORCE1 : Aide.FORCE2;
@@ -387,7 +376,7 @@ public class Ile extends Case {
                 // en a actuellement moins de 4
                 // et qui n'a que 2 voisins libres
                 if (this.nbVoisinsLibres() == 2
-                        && this.nbConnexions() < this.valeur) {
+                        && this.getNbConnexion() < this.valeur) {
                     return Aide.FORCE4;
                 }
                 break;
@@ -405,7 +394,7 @@ public class Ile extends Case {
                 // en a actuellement moins de 6
                 // et qui n'a que 3 voisins libres
                 if (this.nbVoisinsLibres() == 3
-                        && this.nbConnexions() < this.valeur) {
+                        && this.getNbConnexion() < this.valeur) {
                     return Aide.FORCE6;
                 }
                 break;
@@ -419,7 +408,7 @@ public class Ile extends Case {
             case 8:
                 // une île qui a besoin de 8 ponts
                 // et en a actuellement moins de 8
-                if (this.nbConnexions() < 8) {
+                if (this.getNbConnexion() < 8) {
                     return Aide.FORCE8;
                 }
                 break;
@@ -448,7 +437,7 @@ public class Ile extends Case {
                 // en a actuellement moins de 3
                 // et qui n'a plus qu'un voisin libre
                 if (this.nbVoisinsLibres() == 1
-                        && this.nbConnexions() < this.valeur) {
+                        && this.getNbConnexion() < this.valeur) {
                     return Aide.BLOQUE3;
                 }
                 break;
@@ -517,7 +506,7 @@ public class Ile extends Case {
      * @return la valeur de l'Ile moins son nombre de connexions
      */
     private int pontRestants() {
-        return this.valeur - this.nbConnexions();
+        return this.valeur - this.getNbConnexion();
     }
 
     /**
@@ -571,7 +560,7 @@ public class Ile extends Case {
                         // le nombre de ponts qu'on peut avoir avec ce voisin est donc 1
                         nbPontsPossibles += 1;
                     }
-                } else if (!unPont.estDouble()) {
+                } else if (unPont.getNbPont() == 1) {
                     // s'il existe un Pont entre cette Ile et ce voisin
                     // et qu'il n'est pas double
                     // le nombre de ponts supplémentaires qu'on peut avoir avec ce voisin est donc 1
