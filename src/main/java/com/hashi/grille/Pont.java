@@ -112,6 +112,10 @@ public class Pont extends Case {
         return this.listeCase;
     }
 
+    /**
+     * Savoir si le Pont est simple ou double
+     * @return 1 si le Pont est simple, 2 s'il est double
+     */
     public int getNbPont() {
         return this.estDouble ? 2 : 1;
     }
