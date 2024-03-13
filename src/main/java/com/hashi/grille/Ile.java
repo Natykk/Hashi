@@ -507,19 +507,6 @@ public class Ile extends Case {
     }
 
     /**
-     * appelle toutes les méthodes d'aide pour cette île, si nécessaire
-     */
-    public void chercherAide() {
-
-        // déjà, on fait rien sur les îles complètes
-        if (!estComplet()) {
-
-            // todo: appeler les méthodes d'aide
-            // this.techniquePontsForces();
-        }
-    }
-
-    /**
      * calcule combien de Ponts manquent à cette Ile
      * 
      * @return la valeur de l'Ile moins son nombre de connexions
