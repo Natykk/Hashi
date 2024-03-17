@@ -10,12 +10,12 @@ import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
 // il reste a ajouter le score et peut etre regler l'emplacement du label et boutton
-public class TrainingVictory extends Panel {
+public class Victory extends Panel {
     private final String TITLE = "title_victory";
     private Button retour;
     private int score = 100;
 
-    public TrainingVictory() {
+    public Victory() {
         super(new BorderLayout(), "bg-victory.png");
         PageManager.getInstance().setTitle(TITLE);
 

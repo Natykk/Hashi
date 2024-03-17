@@ -53,11 +53,11 @@ public class TrainingLoadGame extends Panel {
         });
         nouvellePartie.addActionListener(e -> {
             // juste pour tester l'affichage du page score
-            PageManager.changerPage(new TrainingVictory());
+            PageManager.changerPage(new Victory());
         });
         charger.addActionListener(e -> {
             // grille sauvegarder
-            //PageManager.changerPage(new Help());
+            // PageManager.changerPage(new Help());
             SwingUtilities.invokeLater(() -> new Help());
         });
         parametre.addActionListener(e -> {
@@ -74,7 +74,7 @@ public class TrainingLoadGame extends Panel {
     private void positionnerBoutons() {
 
         Panel boutonsHaut = new Panel();
-        boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT)); 
+        boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT));
         boutonsHaut.add(retour);
 
         Panel boutonsCentre = new Panel(new GridBagLayout());
@@ -106,7 +106,7 @@ public class TrainingLoadGame extends Panel {
         gbc.gridx = x;
         gbc.gridy = y;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(5, 5, 5, 5); 
+        gbc.insets = new Insets(5, 5, 5, 5);
         return gbc;
     }
 }
