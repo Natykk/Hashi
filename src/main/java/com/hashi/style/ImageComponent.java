@@ -24,7 +24,7 @@ public interface ImageComponent<T> {
      * Récupère l'image selon le {@link com.hashi.style.Style} actif dans le
      * {@link com.hashi.style.StyleManager}.
      * 
-     * @return L'{@link java.awt.Image} demandée.
+     * @return Retourne l'{@link java.awt.Image} demandée.
      */
     public Image getImage();
 }

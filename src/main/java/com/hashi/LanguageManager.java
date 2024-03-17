@@ -3,8 +3,8 @@ package com.hashi;
 import java.util.ResourceBundle;
 
 /**
- * La classe {@link com.hashi.LanguageManager} gère l'internationalisation du
- * jeu.
+ * La classe {@link com.hashi.LanguageManager} est un singleton qui gère
+ * l'internationalisation du jeu.
  */
 public class LanguageManager {
     private static LanguageManager instance;
@@ -17,7 +17,10 @@ public class LanguageManager {
     }
 
     /**
-     * Récupère une instance de la classe {@link com.hashi.LanguageManager}.
+     * Récupère l'instance de la classe {@link com.hashi.LanguageManager} et la
+     * créer si elle n'existe pas.
+     * 
+     * @return Retourne l'instance de {@link com.hashi.LanguageManager}.
      */
     public static LanguageManager getInstance() {
         if (instance == null)
@@ -39,7 +42,7 @@ public class LanguageManager {
     /**
      * Récupère la langue utiliser.
      * 
-     * @return la langue utililer.
+     * @return Retourne la langue utililer.
      */
     public static String getLanguage() {
         return getInstance().language;
@@ -49,7 +52,7 @@ public class LanguageManager {
      * Récupère le texte correspondant à la a langue cible.
      * 
      * @param key la clé correspondant au texte devant être afficher.
-     * @return le texte demandé sous forme de {@link java.lang.String}.
+     * @return Retourne le texte demandé sous forme de {@link java.lang.String}.
      */
     public static String getString(String key) {
         return getInstance().bundle.getString(key);
