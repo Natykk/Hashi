@@ -34,6 +34,19 @@ public class Grille extends MouseAdapter {
         }
     }
 
+    /**
+     * Vérifie si la grille est finie.
+     * 
+     * @return Retourne si la grille est finie.
+     */
+    public boolean getIsGridFinished() {
+        for (Ile ile : getIles())
+            if (!ile.estComplet())
+                return false;
+
+        return true;
+    }
+
     public Case getCase(int x, int y) {
         return this.table[x][y];
     }

@@ -9,7 +9,6 @@ import java.awt.Insets;
 
 import javax.swing.SwingUtilities;
 
-import com.hashi.Hashi;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
