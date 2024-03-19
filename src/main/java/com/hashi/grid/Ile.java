@@ -458,7 +458,7 @@ public class Ile extends Case {
                 // en a actuellement moins de 3 dans des sens différents
                 // et qui n'a que 3 voisins libres
                 if (this.getVoisinsLibres().size() == 3
-                        && this.listePont.size() < 3) {
+                        && this.getNbPonts() < 3) {
                     return Aide.FORCE5;
                 }
                 break;
@@ -474,7 +474,7 @@ public class Ile extends Case {
             case 7:
                 // une île qui a besoin de 7 ponts
                 // et en a actuellement moins de 4 dans des sens différents
-                if (this.listePont.size() < 4) {
+                if (this.getNbPonts() < 4) {
                     return Aide.FORCE7;
                 }
                 break;
