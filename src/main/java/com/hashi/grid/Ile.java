@@ -278,8 +278,8 @@ public class Ile extends Case {
      * donne la liste des voisins qui ONT un pont simple ou double de relié avec cette Ile
      * (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
      * 
-     * @return la liste des voisins connectés à cette Ile, ou null si l'île n'a
-     *         aucun voisin connectés à elle
+     * @return la liste des voisins connectés à cette Ile, 
+     *         ou une liste vide si l'île n'a aucun voisin connectés à elle
      */
     public List<Ile> getVoisinsConnectes() {
 
@@ -314,8 +314,8 @@ public class Ile extends Case {
      * donne la liste des voisins qui n'ont PAS de pont de relié avec cette Ile
      * (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
      * 
-     * @return la liste des voisins  qui ne sont pas connectés à cette Ile, ou null si l'île n'a
-     *         aucun voisin pas connectés à elle
+     * @return la liste des voisins  qui ne sont pas connectés à cette Ile, 
+     *         ou une liste vide si l'île n'a aucun voisin pas connectés à elle
      */
     public List<Ile> getVoisinsPasConnectes() {
 
@@ -340,8 +340,8 @@ public class Ile extends Case {
     /**
      * récupère toutes îles voisines, connectées à cette Ile ou non
      * 
-     * @return une liste d'îles qui sont les îles voisines, ou null si l'île n'a
-     *         aucun voisin
+     * @return une liste d'îles qui sont les îles voisines, 
+     *         ou une liste vide si l'île n'a aucun voisin
      */
     public List<Ile> getVoisins() {
         // java 8
@@ -355,15 +355,10 @@ public class Ile extends Case {
      * prend une Liste d'Iles voisines à cette Ile, et en retire toutes les Iles qui ne valident pas la méthode (predicat) passée en paramètre
      * 
      * @param sesVoisins la liste d'Ile qui va se faire appliquer la méthode
-     * @return une liste de voisins, dont certains ont été retirés selon un critère, ou pas, ou null s'ils ont tous été enlévés
+     * @return une liste de voisins, dont certains ont été retirés selon un critère, ou pas, 
+     *         ou une liste vide s'ils ont tous été enlévés
      */
     public List<Ile> filtreDeVoisins( List<Ile> sesVoisins, Predicate<? super Ile> predicat) {
-
-        // pas besoin de faire les étapes en-dessous si la liste est vide
-        if (sesVoisins.isEmpty()) {
-            return null;
-        }
-
         return sesVoisins.stream().filter(predicat).toList();
     }
 
@@ -371,8 +366,8 @@ public class Ile extends Case {
      * donne la liste des voisins qui ONT un pont simple ou double de relié avec cette Ile
      * ET qui sont complets 
      * 
-     * @return la liste des voisins complets connectés à cette Ile, ou null si l'île n'a
-     *         aucun voisin complets connectés à elle
+     * @return la liste des voisins complets connectés à cette Ile, 
+     *         ou une liste vide si l'île n'a aucun voisin complets connectés à elle
      */
     public List<Ile> getVoisinsCompletsConnectes() {
         return filtreDeVoisins( getVoisinsConnectes(), e -> e.estComplet() );
@@ -382,8 +377,8 @@ public class Ile extends Case {
      * donne la liste des voisins qui ONT un pont simple ou double de relié avec cette Ile
      * ET qui sont libres
      * 
-     * @return la liste des voisins libres connectés à cette Ile, ou null si l'île n'a
-     *         aucun voisin libres connectés à elle
+     * @return la liste des voisins libres connectés à cette Ile, 
+     *        ou une liste vide si l'île n'a aucun voisin libres connectés à elle
      */
     public List<Ile> getVoisinsLibresConnectes() {
         return filtreDeVoisins( getVoisinsConnectes(), e -> e.estLibre() );
@@ -393,8 +388,8 @@ public class Ile extends Case {
      * donne la liste des voisins qui n'ont PAS de pont de relié avec cette Ile
      * ET qui sont libres (on s'en fiche des Iles complétées pas reliées à nous)
      * 
-     * @return la liste des voisins libres qui ne sont pas connectés à cette Ile, ou null si l'île n'a
-     *         aucun voisin libres pas connectés à elle
+     * @return la liste des voisins libres qui ne sont pas connectés à cette Ile, 
+     *        ou une liste vide si l'île n'a aucun voisin libres pas connectés à elle
      */
     public List<Ile> getVoisinsLibresPasConnectes() {
         return filtreDeVoisins( getVoisinsPasConnectes(), e -> e.estLibre() );
@@ -404,8 +399,8 @@ public class Ile extends Case {
      * donne les îles voisines à cette île qui n'ont pas encore tous leurs
      * ponts de placés
      * 
-     * @return la liste des îles voisines qui n'ont pas encore tous leurs ponts de
-     *         placés
+     * @return la liste des îles voisines qui n'ont pas encore tous leurs ponts de placés, 
+     *         ou une liste vide si l'île n'a aucun voisin libres
      */
     public List<Ile> getVoisinsLibres() {
         return filtreDeVoisins( getVoisins(), e -> e.estLibre() );
