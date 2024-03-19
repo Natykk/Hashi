@@ -1,4 +1,4 @@
-package com.hashi.gestion_des_menus;
+package com.hashi.menu;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -11,23 +11,22 @@ import java.awt.Dimension;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
-//il me reste de faire fonctionner les boutons 
-public class Puzzle extends Panel {
+public class TrainingGridSelection extends Panel {
     private Button retour;
     private Button[][] boutons;
 
-    public Puzzle() {
-        super(new BorderLayout(), "bg-entrainement.png");
+    public TrainingGridSelection() {
+        super(new BorderLayout(), "bg-training-grid-selection.png");
 
-        PageManager.getInstance().setTitle("title_puzzle");
+        PageManager.getInstance().setTitle("title_training_grid_selection");
 
         retour = new Button("return").setFontSize(50);
-        boutons = new Button[3][6]; // 3 niveaux de puzzle chaque niveau avec 6 boutons
+        boutons = new Button[3][6];
 
         positionnerBoutons3();
 
         retour.addActionListener(e -> {
-            PageManager.changerPage(new MenuEntrainement());
+            PageManager.changerPage(new TrainingGridSizeSelection());
         });
     }
 
@@ -44,15 +43,17 @@ public class Puzzle extends Panel {
             panelNiveau.setBorder(BorderFactory.createEmptyBorder(55, 0, 0, 0));
 
             for (int j = 0; j < 6; j++) {
-                boutons[i][j] = new Button("puzzle_" + (j + 1)).setFontSize(70);
+                boutons[i][j] = new Button(String.valueOf(j + 1)).setAsRawText().setFontSize(70);
                 boutons[i][j].setPreferredSize(new Dimension(90, 90));
+                boutons[i][j].addActionListener(e -> {
+                    PageManager.changerPage(new TrainingLoadGame());
+                });
                 panelNiveau.add(boutons[i][j]);
             }
 
             contenu.add(panelNiveau);
         }
 
-        // Ajout du contenu à ce panneau Puzzle
         add(contenu, BorderLayout.CENTER);
         add(boutonsHaut, BorderLayout.NORTH);
     }

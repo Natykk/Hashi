@@ -3,6 +3,10 @@ package com.hashi.style;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+/**
+ * La classe {@link com.hashi.style.SummerStyle} applique un thème été à la
+ * plage aux éléments de l'application.
+ */
 public class SummerStyle extends Style {
     public SummerStyle() {
         name = "summer";
@@ -17,7 +21,7 @@ public class SummerStyle extends Style {
 
     protected void paintPanel(Panel panel, Graphics2D g) {
         if (panel.getImage() != null) {
-            g.drawImage(panel.getImage(), 0, 0, panel.getWidth(), panel.getHeight(), null);
+            g.drawImage(panel.getImage(), 0, 0, panel.getWidth(), panel.getHeight(), panel);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.hashi.gestion_des_menus;
+package com.hashi.menu;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,18 +8,19 @@ import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
-import com.hashi.Language;
+import com.hashi.LanguageManager;
 import com.hashi.style.*;
 import com.hashi.style.Panel;
-public class EcranLancement extends Panel {
+
+public class StartScreen extends Panel {
 
     private ComboBox<String> profilBox;
     private ArrayList<String> profils;
     private Panel panel1, panel2;
 
-    public EcranLancement() {
-        super(new GridBagLayout(), "bg-profil.png");
-        PageManager.getInstance().setTitle("title_profile_selection");
+    public StartScreen() {
+        super(new GridBagLayout(), "bg-start-screen.png");
+        PageManager.getInstance().setTitle("title_start_screen");
 
         // Charger les profils depuis le fichier "profils.txt"
         chargerprofils();
@@ -48,29 +49,29 @@ public class EcranLancement extends Panel {
         bouton.addActionListener(e -> {
             String profilChoisi = profilBox.getItemAt(profilBox.getSelectedIndex());
             // Vérifier si "Nouveau profil" est sélectionné
-            if (profilChoisi.equals(Language.getString("new_profile"))) {
+            if (profilChoisi.equals(LanguageManager.getString("new_profile"))) {
                 PageManager.changerPage(panel2);
             } else {
                 System.out.println("Vous avez choisi : " + profilChoisi);
                 // Changement du page => Menu
-                PageManager.changerPage(new MenuGeneral());
+                PageManager.changerPage(new HomeMenu());
             }
         });
 
         // Convertir l'ArrayList en tableau de chaînes
         String[] profilsArray = profils.toArray(new String[profils.size() + 1]);
         // Ajouter "Nouveau profil" à la fin du tableau
-        profilsArray[profils.size()] = Language.getString("new_profile");
+        profilsArray[profils.size()] = LanguageManager.getString("new_profile");
 
         profilBox = new ComboBox<>(profilsArray).setFontSize(50);
-        panel1 = new Panel(new GridBagLayout(), "bg-profil.png");
+        panel1 = new Panel(new GridBagLayout(), "bg-start-screen.png");
         panel1.add(new Label("select_profile").setFontSize(50), createGbc(0, 0));
         panel1.add(profilBox, createGbc(1, 0));
         panel1.add(bouton, createGbc(1, 1));
     }
 
     private void PageNouveauProfil() {
-        panel2 = new Panel(new GridBagLayout(), "bg-profil.png");
+        panel2 = new Panel(new GridBagLayout(), "bg-start-screen.png");
 
         TextField nouveauprofilField = new TextField(8).setFontSize(50);
         panel2.add(new Label("create_profile").setFontSize(50), createGbc(0, 0));
@@ -81,11 +82,11 @@ public class EcranLancement extends Panel {
             String nouveauprofil = nouveauprofilField.getText();
             // si on saisie rien il affiche un message d'erreur
             if (nouveauprofil.trim().isEmpty()) {
-                PageManager.MessageErreur("Veuillez entrer un nom du profil valide.",
+                PageManager.afficherMessageErreur("Veuillez entrer un nom du profil valide.",
                         "Erreur");
                 // si on saisie un message déjà exsistant on affiche un message d'erreur
             } else if (profilExisteDeja(nouveauprofil)) {
-                PageManager.MessageErreur("Ce profil existe déja",
+                PageManager.afficherMessageErreur("Ce profil existe déja",
                         "Erreur");
             } else {
                 System.out.println("Nouveau profil: " + nouveauprofil);
@@ -98,7 +99,7 @@ public class EcranLancement extends Panel {
                 // Sélectionner le nouveau profil ajouté
                 profilBox.setSelectedItem(nouveauprofil);
                 // Afficher un message de confirmation pour le nouveau profil créé
-                PageManager.changerPage(new MenuGeneral());
+                PageManager.changerPage(new HomeMenu());
             }
         });
         panel2.add(validerNouveauprofil, createGbc(1, 1));

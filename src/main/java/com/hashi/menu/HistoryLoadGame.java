@@ -1,8 +1,8 @@
-package com.hashi.gestion_des_menus;
+package com.hashi.menu;
 
+import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,30 +10,28 @@ import java.awt.Insets;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
-public class MenuEntrainement extends Panel {
-    private final String TITLE = "title_training";
+public class HistoryLoadGame extends Panel {
+    private final String TITLE = "title_history_load_game";
     private Button retour;
+    private Button nouvellePartie;
+    private Button charger;
     private Button parametre;
     private Button changerProfil;
     private Button regles;
     private Button quitter;
-    private Button sept;
-    private Button dix;
-    private Button vignt;
 
-    public MenuEntrainement() {
-        super(new BorderLayout(), "bg-selection-grille.png");
+    public HistoryLoadGame() {
+        super(new BorderLayout(), "bg-history-load-game.png");
 
         PageManager.getInstance().setTitle(TITLE);
 
         retour = new Button("return").setFontSize(50);
+        nouvellePartie = new Button("new_game").setFontSize(40);
+        charger = new Button("load_game").setFontSize(40);
         parametre = new Button().setImage("btn-option.png");
         changerProfil = new Button().setImage("btn-switch-profil.png");
-        regles = new Button().setImage("btn-aide.png");
-        quitter = new Button().setImage("btn-quitter.png");
-        sept = new Button("grid_size_7").setFontSize(50);
-        dix = new Button("grid_size_10").setFontSize(50);
-        vignt = new Button("grid_size_25").setFontSize(50);
+        regles = new Button().setImage("btn-help.png");
+        quitter = new Button().setImage("btn-quit.png");
 
         Dimension size = new Dimension(150, 90);
 
@@ -42,49 +40,41 @@ public class MenuEntrainement extends Panel {
         regles.setPreferredSize(size);
         quitter.setPreferredSize(size);
 
-        size = new Dimension(250, 100);
+        positionnerBoutons();
 
-        sept.setPreferredSize(size);
-        dix.setPreferredSize(size);
-        vignt.setPreferredSize(size);
-
-        positionnerBoutons2();
-
-        retour.addActionListener(e -> {
-            PageManager.changerPage(new MenuGeneral());
-        });
         quitter.addActionListener(e -> {
             System.exit(0);
         });
         regles.addActionListener(e -> {
-            PageManager.changerPage(new Regle(this, TITLE));
+            PageManager.changerPage(new Rule(this, TITLE));
+        });
+        nouvellePartie.addActionListener(e -> {
+            // juste pour tester la page etoiles
+            PageManager.changerPage(new HistoryVictory());
+        });
+        charger.addActionListener(e -> {
+            // grille sauvegarder
         });
         parametre.addActionListener(e -> {
-            PageManager.changerPage(new Parametre(this, TITLE));
+            PageManager.changerPage(new Parameter(this, TITLE));
         });
         changerProfil.addActionListener(e -> {
-            PageManager.changerPage(new EcranLancement());
+            PageManager.changerPage(new StartScreen());
         });
-        sept.addActionListener(e -> {
-            PageManager.changerPage(new Puzzle());
+        retour.addActionListener(e -> {
+            PageManager.changerPage(new HomeMenu());
         });
-        dix.addActionListener(e -> {
-            PageManager.changerPage(new Puzzle());
-        });
-        vignt.addActionListener(e -> {
-            PageManager.changerPage(new Puzzle());
-        });
-
     }
 
-    private void positionnerBoutons2() {
-        Panel boutonsHaut = new Panel(new FlowLayout(FlowLayout.RIGHT));
+    private void positionnerBoutons() {
+
+        Panel boutonsHaut = new Panel();
+        boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT)); // Alignement à droite
         boutonsHaut.add(retour);
 
         Panel boutonsCentre = new Panel(new GridBagLayout());
-        boutonsCentre.add(sept, createGbc(0, 0));
-        boutonsCentre.add(dix, createGbc(1, 0));
-        boutonsCentre.add(vignt, createGbc(2, 0));
+        boutonsCentre.add(nouvellePartie, createGbc(0, 0));
+        boutonsCentre.add(charger, createGbc(0, 1));
 
         Panel boutonsBas = new Panel(new GridBagLayout());
         GridBagConstraints gbc = createGbc(0, 0);

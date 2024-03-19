@@ -1,4 +1,4 @@
-package com.hashi.grille;
+package com.hashi.grid;
 
 import java.io.BufferedReader;
 import java.io.IOException;

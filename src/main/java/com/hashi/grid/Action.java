@@ -1,4 +1,4 @@
-package com.hashi.grille;
+package com.hashi.grid;
 
 public interface Action {
     void undo();

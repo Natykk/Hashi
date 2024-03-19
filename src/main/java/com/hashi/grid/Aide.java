@@ -1,6 +1,7 @@
-package com.hashi.grille;
+package com.hashi.grid;
 
 public enum Aide {
+
 	// pas d'aide trouvé
 	RIEN, 
 
@@ -129,4 +130,5 @@ public enum Aide {
 	 *  = on peut compléter l'île avec 2 ponts sur ses 3 autres voisins
 	 */
 	BLOQUE7
+
 }

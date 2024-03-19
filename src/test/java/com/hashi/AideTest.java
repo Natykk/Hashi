@@ -11,10 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import com.hashi.grille.Aide;
-import com.hashi.grille.Grille;
-import com.hashi.grille.Ile;
-import com.hashi.grille.Jeu;
+import com.hashi.grid.Grille;
+import com.hashi.grid.Ile;
+import com.hashi.grid.Jeu;
 
 public class AideTest {
     static Jeu j = new Jeu();
@@ -55,20 +54,20 @@ public class AideTest {
         uneListeDIle.add(i2); // droite
 
         // getVoisins() doit donner une liste contenant i1 et i2
-        assertEquals( uneListeDIle, listeGetVoisins );
+        assertEquals(uneListeDIle, listeGetVoisins);
 
         /*
-        // ==== affichage résultats
-
-        System.out.println("la grille:");
-        System.out.println(g.afficher());
-
-        System.out.println("liste des voisins de i3:");
-        for (Ile ile : uneListeDIle) {
-            System.out.print(ile.afficher() + ",");
-        }
-        System.out.println();
-        */
+         * // ==== affichage résultats
+         * 
+         * System.out.println("la grille:");
+         * System.out.println(g.afficher());
+         * 
+         * System.out.println("liste des voisins de i3:");
+         * for (Ile ile : uneListeDIle) {
+         * System.out.print(ile.afficher() + ",");
+         * }
+         * System.out.println();
+         */
     }
 
     @Test
@@ -87,23 +86,23 @@ public class AideTest {
         uneListeDIle = i3.getVoisins();
 
         // i3 a 2 voisins
-        assertEquals( 2, uneListeDIle.size());
+        assertEquals(2, uneListeDIle.size());
 
         // l'ordre de la recherche est : haut,bas,gauche,droite
         // voisin du bas
-        assertEquals( i1, uneListeDIle.get(0));
+        assertEquals(i1, uneListeDIle.get(0));
         // voisin de droite
-        assertEquals( i2, uneListeDIle.get(1));
-        
-    /*
-        // ==== affichage résultats
+        assertEquals(i2, uneListeDIle.get(1));
 
-        System.out.println("la grille:");
-        System.out.println(g.afficher());
-
-        System.out.println("i3.techniquePontsForces()");
-        System.out.println(i3.techniquePontsForces());
-        */
+        /*
+         * // ==== affichage résultats
+         * 
+         * System.out.println("la grille:");
+         * System.out.println(g.afficher());
+         * 
+         * System.out.println("i3.techniquePontsForces()");
+         * System.out.println(i3.techniquePontsForces());
+         */
     }
 
     @Test

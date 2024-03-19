@@ -1,4 +1,4 @@
-package com.hashi.grille;
+package com.hashi.grid;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ import com.hashi.style.StyleManager;
 public class Ile extends Case {
     private int valeur;
     public List<Pont> listePont;
-    private int xAffichage;
-    private int yAffichage;
+    private int xAffichage; // coordonnée x pour l'affichage de l'Ile
+    private int yAffichage; // coordonnée y pour l'affichage de l'Ile
     private int tailleIle; // taille pour l'affichage
     private List<Ile> listeVoisin; // liste des Iles voisines (pas implémenté)
 
@@ -28,10 +28,14 @@ public class Ile extends Case {
     }
 
     public Rectangle getBounds() {
+        tailleIle = (grille.getSelectedCase() == this) ? 45 : 35;
+
         return new Rectangle(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);
     }
 
     public void draw(Graphics g) {
+        tailleIle = (grille.getSelectedCase() == this) ? 45 : 35;
+
         if (valeur == getNbConnexion()) {
             g.setColor(StyleManager.getInstance().getFgColor());
             g.fillOval(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);
@@ -112,7 +116,7 @@ public class Ile extends Case {
     }
 
     /**
-     * Donne la taille en pixel de l'{@link com.hashi.grille.Ile}
+     * Donne la taille en pixel de l'{@link com.hashi.grid.Ile}
      * 
      * @return la taille en pixel
      */

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import com.hashi.gestion_des_menus.PageManager;
+import com.hashi.menu.PageManager;
 
 public class MenuTest {
     @BeforeEach

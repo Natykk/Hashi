@@ -3,6 +3,15 @@ package com.hashi.style;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
+/**
+ * La classe {@link com.hashi.style.StyleManager} est un singleton qui permet de
+ * changer le {@link com.hashi.style.Style} utiliser pour le rendue de
+ * l'application.<br>
+ * <br>
+ * 
+ * Le {@link com.hashi.style.Style} qui est instancié par défaut est le
+ * {@link com.hashi.style.SchoolStyle}.
+ */
 public class StyleManager extends Style {
     private static StyleManager instance;
     private Style style;
@@ -14,6 +23,12 @@ public class StyleManager extends Style {
         this.font = this.style.font;
     }
 
+    /**
+     * Récupère l'instance de la classe {@link com.hashi.style.StyleManager} et la
+     * créer si elle n'existe pas.
+     * 
+     * @return Retourne l'instance de {@link com.hashi.style.StyleManager}.
+     */
     public static StyleManager getInstance() {
         if (instance == null)
             instance = new StyleManager();
@@ -21,6 +36,11 @@ public class StyleManager extends Style {
         return instance;
     }
 
+    /**
+     * Définit le nouveau {@link com.hashi.style.Style} à utiliser.
+     * 
+     * @param style le {@link com.hashi.style.Style} à utiliser.
+     */
     public static void setStyle(Style style) {
         getInstance().style = style;
         getInstance().bg_color = style.bg_color;
