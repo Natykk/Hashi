@@ -75,6 +75,7 @@ public class Ile extends Case {
 
     /**
      * ajoute l'Ile donnée à la liste des voisins de cette Ile
+     * (utilisé nulle part)
      * 
      * @param voisin l'Ile voisine à ajouter
      */
@@ -225,7 +226,7 @@ public class Ile extends Case {
     /**
      * vérifier si la valeur de cette Ile est supérieure ou égale à son nombre de
      * Ponts
-     * (savoir si une Ile n'est pas valide est utile pour les aides)
+     * (peut-être pas utile, vu que l'aide ne peut être appelée que losqu'il n'y a pas d'erreurs)
      * 
      * @return vrai si la valeur de cette Ile est supérieure ou égale à son nombre
      *         de Ponts, faux sinon
@@ -424,8 +425,7 @@ public class Ile extends Case {
             case 2:
                 // ou une île qui a besoin de 2 ponts
                 // et qui n'a qu'un seul voisin qui doit être libre (s'il n'est pas libre, c'est une erreur du joueur)
-                if (this.getVoisins().size() == 1 
-                 && this.getVoisinsLibres().size() == 1) {
+                if (this.getVoisinsLibres().size() == 1) {
                     // la même condition peut s'appliquer pour le cas 1 et 2
                     // renvoie FORCE1 si la valeur de l'île est 1. respectivement FORCE2 et 2
                     return this.valeur == 1 ? Aide.FORCE1 : Aide.FORCE2;
@@ -435,8 +435,7 @@ public class Ile extends Case {
                 // une île qui a besoin de 3 ponts,
                 // en a actuellement moins de 2 dans des sens différents
                 // et qui n'a que 2 voisins, qui sont libres
-                if (this.getVoisins().size() == 2 
-                 && this.getVoisinsLibres().size() == 2 
+                if (this.getVoisinsLibres().size() == 2 
                  && this.getNbPonts() < 2) {
                     return Aide.FORCE3;
                 }
@@ -510,6 +509,12 @@ public class Ile extends Case {
                 }
                 break;
             case 4:
+            
+                // retirer le cas d'une Ile avec 2 voisins
+                if( this.techniquePontsForces() == Aide.FORCE4 ) {
+                    break;
+                }
+                
                 // une île qui a besoin de 4 ponts,
                 // et qui a 2 voisins libres, car certains sont complétés
                 // et qui a moins de 3 Ponts dans des sens différents (?)
@@ -545,7 +550,7 @@ public class Ile extends Case {
                  * return Aide.BLOQUE41;
                  * }
                  * 
-                 * // une île de valeur 4 qui a 1 voisin libres et 1 pont avec 2 voisins qui
+                 * // une île de valeur 4 qui a 1 voisin libre et 1 pont avec 2 voisins qui
                  * sont
                  * // complétés = on peut compléter l'île avec 2 ponts sur son 3e et dernier
                  * voisin
