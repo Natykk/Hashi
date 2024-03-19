@@ -82,11 +82,11 @@ public class StartScreen extends Panel {
             String nouveauprofil = nouveauprofilField.getText();
             // si on saisie rien il affiche un message d'erreur
             if (nouveauprofil.trim().isEmpty()) {
-                PageManager.MessageErreur("Veuillez entrer un nom du profil valide.",
+                PageManager.afficherMessageErreur("Veuillez entrer un nom du profil valide.",
                         "Erreur");
                 // si on saisie un message déjà exsistant on affiche un message d'erreur
             } else if (profilExisteDeja(nouveauprofil)) {
-                PageManager.MessageErreur("Ce profil existe déja",
+                PageManager.afficherMessageErreur("Ce profil existe déja",
                         "Erreur");
             } else {
                 System.out.println("Nouveau profil: " + nouveauprofil);

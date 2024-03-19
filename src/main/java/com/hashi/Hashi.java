@@ -49,7 +49,7 @@ public class Hashi extends JFrame {
         setSize(default_width, default_height);
         setMinimumSize(new Dimension(default_width, default_height));
         setResizable(false);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         Panel mainPanel = new Panel(new BorderLayout(), "bg-game.png");
 
@@ -70,11 +70,9 @@ public class Hashi extends JFrame {
         timerPanel.add(timerLabel);
         mainPanel.add(timerPanel, BorderLayout.NORTH);
 
-        new TimerManager(timerLabel);
-
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 10, 0));
         mainPanel.add(buttonPanel, BorderLayout.WEST);
-        mainPanel.add(new PuzzlePanel(), BorderLayout.CENTER);
+        mainPanel.add(new PuzzlePanel(new TimerManager(timerLabel)), BorderLayout.CENTER);
 
         add(mainPanel);
         setLocationRelativeTo(null);
@@ -89,6 +87,8 @@ public class Hashi extends JFrame {
     }
 
     class PuzzlePanel extends Panel {
+        private final TimerManager timerManager;
+
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
@@ -129,10 +129,11 @@ public class Hashi extends JFrame {
             for (Pont pont : grille.getPonts()) {
                 pont.draw(g2d);
             }
-            System.out.println("Nombre de ponts : " + grille.getPonts().size());
         }
 
-        public PuzzlePanel() {
+        public PuzzlePanel(TimerManager timerManager) {
+            this.timerManager = timerManager;
+
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -154,6 +155,12 @@ public class Hashi extends JFrame {
                 handlePontClick(pont);
             } else {
                 grille.setSelectedCase(null);
+            }
+
+            if (grille.getIsGridFinished()) {
+                timerManager.stopTimer();
+
+                System.out.println("Jeu finie, score : " + timerManager.tempsEcoule());
             }
 
             repaint();

@@ -19,7 +19,7 @@ public interface FontSize<T> {
     /**
      * Récupère la taille de police actuelle.
      * 
-     * @return La taille de police actuelle.
+     * @return Retourne la taille de police actuelle.
      */
     public int getFontSize();
 }

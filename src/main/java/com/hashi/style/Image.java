@@ -28,7 +28,7 @@ public class Image {
      * Définis le chemin relatif de l'image dans les ressources d'un
      * {@link com.hashi.style.Style} et la charge en mémoire.
      * 
-     * @param image_res chemin relatif de l'image.
+     * @param image_res le chemin relatif de l'image.
      */
     public void setImage(String image_res) {
         if (image_res == null) {

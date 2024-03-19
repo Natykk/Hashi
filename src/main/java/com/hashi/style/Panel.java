@@ -6,19 +6,47 @@ import java.awt.LayoutManager;
 
 import javax.swing.*;
 
+/**
+ * Panneau stylisé pouvant contenir une image.<br>
+ * <br>
+ * 
+ * Pour changer le style il faut passé par le
+ * {@link com.hashi.style.StyleManager} et lui donner un
+ * {@link com.hashi.style.Style}.<br>
+ * L'image peut être géré par l'interface
+ * {@link com.hashi.style.ImageComponent}.<br>
+ * <br>
+ * 
+ * L'internationalisation du est gérer par le
+ * {@link com.hashi.LanguageManager}.
+ */
 public class Panel extends JPanel implements ImageComponent<Panel> {
     private Image image;
 
+    /*
+     * Créer un panneau sans image.
+     */
     public Panel() {
         super();
         init();
     }
 
+    /**
+     * Créer un panneau sans image avec un layout.
+     * 
+     * @param layout
+     */
     public Panel(LayoutManager layout) {
         super(layout);
         init();
     }
 
+    /**
+     * Créer un panneau avec une image et un layout.
+     * 
+     * @param layout
+     * @param image_res
+     */
     public Panel(LayoutManager layout, String image_res) {
         super(layout);
         init();
@@ -33,6 +61,12 @@ public class Panel extends JPanel implements ImageComponent<Panel> {
         StyleManager.getInstance().initPanel(this);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return Retourne un {@link com.hashi.style.Panel} afin de pouvoir chainer
+     *         les appels de fonctions.
+     */
     public Panel setImage(String image_res) {
         image.setImage(image_res);
 

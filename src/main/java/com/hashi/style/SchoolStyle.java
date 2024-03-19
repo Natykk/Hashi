@@ -8,6 +8,10 @@ import java.awt.Image;
 import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
+/**
+ * La classe {@link com.hashi.style.SchoolStyle} applique thème un écolier,
+ * papier crayon aux éléments de l'application.
+ */
 public class SchoolStyle extends Style {
     private Image button_border_image;
 

@@ -10,11 +10,12 @@ import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
 // il reste a ajouter le score et peut etre regler l'emplacement du label et boutton
-public class TrainingVictory extends Panel {
+public class Victory extends Panel {
     private final String TITLE = "title_victory";
     private Button retour;
+    private int score = 100;
 
-    public TrainingVictory() {
+    public Victory() {
         super(new BorderLayout(), "bg-victory.png");
         PageManager.getInstance().setTitle(TITLE);
 
@@ -33,10 +34,11 @@ public class TrainingVictory extends Panel {
         GridBagConstraints gbc = createGbc(0, 0);
         gbc.anchor = GridBagConstraints.WEST;
         groupButton.add(new Label("scores").setFontSize(50), gbc);
-        gbc.gridy = 1;
-
         gbc.gridx = 1;
-        gbc.insets = new Insets(20, 50, 5, 5);
+
+        groupButton.add(new Label(" " + String.valueOf(score)).setAsRawText().setFontSize(50), gbc);
+
+        gbc.gridy = 1;
         groupButton.add(retour, gbc);
 
         Panel contenu = new Panel(new BorderLayout());
