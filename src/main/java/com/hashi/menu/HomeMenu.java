@@ -29,11 +29,11 @@ public class HomeMenu extends Panel {
         // Création des boutons
         parametresButton = new Button().setImage("btn-option.png");
         changerProfilButton = new Button().setImage("btn-switch-profil.png");
-        reglesButton = new Button().setImage("btn-help.png");
+        reglesButton = new Button().setImage("btn-rule.png");
         quitterButton = new Button().setImage("btn-quit.png");
-        arcadeButton = new Button("arcade").setFontSize(35);
-        histoireButton = new Button("history").setFontSize(35);
-        entrainementButton = new Button("training").setFontSize(35);
+        arcadeButton = new Button("arcade").setFontSize(30);
+        histoireButton = new Button("history").setFontSize(30);
+        entrainementButton = new Button("training").setFontSize(30);
 
         Dimension size = new Dimension(150, 90);
 
@@ -42,7 +42,7 @@ public class HomeMenu extends Panel {
         reglesButton.setPreferredSize(size);
         quitterButton.setPreferredSize(size);
 
-        size = new Dimension(250, 100);
+        size = new Dimension(260, 100);
 
         arcadeButton.setPreferredSize(size);
         histoireButton.setPreferredSize(size);

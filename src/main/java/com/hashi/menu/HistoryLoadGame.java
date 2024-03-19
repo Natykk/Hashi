@@ -30,7 +30,7 @@ public class HistoryLoadGame extends Panel {
         charger = new Button("load_game").setFontSize(40);
         parametre = new Button().setImage("btn-option.png");
         changerProfil = new Button().setImage("btn-switch-profil.png");
-        regles = new Button().setImage("btn-help.png");
+        regles = new Button().setImage("btn-rule.png");
         quitter = new Button().setImage("btn-quit.png");
 
         Dimension size = new Dimension(150, 90);
