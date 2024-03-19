@@ -84,14 +84,14 @@ public class Pont extends Case {
             return new Rectangle(ile1.getxAffichage() - 15, ile1.getyAffichage() + ile1.getTaille() / 2, 30,
                     ile2.getyAffichage() - ile1.getyAffichage() - (ile1.getTaille() + ile2.getTaille()) / 2);
     }
-
+/* 
     public void effacer() {
         this.ile1.retirerPont(this);
         this.ile2.retirerPont(this);
     }
-
+*/
     public boolean isEffacable() {
-        return this.ile1.nbConnexions() == 0 && this.ile2.nbConnexions() == 0;
+        return this.ile1.getNbConnexion() == 0 && this.ile2.getNbConnexion() == 0;
     }
 
     public Ile getIleDep() {
@@ -112,6 +112,10 @@ public class Pont extends Case {
         return this.listeCase;
     }
 
+    /**
+     * Savoir si le Pont est simple ou double
+     * @return 1 si le Pont est simple, 2 s'il est double
+     */
     public int getNbPont() {
         return this.estDouble ? 2 : 1;
     }
@@ -128,8 +132,8 @@ public class Pont extends Case {
             return false;
         }
 
-        if (this.estDouble || this.ile1.nbConnexions() >= this.ile1.getValeur() ||
-                this.ile2.nbConnexions() >= this.ile2.getValeur()) {
+        if (this.estDouble || this.ile1.getNbConnexion() >= this.ile1.getValeur() ||
+                this.ile2.getNbConnexion() >= this.ile2.getValeur()) {
             return false;
         }
 
@@ -186,30 +190,12 @@ public class Pont extends Case {
         this.ile2.retirerPont(this);
     }
 
-    public Ile getCaseDepart() {
-        return this.ile1;
-    }
-
-    public Ile getCaseArrivee() {
-        return this.ile2;
-    }
-
     public void ajouterPont() {
         this.estDouble = true;
     }
 
     public void retirerPont() {
         this.estDouble = false;
-    }
-
-    /**
-     * est-ce que le Pont est double ou simple
-     * retourne l'attribut estDouble
-     * 
-     * @return vrai si le Pont est double, faux s'il est simple
-     */
-    public boolean estDouble() {
-        return estDouble;
     }
 
     public void setEstDouble(boolean estDouble) {
@@ -231,10 +217,10 @@ public class Pont extends Case {
     }
 
     public Ile getIle1() {
-        return ile1;
+        return this.ile1;
     }
 
     public Ile getIle2() {
-        return ile2;
+        return this.ile2;
     }
 }

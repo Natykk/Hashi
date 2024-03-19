@@ -13,8 +13,10 @@ import org.junit.jupiter.api.TestInfo;
 
 import com.hashi.grid.Grille;
 import com.hashi.grid.Ile;
+import com.hashi.grid.Jeu;
 
 public class AideTest {
+    static Jeu j = new Jeu();
     static Grille g = new Grille(5);
 
     @BeforeAll
@@ -102,4 +104,45 @@ public class AideTest {
          * System.out.println(i3.techniquePontsForces());
          */
     }
+
+    @Test
+    public void techniquePontsForces1() {
+        // charger des grilles
+        j.genererGrilleDepuisFichier("grille.txt");
+        g = j.listeGrille.get(0);
+
+        // la grille #0 ressemble à (?)
+        // _ _ 3 _ 2 _ 1
+        // 1 _ _ _ _ _ _
+        // _ _ _ _ _ _ _
+        // 3 _ _ _ 2 _ _
+        // _ _ _ _ _ _ _
+        // _ _ _ _ _ _ _ 
+        // 3 _ 5 _ 4 _ 2
+
+        System.out.println(g.afficher() );
+
+        Ile i1 = g.getIleAt(0,2);
+
+        
+        if(i1 != null) {
+            System.out.println("valeur : "+i1.getValeur());
+
+            System.out.println( "voisins: ");
+            for (Ile i : i1.getListeVoisin()) {
+                System.out.println( i.getValeur() );
+            }
+
+            System.out.println("nb voisins libres : "+ i1.nbVoisinsLibres());
+
+
+            //assertEquals( Aide.FORCE1, i1.techniquePontsForces() );
+        }
+        else {
+            System.out.println("i1 est null");
+        }
+        
+    }
+
+
 }
