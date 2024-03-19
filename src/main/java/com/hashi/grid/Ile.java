@@ -571,6 +571,74 @@ public class Ile extends Case {
     }
 
     /**
+     * vérifie les techniques d'isolation, pour quand une Ile de valeur 1 a une autre Ile de valeur 1 comme voisin
+     * idem pour les Iles de valeur 2
+     * 
+     * @return une aide applicable à la grille dans sa configuraiton actuelle
+     * @throws InvalidAttributeValueException si l'attribut -valeur de l'île n'est
+     *                                        pas compris dans [1,8]
+     */
+    public Aide techniqueIsolation() throws InvalidAttributeValueException {
+        List<Ile> sesVoisins;
+
+        switch (this.valeur) {
+            case 1:
+                // comme c'est une Ile de valeur 1, elle a forcément aucun pont
+                // une Ile de valeur 1, 
+                // qui a deux voisins libres
+                if( (sesVoisins = getVoisinsLibresPasConnectes()).size() == 2 ) {
+                    // pour ses deux Iles voisines
+                    for(Ile v : sesVoisins) {
+                        if( v.getValeur() == 1) {
+                            // si une des deux a une valeur de 1, 
+                            // on est sûr qu'on peut mettre un pont avec son autre voisin libre
+                            return Aide.ISOLE1;
+                        }
+                    }
+                }
+                break;
+                
+            case 2:
+                // une Ile de valeur 2, 
+                // qui a deux voisins libres
+                if( (sesVoisins = getVoisinsLibres()).size() == 2 ) {
+                    
+                    if( sesVoisins.get(0).getValeur() == 2
+                     && sesVoisins.get(1).getValeur() == 2 ) {
+                        // si ses DEUX voisins sont des Iles de valeur 2
+                        return Aide.ISOLE22;
+                    }
+                    else if( (sesVoisins.get(0).getValeur() == 2
+                           && getVoisinsLibresConnectes().contains( sesVoisins.get(1) ) 
+                             ) || 
+                             (sesVoisins.get(1).getValeur() == 2
+                           && getVoisinsLibresConnectes().contains( sesVoisins.get(0) ) 
+                             ) ) {
+                        // si la première Ile a une valeur de 2, 
+                        // ET que la 2e Ile EST connecté à cette Ile (fait partie de getVoisinsLibresConnectes() )
+                        // (et inversement, 2e Ile, première Ile)
+                        // alors Aide.ISOLE2 est déjà appliqué
+                        break;
+                        // il faut faire cette vérification avant la 3e
+                    }
+                    else if( sesVoisins.get(0).getValeur() == 2
+                          || sesVoisins.get(1).getValeur() == 2 ) {
+                        // si un deux deux voisins a une valeur de 2,
+                        // on est sûr qu'on peut mettre au moins un pont avec son autre voisin libre
+                        return Aide.ISOLE2;
+                    }
+                }
+                break;
+
+            default:
+                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
+                        + " n'est pas compris dans [1,8]");
+        }
+
+        return Aide.RIEN;
+    }
+
+    /**
      * calcule combien de Ponts manquent à cette Ile
      * 
      * @return la valeur de l'Ile moins son nombre de connexions
