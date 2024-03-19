@@ -104,12 +104,20 @@ public enum Aide {
 	/*
 	 * une île de valeur 4 qui a 3 voisins, dont 2 libres et le 3e est complété avec 1 pont lié à cette Ile
 	 *  = on peut ajouter 1 Pont pour chaque autre voisin
+	 * exemple:
+	 * 1 - 4   @	1 - 4 - @
+	 * 			 ->		|
+	 *     @			@
 	 */
 	BLOQUE41,
 
 	/*
 	 * une île de valeur 4 qui a 1 voisin libre et 1 pont avec 2 voisins qui sont complétés
 	 *  = on peut compléter l'île avec 2 ponts sur son 3e et dernier voisin
+	 * exemple: 
+	 * 1 - 4 - 1	1 - 4 - 1
+	 * 			 ->		||
+	 *     @			@
 	 */
 	BLOQUE42,
 
@@ -129,6 +137,37 @@ public enum Aide {
 	 * une île de valeur 7 qui a 1 pont avec un voisin qui est complété
 	 *  = on peut compléter l'île avec 2 ponts sur ses 3 autres voisins
 	 */
-	BLOQUE7
+	BLOQUE7, 
+
+	/*
+	 * une île de valeur 1 qui a 2 voisins libres, mais un de ces voisins est une île de valeur 1
+	 * si un pont est placé entre ces deux îles, elles se retrouvent isolées
+	 *  = il ne peut PAS y avoir de pont entre ces deux îles, donc il y en a forcément un avec son autre voisin libre
+	 * exemple:
+	 * 1 - 1					1   1
+	 * 		 = isolé	donc:	|
+	 * @						@
+	 */
+	ISOLE1, 
+
+	/*
+ 	 * une île de valeur 2 qui a 2 voisins libres, mais un de ces voisins est une île de valeur 2
+	 * si un pont double est placé entre ces deux îles, elles se retrouvent isolées
+	 *  = il ne peut PAS y avoir deux ponts entre ces deux îles, donc il y en a forcément un avec son autre voisin libre
+	 * 2 = 2					2   2
+	 * 		 = isolé	donc:	|
+	 * @						@
+	 */
+	ISOLE2, 
+
+	/*
+ 	 * une île de valeur 2 qui a 2 voisins libres, mais ces DEUX voisins sont des îles de valeur 2
+	 * si un pont double est placé entre n'importe laquelle de ces deux îles, elles se retrouvent isolées
+	 *  = il y a forcément un pont simple avec ses deux voisins
+	 * 2 = 2				2   2					2 - 2
+	 * 		 = isolé	et	||	  = isolé	donc:	|
+	 * 2					2						2
+	 */
+	ISOLE22
 
 }
