@@ -30,7 +30,7 @@ public class Hashi extends JFrame {
 
     private Button undoButton;
     private Button redoButton;
-    private List<Action> actions;
+    public List<Action> actions;
     private int currentIndex;
 
     private static final int default_width = 1280;
