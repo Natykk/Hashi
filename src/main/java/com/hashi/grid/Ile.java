@@ -3,6 +3,7 @@ package com.hashi.grid;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.management.InvalidAttributeValueException;
 
@@ -273,30 +274,20 @@ public class Ile extends Case {
     }
 
     /**
-     * récupère les îles voisines (les îles sur le même axe cardinal que cette île,
-     * sans être bloqué par un pont)
+     * donne la liste des voisins qui ONT un pont simple ou double de relié avec cette Ile
+     * (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
      * 
-     * @return une liste d'îles qui sont les îles voisines, ou null si l'île n'a
-     *         aucune voisine
+     * @return la liste des voisins connectés à cette Ile, ou null si l'île n'a
+     *         aucun voisin
      */
-    public List<Ile> getVoisins() {
+    public List<Ile> getVoisinsConnectes() {
 
         List<Ile> lesVoisins = new ArrayList<>();
 
-        // récupération des îles voisines dans les quatre sens
-        lesVoisins.add(grille.getVoisinSansPont(this, "haut"));
-        lesVoisins.add(grille.getVoisinSansPont(this, "bas"));
-        lesVoisins.add(grille.getVoisinSansPont(this, "gauche"));
-        lesVoisins.add(grille.getVoisinSansPont(this, "droite"));
 
-        // la méthode getVoisinSansPont ne permet pas de récupérer les îles voisines qui
-        // sont
-        // déjà reliées par un pont, donc
-        List<Pont> sesPonts = this.listePont;
+        if (!this.listePont.isEmpty()) {
 
-        if (!sesPonts.isEmpty()) {
-
-            for (Pont unPont : sesPonts) {
+            for (Pont unPont : this.listePont) {
                 // pour chaque pont, on cherche l'île qui n'est pas uneIle
                 if (unPont.getIle1() == this) {
                     // si cette île est dans l'attribut -ile1, c'est qu'elle a une voisine dans
@@ -315,6 +306,46 @@ public class Ile extends Case {
             ;
 
         return lesVoisins;
+    }
+
+    /**
+     * donne la liste des voisins qui n'ont PAS de pont de relié avec cette Ile
+     * (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
+     * 
+     * @return la liste des voisins qui ne sont pas connectés à cette Ile, ou null si l'île n'a
+     *         aucun voisin
+     */
+    public List<Ile> getVoisinsPasConnectes() {
+
+        List<Ile> lesVoisins = new ArrayList<>();
+
+        // récupération des îles voisines dans les quatre sens
+        // (la méthode getVoisinSansPont ne permet pas de récupérer les îles voisines qui
+        // sont déjà reliées par un pont)
+        lesVoisins.add(grille.getVoisinSansPont(this, "haut"));
+        lesVoisins.add(grille.getVoisinSansPont(this, "bas"));
+        lesVoisins.add(grille.getVoisinSansPont(this, "gauche"));
+        lesVoisins.add(grille.getVoisinSansPont(this, "droite"));
+
+        // enlever les valeurs null, s'il y en a
+        while (lesVoisins.remove(null))
+            ;
+
+        return lesVoisins;
+    }
+
+    /**
+     * récupère toutes îles voisines, connectées à cette Ile ou non
+     * 
+     * @return une liste d'îles qui sont les îles voisines, ou null si l'île n'a
+     *         aucun voisin
+     */
+    public List<Ile> getVoisins() {
+        // java 8
+        //return Stream.concat(this.getVoisinsConnectes().stream(), this.getVoisinsConnectes().stream()).collect(Collectors.toList());
+
+        // java 16+
+        return Stream.concat( this.getVoisinsConnectes().stream(), this.getVoisinsConnectes().stream() ).toList();
     }
 
     /**
