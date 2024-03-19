@@ -11,6 +11,9 @@ import java.util.*;
 import com.hashi.grid.Action;
 import com.hashi.grid.Grille;
 
+/**
+ * La classe Profil représente le profil d'un utilisateur. Elle peut être sérialisée et sauvegardée/rechargée.
+ */
 public class Profil implements Serializable {
     public String nomProfil ;
 
@@ -155,6 +158,9 @@ public class Profil implements Serializable {
         return courant ; 
     }
 
+    /**
+     * Affiche le nom de la partie + les listes de scores.
+     */
     public String toString(){
         return this.nomProfil + "\n" + this.listeDesScores + "\n" + this.listeScoreArcade + "\n" + this.listeDesScoresHistoire;
     }
