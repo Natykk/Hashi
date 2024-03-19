@@ -349,24 +349,24 @@ public class Ile extends Case {
     }
 
     /**
-     * compte le nombre d'île voisines de cette île qui n'ont pas encore tous leurs
+     * donne les îles voisines à cette île qui n'ont pas encore tous leurs
      * ponts de placés
      * 
-     * @return le nombre d'îles voisines qui n'ont pas encore tous leurs ponts de
+     * @return la liste des îles voisines qui n'ont pas encore tous leurs ponts de
      *         placés
      */
-    public int nbVoisinsLibres() {
+    public List<Ile> getVoisinsLibres() {
         // récupérer la liste de voisins de l'île
         List<Ile> lesVoisins = this.getVoisins();
 
-        // pas besoin de faire toutes les étapes en-dessous si la liste est vide
+        // pas besoin de faire les étapes en-dessous si la liste est vide
         if (lesVoisins.isEmpty()) {
-            return 0;
+            return null;
         }
 
         // à partir de la liste de ses voisins,
-        // compte le nombre d'îles qui satisfont la méthode estLibre()
-        return (int) getVoisins().stream().filter(e -> e.estLibre()).count();
+        // récupère les îles qui satisfont la méthode estLibre()
+        return getVoisins().stream().filter(e -> e.estLibre()).toList();
     }
 
     /**
@@ -384,14 +384,11 @@ public class Ile extends Case {
         switch (this.valeur) {
             case 1:
                 // une île qui a besoin d'un pont,
-                // n'en a actuellement aucun
-                // et qui n'a qu'un seul voisin libre
             case 2:
-                // une île qui a besoin de 2 ponts,
-                // en a actuellement moins de 2
-                // et qui n'a qu'un seul voisin libre
-                if (this.nbVoisinsLibres() == 1
-                        && this.getNbConnexion() < this.valeur) {
+                // ou une île qui a besoin de 2 ponts
+                // et qui n'a qu'un seul voisin qui doit être libre (s'il n'est pas libre, c'est une erreur du joueur)
+                if (this.getVoisins().size() == 1 
+                 && this.getVoisinsLibres().size() == 1) {
                     // la même condition peut s'appliquer pour le cas 1 et 2
                     // renvoie FORCE1 si la valeur de l'île est 1. respectivement FORCE2 et 2
                     return this.valeur == 1 ? Aide.FORCE1 : Aide.FORCE2;
@@ -400,9 +397,10 @@ public class Ile extends Case {
             case 3:
                 // une île qui a besoin de 3 ponts,
                 // en a actuellement moins de 2 dans des sens différents
-                // et qui n'a que 2 voisins libres
-                if (this.nbVoisinsLibres() == 2
-                        && this.listePont.size() < 2) {
+                // et qui n'a que 2 voisins, qui sont libres
+                if (this.getVoisins().size() == 2 
+                 && this.getVoisinsLibres().size() == 2 
+                 && this.getNbPonts() < 2) {
                     return Aide.FORCE3;
                 }
                 break;
@@ -419,7 +417,7 @@ public class Ile extends Case {
                 // une île qui a besoin de 5 ponts,
                 // en a actuellement moins de 3 dans des sens différents
                 // et qui n'a que 3 voisins libres
-                if (this.nbVoisinsLibres() == 3
+                if (this.getVoisinsLibres().size() == 3
                         && this.listePont.size() < 3) {
                     return Aide.FORCE5;
                 }
@@ -428,7 +426,7 @@ public class Ile extends Case {
                 // une île qui a besoin de 6 ponts,
                 // en a actuellement moins de 6
                 // et qui n'a que 3 voisins libres
-                if (this.nbVoisinsLibres() == 3
+                if (this.getVoisinsLibres().size() == 3
                         && this.getNbConnexion() < this.valeur) {
                     return Aide.FORCE6;
                 }
@@ -471,7 +469,7 @@ public class Ile extends Case {
                 // une île qui a besoin de 3 ponts,
                 // en a actuellement moins de 3
                 // et qui n'a plus qu'un voisin libre
-                if (this.nbVoisinsLibres() == 1
+                if (this.getVoisinsLibres().size() == 1
                         && this.getNbConnexion() < this.valeur) {
                     return Aide.BLOQUE3;
                 }
@@ -481,21 +479,23 @@ public class Ile extends Case {
                 // et qui a 2 voisins libres, car certains sont complétés
                 // et qui a moins de 3 Ponts dans des sens différents (?)
 
-                /*
-                 * prend en compte des cas qui ne sont pas BLOQUE41
-                 * if (this.nbVoisinsLibres() == 2
-                 * && this.getNbPonts() < 3 ) {
-                 * // création d'une Ile qui a comme valeur le nombre de ponts restants à
-                 * connecter à cette Ile-ci
-                 * IlePlusFaible = new Ile( this.pontRestants() ,this.x,this.y, grille);
-                 * 
-                 * if( IlePlusFaible.techniquePontsForces() == Aide.FORCE3) {
-                 * // si, dans cette situation où l'Ile créée peut appliquer une technique,
-                 * // c'est que cette technique peut être appliquée à cette Ile-ci
-                 * return Aide.BLOQUE41;
-                 * }
-                 * }
-                 */
+
+
+                //prend en compte des cas qui ne sont pas BLOQUE41
+                if (this.getVoisinsLibres().size() == 2
+                 && this.getNbPonts() < 3 
+                 && this.nbPontsPossibles() > 2) {
+                    // création d'une Ile qui a comme valeur le nombre de ponts restants à
+                    // connecter à cette Ile-ci
+                    Ile IlePlusFaible = new Ile( this.pontRestants() ,this.x,this.y, grille);
+                    
+                    if( IlePlusFaible.techniquePontsForces() == Aide.FORCE3) {
+                        // si, dans cette situation où l'Ile créée peut appliquer une technique,
+                        // c'est que cette technique peut être appliquée à cette Ile-ci
+                        return Aide.BLOQUE41;
+                    }
+                }
+                
 
                 /*
                  * // une île qui a besoin de 4 ponts,
