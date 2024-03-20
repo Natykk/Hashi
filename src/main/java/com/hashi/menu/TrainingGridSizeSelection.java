@@ -29,7 +29,7 @@ public class TrainingGridSizeSelection extends Panel {
         retour = new Button("return").setFontSize(50);
         parametre = new Button().setImage("btn-option.png");
         changerProfil = new Button().setImage("btn-switch-profil.png");
-        regles = new Button().setImage("btn-help.png");
+        regles = new Button().setImage("btn-rule.png");
         quitter = new Button().setImage("btn-quit.png");
         sept = new Button("7x7").setAsRawText().setFontSize(50);
         dix = new Button("10x10").setAsRawText().setFontSize(50);
@@ -66,13 +66,13 @@ public class TrainingGridSizeSelection extends Panel {
             PageManager.changerPage(new StartScreen());
         });
         sept.addActionListener(e -> {
-            PageManager.changerPage(new TrainingGridSelection());
+            PageManager.changerPage(new TrainingGridSelection(0));
         });
         dix.addActionListener(e -> {
-            PageManager.changerPage(new TrainingGridSelection());
+            PageManager.changerPage(new TrainingGridSelection(1));
         });
         vignt.addActionListener(e -> {
-            PageManager.changerPage(new TrainingGridSelection());
+            PageManager.changerPage(new TrainingGridSelection(2));
         });
 
     }

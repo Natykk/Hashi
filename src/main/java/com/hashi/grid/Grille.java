@@ -4,6 +4,8 @@ import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.InvalidAttributeValueException;
+
 public class Grille extends MouseAdapter {
     private int taille; // coté de la grille
     private Case[][] table; // La matrice des Case de la grille
@@ -21,6 +23,27 @@ public class Grille extends MouseAdapter {
     }
 
     /**
+     * Remet la grille à zéro
+     */
+    public void reset(){
+        // affiche la grille dans le terminal
+        System.out.println("Reset de la grille");
+        // on vide les Ponts
+        this.Ponts = new ArrayList<Pont>();
+        // pour toute les iles de la grille on les remet à 0
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                if (this.table[i][j].estIle()) {
+                    ((Ile) this.table[i][j]).reset();
+                }
+            }
+        }
+
+
+        
+    }
+
+    /**
      * initialiser la matrice Grille.table en le remplissant de Cases vierges
      */
     public void initialiserTable() {
@@ -32,6 +55,19 @@ public class Grille extends MouseAdapter {
 
             }
         }
+    }
+
+    /**
+     * Vérifie si la grille est finie.
+     * 
+     * @return Retourne si la grille est finie.
+     */
+    public boolean getIsGridFinished() {
+        for (Ile ile : getIles())
+            if (!ile.estComplet())
+                return false;
+
+        return true;
     }
 
     public Case getCase(int x, int y) {
@@ -156,6 +192,11 @@ public class Grille extends MouseAdapter {
      */
     public List<Pont> getListePonts() {
         return (List<Pont>) this.Ponts;
+    }
+
+    public int getNbPonts() {
+        // compte les ponts simple et double
+        return this.Ponts.size();
     }
 
     // affichage sur terminal
@@ -314,14 +355,6 @@ public class Grille extends MouseAdapter {
      */
     public List<Pont> getPonts() {
         return this.Ponts;
-    }
-
-    public int getNbPonts() {
-        int nbPonts = 0;
-        for (Pont pont : this.Ponts) {
-            nbPonts += pont.estDouble() ? 2 : 1;
-        }
-        return nbPonts;
     }
 
     /**
@@ -492,8 +525,9 @@ public class Grille extends MouseAdapter {
      * @param nbDemandeAide le nombre de fois que l'utilisateur a cliqué sur le
      *                      bouton d'aide sans avoir modifié la grille
      * @return une aide applicable à la grille, dans sa configuraiton actuelle
+     * @throws InvalidAttributeValueException 
      */
-    public Aide estCeQueQuelquUnAUneAide(int nbDemandeAide) {
+    public Aide estCeQueQuelquUnAUneAide(int nbDemandeAide) throws InvalidAttributeValueException {
         Aide aideTrouve = Aide.RIEN;
 
         // techniques de démarrage et techniques basiques

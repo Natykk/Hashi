@@ -17,10 +17,16 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hashi.menu.Help;
+import com.hashi.menu.PageManager;
+import com.hashi.menu.Parameter;
+import com.hashi.menu.Rule;
+import com.hashi.menu.TrainingGridSelection;
+import com.hashi.menu.Victory;
 /**
  * Classe principale du jeu.
  */
-public class Hashi extends JFrame {
+public class Hashi extends Panel {
     private Grille grille;
 
     /**
@@ -30,11 +36,16 @@ public class Hashi extends JFrame {
 
     private Button undoButton;
     private Button redoButton;
+    private Button resetButton;
+    private Button optionButton;
+    private Button checkbutton;
+    private Button returnButton;
+    private Button helpButton;
+    private Button hintButton;
+
     private List<Action> actions;
     private int currentIndex;
 
-    private static final int default_width = 1280;
-    private static final int default_height = 720;
 
     /**
      * Créer la {@link javax.swing.JFrame} du jeu.
@@ -42,19 +53,13 @@ public class Hashi extends JFrame {
      * @param grille la grille contenant la logique du jeu.
      */
     public Hashi(Grille grille) {
-        super("Hashi Puzzle");
-
+        super(new BorderLayout(), "bg-game.png");
+        PageManager.getInstance().setTitle("title");
         this.grille = grille;
 
-        setSize(default_width, default_height);
-        setMinimumSize(new Dimension(default_width, default_height));
-        setResizable(false);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        Panel mainPanel = new Panel(new BorderLayout(), "bg-game.png");
-
-        Panel buttonPanel = new Panel(new GridLayout(8, 1));
-        for (int i = 0; i < 6; i++) {
+        Panel buttonPanel = new Panel(new GridLayout(9, 1));
+        for (int i = 0; i < 1; i++) {
             JButton button = new JButton("Bouton " + (i + 1));
             buttonPanel.add(button);
         }
@@ -64,31 +69,95 @@ public class Hashi extends JFrame {
         buttonPanel.add(undoButton);
         buttonPanel.add(redoButton);
 
+        resetButton = new Button().setImage("btn-restart.png");
+        buttonPanel.add(resetButton);
+
+        optionButton = new Button().setImage("btn-option.png");
+        buttonPanel.add(optionButton);
+
+        checkbutton = new Button().setImage("btn-check.png");
+        buttonPanel.add(checkbutton);
+
+        returnButton = new Button().setImage("btn-return.png");
+        buttonPanel.add(returnButton);
+
+        helpButton = new Button().setImage("btn-rule.png");
+        buttonPanel.add(helpButton);
+
+        // affiche un bouton avec le texte hint qui est un label
+        hintButton = new Button().setImage("btn-quit.png");
+        buttonPanel.add(hintButton);
+
+        hintButton.addActionListener(e -> {
+            PageManager.changerPage(new Help());  
+        });
+
+
+
+        helpButton.addActionListener(e -> {
+            PageManager.changerPage(new Rule(buttonPanel, "title"));
+        });
+
+
+        returnButton.addActionListener(e -> {
+            PageManager.changerPage(new TrainingGridSelection(0));
+        });
+
+
+
         Panel timerPanel = new Panel(new FlowLayout(FlowLayout.RIGHT));
         Label timerLabel = new Label("00:00").setAsRawText().setFontSize(100);
         timerPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 150));
         timerPanel.add(timerLabel);
-        mainPanel.add(timerPanel, BorderLayout.NORTH);
-
-        new TimerManager(timerLabel);
+        add(timerPanel, BorderLayout.NORTH);
 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 10, 0));
-        mainPanel.add(buttonPanel, BorderLayout.WEST);
-        mainPanel.add(new PuzzlePanel(), BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.WEST);
+        add(new PuzzlePanel(new TimerManager(timerLabel)), BorderLayout.CENTER);
 
-        add(mainPanel);
-        setLocationRelativeTo(null);
         setVisible(true);
-        pack();
+
 
         actions = new ArrayList<>();
         currentIndex = -1;
 
         undoButton.addActionListener(e -> undoAction());
         redoButton.addActionListener(e -> redoAction());
+
+
+        resetButton.addActionListener(e -> {
+            grille.reset();
+            repaint();
+            // vide les actions 
+            actions.clear();
+        });
+
+        optionButton.addActionListener(e -> {
+            PageManager.changerPage(new Parameter(this, "title"));
+        });
+
+        checkbutton.addActionListener(e -> {
+            if (grille.getIsGridFinished()) {
+                // recupere le temps 
+                String temps = timerLabel.getText();
+                // change la page vers la page victory
+                PageManager.changerPage(new Victory(temps));
+            }
+        });
+
+
+
+
+
+
+
+
     }
 
     class PuzzlePanel extends Panel {
+        
+        private final TimerManager timerManager;
+
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
@@ -132,7 +201,9 @@ public class Hashi extends JFrame {
             System.out.println("Nombre de ponts : " + grille.getNbPonts());
         }
 
-        public PuzzlePanel() {
+        public PuzzlePanel(TimerManager timerManager) {
+            this.timerManager = timerManager;
+
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -156,9 +227,20 @@ public class Hashi extends JFrame {
                 grille.setSelectedCase(null);
             }
 
+            if (grille.getIsGridFinished()) {
+                timerManager.stopTimer();
+
+                System.out.println("Jeu finie, score : " + timerManager.tempsEcoule());
+
+            }
+
             repaint();
         }
-
+        /**
+         * Gère le clic sur une île.
+         * @param clickedIle
+         * 
+         */
         private void handleIslandClick(Ile clickedIle) {
             if (grille.getSelectedCase() == null) {
                 grille.setSelectedCase(clickedIle);
@@ -166,7 +248,10 @@ public class Hashi extends JFrame {
                 handleIslandSelection(clickedIle);
             }
         }
-
+        /**
+         * Gère la sélection d'une île.
+         * @param clickedIle
+         */
         private void handleIslandSelection(Ile clickedIle) {
             Ile selectedIle = (Ile) grille.getSelectedCase();
 
@@ -209,7 +294,10 @@ public class Hashi extends JFrame {
             }
             grille.setSelectedCase(null);
         }
-
+        /**
+         * Gère le clic sur un pont.
+         * @param pont
+         */
         private void handlePontClick(Pont pont) {
             grille.retirerPont(pont);
             grille.getPonts().remove(pont);
@@ -219,14 +307,19 @@ public class Hashi extends JFrame {
             repaint();
         }
     }
-
+    /**
+     * Ajoute une action à la liste des actions.
+     * @param action
+     */
     private void addAction(Action action) {
         actions.subList(currentIndex + 1, actions.size()).clear();
         actions.add(action);
         currentIndex = actions.size() - 1;
         updateUndoRedoButtons();
     }
-
+    /**
+     * Annule l'action précédente.
+     */
     private void undoAction() {
         if (currentIndex >= 0) {
             actions.get(currentIndex).undo();
@@ -235,7 +328,9 @@ public class Hashi extends JFrame {
             repaint();
         }
     }
-
+    /**
+     * Refait l'action précédente.
+     */
     private void redoAction() {
         if (currentIndex < actions.size() - 1) {
             currentIndex++;
@@ -244,18 +339,23 @@ public class Hashi extends JFrame {
             repaint();
         }
     }
-
+    /**
+     * Met à jour l'état des boutons d'annulation et de refaire.
+     */
     private void updateUndoRedoButtons() {
         undoButton.setEnabled(currentIndex >= 0);
         redoButton.setEnabled(currentIndex < actions.size() - 1);
     }
-
+    /**
+     * Action d'ajout d'un pont.
+     */
     private class AddPontAction implements Action {
         private Pont pont;
 
         AddPontAction(Pont pont) {
             this.pont = pont;
         }
+
 
         @Override
         public void undo() {
@@ -303,7 +403,9 @@ public class Hashi extends JFrame {
             }
         }
     }
-
+    /**
+     * Action de suppression d'un pont.
+     */
     private class RemovePontAction implements Action {
         private Pont pont;
 

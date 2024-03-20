@@ -7,9 +7,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.SwingUtilities;
+
+import com.hashi.Hashi;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
+import com.hashi.grid.Grille;
+import com.hashi.grid.Jeu;
 public class TrainingLoadGame extends Panel {
     private final String TITLE = "title_training_load_game";
     private Button retour;
@@ -20,7 +25,7 @@ public class TrainingLoadGame extends Panel {
     private Button regles;
     private Button quitter;
 
-    public TrainingLoadGame() {
+    public TrainingLoadGame(int TypeTaille, int row, int column) {
         super(new BorderLayout(), "bg-training-load-game.png");
 
         PageManager.getInstance().setTitle(TITLE);
@@ -30,7 +35,7 @@ public class TrainingLoadGame extends Panel {
         charger = new Button("load_game").setFontSize(40);
         parametre = new Button().setImage("btn-option.png");
         changerProfil = new Button().setImage("btn-switch-profil.png");
-        regles = new Button().setImage("btn-help.png");
+        regles = new Button().setImage("btn-rule.png");
         quitter = new Button().setImage("btn-quit.png");
 
         Dimension size = new Dimension(150, 90);
@@ -49,11 +54,15 @@ public class TrainingLoadGame extends Panel {
             PageManager.changerPage(new Rule(this, TITLE));
         });
         nouvellePartie.addActionListener(e -> {
-            // juste pour tester l'affichage du page score
-            PageManager.changerPage(new TrainingVictory());
+            Jeu j = new Jeu();
+            j.genererGrilleDepuisFichier("grille.txt");
+            Grille grille = j.listeGrille.get(column+row);
+            PageManager.changerPage(new Hashi(grille));
         });
         charger.addActionListener(e -> {
-            // grille auvegarder
+            // grille sauvegarder
+            // PageManager.changerPage(new Help());
+            SwingUtilities.invokeLater(() -> new Help());
         });
         parametre.addActionListener(e -> {
             PageManager.changerPage(new Parameter(this, TITLE));
@@ -62,14 +71,14 @@ public class TrainingLoadGame extends Panel {
             PageManager.changerPage(new StartScreen());
         });
         retour.addActionListener(e -> {
-            PageManager.changerPage(new TrainingGridSelection());
+            PageManager.changerPage(new TrainingGridSelection(TypeTaille));
         });
     }
 
     private void positionnerBoutons() {
 
         Panel boutonsHaut = new Panel();
-        boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT)); // Alignement à droite
+        boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT));
         boutonsHaut.add(retour);
 
         Panel boutonsCentre = new Panel(new GridBagLayout());
@@ -101,7 +110,7 @@ public class TrainingLoadGame extends Panel {
         gbc.gridx = x;
         gbc.gridy = y;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(5, 5, 5, 5); // Marge
+        gbc.insets = new Insets(5, 5, 5, 5);
         return gbc;
     }
 }

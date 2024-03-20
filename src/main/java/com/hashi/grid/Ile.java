@@ -595,4 +595,9 @@ public class Ile extends Case {
         return nbPontsPossibles;
     }
 
+    public void reset() {
+        // on retire tous les ponts de l'ile
+        this.listePont.clear();
+    }
+
 }

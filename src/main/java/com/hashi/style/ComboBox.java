@@ -28,7 +28,7 @@ public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
     /**
      * Créer un menu déroulant à partir d'une liste d'éléments.
      * 
-     * @param items La liste des éléments du menu déroulant sous forme de tableau.
+     * @param items la liste des éléments du menu déroulant sous forme de tableau.
      */
     public ComboBox(E[] items) {
         super(items);
@@ -38,7 +38,7 @@ public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
     /**
      * Créer un menu déroulant à partir d'une liste d'éléments.
      * 
-     * @param items La liste des éléments du menu déroulant sous forme de
+     * @param items la liste des éléments du menu déroulant sous forme de
      *              {@link java.util.Vector}.
      */
     public ComboBox(Vector<E> items) {
@@ -56,8 +56,7 @@ public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
      * {@inheritDoc}
      * 
      * @return Retourne une {@link com.hashi.style.ComboBox} afin de
-     *         pouvoir chainer
-     *         les appels de fonctions.
+     *         pouvoir chainer les appels de fonctions.
      */
     public ComboBox<E> setFontSize(int size) {
         font_size = size;
