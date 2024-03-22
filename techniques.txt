@@ -14,8 +14,8 @@ Technique 4: Cas particuliers de 3 dans le coin, 5 sur le côté et 7 au milieu
 Si une île dans un coin a un indice 3 et qu'une de ses voisines est une île avec l'indice 1, alors toutes les conditions sont remplies et trois ponts peuvent être dessinés. La même logique peut être appliquée si une île du côté du puzzle avec l'indice 5 ou si une île au milieu du puzzle avec l'indice 7 a une île voisine avec l'indice 1.
 
 Technique 5: Cas particulier du 4 sur le côté
-Dans cet exemple, nous pouvons voir une île avec un indice 4 dans la deuxième rangée en partant du bas. Bien que le 4 ne soit pas du côté du puzzle, d’un point de vue logique on peut le traiter comme tel car il n’a de voisins que sur trois côtés. Puisque pas plus de deux ponts sont autorisés dans la même direction, toutes les conditions sont remplies et quatre ponts peuvent être dessinés : deux ponts vers l'île au-dessus et un pont vers chacune des îles sur les côtés.
 
+Dans cet exemple, nous pouvons voir une île avec un indice 4 dans la deuxième rangée en partant du bas. Bien que le 4 ne soit pas du côté du puzzle, d’un point de vue logique on peut le traiter comme tel car il n’a de voisins que sur trois côtés. Puisque pas plus de deux ponts sont autorisés dans la même direction, toutes les conditions sont remplies et quatre ponts peuvent être dessinés : deux ponts vers l'île au-dessus et un pont vers chacune des îles sur les côtés.
 
 Technique 6: Cas particulier du 6 au milieu
 
@@ -26,12 +26,12 @@ Technique 7: Isolement d'un segment de deux îles
 Regardons l'île du bas avec l'indice 1 dans la colonne de droite. Si nous la connectons à l'autre île avec l'indice 1 comme indiqué dans le schéma de gauche alors les deux îles deviendront un segment isolé, ce qui n'est pas autorisé selon les règles de Hashi. La seule autre possibilité est donc de la connecter à l'île A. Pour la même raison, l'île avec l'indice 2 dans le coin inférieur gauche ne peut pas être connectée aux deux ponts vers l'île à sa droite comme indiqué sur le schéma de gauche. Cela signifie qu'au moins un pont doit être connecté de l'îlot situé dans le coin inférieur gauche à l'îlot B.
 
 Technique 8: Isolement d'un segment de trois îles
+
 La technique ci-dessus peut être étendue à des segments comportant trois îlots. L'île avec l'indice 2 dans la rangée du bas ne peut pas être reliée à deux ponts comme indiqué dans le schéma de gauche car elle deviendrait alors un segment 1-2-1 isolé. Cela signifie qu'il doit y avoir au moins un pont vers l'île A. De même, l'île avec l'indice 3 dans la colonne de gauche ne peut pas être reliée à trois ponts comme indiqué dans le schéma de gauche car elle deviendrait alors un segment 1-3-2 isolé. . Cela signifie qu'il doit y avoir au moins un pont vers l'île B.
 
 Technique 9: Isolement lorsqu'un segment se connecte à un îlot
 
 Parfois, des segments d’îles beaucoup plus longs peuvent être isolés, créant des situations logiques plus difficiles à trouver et plus intéressantes à résoudre. Regardons l'exemple dans le diagramme de gauche. Ce que nous voyons est un segment composé de sept îles, dont six sont terminées et seule l'île avec l'indice 3 dans la rangée supérieure a un pont manquant. Si nous connectons ce pont à l’île dans le coin supérieur gauche selon la ligne rouge, nous nous retrouverons avec un segment isolé. Ce pont doit donc être relié à l'île avec l'indice 5 comme indiqué sur le schéma de droite.
-
 
 Technique 10: Isolement lorsqu'un segment se connecte à un autre segment
 

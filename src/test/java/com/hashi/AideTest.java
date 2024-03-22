@@ -117,32 +117,28 @@ public class AideTest {
         // _ _ _ _ _ _ _
         // 3 _ _ _ 2 _ _
         // _ _ _ _ _ _ _
-        // _ _ _ _ _ _ _ 
+        // _ _ _ _ _ _ _
         // 3 _ 5 _ 4 _ 2
 
-        System.out.println(g.afficher() );
+        System.out.println(g.afficher());
 
-        Ile i1 = g.getIleAt(0,2);
+        Ile i1 = g.getIleAt(0, 2);
 
-        
-        if(i1 != null) {
-            System.out.println("valeur : "+i1.getValeur());
+        if (i1 != null) {
+            System.out.println("valeur : " + i1.getValeur());
 
-            System.out.println( "voisins: ");
+            System.out.println("voisins: ");
             for (Ile i : i1.getListeVoisin()) {
-                System.out.println( i.getValeur() );
+                System.out.println(i.getValeur());
             }
 
-            System.out.println("nb voisins libres : "+ i1.getVoisinsLibres());
+            System.out.println("nb voisins libres : " + i1.nbVoisinsLibres());
 
-
-            //assertEquals( Aide.FORCE1, i1.techniquePontsForces() );
-        }
-        else {
+            // assertEquals( Aide.FORCE1, i1.techniquePontsForces() );
+        } else {
             System.out.println("i1 est null");
         }
-        
-    }
 
+    }
 
 }

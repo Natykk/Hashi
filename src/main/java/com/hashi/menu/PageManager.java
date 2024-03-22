@@ -69,4 +69,13 @@ public class PageManager extends JFrame {
     public static void afficherMessageErreur(String titre, String message) {
         JOptionPane.showMessageDialog(getInstance(), message, titre, JOptionPane.ERROR_MESSAGE);
     }
+
+    /**
+     * Point d'entrée du jeu.
+     * 
+     * @param args arguments de la ligne de commande du jeu.
+     */
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> PageManager.getInstance());
+    }
 }

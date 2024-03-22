@@ -73,7 +73,7 @@ public class SummerStyle extends Style {
         g.drawString(
                 button.getText(),
                 (button.getWidth() - g.getFontMetrics().stringWidth(button.getText())) / 2,
-                (button.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
+                (int) (button.getHeight() / 1.5));
     }
 
     protected void paintButtonBorder(Button button, Graphics2D g) {
@@ -90,7 +90,7 @@ public class SummerStyle extends Style {
         g.drawString(
                 label.getText(),
                 (label.getWidth() - g.getFontMetrics().stringWidth(label.getText())) / 2,
-                (label.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
+                (int) (label.getHeight() / 1.5));
     }
 
     protected void paintLabelBorder(Label label, Graphics2D g) {
@@ -140,7 +140,7 @@ public class SummerStyle extends Style {
                 text_field.getText(),
                 text_field.getWidth() - Math.max(g.getFontMetrics().stringWidth(text_field.getText()) + margin * 2,
                         text_field.getWidth()) + margin,
-                (text_field.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
+                (int) (text_field.getHeight() / 1.5));
 
         text_field.getCaret().paint(g);
     }

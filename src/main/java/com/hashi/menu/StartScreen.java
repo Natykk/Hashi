@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
+import com.hashi.Hashi;
 import com.hashi.LanguageManager;
 import com.hashi.style.*;
 import com.hashi.style.Panel;
@@ -120,7 +121,7 @@ public class StartScreen extends Panel {
     private void chargerprofils() {
         profils = new ArrayList<>();
         try (BufferedReader lire = new BufferedReader(
-                new InputStreamReader(getClass().getResourceAsStream("../profils.txt")))) {
+                new InputStreamReader(Hashi.class.getResourceAsStream("profils.txt")))) {
             String line;
             while ((line = lire.readLine()) != null) {
                 profils.add(line);
@@ -133,7 +134,7 @@ public class StartScreen extends Panel {
     // Ajouter un profil au fichier
     private void ajouterprofil(String profil) {
         try (BufferedWriter ecrire = new BufferedWriter(
-                new FileWriter(getClass().getResource("../profils.txt").getPath(), true))) {
+                new FileWriter(Hashi.class.getResource("profils.txt").getPath(), true))) {
             ecrire.write(profil);
             ecrire.newLine();
         } catch (IOException e) {

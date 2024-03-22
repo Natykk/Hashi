@@ -14,16 +14,13 @@ import com.hashi.style.StyleManager;
 
 public class Rule extends Panel {
 
-    private JTextArea text;
-    private Button retourButton;
-
     public Rule(Panel returnPanel, String returnTitle) {
         super(new BorderLayout(), "bg-rule.png");
 
         PageManager.getInstance().setTitle("title_rules");
 
         // Création de la zone de texte
-        text = new JTextArea();
+        JTextArea text = new JTextArea();
         text.setEditable(false);
         text.setOpaque(false);
         text.setForeground(StyleManager.getInstance().getFgColor());
@@ -40,7 +37,7 @@ public class Rule extends Panel {
         scrollPane.setBorder(BorderFactory.createEmptyBorder(270, 270, 0, 270));
         add(scrollPane, BorderLayout.CENTER);
 
-        retourButton = new Button("return").setFontSize(50);
+        Button retourButton = new Button("return").setFontSize(50);
         retourButton.addActionListener(e -> {
             PageManager.changerPage(returnPanel);
             PageManager.getInstance().setTitle(returnTitle);

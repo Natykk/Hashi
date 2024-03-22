@@ -7,14 +7,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.SwingUtilities;
-
 import com.hashi.Hashi;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
 import com.hashi.grid.Grille;
 import com.hashi.grid.Jeu;
+
 public class TrainingLoadGame extends Panel {
     private final String TITLE = "title_training_load_game";
     private Button retour;
@@ -56,13 +55,11 @@ public class TrainingLoadGame extends Panel {
         nouvellePartie.addActionListener(e -> {
             Jeu j = new Jeu();
             j.genererGrilleDepuisFichier("grille.txt");
-            Grille grille = j.listeGrille.get(column+row);
+            Grille grille = j.listeGrille.get(column + row);
             PageManager.changerPage(new Hashi(grille));
         });
         charger.addActionListener(e -> {
-            // grille sauvegarder
-            // PageManager.changerPage(new Help());
-            SwingUtilities.invokeLater(() -> new Help());
+
         });
         parametre.addActionListener(e -> {
             PageManager.changerPage(new Parameter(this, TITLE));

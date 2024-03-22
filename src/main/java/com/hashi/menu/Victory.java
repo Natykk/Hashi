@@ -13,7 +13,6 @@ import com.hashi.style.Panel;
 public class Victory extends Panel {
     private final String TITLE = "title_victory";
     private Button retour;
-    private int score = 100;
     private String txtTemp;
 
     public Victory(String temps) {

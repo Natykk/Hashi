@@ -8,14 +8,13 @@ import com.hashi.LanguageManager;
 import com.hashi.style.Panel;
 import com.hashi.style.StyleManager;
 
-public class Help extends Panel {
-    private JTextArea text;
+public class Help extends JFrame {
 
     public Help() {
-        super(new BorderLayout(), "bg-help.png");
-        Panel panel = new Panel();
+        super(LanguageManager.getString("title_help"));
 
-        text = new JTextArea();
+        Panel panel = new Panel(new BorderLayout(), "bg-help.png");
+        JTextArea text = new JTextArea();
         text.setEditable(false);
         text.setOpaque(false);
         text.setForeground(StyleManager.getInstance().getFgColor());
@@ -31,14 +30,12 @@ public class Help extends Panel {
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(270, 270, 0, 270));
         panel.add(scrollPane, BorderLayout.CENTER);
-        panel.setImage("bg-help.png");
 
-        add(panel);
-
-        //setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(1280, 720);
-        //setResizable(false);
+        setResizable(false);
         setVisible(true);
+        getContentPane().add(panel);
     }
 
 }

@@ -40,7 +40,7 @@ public class Parameter extends Panel {
         themeBox.setSelectedIndex(themes_key.indexOf(StyleManager.getInstance().getName()));
         themeBox.addActionListener(e -> {
             StyleManager.setStyle(themes_style[themeBox.getSelectedIndex()]);
-            PageManager.changerPage(this);
+            PageManager.changerPage(new Parameter(returnPanel, returnTitle));
         });
         buttonsPanel.add(themeBox, gbc);
 
@@ -53,8 +53,7 @@ public class Parameter extends Panel {
         languagesBox.setSelectedIndex(languages_key.indexOf(LanguageManager.getLanguage()));
         languagesBox.addActionListener(e -> {
             LanguageManager.setLanguage(languages_key.get(languagesBox.getSelectedIndex()));
-            PageManager.getInstance().setTitle("title_parameters");
-            PageManager.changerPage(this);
+            PageManager.changerPage(new Parameter(returnPanel, returnTitle));
         });
         buttonsPanel.add(languagesBox, gbc);
         add(buttonsPanel, BorderLayout.CENTER);

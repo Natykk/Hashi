@@ -57,7 +57,7 @@
             <archive>
               <manifest>
                 <addClasspath>true</addClasspath>
-                <mainClass>com.hashi.Hashi</mainClass>
+                <mainClass>com.hashi.menu.PageManager</mainClass>
               </manifest>
             </archive>
           </configuration>

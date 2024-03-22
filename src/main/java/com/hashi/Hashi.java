@@ -5,7 +5,6 @@ import com.hashi.style.Panel;
 import com.hashi.grid.Action;
 import com.hashi.grid.Grille;
 import com.hashi.grid.Ile;
-import com.hashi.grid.Jeu;
 import com.hashi.grid.Pont;
 import com.hashi.grid.TimerManager;
 import com.hashi.style.Button;
@@ -23,6 +22,7 @@ import com.hashi.menu.Parameter;
 import com.hashi.menu.Rule;
 import com.hashi.menu.TrainingGridSelection;
 import com.hashi.menu.Victory;
+
 /**
  * Classe principale du jeu.
  */
@@ -46,7 +46,6 @@ public class Hashi extends Panel {
     private List<Action> actions;
     private int currentIndex;
 
-
     /**
      * Créer la {@link javax.swing.JFrame} du jeu.
      * 
@@ -57,57 +56,49 @@ public class Hashi extends Panel {
         PageManager.getInstance().setTitle("title");
         this.grille = grille;
 
+        Panel buttonPanel = new Panel(new GridLayout(8, 1));
 
-        Panel buttonPanel = new Panel(new GridLayout(9, 1));
-        for (int i = 0; i < 1; i++) {
-            JButton button = new JButton("Bouton " + (i + 1));
-            buttonPanel.add(button);
-        }
+        returnButton = new Button().setImage("btn-return.png");
+        returnButton.setPreferredSize(new Dimension(80, 80));
+        buttonPanel.add(returnButton);
+
+        optionButton = new Button().setImage("btn-option.png");
+        buttonPanel.add(optionButton);
+
+        helpButton = new Button().setImage("btn-rule.png");
+        buttonPanel.add(helpButton);
+
+        hintButton = new Button().setImage("btn-help.png");
+        buttonPanel.add(hintButton);
+
+        checkbutton = new Button().setImage("btn-check.png");
+        buttonPanel.add(checkbutton);
 
         undoButton = new Button().setImage("btn-backward.png");
-        redoButton = new Button().setImage("btn-forward.png");
         buttonPanel.add(undoButton);
+
+        redoButton = new Button().setImage("btn-forward.png");
         buttonPanel.add(redoButton);
 
         resetButton = new Button().setImage("btn-restart.png");
         buttonPanel.add(resetButton);
 
-        optionButton = new Button().setImage("btn-option.png");
-        buttonPanel.add(optionButton);
-
-        checkbutton = new Button().setImage("btn-check.png");
-        buttonPanel.add(checkbutton);
-
-        returnButton = new Button().setImage("btn-return.png");
-        buttonPanel.add(returnButton);
-
-        helpButton = new Button().setImage("btn-rule.png");
-        buttonPanel.add(helpButton);
-
-        // affiche un bouton avec le texte hint qui est un label
-        hintButton = new Button().setImage("btn-quit.png");
-        buttonPanel.add(hintButton);
-
         hintButton.addActionListener(e -> {
-            PageManager.changerPage(new Help());  
+            SwingUtilities.invokeLater(() -> new Help());
         });
-
-
 
         helpButton.addActionListener(e -> {
-            PageManager.changerPage(new Rule(buttonPanel, "title"));
+            PageManager.changerPage(new Rule(this, "title"));
         });
-
 
         returnButton.addActionListener(e -> {
             PageManager.changerPage(new TrainingGridSelection(0));
         });
 
-
-
         Panel timerPanel = new Panel(new FlowLayout(FlowLayout.RIGHT));
-        Label timerLabel = new Label("00:00").setAsRawText().setFontSize(100);
-        timerPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 150));
+        Label timerLabel = new Label("00:00").setAsRawText().setFontSize(90);
+        timerLabel.setPreferredSize(new Dimension(400, 120));
+        timerPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 200));
         timerPanel.add(timerLabel);
         add(timerPanel, BorderLayout.NORTH);
 
@@ -117,18 +108,16 @@ public class Hashi extends Panel {
 
         setVisible(true);
 
-
         actions = new ArrayList<>();
         currentIndex = -1;
 
         undoButton.addActionListener(e -> undoAction());
         redoButton.addActionListener(e -> redoAction());
 
-
         resetButton.addActionListener(e -> {
             grille.reset();
             repaint();
-            // vide les actions 
+            // vide les actions
             actions.clear();
         });
 
@@ -138,24 +127,17 @@ public class Hashi extends Panel {
 
         checkbutton.addActionListener(e -> {
             if (grille.getIsGridFinished()) {
-                // recupere le temps 
+                // recupere le temps
                 String temps = timerLabel.getText();
                 // change la page vers la page victory
                 PageManager.changerPage(new Victory(temps));
             }
         });
 
-
-
-
-
-
-
-
     }
 
     class PuzzlePanel extends Panel {
-        
+
         private final TimerManager timerManager;
 
         @Override
@@ -236,8 +218,10 @@ public class Hashi extends Panel {
 
             repaint();
         }
+
         /**
          * Gère le clic sur une île.
+         * 
          * @param clickedIle
          * 
          */
@@ -248,8 +232,10 @@ public class Hashi extends Panel {
                 handleIslandSelection(clickedIle);
             }
         }
+
         /**
          * Gère la sélection d'une île.
+         * 
          * @param clickedIle
          */
         private void handleIslandSelection(Ile clickedIle) {
@@ -294,8 +280,10 @@ public class Hashi extends Panel {
             }
             grille.setSelectedCase(null);
         }
+
         /**
          * Gère le clic sur un pont.
+         * 
          * @param pont
          */
         private void handlePontClick(Pont pont) {
@@ -307,8 +295,10 @@ public class Hashi extends Panel {
             repaint();
         }
     }
+
     /**
      * Ajoute une action à la liste des actions.
+     * 
      * @param action
      */
     private void addAction(Action action) {
@@ -317,6 +307,7 @@ public class Hashi extends Panel {
         currentIndex = actions.size() - 1;
         updateUndoRedoButtons();
     }
+
     /**
      * Annule l'action précédente.
      */
@@ -328,6 +319,7 @@ public class Hashi extends Panel {
             repaint();
         }
     }
+
     /**
      * Refait l'action précédente.
      */
@@ -339,6 +331,15 @@ public class Hashi extends Panel {
             repaint();
         }
     }
+
+    /**
+     * 
+     * @return Retourne la liste d'action.
+     */
+    public List<Action> getActions() {
+        return actions;
+    }
+
     /**
      * Met à jour l'état des boutons d'annulation et de refaire.
      */
@@ -346,6 +347,7 @@ public class Hashi extends Panel {
         undoButton.setEnabled(currentIndex >= 0);
         redoButton.setEnabled(currentIndex < actions.size() - 1);
     }
+
     /**
      * Action d'ajout d'un pont.
      */
@@ -355,7 +357,6 @@ public class Hashi extends Panel {
         AddPontAction(Pont pont) {
             this.pont = pont;
         }
-
 
         @Override
         public void undo() {
@@ -375,34 +376,35 @@ public class Hashi extends Panel {
         public void redo() {
             // si le pont est simple alors on le transforme en pont double
             if (!pont.estDouble()) {
-                
 
-                if(grille.getListePonts().contains(pont)){
+                if (grille.getListePonts().contains(pont)) {
                     System.out.println("AddPontAction redo simple to double");
-                    // si les iles ne sont pas au max de leur valeur alors on transforme le pont en pont double
-                    if(pont.getIleDep().nbConnexions() < pont.getIleDep().getValeur()
-                        && pont.getIleArr().nbConnexions() < pont.getIleArr().getValeur()){
-                            System.out.println("Nb connexion ile "+pont.getIleDep().getValeur()+ " : " + pont.getIleDep().nbConnexions());
-                            System.out.println("Nb connexion ile "+pont.getIleArr().getValeur()+ " : " + pont.getIleArr().nbConnexions());
-                            pont.setEstDouble(true);
-                        }
-                }else{
+                    // si les iles ne sont pas au max de leur valeur alors on transforme le pont en
+                    // pont double
+                    if (pont.getIleDep().nbConnexions() < pont.getIleDep().getValeur()
+                            && pont.getIleArr().nbConnexions() < pont.getIleArr().getValeur()) {
+                        System.out.println("Nb connexion ile " + pont.getIleDep().getValeur() + " : "
+                                + pont.getIleDep().nbConnexions());
+                        System.out.println("Nb connexion ile " + pont.getIleArr().getValeur() + " : "
+                                + pont.getIleArr().nbConnexions());
+                        pont.setEstDouble(true);
+                    }
+                } else {
                     System.out.println("AddPontAction redo simple ");
-                        grille.ajouterPont(pont);
-                        pont.getIleDep().ajouterPont(pont);
-                        pont.getIleArr().ajouterPont(pont);
+                    grille.ajouterPont(pont);
+                    pont.getIleDep().ajouterPont(pont);
+                    pont.getIleArr().ajouterPont(pont);
 
-                    
                 }
-                
+
             } else {
-    
 
                 grille.ajouterPont(pont);
 
             }
         }
     }
+
     /**
      * Action de suppression d'un pont.
      */
@@ -421,7 +423,7 @@ public class Hashi extends Panel {
                 pont.setEstDouble(false);
             } else {
                 System.out.println("RemovePontAction undo simple ");
-                
+
                 grille.ajouterPont(pont);
             }
         }
@@ -431,14 +433,15 @@ public class Hashi extends Panel {
             // si le pont est simple alors on le transforme en pont double
             if (!pont.estDouble()) {
                 System.out.println("RemovePontAction redo simple to double");
-                // si les iles ne sont pas au max de leur valeur alors on transforme le pont en pont double
+                // si les iles ne sont pas au max de leur valeur alors on transforme le pont en
+                // pont double
                 if (pont.getIleDep().nbConnexions() < pont.getIleDep().getValeur()
-                        && pont.getIleArr().nbConnexions() < pont.getIleArr().getValeur()){
-                            System.out.println("Nb connexion ile 1 : " + pont.getIleDep().nbConnexions());
-                            System.out.println("Nb connexion ile 2 : " + pont.getIleArr().nbConnexions());
-                            pont.setEstDouble(true);
-                        }
-                
+                        && pont.getIleArr().nbConnexions() < pont.getIleArr().getValeur()) {
+                    System.out.println("Nb connexion ile 1 : " + pont.getIleDep().nbConnexions());
+                    System.out.println("Nb connexion ile 2 : " + pont.getIleArr().nbConnexions());
+                    pont.setEstDouble(true);
+                }
+
             } else {
                 System.out.println("RemovePontAction redo simple to null");
                 grille.retirerPont(pont);
@@ -447,18 +450,5 @@ public class Hashi extends Panel {
                 pont.getIleArr().retirerPont(pont);
             }
         }
-    }
-
-    /**
-     * Point d'entrée du jeu.
-     * 
-     * @param args arguments de la ligne de commande du jeu.
-     */
-    public static void main(String[] args) {
-        Jeu j = new Jeu();
-        j.genererGrilleDepuisFichier("grille.txt");
-        Grille grille = j.listeGrille.get(0);
-
-        SwingUtilities.invokeLater(() -> new Hashi(grille));
     }
 }

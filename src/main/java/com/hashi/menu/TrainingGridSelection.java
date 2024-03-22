@@ -2,8 +2,6 @@ package com.hashi.menu;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 
@@ -19,7 +17,7 @@ public class TrainingGridSelection extends Panel {
     private int TypeTaille;
 
     public TrainingGridSelection(int NumTaille) {
-        
+
         super(new BorderLayout(), "bg-training-grid-selection.png");
         this.TypeTaille = NumTaille;
         PageManager.getInstance().setTitle("title_training_grid_selection");
@@ -40,23 +38,22 @@ public class TrainingGridSelection extends Panel {
         boutonsHaut.add(retour);
         Panel contenu = new Panel(new GridLayout(3, 1));
         contenu.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 120));
-        int i=0;
+        int i = 0;
         // Boucle pour créer les boutons pour chaque niveau de puzzle
-        
+
         for (i = 0; i < 3; i++) {
             final int row = i;
             Panel panelNiveau = new Panel(new FlowLayout(FlowLayout.CENTER));
             panelNiveau.setBorder(BorderFactory.createEmptyBorder(55, 0, 0, 0));
-            
 
             for (int j = 0; j < 6; j++) {
                 final int column = j;
-                boutons[i][j] = new Button(String.valueOf(j + 1)).setAsRawText().setFontSize(70);
+                boutons[i][j] = new Button(String.valueOf(j + 1)).setAsRawText().setFontSize(60);
                 boutons[i][j].setPreferredSize(new Dimension(90, 90));
-                
+
                 boutons[i][j].addActionListener(e -> {
-                    
-                    PageManager.changerPage(new TrainingLoadGame(TypeTaille,row,column));
+
+                    PageManager.changerPage(new TrainingLoadGame(TypeTaille, row, column));
                 });
                 panelNiveau.add(boutons[i][j]);
             }
