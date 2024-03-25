@@ -17,7 +17,7 @@ public class SummerStyle extends Style {
 
     public SummerStyle() {
         name = "summer";
-        bg_color = Color.decode("#e4e099");
+        bg_color = Color.decode("#f99d03");
         fg_color = Color.decode("#8e1d00");
         font = getFontResource(getResourcePath("BowlbyOneSC-Regular.ttf"));
         button_background_image = getImageResource(getResourcePath("btn-bg.png")).getImage();
