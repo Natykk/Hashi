@@ -47,11 +47,12 @@ public class Case {
     }
 
     // affichage sur terminal
-    public String afficher() {
+    @Override
+    public String toString() {
         if (this.estVide()) {
             return " ";
         } else {
-            return grille.getCase(x, y).afficher();
+            return grille.getCase(x, y).toString();
         }
     }
 }

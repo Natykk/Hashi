@@ -120,7 +120,7 @@ public class AideTest {
         // _ _ _ _ _ _ _
         // 3 _ 5 _ 4 _ 2
 
-        System.out.println(g.afficher());
+        System.out.println(g.toString());
 
         Ile i1 = g.getIleAt(0, 2);
 

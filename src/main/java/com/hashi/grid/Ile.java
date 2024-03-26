@@ -165,7 +165,8 @@ public class Ile extends Case {
     }
 
     // affichage sur terminal
-    public String afficher() {
+    @Override
+    public String toString() {
         return String.valueOf(this.valeur);
     }
 

@@ -25,7 +25,7 @@ public class Grille extends MouseAdapter {
     /**
      * Remet la grille à zéro
      */
-    public void reset(){
+    public void reset() {
         // affiche la grille dans le terminal
         System.out.println("Reset de la grille");
         // on vide les Ponts
@@ -39,8 +39,6 @@ public class Grille extends MouseAdapter {
             }
         }
 
-
-        
     }
 
     /**
@@ -200,14 +198,15 @@ public class Grille extends MouseAdapter {
     }
 
     // affichage sur terminal
-    public String afficher() {
+    @Override
+    public String toString() {
         String res = "";
         for (int i = 0; i < this.taille; i++) {
             for (int j = 0; j < this.taille; j++) {
                 if (this.table[i][j].estVide()) {
                     res += "_";
                 } else {
-                    res += this.table[i][j].afficher();
+                    res += this.table[i][j].toString();
                 }
 
                 res += " ";
@@ -226,7 +225,7 @@ public class Grille extends MouseAdapter {
         String res = "";
         for (Ile ile : this.Iles) {
             if (ile != null) {
-                res += ile.afficher();
+                res += ile.toString();
             } else {
                 res += "*";
             }
@@ -238,14 +237,14 @@ public class Grille extends MouseAdapter {
     public String afficherPonts() {
         String res = "";
         for (Pont pont : this.Ponts) {
-            res += pont.afficher();
+            res += pont.toString();
         }
         return res;
     }
 
     // affichage sur terminal
     public void afficherGrille() {
-        this.afficher();
+        this.toString();
     }
 
     /**
@@ -525,7 +524,7 @@ public class Grille extends MouseAdapter {
      * @param nbDemandeAide le nombre de fois que l'utilisateur a cliqué sur le
      *                      bouton d'aide sans avoir modifié la grille
      * @return une aide applicable à la grille, dans sa configuraiton actuelle
-     * @throws InvalidAttributeValueException 
+     * @throws InvalidAttributeValueException
      */
     public Aide estCeQueQuelquUnAUneAide(int nbDemandeAide) throws InvalidAttributeValueException {
         Aide aideTrouve = Aide.RIEN;
