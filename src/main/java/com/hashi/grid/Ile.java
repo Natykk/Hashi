@@ -427,7 +427,7 @@ public class Ile extends Case {
      * @return une aide applicable à la grille dans sa configuraiton actuelle
      */
     public Aide techniquePontsForces() {
-
+        System.out.println("valeur = " + this.valeur);
         switch (this.valeur) {
             case 1:
                 // une île qui a besoin d'un pont,
@@ -443,6 +443,7 @@ public class Ile extends Case {
                     // renvoie FORCE1 si la valeur de l'île est 1. respectivement FORCE2 et 2
                     return this.valeur == 1 ? Aide.FORCE1 : Aide.FORCE2;
                 }
+                
                 break;
             case 3:
                 // une île qui a besoin de 3 ponts,
@@ -572,8 +573,7 @@ public class Ile extends Case {
             case 7:
 
             default:
-                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
-                        + " n'est pas compris dans [1,8]");
+                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this+ " n'est pas compris dans [1,8]");
         }
 
         return Aide.RIEN;
@@ -735,6 +735,10 @@ public class Ile extends Case {
     public void reset() {
         // on retire tous les ponts de l'ile
         this.listePont.clear();
+    }
+
+    public void resetListeVoisin() {
+        this.listeVoisin.clear();
     }
 
 }

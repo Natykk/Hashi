@@ -1,6 +1,9 @@
 package com.hashi.menu;
+import com.hashi.grid.Aide;
+import com.hashi.grid.Grille;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -10,9 +13,15 @@ import com.hashi.style.StyleManager;
 
 public class Help extends JFrame {
 
-    public Help() {
+    public Help(Grille grille) {
+        
+        
         super(LanguageManager.getString("title_help"));
-
+        grille.FillListVoisins();
+        List<Aide> aides ;
+        
+        aides = grille.estCeQueQuelquUnAUneAide();
+        System.out.println("aides = " + aides);
         Panel panel = new Panel(new BorderLayout(), "bg-help.png");
         JTextArea text = new JTextArea();
         text.setEditable(false);

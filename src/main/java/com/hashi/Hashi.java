@@ -84,7 +84,7 @@ public class Hashi extends Panel {
         buttonPanel.add(resetButton);
 
         hintButton.addActionListener(e -> {
-            SwingUtilities.invokeLater(() -> new Help());
+            SwingUtilities.invokeLater(() -> new Help(grille));
         });
 
         helpButton.addActionListener(e -> {
