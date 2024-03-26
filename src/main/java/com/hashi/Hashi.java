@@ -3,6 +3,7 @@ package com.hashi;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
 import com.hashi.grid.Action;
+import com.hashi.grid.Case;
 import com.hashi.grid.Grille;
 import com.hashi.grid.Ile;
 import com.hashi.grid.Pont;
@@ -32,7 +33,7 @@ public class Hashi extends Panel {
     /**
      * Taille des cellules.
      */
-    static protected int cellSize = 40;
+    private int cellSize = 40;
 
     private Button undoButton;
     private Button redoButton;
@@ -115,10 +116,8 @@ public class Hashi extends Panel {
         redoButton.addActionListener(e -> redoAction());
 
         resetButton.addActionListener(e -> {
-            grille.reset();
+            addAction(new ResetGrilleAction(grille.getPonts()));
             repaint();
-            // vide les actions
-            actions.clear();
         });
 
         optionButton.addActionListener(e -> {
@@ -133,7 +132,6 @@ public class Hashi extends Panel {
                 PageManager.changerPage(new Victory(temps));
             }
         });
-
     }
 
     class PuzzlePanel extends Panel {
@@ -142,6 +140,7 @@ public class Hashi extends Panel {
 
         /**
          * Redéfinition de la méthode paintComponent pour dessiner la grille
+         * 
          * @param g
          * 
          */
@@ -160,7 +159,9 @@ public class Hashi extends Panel {
 
         // Méthode pour dessiner la grille
         private void drawGrid(Graphics2D g2d) {
-            int gridSize = grille.getTaille() * cellSize;
+            int gridSize = getHeight() - 75;
+
+            cellSize = gridSize / grille.getTaille();
 
             int xOffset = (getWidth() - gridSize) / 2;
             int yOffset = (getHeight() - gridSize) / 2;
@@ -171,6 +172,7 @@ public class Hashi extends Panel {
                         Ile ile = (Ile) grille.getCase(i, j);
                         ile.setxAffichage(xOffset + i * cellSize + cellSize / 2);
                         ile.setyAffichage(yOffset + j * cellSize + cellSize / 2);
+                        ile.setTailleAffichage(cellSize);
                     }
                 }
             }
@@ -178,6 +180,7 @@ public class Hashi extends Panel {
 
         /**
          * Méthode pour dessiner les îles
+         * 
          * @param g2d
          */
         private void drawIslands(Graphics2D g2d) {
@@ -188,6 +191,7 @@ public class Hashi extends Panel {
 
         /**
          * Méthode pour dessiner les ponts
+         * 
          * @param g2d
          * @throws InvalidAttributeValueException
          */
@@ -196,11 +200,11 @@ public class Hashi extends Panel {
             for (Pont pont : grille.getPonts()) {
                 pont.draw(g2d);
             }
-            System.out.println("Nombre de ponts : " + grille.getNbPonts());
         }
 
         /**
          * Constructeur de PuzzlePanel prenant un TimerManager comme paramètre
+         * 
          * @param timerManager
          */
         public PuzzlePanel(TimerManager timerManager) {
@@ -208,7 +212,7 @@ public class Hashi extends Panel {
 
             /**
              * Evenement pour voir si l'utilisateur clique sur sa souris
-             */ 
+             */
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -219,6 +223,7 @@ public class Hashi extends Panel {
 
         /**
          * Méthode pour gérer les clics de souris sur la grille
+         * 
          * @param e
          */
         private void handleClick(MouseEvent e) {
@@ -272,26 +277,31 @@ public class Hashi extends Panel {
                     && (selectedIle.getX() == clickedIle.getX() || selectedIle.getY() == clickedIle.getY())) {
                 if (selectedIle.getNbConnexion() < selectedIle.getValeur()
                         && clickedIle.getNbConnexion() < clickedIle.getValeur()) {
-                    // empêche de placer un pont si une ile se trouve entre les deux iles
+                    Pont pontAller = grille.getPont(selectedIle, clickedIle);
+                    Pont pontRetour = grille.getPont(clickedIle, selectedIle);
+
+                    // empêche de placer un pont si une ile ou un pont se trouve entre les deux iles
                     if (selectedIle.getX() == clickedIle.getX()) {
                         int yEnd = Math.max(selectedIle.getY(), clickedIle.getY());
 
                         for (int y = Math.min(selectedIle.getY(), clickedIle.getY()) + 1; y < yEnd; y++) {
-                            if (grille.getIleAt(selectedIle.getX(), y) != null)
+                            Case case_ = grille.getCase(selectedIle.getX(), y);
+
+                            if (case_.estIle() || (case_.estPont() && case_ != pontAller && case_ != pontRetour))
                                 return;
                         }
                     } else {
                         int xEnd = Math.max(selectedIle.getX(), clickedIle.getX());
 
                         for (int x = Math.min(selectedIle.getX(), clickedIle.getX()) + 1; x < xEnd; x++) {
-                            if (grille.getIleAt(x, selectedIle.getY()) != null)
+                            Case case_ = grille.getCase(x, selectedIle.getY());
+
+                            if (case_.estIle() || (case_.estPont() && case_ != pontAller && case_ != pontRetour))
                                 return;
                         }
                     }
 
                     // si un pont simple est deja présent alors on le transforme en pont double
-                    Pont pontAller = grille.getPont(selectedIle, clickedIle);
-                    Pont pontRetour = grille.getPont(clickedIle, selectedIle);
                     if (pontAller != null) {
                         pontAller.setEstDouble(true);
                         addAction(new AddPontAction(pontAller));
@@ -299,9 +309,7 @@ public class Hashi extends Panel {
                         pontRetour.setEstDouble(true);
                         addAction(new AddPontAction(pontRetour));
                     } else {
-                        Pont newPont = new Pont(selectedIle, clickedIle, grille);
-                        grille.ajouterPont(newPont);
-                        addAction(new AddPontAction(newPont));
+                        addAction(new AddPontAction(new Pont(selectedIle, clickedIle, grille)));
                     }
                 }
             }
@@ -314,10 +322,6 @@ public class Hashi extends Panel {
          * @param pont
          */
         private void handlePontClick(Pont pont) {
-            grille.retirerPont(pont);
-            grille.getPonts().remove(pont);
-            pont.getIle1().retirerPont(pont);
-            pont.getIle2().retirerPont(pont);
             addAction(new RemovePontAction(pont));
             repaint();
         }
@@ -329,9 +333,12 @@ public class Hashi extends Panel {
      * @param action
      */
     private void addAction(Action action) {
-        actions.subList(currentIndex + 1, actions.size()).clear();
+        if (currentIndex < actions.size() - 1)
+            actions.subList(currentIndex + 1, actions.size()).clear();
+
         actions.add(action);
         currentIndex = actions.size() - 1;
+        action.redo();
         updateUndoRedoButtons();
     }
 
@@ -375,6 +382,30 @@ public class Hashi extends Panel {
         redoButton.setEnabled(currentIndex < actions.size() - 1);
     }
 
+    private class ResetGrilleAction implements Action {
+        private List<Pont> ponts;
+
+        ResetGrilleAction(List<Pont> ponts) {
+            this.ponts = ponts;
+        }
+
+        @Override
+        public void undo() {
+            System.out.println("Rétablissement de la grille");
+            for (Pont pont : ponts) {
+                grille.ajouterPont(pont);
+                pont.getIle1().ajouterPont(pont);
+                pont.getIle2().ajouterPont(pont);
+            }
+        }
+
+        @Override
+        public void redo() {
+            System.out.println("Reset de la grille");
+            grille.reset();
+        }
+    }
+
     /**
      * Action d'ajout d'un pont.
      */
@@ -389,9 +420,10 @@ public class Hashi extends Panel {
         public void undo() {
             // si les pont est double alors on le transforme en pont simple
             if (pont.estDouble()) {
-                System.out.println("AddPontAction undo double to simple");
+                System.out.println("AddPontAction undo double");
                 pont.setEstDouble(false);
             } else {
+                System.out.println("AddPontAction undo simple");
                 grille.retirerPont(pont);
                 grille.getPonts().remove(pont);
                 pont.getIle1().retirerPont(pont);
@@ -404,11 +436,11 @@ public class Hashi extends Panel {
             // si le pont est simple alors on le transforme en pont double
             if (!pont.estDouble()) {
                 if (grille.getPonts().contains(pont)) {
-                    System.out.println("AddPontAction redo simple to double");
+                    System.out.println("AddPontAction redo double");
                     // si les iles ne sont pas au max de leur valeur alors on transforme le pont en
                     // pont double
-                    if (pont.getIle1().nbConnexions() < pont.getIle1().getValeur()
-                            && pont.getIle2().nbConnexions() < pont.getIle2().getValeur()) {
+                    if (pont.getIle1().getNbConnexion() < pont.getIle1().getValeur()
+                            && pont.getIle2().getNbConnexion() < pont.getIle2().getValeur()) {
                         pont.setEstDouble(true);
                     }
                 } else {
@@ -444,7 +476,7 @@ public class Hashi extends Panel {
 
         @Override
         public void redo() {
-            System.out.println("RemovePontAction redo");
+            System.out.println("RemovePontAction redo " + (pont.estDouble() ? "double" : "simple"));
             grille.retirerPont(pont);
             grille.getPonts().remove(pont);
             pont.getIle1().retirerPont(pont);

@@ -15,7 +15,7 @@ public class Ile extends Case {
     public List<Pont> listePont;
     private int xAffichage; // coordonnée x pour l'affichage de l'Ile
     private int yAffichage; // coordonnée y pour l'affichage de l'Ile
-    private int tailleIle; // taille pour l'affichage
+    private int tailleAffichage; // taille pour l'affichage
     private List<Ile> listeVoisin; // liste des Iles voisines (pas implémenté)
 
     public Ile(int valeur, int x, int y, Grille lagrille) {
@@ -24,32 +24,48 @@ public class Ile extends Case {
         this.listePont = new ArrayList<>();
         this.xAffichage = x;
         this.yAffichage = y;
-        this.tailleIle = 35;
         this.listeVoisin = new ArrayList<>();
         grille = lagrille;
     }
 
-    public Rectangle getBounds() {
-        tailleIle = (grille.getSelectedCase() == this) ? 45 : 35;
+    /**
+     * Change la taille d'affichage
+     * 
+     * @param tailleAffichage
+     */
+    public void setTailleAffichage(int tailleAffichage) {
+        this.tailleAffichage = tailleAffichage;
+    }
 
-        return new Rectangle(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);
+    private int getDisplaySize() {
+        return (int) (this.tailleAffichage * ((grille.getSelectedCase() == this) ? 1.25 : 1));
+    }
+
+    public Rectangle getBounds() {
+        int tailleAffichage = getDisplaySize();
+
+        return new Rectangle(xAffichage - tailleAffichage / 2, yAffichage - tailleAffichage / 2, tailleAffichage,
+                tailleAffichage);
     }
 
     public void draw(Graphics g) {
-        tailleIle = (grille.getSelectedCase() == this) ? 45 : 35;
+        int tailleAffichage = getDisplaySize();
 
-        if (valeur == nbConnexions()) {
+        if (estComplet()) {
             g.setColor(StyleManager.getInstance().getFgColor());
-            g.fillOval(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);
+            g.fillOval(xAffichage - tailleAffichage / 2, yAffichage - tailleAffichage / 2, tailleAffichage,
+                    tailleAffichage);
         } else {
             g.setColor(StyleManager.getInstance().getBgColor());
-            g.fillOval(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);
+            g.fillOval(xAffichage - tailleAffichage / 2, yAffichage - tailleAffichage / 2, tailleAffichage,
+                    tailleAffichage);
         }
 
         g.setColor(StyleManager.getInstance().getFgColor());
-        g.drawOval(xAffichage - tailleIle / 2, yAffichage - tailleIle / 2, tailleIle, tailleIle);
+        g.drawOval(xAffichage - tailleAffichage / 2, yAffichage - tailleAffichage / 2, tailleAffichage,
+                tailleAffichage);
 
-        if (valeur == nbConnexions())
+        if (estComplet())
             g.setColor(StyleManager.getInstance().getBgColor());
         else
             g.setColor(StyleManager.getInstance().getFgColor());
@@ -57,7 +73,7 @@ public class Ile extends Case {
         // on ecrie la valeur de l'ile dans le cercle de l'ile au centre
         String text = String.valueOf(valeur);
 
-        g.setFont(StyleManager.getInstance().getFont().deriveFont(0, 20));
+        g.setFont(StyleManager.getInstance().getFont().deriveFont(0, (int) (tailleAffichage * 0.9)));
         g.drawString(
                 text,
                 xAffichage - g.getFontMetrics().stringWidth(text) / 2,
@@ -70,7 +86,8 @@ public class Ile extends Case {
      * @param pont le pont à ajouter
      */
     public void ajouterPont(Pont pont) {
-        this.listePont.add(pont);
+        if (!listePont.contains(pont))
+            listePont.add(pont);
     }
 
     /**
@@ -79,35 +96,8 @@ public class Ile extends Case {
      * @param voisin l'Ile voisine à ajouter
      */
     public void ajouterVoisin(Ile voisin) {
-        this.listeVoisin.add(voisin);
-    }
-
-    public int getNbConnexion() {
-        int tot = 0;
-        for (Pont pont : listePont) {
-            tot += pont.getNbPont();
-        }
-        return tot;
-    }
-
-    public boolean supprimerPont(Pont pont) {
-        if (this.listePont.contains(pont)) {
-            int k = listePont.indexOf(pont);
-            if (listePont.get(k).equals(pont)) {
-                this.listePont.remove(pont);
-                return false;
-            } else {
-                // Pont p1 = listePont.get(k);
-                // p1.setNbPont(p1.getNbPont() - 1);
-                this.listePont.remove(pont);
-                // this.listePont.add(p1);
-            }
-        }
-        return true;
-    }
-
-    public boolean ileComplete() {
-        return listePont.size() == this.valeur;
+        if (!listeVoisin.contains(voisin))
+            listeVoisin.add(voisin);
     }
 
     /**
@@ -116,7 +106,7 @@ public class Ile extends Case {
      * @return la taille en pixel
      */
     public int getTaille() {
-        return tailleIle;
+        return tailleAffichage;
     }
 
     public int getValeur() {
@@ -155,7 +145,7 @@ public class Ile extends Case {
      * @return le nombre de ponts en comptant les ponts doubles pour 2 reliés à
      *         cette île
      */
-    public int nbConnexions() {
+    public int getNbConnexion() {
         int sum = 0;
 
         for (Pont p : listePont) {
@@ -164,12 +154,6 @@ public class Ile extends Case {
         }
 
         return sum;
-    }
-
-    // affichage sur terminal
-    @Override
-    public String toString() {
-        return String.valueOf(this.valeur);
     }
 
     /**
@@ -231,7 +215,7 @@ public class Ile extends Case {
      *         sinon
      */
     public boolean estComplet() {
-        return this.valeur == this.nbConnexions();
+        return this.valeur == this.getNbConnexion();
     }
 
     /**
@@ -283,7 +267,7 @@ public class Ile extends Case {
      *         sinon
      */
     public boolean estLibre() {
-        return this.nbConnexions() < valeur;
+        return this.getNbConnexion() < valeur;
     }
 
     /**
@@ -293,7 +277,7 @@ public class Ile extends Case {
      *         faux sinon
      */
     public boolean estConnecteParUnPontSimple(Ile voisin) {
-        return this.getPontEntreIles(voisin).getNbPont() == 1;
+        return !this.getPontEntreIles(voisin).estDouble();
     }
 
     /**
@@ -303,7 +287,7 @@ public class Ile extends Case {
      *         faux sinon
      */
     public boolean estConnecteParUnPontDouble(Ile voisin) {
-        return this.getPontEntreIles(voisin).getNbPont() == 2;
+        return this.getPontEntreIles(voisin).estDouble();
     }
 
     /**
@@ -511,7 +495,7 @@ public class Ile extends Case {
                     // renvoie FORCE1 si la valeur de l'île est 1. respectivement FORCE2 et 2
                     return this.valeur == 1 ? Aide.FORCE1 : Aide.FORCE2;
                 }
-                
+
                 break;
             case 3:
                 /*
@@ -531,7 +515,7 @@ public class Ile extends Case {
                  * une île qui a besoin de 4 ponts,
                  * et qui n'a que 2 voisins
                  * 
-                 * le nombre d'objet ponts 
+                 * le nombre d'objet ponts
                  * (pas présent
                  * + pont simple où on peut en rajouter
                  * + pont double)
@@ -539,17 +523,17 @@ public class Ile extends Case {
                  */
 
                 /*
-                if (this.getVoisinsLibresPasConnectes().size() 
-                  + this.getVoisinsConnectesParUnPontDouble().size()
-                  + this.getVoisinsLibresConnectesParUnPontSimple().size() == 2) {
-                    return Aide.FORCE4;
-                }
-                */
+                 * if (this.getVoisinsLibresPasConnectes().size()
+                 * + this.getVoisinsConnectesParUnPontDouble().size()
+                 * + this.getVoisinsLibresConnectesParUnPontSimple().size() == 2) {
+                 * return Aide.FORCE4;
+                 * }
+                 */
 
                 // autre manière de faire la condition
-                if( this.getVoisinsCompletsConnectesParUnPontSimple().size() == 0
-                && (this.getVoisinsLibres().size()
-                  + this.getVoisinsCompletsConnectes().size()) == 2) {
+                if (this.getVoisinsCompletsConnectesParUnPontSimple().size() == 0
+                        && (this.getVoisinsLibres().size()
+                                + this.getVoisinsCompletsConnectes().size()) == 2) {
                     return Aide.FORCE6;
                 }
                 break;
@@ -566,14 +550,12 @@ public class Ile extends Case {
                  * et que le pont entre elle et ce voisin est double
                  */
                 if (this.getNbPonts() < 3
-                && (
-                ((this.getVoisinsLibresPasConnectes().size() 
-                + this.getVoisinsLibresConnectesParUnPontSimple().size()) == 3)
-                 ||
-                    (this.getVoisinsConnectesParUnPontDouble().size() == 1 
-                && ((this.getVoisinsLibresPasConnectes().size() 
-                   + this.getVoisinsLibresConnectesParUnPontSimple().size()) == 2))
-                )) {
+                        && (((this.getVoisinsLibresPasConnectes().size()
+                                + this.getVoisinsLibresConnectesParUnPontSimple().size()) == 3)
+                                ||
+                                (this.getVoisinsConnectesParUnPontDouble().size() == 1
+                                        && ((this.getVoisinsLibresPasConnectes().size()
+                                                + this.getVoisinsLibresConnectesParUnPontSimple().size()) == 2)))) {
                     return Aide.FORCE5;
                 }
                 break;
@@ -583,7 +565,7 @@ public class Ile extends Case {
                  * en a actuellement moins de 6
                  * et qui n'a que 3 voisins libres
                  * 
-                 * le nombre d'objet ponts 
+                 * le nombre d'objet ponts
                  * (pas présent
                  * + pont simple où on peut en rajouter
                  * + pont double)
@@ -591,22 +573,22 @@ public class Ile extends Case {
                  */
 
                 /*
-                if (this.getVoisinsLibresPasConnectes().size() 
-                  + this.getVoisinsConnectesParUnPontDouble().size()
-                  + this.getVoisinsLibresConnectesParUnPontSimple().size() == 3) {
-                    return Aide.FORCE6;
-                }
-                */
+                 * if (this.getVoisinsLibresPasConnectes().size()
+                 * + this.getVoisinsConnectesParUnPontDouble().size()
+                 * + this.getVoisinsLibresConnectesParUnPontSimple().size() == 3) {
+                 * return Aide.FORCE6;
+                 * }
+                 */
 
                 // autre manière de faire la condition
-                if( this.getVoisinsCompletsConnectesParUnPontSimple().size() == 0
-                && (this.getVoisinsLibres().size()
-                  + this.getVoisinsCompletsConnectes().size()) == 3) {
+                if (this.getVoisinsCompletsConnectesParUnPontSimple().size() == 0
+                        && (this.getVoisinsLibres().size()
+                                + this.getVoisinsCompletsConnectes().size()) == 3) {
                     return Aide.FORCE6;
                 }
                 break;
             case 7:
-                /* 
+                /*
                  * une île qui a besoin de 7 ponts
                  * et en a actuellement moins de 4 dans des sens différents
                  */
@@ -620,8 +602,8 @@ public class Ile extends Case {
                  * et en a actuellement moins de 8
                  * la condition (this.getNbConnexion() < 8) est implicite
                  */
-                    return Aide.FORCE8;
-                //break;
+                return Aide.FORCE8;
+            // break;
             default:
                 throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
                         + " n'est pas compris dans [1,8]");
@@ -640,7 +622,8 @@ public class Ile extends Case {
      */
     public Aide techniquePontsBloques() throws InvalidAttributeValueException {
 
-        /*List<Ile> desVoisins;
+        /*
+         * List<Ile> desVoisins;
          * int count=0;
          */
 
@@ -655,10 +638,10 @@ public class Ile extends Case {
                  * et elle n'a qu'un seul autre voisin, qui n'a pas le choix que d'être libre
                  */
                 if ((this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1
-                  && this.getVoisinsLibres().size() == 1)
-                 ||
-                  (this.getVoisinsConnectesParUnPontDouble().size() == 1
-                && this.getVoisinsLibresPasConnectes().size() == 1)) {
+                        && this.getVoisinsLibres().size() == 1)
+                        ||
+                        (this.getVoisinsConnectesParUnPontDouble().size() == 1
+                                && this.getVoisinsLibresPasConnectes().size() == 1)) {
                     return Aide.BLOQUE3;
                 }
                 break;
@@ -675,40 +658,39 @@ public class Ile extends Case {
                  * + pas de pont
                  * = 2
                  */
-                if(this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1
-                && ((this.getVoisinsConnectesParUnPontDouble().size()
-                   + this.getVoisinsLibresConnectes().size()
-                   + this.getVoisinsLibresPasConnectes().size()) == 2)
-                ) {
+                if (this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1
+                        && ((this.getVoisinsConnectesParUnPontDouble().size()
+                                + this.getVoisinsLibresConnectes().size()
+                                + this.getVoisinsLibresPasConnectes().size()) == 2)) {
                     return Aide.BLOQUE41;
                 }
 
                 // TODO BLOQUE42
 
                 // précédents essais:
-                /* 
-                // retirer le cas d'une Ile avec 2 voisins
-                if (this.techniquePontsForces() == Aide.FORCE4) {
-                    break;
-                }
-                */
+                /*
+                 * // retirer le cas d'une Ile avec 2 voisins
+                 * if (this.techniquePontsForces() == Aide.FORCE4) {
+                 * break;
+                 * }
+                 */
 
                 /*
-                //prend en compte des cas qui ne sont pas BLOQUE41
-                if (this.getVoisinsLibres().size() == 2
-                        && this.getNbPonts() < 3
-                        && this.nbPontsPossibles() > 2) {
-                    // création d'une Ile qui a comme valeur le nombre de ponts restants à
-                    // connecter à cette Ile-ci
-                    Ile IlePlusFaible = new Ile(this.pontRestants(), this.x, this.y, grille);
-
-                    if (IlePlusFaible.techniquePontsForces() == Aide.FORCE3) {
-                        // si, dans cette situation où l'Ile créée peut appliquer une technique,
-                        // c'est que cette technique peut être appliquée à cette Ile-ci
-                        return Aide.BLOQUE41;
-                    }
-                }
-                */
+                 * //prend en compte des cas qui ne sont pas BLOQUE41
+                 * if (this.getVoisinsLibres().size() == 2
+                 * && this.getNbPonts() < 3
+                 * && this.nbPontsPossibles() > 2) {
+                 * // création d'une Ile qui a comme valeur le nombre de ponts restants à
+                 * // connecter à cette Ile-ci
+                 * Ile IlePlusFaible = new Ile(this.pontRestants(), this.x, this.y, grille);
+                 * 
+                 * if (IlePlusFaible.techniquePontsForces() == Aide.FORCE3) {
+                 * // si, dans cette situation où l'Ile créée peut appliquer une technique,
+                 * // c'est que cette technique peut être appliquée à cette Ile-ci
+                 * return Aide.BLOQUE41;
+                 * }
+                 * }
+                 */
 
                 /*
                  * // une île qui a besoin de 4 ponts,
@@ -745,43 +727,43 @@ public class Ile extends Case {
                  * -deux voisins connectés, l'un complet par un Pont simple, l'autre par un Pont
                  * double
                  */
-                if( this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1
-                 || 
-                    this.getVoisinsConnectesParUnPontDouble().size() == 2 ) {
+                if (this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1
+                        ||
+                        this.getVoisinsConnectesParUnPontDouble().size() == 2) {
                     return Aide.BLOQUE5;
                 }
-                
+
                 /*
-                if( (desVoisins = this.getVoisinsCompletsConnectes()).size() > 0 ) {
-                    // pour chaque voisin complet connecté
-                    for (Ile chaqueVoisin : desVoisins) {
+                 * if( (desVoisins = this.getVoisinsCompletsConnectes()).size() > 0 ) {
+                 * // pour chaque voisin complet connecté
+                 * for (Ile chaqueVoisin : desVoisins) {
+                 * 
+                 * if (chaqueVoisin.getPontEntreIles(this).getNbPont() == 1) {
+                 * // si y'en a un avec un Pont simple
+                 * return Aide.BLOQUE5;
+                 * }
+                 * }
+                 * }
+                 * 
+                 * // faire la même chose pour les voisins connectés, pas nécessairement complet
+                 * // car une Ile peut avoir un pont double, et ne pas encore être complet
+                 * if ((desVoisins = this.getVoisinsConnectes()).size() > 0) {
+                 * // pour chaque voisin connecté
+                 * for (Ile chaqueVoisin : desVoisins) {
+                 * 
+                 * if (chaqueVoisin.getPontEntreIles(this).getNbPont() == 2) {
+                 * // compter les Ponts doubles
+                 * count += 1;
+                 * }
+                 * }
+                 * 
+                 * if (count == 2) {
+                 * // si y'a 2 Ponts doubles
+                 * return Aide.BLOQUE5;
+                 * }
+                 * }
+                 */
 
-                        if (chaqueVoisin.getPontEntreIles(this).getNbPont() == 1) {
-                            // si y'en a un avec un Pont simple
-                            return Aide.BLOQUE5;
-                        }
-                    }
-                }
-
-                // faire la même chose pour les voisins connectés, pas nécessairement complet
-                // car une Ile peut avoir un pont double, et ne pas encore être complet
-                if ((desVoisins = this.getVoisinsConnectes()).size() > 0) {
-                    // pour chaque voisin connecté
-                    for (Ile chaqueVoisin : desVoisins) {
-
-                        if (chaqueVoisin.getPontEntreIles(this).getNbPont() == 2) {
-                            // compter les Ponts doubles
-                            count += 1;
-                        }
-                    }
-
-                    if (count == 2) {
-                        // si y'a 2 Ponts doubles
-                        return Aide.BLOQUE5;
-                    }
-                }
-                */
-                   
             case 6:
                 /*
                  * une Ile qui a besoin de 6 Ponts,
@@ -796,11 +778,12 @@ public class Ile extends Case {
                  * une Ile qui a besoin de 7 ponts,
                  * et qui a un voisin connecté complet par un Pont simple
                  */
-                if( this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1 ) {
+                if (this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1) {
                     return Aide.BLOQUE7;
                 }
             default:
-                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this+ " n'est pas compris dans [1,8]");
+                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
+                        + " n'est pas compris dans [1,8]");
         }
 
         return Aide.RIEN;
@@ -891,7 +874,7 @@ public class Ile extends Case {
      * @return la valeur de l'Ile moins son nombre de connexions
      */
     private int pontRestants() {
-        return this.valeur - this.nbConnexions();
+        return this.valeur - this.getNbConnexion();
     }
 
     /**
@@ -966,4 +949,9 @@ public class Ile extends Case {
         this.listeVoisin.clear();
     }
 
+    // affichage sur terminal
+    @Override
+    public String toString() {
+        return "Ile<value: " + valeur + ", x: " + getX() + ", y: " + getY() + ">";
+    }
 }

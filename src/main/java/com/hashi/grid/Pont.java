@@ -30,7 +30,7 @@ public class Pont extends Case {
     }
 
     /**
-     * dessine le pont à l'écran ?
+     * Dessine le pont à l'écran.
      * 
      * @param g
      */
@@ -62,6 +62,7 @@ public class Pont extends Case {
 
     /**
      * Zone cliquable du pont (zone entre deux iles)
+     * 
      * @return
      */
     public Rectangle getBounds() {
@@ -89,12 +90,6 @@ public class Pont extends Case {
                     ile2.getyAffichage() - ile1.getyAffichage() - (ile1.getTaille() + ile2.getTaille()) / 2);
     }
 
-    /*
-     * public void effacer() {
-     * this.ile1.retirerPont(this);
-     * this.ile2.retirerPont(this);
-     * }
-     */
     public boolean isEffacable() {
         return this.ile1.getNbConnexion() == 0 && this.ile2.getNbConnexion() == 0;
     }
@@ -118,16 +113,8 @@ public class Pont extends Case {
     }
 
     /**
-     * Savoir si le Pont est simple ou double
-     * 
-     * @return 1 si le Pont est simple, 2 s'il est double
-     */
-    public int getNbPont() {
-        return this.estDouble ? 2 : 1;
-    }
-
-    /**
      * Si l'ile est valide
+     * 
      * @return
      */
     public boolean estValide() {
@@ -228,5 +215,10 @@ public class Pont extends Case {
 
     public boolean estDouble() {
         return this.estDouble;
+    }
+
+    @Override
+    public String toString() {
+        return "Pont<double: " + estDouble() + ">";
     }
 }

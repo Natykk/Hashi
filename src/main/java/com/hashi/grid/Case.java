@@ -34,7 +34,7 @@ public class Case {
      * @return vrai si cette Case est une Ile, faux sinon
      */
     public boolean estIle() {
-        return grille.getCase(x, y) instanceof Ile;
+        return this instanceof Ile;
     }
 
     /**
@@ -43,16 +43,12 @@ public class Case {
      * @return vrai si cette Case est un Pont, faux sinon
      */
     public boolean estPont() {
-        return grille.getCase(x, y) instanceof Pont;
+        return this instanceof Pont;
     }
 
     // affichage sur terminal
     @Override
     public String toString() {
-        if (this.estVide()) {
-            return " ";
-        } else {
-            return grille.getCase(x, y).toString();
-        }
+        return "Case";
     }
 }

@@ -7,15 +7,15 @@ import java.util.List;
 public class Grille extends MouseAdapter {
     private int taille; // coté de la grille
     private Case[][] table; // La matrice des Case de la grille
-    private List<Ile> Iles; // Le Tableau des Iles de la grille
-    protected List<Pont> Ponts; // Le Tableau des ponts de la grille
+    private List<Ile> iles; // Le Tableau des Iles de la grille
+    protected List<Pont> ponts; // Le Tableau des ponts de la grille
     private Case selectedCase; // Case selectionnée par l'utilisateur
 
     public Grille(int taille) {
         this.table = new Case[taille][taille];
         this.taille = taille;
-        this.Iles = new ArrayList<Ile>();
-        this.Ponts = new ArrayList<Pont>();
+        this.iles = new ArrayList<Ile>();
+        this.ponts = new ArrayList<Pont>();
 
         this.initialiserTable();
     }
@@ -24,19 +24,12 @@ public class Grille extends MouseAdapter {
      * Remet la grille à zéro
      */
     public void reset() {
-        // affiche la grille dans le terminal
-        System.out.println("Reset de la grille");
         // on vide les Ponts
-        this.Ponts = new ArrayList<Pont>();
+        this.ponts = new ArrayList<Pont>();
         // pour toute les iles de la grille on les remet à 0
-        for (int i = 0; i < taille; i++) {
-            for (int j = 0; j < taille; j++) {
-                if (this.table[i][j].estIle()) {
-                    ((Ile) this.table[i][j]).reset();
-                }
-            }
+        for (Ile ile : iles) {
+            ile.reset();
         }
-
     }
 
     /**
@@ -82,11 +75,8 @@ public class Grille extends MouseAdapter {
      * @param ile l'Ile à ajouter
      */
     public void ajouterIle(Ile ile) {
-
         if (this.isInBound(ile.getX(), ile.getY())) {
-
-            this.Iles.add(ile);
-
+            this.iles.add(ile);
             this.setCase(ile.getX(), ile.getY(), ile);
         } else {
             System.err.println("Erreur : Les coordonnées de l'île à ajouter: (" + ile.getX() + "," + ile.getY()
@@ -158,7 +148,7 @@ public class Grille extends MouseAdapter {
         }
 
         // ajouter le pont à la liste de ponts
-        this.Ponts.add(pont);
+        this.ponts.add(pont);
     }
 
     /**
@@ -178,12 +168,12 @@ public class Grille extends MouseAdapter {
         pont.supprimer();
 
         // enlever le Pont de la liste des ponts
-        this.Ponts.remove(pont);
+        this.ponts.remove(pont);
     }
 
     public int getNbPonts() {
         // compte les ponts simple et double
-        return this.Ponts.size();
+        return this.ponts.size();
     }
 
     // affichage sur terminal
@@ -192,10 +182,10 @@ public class Grille extends MouseAdapter {
         String res = "";
         for (int i = 0; i < this.taille; i++) {
             for (int j = 0; j < this.taille; j++) {
-                if (this.table[i][j].estVide()) {
+                if (this.table[j][i].estVide()) {
                     res += "_";
                 } else {
-                    res += this.table[i][j].toString();
+                    res += this.table[j][i].toString();
                 }
 
                 res += " ";
@@ -212,7 +202,7 @@ public class Grille extends MouseAdapter {
     // affichage sur terminal
     public String afficherIles() {
         String res = "";
-        for (Ile ile : this.Iles) {
+        for (Ile ile : this.iles) {
             if (ile != null) {
                 res += ile.toString();
             } else {
@@ -225,7 +215,7 @@ public class Grille extends MouseAdapter {
     // affichage sur terminal
     public String afficherPonts() {
         String res = "";
-        for (Pont pont : this.Ponts) {
+        for (Pont pont : this.ponts) {
             res += pont.toString();
         }
         return res;
@@ -314,7 +304,7 @@ public class Grille extends MouseAdapter {
      */
     public Pont getPontAtOnGrid(int x, int y) {
         // il faut verifier si le pont existe dans la liste des ponts
-        for (Pont pont : this.Ponts) {
+        for (Pont pont : this.ponts) {
             if (pont.getIle1().getX() == x && pont.getIle1().getY() == y) {
                 return pont;
             }
@@ -328,7 +318,7 @@ public class Grille extends MouseAdapter {
      * @return la liste des Iles de cette Grille
      */
     public List<Ile> getIles() {
-        return this.Iles;
+        return this.iles;
     }
 
     /**
@@ -337,7 +327,7 @@ public class Grille extends MouseAdapter {
      * @return la liste des Ponts de cette Grille
      */
     public List<Pont> getPonts() {
-        return this.Ponts;
+        return this.ponts;
     }
 
     /**
@@ -348,7 +338,7 @@ public class Grille extends MouseAdapter {
      * @return l'Ile présent aux coordonnées données, ou null s'il n'y en a pas
      */
     public Ile getIleAt(int x, int y) {
-        for (Ile ile : this.Iles) {
+        for (Ile ile : this.iles) {
             if (ile.getX() == x && ile.getY() == y) {
                 return ile;
             }
@@ -370,7 +360,7 @@ public class Grille extends MouseAdapter {
      * @param ile l'Ile à retirer de la liste
      */
     public void retirerIle(Ile ile) {
-        this.Iles.remove(ile);
+        this.iles.remove(ile);
     }
 
     /**
@@ -393,7 +383,7 @@ public class Grille extends MouseAdapter {
      */
     public Pont getPontAtOnScreen(int xAffichage, int yAffichage) {
         // le rectangle situé à la position x,y correspond à quel pont ?
-        for (Pont pont : this.Ponts) {
+        for (Pont pont : this.ponts) {
 
             // si la position de la souris est dans le rectangle du pont
             if (pont.getBounds().contains(xAffichage, yAffichage)) {
@@ -514,7 +504,7 @@ public class Grille extends MouseAdapter {
         List<Aide> aidesTrouve = new ArrayList<>();
 
         // techniques de démarrage et techniques basiques
-        for (Ile uneIle : this.Iles) {
+        for (Ile uneIle : this.iles) {
             if (!uneIle.estComplet()) {
                 // on ne s'occupe pas des îles complètes
 
@@ -523,7 +513,7 @@ public class Grille extends MouseAdapter {
                 } catch (Exception e) {
                     // TODO: handle exception*
                     System.err.println(e.getMessage());
-                    //System.err.println("Erreur: Attribut -valeur de l'Ile incorrect 1");
+                    // System.err.println("Erreur: Attribut -valeur de l'Ile incorrect 1");
                 }
 
                 try {
@@ -531,7 +521,7 @@ public class Grille extends MouseAdapter {
                 } catch (Exception e) {
                     // TODO: handle exception
                     System.err.println(e.getMessage());
-                    //System.err.println("Erreur: Attribut -valeur de l'Ile incorrect 2");
+                    // System.err.println("Erreur: Attribut -valeur de l'Ile incorrect 2");
                 }
             }
         }
@@ -549,7 +539,7 @@ public class Grille extends MouseAdapter {
     }
 
     public Pont getPont(Ile selectedIle, Ile clickedIle) {
-        for (Pont pont : this.Ponts) {
+        for (Pont pont : this.ponts) {
             if (pont.getIle1() == selectedIle && pont.getIle2() == clickedIle) {
                 return pont;
             }
@@ -558,44 +548,43 @@ public class Grille extends MouseAdapter {
         return null;
     }
 
-    //Rempli la liste this.listeVoisin = new ArrayList<>();  de chaque ile
-    public void FillListVoisins(){
-        for (Ile ile : this.Iles) {
+    // Rempli la liste this.listeVoisin = new ArrayList<>(); de chaque ile
+    public void FillListVoisins() {
+        for (Ile ile : this.iles) {
 
-            //Réeinitialisation de la liste des voisins
+            // Réeinitialisation de la liste des voisins
             ile.resetListeVoisin();
-    
+
             // Recherche des voisins sur les quatre directions
             Ile voisin;
-    
+
             // Haut
             voisin = getVoisinSansPont(ile, "haut");
             if (voisin != null) {
                 ile.ajouterVoisin(voisin);
             }
-    
+
             // Bas
             voisin = getVoisinSansPont(ile, "bas");
             if (voisin != null) {
                 ile.ajouterVoisin(voisin);
             }
-    
+
             // Gauche
             voisin = getVoisinSansPont(ile, "gauche");
             if (voisin != null) {
                 ile.ajouterVoisin(voisin);
             }
-    
+
             // Droite
             voisin = getVoisinSansPont(ile, "droite");
             if (voisin != null) {
                 ile.ajouterVoisin(voisin);
             }
-    
+
             // Affichage des voisins de l'île
             System.out.println("Voisins de l'île " + ile + " : " + ile.getListeVoisin());
         }
     }
-
 
 }
