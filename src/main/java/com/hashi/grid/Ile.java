@@ -3,6 +3,8 @@ package com.hashi.grid;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import javax.management.InvalidAttributeValueException;
 
@@ -285,30 +287,20 @@ public class Ile extends Case {
     }
 
     /**
-     * récupère les îles voisines (les îles sur le même axe cardinal que cette île,
-     * sans être bloqué par un pont)
+     * donne la liste des voisins qui ONT un pont simple ou double de relié avec cette Ile
+     * (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
      * 
-     * @return une liste d'îles qui sont les îles voisines, ou null si l'île n'a
-     *         aucune voisine
+     * @return la liste des voisins connectés à cette Ile, 
+     *         ou une liste vide si l'île n'a aucun voisin connectés à elle
      */
-    public List<Ile> getVoisins() {
+    public List<Ile> getVoisinsConnectes() {
 
         List<Ile> lesVoisins = new ArrayList<>();
 
-        // récupération des îles voisines dans les quatre sens
-        lesVoisins.add(grille.getVoisinSansPont(this, "haut"));
-        lesVoisins.add(grille.getVoisinSansPont(this, "bas"));
-        lesVoisins.add(grille.getVoisinSansPont(this, "gauche"));
-        lesVoisins.add(grille.getVoisinSansPont(this, "droite"));
 
-        // la méthode getVoisinSansPont ne permet pas de récupérer les îles voisines qui
-        // sont
-        // déjà reliées par un pont, donc
-        List<Pont> sesPonts = this.listePont;
+        if (!this.listePont.isEmpty()) {
 
-        if (!sesPonts.isEmpty()) {
-
-            for (Pont unPont : sesPonts) {
+            for (Pont unPont : this.listePont) {
                 // pour chaque pont, on cherche l'île qui n'est pas uneIle
                 if (unPont.getIle1() == this) {
                     // si cette île est dans l'attribut -ile1, c'est qu'elle a une voisine dans
@@ -322,6 +314,7 @@ public class Ile extends Case {
             }
         }
 
+        
         // enlever les valeurs null, s'il y en a
         while (lesVoisins.remove(null))
             ;
@@ -330,24 +323,99 @@ public class Ile extends Case {
     }
 
     /**
-     * compte le nombre d'île voisines de cette île qui n'ont pas encore tous leurs
+     * donne la liste des voisins qui n'ont PAS de pont de relié avec cette Ile
+     * (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
+     * 
+     * @return la liste des voisins  qui ne sont pas connectés à cette Ile, 
+     *         ou une liste vide si l'île n'a aucun voisin pas connectés à elle
+     */
+    public List<Ile> getVoisinsPasConnectes() {
+
+        List<Ile> lesVoisins = new ArrayList<>();
+
+        // récupération des îles voisines dans les quatre sens
+        // (la méthode getVoisinSansPont ne permet pas de récupérer les îles voisines qui
+        // sont déjà reliées par un pont)
+        lesVoisins.add(grille.getVoisinSansPont(this, "haut"));
+        lesVoisins.add(grille.getVoisinSansPont(this, "bas"));
+        lesVoisins.add(grille.getVoisinSansPont(this, "gauche"));
+        lesVoisins.add(grille.getVoisinSansPont(this, "droite"));
+
+
+        // enlever les valeurs null, s'il y en a
+        while (lesVoisins.remove(null))
+            ;
+
+        return lesVoisins;
+    }
+
+    /**
+     * récupère toutes îles voisines, connectées à cette Ile ou non
+     * 
+     * @return une liste d'îles qui sont les îles voisines, 
+     *         ou une liste vide si l'île n'a aucun voisin
+     */
+    public List<Ile> getVoisins() {
+        // java 8
+        //return Stream.concat(this.getVoisinsConnectes().stream(), this.getVoisinsConnectes().stream()).collect(Collectors.toList());
+
+        // java 16+
+        return Stream.concat( this.getVoisinsConnectes().stream(), this.getVoisinsConnectes().stream() ).toList();
+    }
+
+    /**
+     * prend une Liste d'Iles voisines à cette Ile, et en retire toutes les Iles qui ne valident pas la méthode (predicat) passée en paramètre
+     * 
+     * @param sesVoisins la liste d'Ile qui va se faire appliquer la méthode
+     * @return une liste de voisins, dont certains ont été retirés selon un critère, ou pas, 
+     *         ou une liste vide s'ils ont tous été enlévés
+     */
+    public List<Ile> filtreDeVoisins( List<Ile> sesVoisins, Predicate<? super Ile> predicat) {
+        return sesVoisins.stream().filter(predicat).toList();
+    }
+
+    /**
+     * donne la liste des voisins qui ONT un pont simple ou double de relié avec cette Ile
+     * ET qui sont complets 
+     * 
+     * @return la liste des voisins complets connectés à cette Ile, 
+     *         ou une liste vide si l'île n'a aucun voisin complets connectés à elle
+     */
+    public List<Ile> getVoisinsCompletsConnectes() {
+        return filtreDeVoisins( getVoisinsConnectes(), e -> e.estComplet() );
+    }
+
+    /**
+     * donne la liste des voisins qui ONT un pont simple ou double de relié avec cette Ile
+     * ET qui sont libres
+     * 
+     * @return la liste des voisins libres connectés à cette Ile, 
+     *        ou une liste vide si l'île n'a aucun voisin libres connectés à elle
+     */
+    public List<Ile> getVoisinsLibresConnectes() {
+        return filtreDeVoisins( getVoisinsConnectes(), e -> e.estLibre() );
+    }
+
+    /**
+     * donne la liste des voisins qui n'ont PAS de pont de relié avec cette Ile
+     * ET qui sont libres (on s'en fiche des Iles complétées pas reliées à nous)
+     * 
+     * @return la liste des voisins libres qui ne sont pas connectés à cette Ile, 
+     *        ou une liste vide si l'île n'a aucun voisin libres pas connectés à elle
+     */
+    public List<Ile> getVoisinsLibresPasConnectes() {
+        return filtreDeVoisins( getVoisinsPasConnectes(), e -> e.estLibre() );
+    }
+
+    /**
+     * donne les îles voisines à cette île qui n'ont pas encore tous leurs
      * ponts de placés
      * 
-     * @return le nombre d'îles voisines qui n'ont pas encore tous leurs ponts de
-     *         placés
+     * @return la liste des îles voisines qui n'ont pas encore tous leurs ponts de placés, 
+     *         ou une liste vide si l'île n'a aucun voisin libres
      */
-    public int nbVoisinsLibres() {
-        // récupérer la liste de voisins de l'île
-        List<Ile> lesVoisins = this.getVoisins();
-
-        // pas besoin de faire toutes les étapes en-dessous si la liste est vide
-        if (lesVoisins.isEmpty()) {
-            return 0;
-        }
-
-        // à partir de la liste de ses voisins,
-        // compte le nombre d'îles qui satisfont la méthode estLibre()
-        return (int) getVoisins().stream().filter(e -> e.estLibre()).count();
+    public List<Ile> getVoisinsLibres() {
+        return filtreDeVoisins( getVoisins(), e -> e.estLibre() );
     }
 
     /**
@@ -369,7 +437,7 @@ public class Ile extends Case {
                 // une île qui a besoin de 2 ponts,
                 // en a actuellement moins de 2
                 // et qui n'a qu'un seul voisin libre
-                if (this.nbVoisinsLibres() == 1
+                if (this.getVoisinsLibres().size() == 1
                         && this.nbConnexions() < this.valeur) {
                     // la même condition peut s'appliquer pour le cas 1 et 2
                     // renvoie FORCE1 si la valeur de l'île est 1. respectivement FORCE2 et 2
@@ -380,7 +448,7 @@ public class Ile extends Case {
                 // une île qui a besoin de 3 ponts,
                 // en a actuellement moins de 2 dans des sens différents
                 // et qui n'a que 2 voisins libres
-                if (this.nbVoisinsLibres() == 2
+                if (this.getVoisinsLibres().size() == 2
                         && this.listePont.size() < 2) {
                     return Aide.FORCE3;
                 }
@@ -389,7 +457,7 @@ public class Ile extends Case {
                 // une île qui a besoin de 4 ponts,
                 // en a actuellement moins de 4
                 // et qui n'a que 2 voisins libres
-                if (this.nbVoisinsLibres() == 2
+                if (this.getVoisinsLibres().size() == 2
                         && this.nbConnexions() < this.valeur) {
                     return Aide.FORCE4;
                 }
@@ -398,7 +466,7 @@ public class Ile extends Case {
                 // une île qui a besoin de 5 ponts,
                 // en a actuellement moins de 3 dans des sens différents
                 // et qui n'a que 3 voisins libres
-                if (this.nbVoisinsLibres() == 3
+                if (this.getVoisinsLibres().size() == 3
                         && this.listePont.size() < 3) {
                     return Aide.FORCE5;
                 }
@@ -407,7 +475,7 @@ public class Ile extends Case {
                 // une île qui a besoin de 6 ponts,
                 // en a actuellement moins de 6
                 // et qui n'a que 3 voisins libres
-                if (this.nbVoisinsLibres() == 3
+                if (this.getVoisinsLibres().size() == 3
                         && this.nbConnexions() < this.valeur) {
                     return Aide.FORCE6;
                 }
@@ -447,7 +515,7 @@ public class Ile extends Case {
                 // une île qui a besoin de 3 ponts,
                 // en a actuellement moins de 3
                 // et qui n'a plus qu'un voisin libre
-                if (this.nbVoisinsLibres() == 1
+                if (this.getVoisinsLibres().size() == 1
                         && this.nbConnexions() < this.valeur) {
                     return Aide.BLOQUE3;
                 }
@@ -459,7 +527,7 @@ public class Ile extends Case {
 
                 /*
                  * prend en compte des cas qui ne sont pas BLOQUE41
-                 * if (this.nbVoisinsLibres() == 2
+                 * if (this.getVoisinsLibres().size() == 2
                  * && this.getNbPonts() < 3 ) {
                  * // création d'une Ile qui a comme valeur le nombre de ponts restants à
                  * connecter à cette Ile-ci
@@ -477,7 +545,7 @@ public class Ile extends Case {
                  * // une île qui a besoin de 4 ponts,
                  * // qui a 2 voisins libres
                  * // et qui a moins de 3 ponts dans des sens différents (?)
-                 * if (this.nbVoisinsLibres() == 2
+                 * if (this.getVoisinsLibres().size() == 2
                  * && this.getNbPonts() < 3) {
                  * 
                  * this.nbPontsPossibles();
@@ -490,7 +558,7 @@ public class Ile extends Case {
                  * sont
                  * // complétés = on peut compléter l'île avec 2 ponts sur son 3e et dernier
                  * voisin
-                 * if(this.nbVoisinsLibres() == 1
+                 * if(this.getVoisinsLibres().size() == 1
                  * && this.valeur == 2) {
                  * 
                  * return Aide.BLOQUE42;

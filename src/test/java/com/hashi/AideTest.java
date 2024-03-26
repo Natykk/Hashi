@@ -132,7 +132,7 @@ public class AideTest {
                 System.out.println(i.getValeur());
             }
 
-            System.out.println("nb voisins libres : " + i1.nbVoisinsLibres());
+            System.out.println("nb voisins libres : " + i1.getVoisinsLibres().size());
 
             // assertEquals( Aide.FORCE1, i1.techniquePontsForces() );
         } else {
