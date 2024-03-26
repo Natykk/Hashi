@@ -6,6 +6,7 @@ public enum Aide {
 	RIEN, 
 
 	/* 
+	 * Technique 2
 	 * une île de valeur 1 avec un seul voisin libre = compléter l'île avec 1 pont
 	 * exemple: (@ = nombre quelconque)
 	 * 1   @ -> 1 - @
@@ -13,6 +14,7 @@ public enum Aide {
 	FORCE1,
 
 	/*
+	 * Technique 2
 	 * une île de valeur 2 avec un seul voisin libre = compléter l'île avec 2 ponts
 	 * exemple: (@ = nombre quelconque)
 	 * 2   @ -> 2 = @
@@ -20,6 +22,7 @@ public enum Aide {
 	FORCE2,
 
 	/*
+	 * Technique 3
 	 * une île de valeur 3 avec 2 voisins libre = on peut ajouter 1 pont pour chaque voisin
 	 * exemple: (@ = nombre quelconque)
 	 * 	3   @		3 - @
@@ -29,6 +32,7 @@ public enum Aide {
 	FORCE3,
 
 	/*
+	 * Technique 1
 	 * une île de valeur 4 avec 2 voisins libre = compléter l'île avec 4 ponts
 	 * exemple: (@ = nombre quelconque)
 	 * 	4   @		4 = @
@@ -38,6 +42,7 @@ public enum Aide {
 	FORCE4,
 
 	/*
+	 * Technique 3
 	 * une île de valeur 5 avec 3 voisins libre = on peut ajouter 1 pont pour chaque voisin
 	 * exemple: (@ = nombre quelconque)
 	 * 	@   5   @		@ - 5 - @
@@ -47,6 +52,7 @@ public enum Aide {
 	FORCE5,
 
 	/*
+	 * Technique 1
 	 * une île de valeur 6 avec 3 voisins libre = compléter l'île avec 6 ponts
 	 * exemple: (@ = nombre quelconque)
 	 * 	@   6   @		@ = 6 = @
@@ -56,6 +62,7 @@ public enum Aide {
 	FORCE6,
 
 	/*
+	 * Technique 3
 	 * une île de valeur 7 = on peut ajouter 1 pont pour chaque voisin
 	 * exemple: (@ = nombre quelconque)
 	 * 		@				@
@@ -67,6 +74,7 @@ public enum Aide {
 	FORCE7,
 
 	/*
+	 * Technique 1
 	 * une île de valeur 8 = compléter l'île avec 8 ponts
 	 * exemple: (@ = nombre quelconque)
 	 * 		@				@
@@ -80,6 +88,7 @@ public enum Aide {
 
 
 	/*
+	 * Technique 4
 	 * une île de valeur 3 qui a 2 voisins, dont 1 libre et 1 pont avec un voisin qui est complété
 	 *  = on peut compléter l'île avec 2 ponts sur son autre voisin (libre)
 	 * exemple: (@ = nombre quelconque)
@@ -102,6 +111,7 @@ public enum Aide {
 	// ci-dessous: pas encore appliqués
 
 	/*
+	 * Technique 5
 	 * une île de valeur 4 qui a 3 voisins, dont 2 libres et le 3e est complété avec 1 pont lié à cette Ile
 	 *  = on peut ajouter 1 Pont pour chaque autre voisin
 	 * exemple:
@@ -112,6 +122,7 @@ public enum Aide {
 	BLOQUE41,
 
 	/*
+	 * Technique 5
 	 * une île de valeur 4 qui a 1 voisin libre et 1 pont avec 2 voisins qui sont complétés
 	 *  = on peut compléter l'île avec 2 ponts sur son 3e et dernier voisin
 	 * exemple: 
@@ -122,24 +133,28 @@ public enum Aide {
 	BLOQUE42,
 
 	/*
+	 * Technique 4
 	 * une île de valeur 5 qui a 3 voisins libres et 1 pont avec un voisin qui est complété
 	 *  = on peut compléter l'île avec 2 ponts sur ses 2 autres voisins
 	 */
 	BLOQUE5,
 
 	/*
+	 * Technique 6
 	 * une île de valeur 6 qui a 4 voisins libres et 1 pont avec un voisin qui est complété
 	 *  = on peut ajouter 1 pont pour chaque voisin
 	 */
 	BLOQUE6,
 
 	/*
+	 * Technique 4
 	 * une île de valeur 7 qui a 1 pont avec un voisin qui est complété
 	 *  = on peut compléter l'île avec 2 ponts sur ses 3 autres voisins
 	 */
 	BLOQUE7, 
 
 	/*
+	 * Technique 7
 	 * une île de valeur 1 qui a 2 voisins libres, mais un de ces voisins est une île de valeur 1
 	 * si un pont est placé entre ces deux îles, elles se retrouvent isolées
 	 *  = il ne peut PAS y avoir de pont entre ces deux îles, donc il y en a forcément un avec son autre voisin libre
@@ -151,6 +166,7 @@ public enum Aide {
 	ISOLE1, 
 
 	/*
+	 * Technique 7
  	 * une île de valeur 2 qui a 2 voisins libres, mais un de ces voisins est une île de valeur 2
 	 * si un pont double est placé entre ces deux îles, elles se retrouvent isolées
 	 *  = il ne peut PAS y avoir deux ponts entre ces deux îles, donc il y en a forcément un avec son autre voisin libre
@@ -161,6 +177,7 @@ public enum Aide {
 	ISOLE2, 
 
 	/*
+	 * Technique 7
  	 * une île de valeur 2 qui a 2 voisins libres, mais ces DEUX voisins sont des îles de valeur 2
 	 * si un pont double est placé entre n'importe laquelle de ces deux îles, elles se retrouvent isolées
 	 *  = il y a forcément un pont simple avec ses deux voisins

@@ -88,22 +88,23 @@ public class Pont extends Case {
             return new Rectangle(ile1.getxAffichage() - 15, ile1.getyAffichage() + ile1.getTaille() / 2, 30,
                     ile2.getyAffichage() - ile1.getyAffichage() - (ile1.getTaille() + ile2.getTaille()) / 2);
     }
-/* 
-    public void effacer() {
-        this.ile1.retirerPont(this);
-        this.ile2.retirerPont(this);
-    }
-*/
+
+    /*
+     * public void effacer() {
+     * this.ile1.retirerPont(this);
+     * this.ile2.retirerPont(this);
+     * }
+     */
     public boolean isEffacable() {
         return this.ile1.getNbConnexion() == 0 && this.ile2.getNbConnexion() == 0;
     }
 
-    public Ile getIleDep() {
+    public Ile getIle1() {
 
         return this.ile1;
     }
 
-    public Ile getIleArr() {
+    public Ile getIle2() {
         return this.ile2;
     }
 
@@ -118,6 +119,7 @@ public class Pont extends Case {
 
     /**
      * Savoir si le Pont est simple ou double
+     * 
      * @return 1 si le Pont est simple, 2 s'il est double
      */
     public int getNbPont() {
@@ -222,14 +224,6 @@ public class Pont extends Case {
 
     public void setEstClique(boolean estClique) {
         this.estClique = estClique;
-    }
-
-    public Ile getIle1() {
-        return this.ile1;
-    }
-
-    public Ile getIle2() {
-        return this.ile2;
     }
 
     public boolean estDouble() {

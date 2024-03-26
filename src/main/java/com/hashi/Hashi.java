@@ -226,7 +226,7 @@ public class Hashi extends Panel {
             int y = (e.getY() - (getHeight() - grille.getTaille() * cellSize) / 2) / cellSize;
 
             Ile clickedIle = grille.getIleAt(x, y);
-            Pont pont = grille.getPontAt(e.getX(), e.getY());
+            Pont pont = grille.getPontAtOnScreen(e.getX(), e.getY());
 
             if (clickedIle != null) {
                 handleIslandClick(clickedIle);
@@ -316,8 +316,8 @@ public class Hashi extends Panel {
         private void handlePontClick(Pont pont) {
             grille.retirerPont(pont);
             grille.getPonts().remove(pont);
-            pont.getIleDep().retirerPont(pont);
-            pont.getIleArr().retirerPont(pont);
+            pont.getIle1().retirerPont(pont);
+            pont.getIle2().retirerPont(pont);
             addAction(new RemovePontAction(pont));
             repaint();
         }
@@ -394,8 +394,8 @@ public class Hashi extends Panel {
             } else {
                 grille.retirerPont(pont);
                 grille.getPonts().remove(pont);
-                pont.getIleDep().retirerPont(pont);
-                pont.getIleArr().retirerPont(pont);
+                pont.getIle1().retirerPont(pont);
+                pont.getIle2().retirerPont(pont);
             }
         }
 
@@ -403,31 +403,22 @@ public class Hashi extends Panel {
         public void redo() {
             // si le pont est simple alors on le transforme en pont double
             if (!pont.estDouble()) {
-
-                if (grille.getListePonts().contains(pont)) {
+                if (grille.getPonts().contains(pont)) {
                     System.out.println("AddPontAction redo simple to double");
                     // si les iles ne sont pas au max de leur valeur alors on transforme le pont en
                     // pont double
-                    if (pont.getIleDep().nbConnexions() < pont.getIleDep().getValeur()
-                            && pont.getIleArr().nbConnexions() < pont.getIleArr().getValeur()) {
-                        System.out.println("Nb connexion ile " + pont.getIleDep().getValeur() + " : "
-                                + pont.getIleDep().nbConnexions());
-                        System.out.println("Nb connexion ile " + pont.getIleArr().getValeur() + " : "
-                                + pont.getIleArr().nbConnexions());
+                    if (pont.getIle1().nbConnexions() < pont.getIle1().getValeur()
+                            && pont.getIle2().nbConnexions() < pont.getIle2().getValeur()) {
                         pont.setEstDouble(true);
                     }
                 } else {
                     System.out.println("AddPontAction redo simple ");
                     grille.ajouterPont(pont);
-                    pont.getIleDep().ajouterPont(pont);
-                    pont.getIleArr().ajouterPont(pont);
-
+                    pont.getIle1().ajouterPont(pont);
+                    pont.getIle2().ajouterPont(pont);
                 }
-
             } else {
-
                 grille.ajouterPont(pont);
-
             }
         }
     }
@@ -444,38 +435,20 @@ public class Hashi extends Panel {
 
         @Override
         public void undo() {
-            // si le pont est double alors on le transforme en pont simple
-            if (pont.estDouble()) {
-                System.out.println("RemovePontAction undo double to simple");
-                pont.setEstDouble(false);
-            } else {
-                System.out.println("RemovePontAction undo simple ");
+            System.out.println("RemovePontAction undo " + (pont.estDouble() ? "double" : "simple"));
 
-                grille.ajouterPont(pont);
-            }
+            grille.ajouterPont(pont);
+            pont.getIle1().ajouterPont(pont);
+            pont.getIle2().ajouterPont(pont);
         }
 
         @Override
         public void redo() {
-            // si le pont est simple alors on le transforme en pont double
-            if (!pont.estDouble()) {
-                System.out.println("RemovePontAction redo simple to double");
-                // si les iles ne sont pas au max de leur valeur alors on transforme le pont en
-                // pont double
-                if (pont.getIleDep().nbConnexions() < pont.getIleDep().getValeur()
-                        && pont.getIleArr().nbConnexions() < pont.getIleArr().getValeur()) {
-                    System.out.println("Nb connexion ile 1 : " + pont.getIleDep().nbConnexions());
-                    System.out.println("Nb connexion ile 2 : " + pont.getIleArr().nbConnexions());
-                    pont.setEstDouble(true);
-                }
-
-            } else {
-                System.out.println("RemovePontAction redo simple to null");
-                grille.retirerPont(pont);
-                grille.getPonts().remove(pont);
-                pont.getIleDep().retirerPont(pont);
-                pont.getIleArr().retirerPont(pont);
-            }
+            System.out.println("RemovePontAction redo");
+            grille.retirerPont(pont);
+            grille.getPonts().remove(pont);
+            pont.getIle1().retirerPont(pont);
+            pont.getIle2().retirerPont(pont);
         }
     }
 }
