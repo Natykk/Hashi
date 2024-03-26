@@ -287,6 +287,24 @@ public class Ile extends Case {
     }
 
     /**
+     * vérifie si l'Ile est relié à son voisin par un Pont simple
+     * @return vrai si le Pont entre cette Ile et son voisin est simple, 
+     *          faux sinon
+     */
+    public boolean estConnecteParUnPontSimple(Ile voisin) {
+        return this.getPontEntreIles(voisin).getNbPont() == 1;
+    }
+
+    /**
+     * vérifie si l'Ile est relié à son voisin par un Pont double
+     * @return vrai si le Pont entre cette Ile et son voisin est double, 
+     *          faux sinon
+     */
+    public boolean estConnecteParUnPontDouble(Ile voisin) {
+        return this.getPontEntreIles(voisin).getNbPont() == 2;
+    }
+
+    /**
      * donne la liste des voisins qui ONT un pont simple ou double de relié avec cette Ile
      * (les îles sur le même axe cardinal que cette île, sans être bloqué par un pont)
      * 
@@ -384,6 +402,29 @@ public class Ile extends Case {
     public List<Ile> getVoisinsCompletsConnectes() {
         return filtreDeVoisins( getVoisinsConnectes(), e -> e.estComplet() );
     }
+
+    /**
+     * donne la liste des voisins qui ont un Pont simple de relié avec cette Ile
+     * ET qui sont complets 
+     * car c'est ce qui nous intéresse vraiment
+     * 
+     * @return la liste des voisins complets connectés à cette Ile par un Pont simple, 
+     *         ou une liste vide si l'île n'a aucun voisin complets connectés à elle par un Pont simple
+     */
+    public List<Ile> getVoisinsCompletsConnectesParUnPontSimple() {
+        return filtreDeVoisins(   (filtreDeVoisins( getVoisinsConnectes(), e -> e.estComplet() ))   , e -> e.estConnecteParUnPontSimple(this) );
+    } 
+
+    /**
+     * donne la liste des voisins qui ont un Pont double de relié avec cette Ile
+     * car c'est ce qui nous intéresse vraiment
+     * 
+     * @return la liste des voisins connectés à cette Ile par un Pont double, 
+     *         ou une liste vide si l'île n'a aucun voisin connectés à elle par un Pont double
+     */
+    public List<Ile> getVoisinsConnectesParUnPontDouble() {
+        return filtreDeVoisins( getVoisinsConnectes(), e -> e.estConnecteParUnPontDouble(this) );
+    } 
 
     /**
      * donne la liste des voisins qui ONT un pont simple ou double de relié avec cette Ile
