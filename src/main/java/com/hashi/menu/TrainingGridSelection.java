@@ -11,11 +11,19 @@ import java.awt.Dimension;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
+/**
+ * La classe TrainingGridSelection représente la page permettant à l'utilisateur de sélectionner un niveau
+ * pour l'entraînement.
+ */
 public class TrainingGridSelection extends Panel {
     private Button retour;
     private Button[][] boutons;
     private int TypeTaille;
 
+    /**
+     * Constructeur de la classe TrainingGridSelection.
+     * @param NumTaille Le numéro de la taille du puzzle sélectionné.
+     */
     public TrainingGridSelection(int NumTaille) {
 
         super(new BorderLayout(), "bg-training-grid-selection.png");
@@ -32,6 +40,9 @@ public class TrainingGridSelection extends Panel {
         });
     }
 
+    /**
+     * Méthode pour positionner les boutons représentant les niveaux de puzzle.
+     */
     private void positionnerBoutons3() {
         Panel boutonsHaut = new Panel();
         boutonsHaut.setLayout(new FlowLayout(FlowLayout.RIGHT));

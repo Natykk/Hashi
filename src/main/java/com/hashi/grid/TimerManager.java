@@ -10,6 +10,10 @@ public class TimerManager implements ActionListener {
     private long elapsedTime;
     private Timer timer;
 
+    /**
+     * Constructeur prenant un JLabel en paramètre pour afficher le temps écoulé
+     * @param timerLabel
+     */
     public TimerManager(JLabel timerLabel) {
         this.timerLabel = timerLabel;
         this.startTime = System.currentTimeMillis();
@@ -19,11 +23,17 @@ public class TimerManager implements ActionListener {
         timer.start();
     }
 
+    /**
+     * Méthode appelée à chaque fois que le Timer déclenche un événement d'action
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         updateTimer();
     }
 
+    /**
+     * Méthode privée pour mettre à jour le minuteur
+     */
     private void updateTimer() {
         elapsedTime = System.currentTimeMillis() - startTime;
 
@@ -40,6 +50,10 @@ public class TimerManager implements ActionListener {
         timer.stop();
     }
 
+    /**
+     * // Méthode pour obtenir le temps écoulé en millisecondes depuis le démarrage du minuteur
+     * @return
+     */
     public long tempsEcoule() {
         return elapsedTime;
     }

@@ -20,8 +20,17 @@ import com.hashi.style.Style;
 import com.hashi.style.StyleManager;
 import com.hashi.style.SummerStyle;
 
+/**
+ * La classe `Parameter` représente la page des paramètres dans l'application.
+ * Elle étend la classe.
+ */
 public class Parameter extends Panel {
 
+    /**
+     * Constructeur de la classe `Parameter`.
+     * @param returnPanel Le panneau à retourner après la modification des paramètres.
+     * @param returnTitle Le titre de la page à retourner.
+     */
     public Parameter(Panel returnPanel, String returnTitle) {
         super(new BorderLayout(), "bg-parameter.png");
 
@@ -70,6 +79,12 @@ public class Parameter extends Panel {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Crée une contrainte pour le positionnement des composants dans un panneau de type `GridBagLayout`.
+     * @param x Position horizontale du composant dans la grille
+     * @param y Position verticale du composant dans la grille
+     * @return GridBagConstraints pour le positionnement du composant dans la grille
+     */
     private GridBagConstraints createGbc(int x, int y) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = x;

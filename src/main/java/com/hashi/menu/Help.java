@@ -1,6 +1,9 @@
 package com.hashi.menu;
+import com.hashi.grid.Aide;
+import com.hashi.grid.Grille;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -10,9 +13,17 @@ import com.hashi.style.StyleManager;
 
 public class Help extends JFrame {
 
-    public Help() {
+    public Help(Grille grille) {
+        
+        
         super(LanguageManager.getString("title_help"));
 
+        // Crée une zone de texte JTextArea pour afficher le contenu de l'aide
+        grille.FillListVoisins();
+        List<Aide> aides ;
+        
+        aides = grille.estCeQueQuelquUnAUneAide();
+        System.out.println("aides = " + aides);
         Panel panel = new Panel(new BorderLayout(), "bg-help.png");
         JTextArea text = new JTextArea();
         text.setEditable(false);
@@ -31,6 +42,7 @@ public class Help extends JFrame {
         scrollPane.setBorder(BorderFactory.createEmptyBorder(270, 270, 0, 270));
         panel.add(scrollPane, BorderLayout.CENTER);
 
+        // Configure le comportement de la fenêtre
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(1280, 720);
         setResizable(false);

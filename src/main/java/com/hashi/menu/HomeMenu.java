@@ -11,6 +11,10 @@ import javax.swing.BorderFactory;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
+/**
+ * La classe `HomeMenu` représente le menu principal de l'application.
+ * Elle étend la classe `Panel`.
+ */
 public class HomeMenu extends Panel {
     private static final String TITLE = "title";
     private Button parametresButton;
@@ -21,6 +25,10 @@ public class HomeMenu extends Panel {
     private Button histoireButton;
     private Button entrainementButton;
 
+    /**
+     * Constructeur de la classe `HomeMenu`.
+     * Initialise le menu principal et les boutons.
+     */
     public HomeMenu() {
         super(new BorderLayout(), "bg-home-menu.png");
 
@@ -96,6 +104,9 @@ public class HomeMenu extends Panel {
         });
     }
 
+    /**
+     * Positionne les boutons dans le menu.
+     */
     private void positionnerBoutons1() {
         Panel groupButton = new Panel();
         groupButton.setLayout(new GridBagLayout()); // Utilisation de GridBagLayout
@@ -128,6 +139,12 @@ public class HomeMenu extends Panel {
         add(contenu, BorderLayout.CENTER);
     }
 
+    /**
+     * Crée une contrainte pour le positionnement des composants dans un panneau de type `GridBagLayout`.
+     * @param x Position horizontale du composant dans la grille
+     * @param y Position verticale du composant dans la grille
+     * @return GridBagConstraints pour le positionnement du composant dans la grille
+     */
     private GridBagConstraints createGbc(int x, int y) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = x;
