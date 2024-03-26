@@ -14,6 +14,9 @@ import com.hashi.style.Panel;
 import com.hashi.grid.Grille;
 import com.hashi.grid.Jeu;
 
+/**
+ * La classe TrainingLoadGame représente la page de chargement du jeu pour l'entraînement.
+ */
 public class TrainingLoadGame extends Panel {
     private final String TITLE = "title_training_load_game";
     private Button retour;
@@ -24,6 +27,12 @@ public class TrainingLoadGame extends Panel {
     private Button regles;
     private Button quitter;
 
+    /**
+     * Constructeur de la classe TrainingLoadGame.
+     * @param TypeTaille Le type de taille de grille.
+     * @param row Le numéro de la ligne de la grille.
+     * @param column Le numéro de la colonne de la grille.
+     */
     public TrainingLoadGame(int TypeTaille, int row, int column) {
         super(new BorderLayout(), "bg-training-load-game.png");
 
@@ -113,6 +122,9 @@ public class TrainingLoadGame extends Panel {
         });
     }
 
+    /**
+     * Méthode pour positionner les boutons sur la page.
+     */
     private void positionnerBoutons() {
 
         Panel boutonsHaut = new Panel();
@@ -143,6 +155,12 @@ public class TrainingLoadGame extends Panel {
         add(contenu, BorderLayout.CENTER);
     }
 
+    /**
+     * Méthode utilitaire pour créer un GridBagConstraints avec des valeurs prédéfinies.
+     * @param x La position en x.
+     * @param y La position en y.
+     * @return Le GridBagConstraints créé.
+     */
     private GridBagConstraints createGbc(int x, int y) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = x;

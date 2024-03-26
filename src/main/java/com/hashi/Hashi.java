@@ -140,6 +140,11 @@ public class Hashi extends Panel {
 
         private final TimerManager timerManager;
 
+        /**
+         * Redéfinition de la méthode paintComponent pour dessiner la grille
+         * @param g
+         * 
+         */
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
@@ -153,6 +158,7 @@ public class Hashi extends Panel {
             drawIslands(g2d);
         }
 
+        // Méthode pour dessiner la grille
         private void drawGrid(Graphics2D g2d) {
             int gridSize = grille.getTaille() * cellSize;
 
@@ -170,11 +176,21 @@ public class Hashi extends Panel {
             }
         }
 
+        /**
+         * Méthode pour dessiner les îles
+         * @param g2d
+         */
         private void drawIslands(Graphics2D g2d) {
             for (Ile ile : grille.getIles()) {
                 ile.draw(g2d);
             }
         }
+
+        /**
+         * Méthode pour dessiner les ponts
+         * @param g2d
+         * @throws InvalidAttributeValueException
+         */
 
         private void drawBridges(Graphics2D g2d) throws InvalidAttributeValueException {
             for (Pont pont : grille.getPonts()) {
@@ -183,9 +199,16 @@ public class Hashi extends Panel {
             System.out.println("Nombre de ponts : " + grille.getNbPonts());
         }
 
+        /**
+         * Constructeur de PuzzlePanel prenant un TimerManager comme paramètre
+         * @param timerManager
+         */
         public PuzzlePanel(TimerManager timerManager) {
             this.timerManager = timerManager;
 
+            /**
+             * Evenement pour voir si l'utilisateur clique sur sa souris
+             */ 
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -194,6 +217,10 @@ public class Hashi extends Panel {
             });
         }
 
+        /**
+         * Méthode pour gérer les clics de souris sur la grille
+         * @param e
+         */
         private void handleClick(MouseEvent e) {
             int x = (e.getX() - (getWidth() - grille.getTaille() * cellSize) / 2) / cellSize;
             int y = (e.getY() - (getHeight() - grille.getTaille() * cellSize) / 2) / cellSize;

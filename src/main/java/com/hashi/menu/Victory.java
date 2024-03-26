@@ -10,11 +10,20 @@ import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
 // il reste a ajouter le score et peut etre regler l'emplacement du label et boutton
+
+/**
+ * La classe Victory représente la page affichée lorsqu'une victoire est atteinte dans le jeu.
+ */
 public class Victory extends Panel {
     private final String TITLE = "title_victory";
     private Button retour;
     private String txtTemp;
 
+
+    /**
+     * Constructeur de la classe Victory.
+     * @param temps Le temps écoulé pour la victoire.
+     */
     public Victory(String temps) {
         super(new BorderLayout(), "bg-victory.png");
         PageManager.getInstance().setTitle(TITLE);
@@ -28,6 +37,9 @@ public class Victory extends Panel {
         positionnerBoutons();
     }
 
+    /**
+     * Méthode pour positionner les boutons sur la page.
+     */
     private void positionnerBoutons() {
         Panel groupButton = new Panel();
         groupButton.setLayout(new GridBagLayout());
@@ -47,6 +59,12 @@ public class Victory extends Panel {
         add(contenu, BorderLayout.CENTER);
     }
 
+    /**
+     * Méthode utilitaire pour créer un GridBagConstraints avec des valeurs prédéfinies.
+     * @param x La position en x.
+     * @param y La position en y.
+     * @return Le GridBagConstraints créé.
+     */
     private GridBagConstraints createGbc(int x, int y) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = x;

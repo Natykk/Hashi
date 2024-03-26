@@ -60,6 +60,10 @@ public class Pont extends Case {
         }
     }
 
+    /**
+     * Zone cliquable du pont (zone entre deux iles)
+     * @return
+     */
     public Rectangle getBounds() {
         boolean horizontal = true;
 
@@ -122,6 +126,10 @@ public class Pont extends Case {
         return this.estDouble ? 2 : 1;
     }
 
+    /**
+     * Si l'ile est valide
+     * @return
+     */
     public boolean estValide() {
         if (this.ile1.equals(this.ile2)) {
             return false;

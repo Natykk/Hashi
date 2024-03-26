@@ -18,6 +18,10 @@ public class Jeu {
         this.numGrille = 0;
     }
 
+    /**
+     * Genere une grille prédéfini deja dans un fichier
+     * @param cheminFichier
+     */
     public void genererGrilleDepuisFichier(String cheminFichier) {
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(Hashi.class.getResourceAsStream(cheminFichier)))) {

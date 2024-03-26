@@ -11,6 +11,11 @@ import com.hashi.LanguageManager;
 import com.hashi.Profil;
 import com.hashi.style.*;
 
+/**
+ * La classe `StartScreen` représente l'écran de démarrage du jeu.
+ * Elle permet aux utilisateurs de sélectionner un profil existant ou de créer un nouveau profil.
+ * Elle étend la classe `Panel`.
+ */
 public class StartScreen extends Panel {
 
     private ComboBox<String> profilBox;
@@ -32,6 +37,12 @@ public class StartScreen extends Panel {
         });
     }
 
+    /**
+     * Méthode utilitaire pour créer les contraintes de la grille.
+     * @param x La position en x dans la grille.
+     * @param y La position en y dans la grille.
+     * @return Les contraintes de la grille.
+     */
     private GridBagConstraints createGbc(int x, int y) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = x;
@@ -40,6 +51,9 @@ public class StartScreen extends Panel {
         return gbc;
     }
 
+    /**
+     * Méthode pour créer la première page : sélection de profil.
+     */
     private void PageProfil() {
         Button bouton = new Button("validate").setFontSize(50);
 
@@ -74,6 +88,9 @@ public class StartScreen extends Panel {
         panel1.add(bouton, createGbc(1, 1));
     }
 
+    /**
+     * Méthode pour créer la deuxième page : création de profil.
+     */
     private void PageNouveauProfil() {
         panel2 = new Panel(new GridBagLayout(), "bg-start-screen.png");
 
@@ -116,6 +133,11 @@ public class StartScreen extends Panel {
         panel2.add(annuler, createGbc(0, 1));
     }
 
+    /**
+     * Méthode pour vérifier si un profil existe déjà.
+     * @param nouveauprofil Le nom du profil à vérifier.
+     * @return true si le profil existe déjà, sinon false.
+     */
     public boolean profilExisteDeja(String nouveauprofil) {
         return profils.contains(nouveauprofil);
     }

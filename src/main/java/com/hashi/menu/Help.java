@@ -17,6 +17,8 @@ public class Help extends JFrame {
         
         
         super(LanguageManager.getString("title_help"));
+
+        // Crée une zone de texte JTextArea pour afficher le contenu de l'aide
         grille.FillListVoisins();
         List<Aide> aides ;
         
@@ -40,6 +42,7 @@ public class Help extends JFrame {
         scrollPane.setBorder(BorderFactory.createEmptyBorder(270, 270, 0, 270));
         panel.add(scrollPane, BorderLayout.CENTER);
 
+        // Configure le comportement de la fenêtre
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(1280, 720);
         setResizable(false);
