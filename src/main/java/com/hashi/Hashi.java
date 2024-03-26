@@ -303,10 +303,8 @@ public class Hashi extends Panel {
 
                     // si un pont simple est deja présent alors on le transforme en pont double
                     if (pontAller != null) {
-                        pontAller.setEstDouble(true);
                         addAction(new AddPontAction(pontAller));
                     } else if (pontRetour != null) {
-                        pontRetour.setEstDouble(true);
                         addAction(new AddPontAction(pontRetour));
                     } else {
                         addAction(new AddPontAction(new Pont(selectedIle, clickedIle, grille)));
