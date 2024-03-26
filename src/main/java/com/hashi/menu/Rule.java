@@ -12,8 +12,17 @@ import com.hashi.style.Button;
 import com.hashi.style.Panel;
 import com.hashi.style.StyleManager;
 
+/**
+ * La classe `Rule` représente la page des règles dans le jeu.
+ * Elle étend la classe `Panel`.
+ */
 public class Rule extends Panel {
 
+    /**
+     * Constructeur de la classe `Rule`.
+     * @param returnPanel Le panneau à retourner après la consultation des règles.
+     * @param returnTitle Le titre de la page à retourner.
+     */
     public Rule(Panel returnPanel, String returnTitle) {
         super(new BorderLayout(), "bg-rule.png");
 

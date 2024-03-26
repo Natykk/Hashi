@@ -13,6 +13,7 @@ public class Help extends JFrame {
     public Help() {
         super(LanguageManager.getString("title_help"));
 
+        // Crée une zone de texte JTextArea pour afficher le contenu de l'aide
         Panel panel = new Panel(new BorderLayout(), "bg-help.png");
         JTextArea text = new JTextArea();
         text.setEditable(false);
@@ -31,6 +32,7 @@ public class Help extends JFrame {
         scrollPane.setBorder(BorderFactory.createEmptyBorder(270, 270, 0, 270));
         panel.add(scrollPane, BorderLayout.CENTER);
 
+        // Configure le comportement de la fenêtre
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(1280, 720);
         setResizable(false);

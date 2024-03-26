@@ -10,6 +10,11 @@ import java.awt.Insets;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
+
+/**
+ * La classe `HistoryLoadGame` représente un panneau pour afficher les options de chargement de jeu.
+ * Elle étend la classe `Panel`.
+ */
 public class HistoryLoadGame extends Panel {
     private final String TITLE = "title_history_load_game";
     private Button retour;
@@ -20,6 +25,11 @@ public class HistoryLoadGame extends Panel {
     private Button regles;
     private Button quitter;
 
+
+    /**
+     * Constructeur de la classe `HistoryLoadGame`.
+     * Initialise le panneau et les boutons.
+     */
     public HistoryLoadGame() {
         super(new BorderLayout(), "bg-history-load-game.png");
 
@@ -66,6 +76,9 @@ public class HistoryLoadGame extends Panel {
         });
     }
 
+    /**
+     * Positionne les boutons dans le panneau.
+     */
     private void positionnerBoutons() {
 
         Panel boutonsHaut = new Panel();
@@ -96,6 +109,12 @@ public class HistoryLoadGame extends Panel {
         add(contenu, BorderLayout.CENTER);
     }
 
+    /**
+     * Crée une contrainte pour le positionnement des composants dans un panneau de type `GridBagLayout`.
+     * @param x Position horizontale du composant dans la grille
+     * @param y Position verticale du composant dans la grille
+     * @return GridBagConstraints pour le positionnement du composant dans la grille
+     */
     private GridBagConstraints createGbc(int x, int y) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = x;

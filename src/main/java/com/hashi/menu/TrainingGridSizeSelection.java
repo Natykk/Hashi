@@ -10,6 +10,9 @@ import java.awt.Insets;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
+/**
+ * La classe TrainingGridSizeSelection représente la page permettant à l'utilisateur de choisir la taille du puzzle pour l'entraînement.
+ */
 public class TrainingGridSizeSelection extends Panel {
     private final String TITLE = "title_training_grid_size_selection";
     private Button retour;
@@ -20,6 +23,7 @@ public class TrainingGridSizeSelection extends Panel {
     private Button sept;
     private Button dix;
     private Button vignt;
+
 
     public TrainingGridSizeSelection() {
         super(new BorderLayout(), "bg-training-grid-size-selection.png");
@@ -77,6 +81,9 @@ public class TrainingGridSizeSelection extends Panel {
 
     }
 
+    /**
+     * Méthode pour positionner les boutons sur la page.
+     */
     private void positionnerBoutons2() {
         Panel boutonsHaut = new Panel(new FlowLayout(FlowLayout.RIGHT));
         boutonsHaut.add(retour);
@@ -106,6 +113,13 @@ public class TrainingGridSizeSelection extends Panel {
         add(contenu, BorderLayout.CENTER);
     }
 
+
+    /**
+     * Méthode utilitaire pour créer un GridBagConstraints avec des valeurs prédéfinies.
+     * @param x La position en x.
+     * @param y La position en y.
+     * @return Le GridBagConstraints créé.
+     */
     private GridBagConstraints createGbc(int x, int y) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = x;

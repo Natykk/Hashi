@@ -13,12 +13,22 @@ import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
 // il me reste l'affichage des etoiles 
+
+/**
+ * La classe `HistoryVictory` représente un panneau affichant les étoiles obtenues après une victoire.
+ * Elle étend la classe `Panel`.
+ */
 public class HistoryVictory extends Panel {
     private final String TITLE = "title_victory";
     private Button continuer;
     private Button quitter;
     private int score = 1;
 
+
+     /**
+     * Constructeur de la classe `HistoryVictory`.
+     * Initialise le panneau et les boutons.
+     */
     public HistoryVictory() {
         super(new BorderLayout(), "bg-victory.png");
 
@@ -38,6 +48,9 @@ public class HistoryVictory extends Panel {
         positionnerBoutons();
     }
 
+    /**
+     * Positionne les boutons et les étoiles dans le panneau.
+     */
     private void positionnerBoutons() {
         Panel starsGroup = new Panel();
 
@@ -70,7 +83,13 @@ public class HistoryVictory extends Panel {
 
         add(contenu, BorderLayout.CENTER);
     }
-
+    
+    /**
+     * Crée une contrainte pour le positionnement des composants dans un panneau de type `GridBagLayout`.
+     * @param x Position horizontale du composant dans la grille
+     * @param y Position verticale du composant dans la grille
+     * @return GridBagConstraints pour le positionnement du composant dans la grille
+     */
     private GridBagConstraints createGbc(int x, int y) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = x;
