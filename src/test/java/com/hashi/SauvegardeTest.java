@@ -1,9 +1,5 @@
 package com.hashi;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.IOException;
 
 import org.junit.jupiter.api.AfterEach;
@@ -13,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
 import com.hashi.grid.Grille;
-import com.hashi.grid.Ile;
 
 public class SauvegardeTest {
     Profil save = new Profil("Toto");
@@ -49,6 +44,11 @@ public class SauvegardeTest {
         save.addNewPartieHistoire(1, new Hashi(new Grille(15)).getActions());
         System.out.println(save);
         save.sauvegarde();
+    }
+
+    @Test
+    public void getListeNomProlil() throws ClassNotFoundException, IOException {
+        System.out.println(Profil.getListeNomProlil());
     }
 
     @Test
