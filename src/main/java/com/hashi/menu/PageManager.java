@@ -3,6 +3,7 @@ package com.hashi.menu;
 import javax.swing.*;
 
 import com.hashi.LanguageManager;
+import com.hashi.Profil;
 import com.hashi.style.Panel;
 
 /**
@@ -13,6 +14,7 @@ import com.hashi.style.Panel;
  */
 public class PageManager extends JFrame {
     private static PageManager instance;
+    private Profil profil;
 
     private PageManager() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -20,6 +22,7 @@ public class PageManager extends JFrame {
         setResizable(false);
 
         instance = this;
+        profil = null;
 
         getContentPane().add(new StartScreen());
         setVisible(true);
@@ -46,6 +49,23 @@ public class PageManager extends JFrame {
             new PageManager();
 
         return instance;
+    }
+
+    /**
+     * 
+     * @return Retourne le {@link com.hashi.Profil} à utiliser.
+     */
+    public static Profil getProfil() {
+        return getInstance().profil;
+    }
+
+    /**
+     * Définit le {@link com.hashi.Profil} à utiliser.
+     * 
+     * @param profil le {@link com.hashi.Profil}.
+     */
+    public static void setProfil(Profil profil) {
+        getInstance().profil = profil;
     }
 
     /**

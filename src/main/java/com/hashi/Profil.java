@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.*;
 
 import com.hashi.grid.Action;
-import com.hashi.grid.Grille;
 
 /**
  * La classe Profil représente le profil d'un utilisateur. Elle peut être
@@ -118,13 +117,41 @@ public class Profil implements Serializable {
         listePartieHistoire.add(num, partie);
     }
 
+    protected static void createSaveDir() {
+        try {
+            File directory = new File("save");
+
+            if (!directory.exists())
+                directory.mkdir();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static List<String> getListeNomProlil() {
+        createSaveDir();
+
+        List<String> listeNom = new ArrayList<>();
+
+        try {
+            for (String filename : new File("save").list()) {
+                listeNom.add(filename.substring(0, filename.length() - 4));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return listeNom;
+    }
+
     /**
      * Lorsqu'un profil est fermé, on enregistre les changements.
      */
-    protected void sauvegarde() throws Throwable {
-        try {
-            File fichier = new File("./src/main/resources/save/" + nomProfil.toString() + ".ser");
+    public void sauvegarde() throws Throwable {
+        createSaveDir();
 
+        try {
+            File fichier = new File("save/" + nomProfil.toString() + ".ser");
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichier));
 
             oos.writeObject(this);
@@ -145,10 +172,12 @@ public class Profil implements Serializable {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    static Profil charger(String nom) throws IOException, ClassNotFoundException {
+    public static Profil charger(String nom) throws IOException, ClassNotFoundException {
+        createSaveDir();
+
         Profil courant = null;
         try {
-            File fichier = new File("./src/main/resources/save/" + nom + ".ser");
+            File fichier = new File("save/" + nom + ".ser");
 
             // ouverture d'un flux sur un fichier
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
@@ -165,7 +194,6 @@ public class Profil implements Serializable {
     /**
      * Affiche le nom de la partie + les listes de scores.
      */
-    @Override
     public String toString() {
         return this.nomProfil + "\n" + this.listeDesScores + "\n" + this.listeScoreArcade + "\n"
                 + this.listeDesScoresHistoire;

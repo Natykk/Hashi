@@ -3,20 +3,18 @@ package com.hashi.menu;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.io.*;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-import com.hashi.Hashi;
 import com.hashi.LanguageManager;
+import com.hashi.Profil;
 import com.hashi.style.*;
-import com.hashi.style.Panel;
 
 public class StartScreen extends Panel {
 
     private ComboBox<String> profilBox;
-    private ArrayList<String> profils;
+    private List<String> profils;
     private Panel panel1, panel2;
 
     public StartScreen() {
@@ -24,7 +22,7 @@ public class StartScreen extends Panel {
         PageManager.getInstance().setTitle("title_start_screen");
 
         // Charger les profils depuis le fichier "profils.txt"
-        chargerprofils();
+        profils = Profil.getListeNomProlil();
 
         PageProfil();
         PageNouveauProfil();
@@ -55,7 +53,12 @@ public class StartScreen extends Panel {
             } else {
                 System.out.println("Vous avez choisi : " + profilChoisi);
                 // Changement du page => Menu
-                PageManager.changerPage(new HomeMenu());
+                try {
+                    PageManager.setProfil(Profil.charger(profilChoisi));
+                    PageManager.changerPage(new HomeMenu());
+                } catch (Exception error) {
+                    System.out.println("Erreur de chargement du profil : " + profilChoisi);
+                }
             }
         });
 
@@ -91,15 +94,15 @@ public class StartScreen extends Panel {
                         "Erreur");
             } else {
                 System.out.println("Nouveau profil: " + nouveauprofil);
-                // Ajouter le nouveau profil au fichier
-                ajouterprofil(nouveauprofil);
-                // Mettre à jour la liste des profils
-                chargerprofils();
-                // Ajouter le nouveau profil au ComboBox
-                profilBox.addItem(nouveauprofil);
-                // Sélectionner le nouveau profil ajouté
-                profilBox.setSelectedItem(nouveauprofil);
-                // Afficher un message de confirmation pour le nouveau profil créé
+                Profil profil = new Profil(nouveauprofil);
+
+                try {
+                    profil.sauvegarde();
+                } catch (Throwable error) {
+                    System.out.println("Erreur de sauvegarder le profil : " + profil.nomProfil);
+                }
+
+                PageManager.setProfil(profil);
                 PageManager.changerPage(new HomeMenu());
             }
         });
@@ -115,30 +118,5 @@ public class StartScreen extends Panel {
 
     public boolean profilExisteDeja(String nouveauprofil) {
         return profils.contains(nouveauprofil);
-    }
-
-    // Charger les profils depuis le fichier
-    private void chargerprofils() {
-        profils = new ArrayList<>();
-        try (BufferedReader lire = new BufferedReader(
-                new InputStreamReader(Hashi.class.getResourceAsStream("profils.txt")))) {
-            String line;
-            while ((line = lire.readLine()) != null) {
-                profils.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Ajouter un profil au fichier
-    private void ajouterprofil(String profil) {
-        try (BufferedWriter ecrire = new BufferedWriter(
-                new FileWriter(Hashi.class.getResource("profils.txt").getPath(), true))) {
-            ecrire.write(profil);
-            ecrire.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
