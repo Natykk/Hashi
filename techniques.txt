@@ -56,7 +56,7 @@ dans la même direction, toutes les conditions sont remplies et quatre ponts
 peuvent être dessinés : deux ponts vers l'île au-dessus et un pont vers 
 chacune des îles sur les côtés.
 
-représenté par le type enum: BLOQUE41, BLOQUE42
+représenté par le type enum: BLOQUE42
 
 
 Technique 6: Cas particulier du 6 au milieu

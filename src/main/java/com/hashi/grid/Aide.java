@@ -111,7 +111,6 @@ public enum Aide {
 	// ci-dessous: pas encore appliqués
 
 	/*
-	 * Technique 5
 	 * une île de valeur 4 qui a 3 voisins, dont 2 libres et le 3e est complété avec 1 pont lié à cette Ile
 	 *  = on peut ajouter 1 Pont pour chaque autre voisin
 	 * exemple:
