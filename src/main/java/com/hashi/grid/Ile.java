@@ -514,18 +514,26 @@ public class Ile extends Case {
                  * une île qui a besoin de 4 ponts,
                  * et qui n'a que 2 voisins
                  * 
-                 * si elle n'a aucun voisin connecté par un Pont double, et exactement 2 voisins libres avec un Pont simple ou pas de Pont
-                 * OU
-                 * si elle a un voisin connecté par un Pont double, et un voisin libre avec un Pont simple ou pas de Pont
+                 * le nombre d'objet ponts 
+                 * (pas présent
+                 * + pont simple où on peut en rajouter
+                 * + pont double)
+                 * est de 2
                  */
-                if ((this.getVoisinsConnectesParUnPontDouble().size() == 0
-                 &&((this.getVoisinsLibresPasConnectes().size() 
-                   + this.getVoisinsLibresConnectesParUnPontSimple().size()) == 2))
-                || 
-                    (this.getVoisinsConnectesParUnPontDouble().size() == 1
-                && ((this.getVoisinsLibresPasConnectes().size() 
-                   + this.getVoisinsLibresConnectesParUnPontSimple().size()) == 1))) {
+
+                /*
+                if (this.getVoisinsLibresPasConnectes().size() 
+                  + this.getVoisinsConnectesParUnPontDouble().size()
+                  + this.getVoisinsLibresConnectesParUnPontSimple().size() == 2) {
                     return Aide.FORCE4;
+                }
+                */
+
+                // autre manière de faire la condition
+                if( this.getVoisinsCompletsConnectesParUnPontSimple().size() == 0
+                && (this.getVoisinsLibres().size()
+                  + this.getVoisinsCompletsConnectes().size()) == 2) {
+                    return Aide.FORCE6;
                 }
                 break;
             case 5:
@@ -545,8 +553,9 @@ public class Ile extends Case {
                 ((this.getVoisinsLibresPasConnectes().size() 
                 + this.getVoisinsLibresConnectesParUnPontSimple().size()) == 3)
                  ||
-                (this.getVoisinsCompletsConnectes().size() == 1
-                 &&  this.getVoisinsCompletsConnectes().get(0).getPontEntreIles(this).getNbPont() == 2)
+                    (this.getVoisinsConnectesParUnPontDouble().size() == 1 
+                && ((this.getVoisinsLibresPasConnectes().size() 
+                   + this.getVoisinsLibresConnectesParUnPontSimple().size()) == 2))
                 )) {
                     return Aide.FORCE5;
                 }
@@ -557,35 +566,49 @@ public class Ile extends Case {
                  * en a actuellement moins de 6
                  * et qui n'a que 3 voisins libres
                  * 
-                 * 
+                 * le nombre d'objet ponts 
+                 * (pas présent
+                 * + pont simple où on peut en rajouter
+                 * + pont double)
+                 * est de 3
                  */
-                if ((this.getVoisinsCompletsConnectes().size() == 0
-                && this.getVoisinsLibres().size() == 3)
-               || 
-                  (this.getVoisinsCompletsConnectes().size() == 1
-                && this.getVoisinsLibres().size() == 2) ) {
+
+                /*
+                if (this.getVoisinsLibresPasConnectes().size() 
+                  + this.getVoisinsConnectesParUnPontDouble().size()
+                  + this.getVoisinsLibresConnectesParUnPontSimple().size() == 3) {
+                    return Aide.FORCE6;
+                }
+                */
+
+                // autre manière de faire la condition
+                if( this.getVoisinsCompletsConnectesParUnPontSimple().size() == 0
+                && (this.getVoisinsLibres().size()
+                  + this.getVoisinsCompletsConnectes().size()) == 3) {
                     return Aide.FORCE6;
                 }
                 break;
             case 7:
-                // une île qui a besoin de 7 ponts
-                // et en a actuellement moins de 4 dans des sens différents
+                /* 
+                 * une île qui a besoin de 7 ponts
+                 * et en a actuellement moins de 4 dans des sens différents
+                 */
                 if (this.getNbPonts() < 4) {
                     return Aide.FORCE7;
                 }
                 break;
             case 8:
-                // une île qui a besoin de 8 ponts
-                // et en a actuellement moins de 8
-                if (this.getNbConnexion() < 8) {
+                /*
+                 * une île qui a besoin de 8 ponts
+                 * et en a actuellement moins de 8
+                 * la condition (this.getNbConnexion() < 8) est implicite
+                 */
                     return Aide.FORCE8;
-                }
-                break;
+                //break;
             default:
                 throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
                         + " n'est pas compris dans [1,8]");
         }
-        // si la valeur de l'île est fausse, on ne s'en occupe pas ici
 
         return Aide.RIEN;
     }
@@ -600,32 +623,60 @@ public class Ile extends Case {
      */
     public Aide techniquePontsBloques() throws InvalidAttributeValueException {
 
-        List<Ile> desVoisins;
-        int count=0;
+        /*List<Ile> desVoisins;
+         * int count=0;
+         */
 
         switch (this.valeur) {
             case 3:
-                // une île qui a besoin de 3 ponts,
-                // en a actuellement moins de 3
-                // et qui n'a plus qu'un voisin libre
-                if (this.getVoisinsLibres().size() == 1
-                        && this.getNbConnexion() < this.valeur) {
+                /*
+                 * une île qui a besoin de 3 ponts,
+                 * en a actuellement moins de 3 (implicite)
+                 * et qui n'a plus qu'un voisin libre
+                 * 
+                 * cette Ile est relié à un voisin complet par un Pont simple
+                 * et elle n'a qu'un seul autre voisin, qui n'a pas le choix que d'être libre
+                 */
+                if ((this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1
+                  && this.getVoisinsLibres().size() == 1)
+                 ||
+                  (this.getVoisinsConnectesParUnPontDouble().size() == 1
+                && this.getVoisinsLibresPasConnectes().size() == 1)) {
                     return Aide.BLOQUE3;
                 }
                 break;
             case 4:
-            
+                /*
+                 * une île qui a besoin de 4 ponts,
+                 * qui est relié à un voisin complet par un Pont simple
+                 * et qui a moins de 3 Ponts dans des sens différents (?)
+                 * 
+                 * pont simple d'un voisin complété: 1
+                 * et
+                 * pont double
+                 * + pont simple d'un voisin pas complété
+                 * + pas de pont
+                 * = 2
+                 */
+                if(this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1
+                && ((this.getVoisinsConnectesParUnPontDouble().size()
+                   + this.getVoisinsLibresConnectes().size()
+                   + this.getVoisinsLibresPasConnectes().size()) == 2)
+                ) {
+                    return Aide.BLOQUE41;
+                }
+
+                // TODO BLOQUE42
+
+                // précédents essais:
+                /* 
                 // retirer le cas d'une Ile avec 2 voisins
                 if( this.techniquePontsForces() == Aide.FORCE4 ) {
                     break;
                 }
-                
-                // une île qui a besoin de 4 ponts,
-                // et qui a 2 voisins libres, car certains sont complétés
-                // et qui a moins de 3 Ponts dans des sens différents (?)
+                */
 
-
-
+                /*
                 //prend en compte des cas qui ne sont pas BLOQUE41
                 if (this.getVoisinsLibres().size() == 2
                  && this.getNbPonts() < 3 
@@ -640,7 +691,7 @@ public class Ile extends Case {
                         return Aide.BLOQUE41;
                     }
                 }
-                
+                */
 
                 /*
                  * // une île qui a besoin de 4 ponts,
@@ -676,6 +727,13 @@ public class Ile extends Case {
                  * ou encore
                  * -deux voisins connectés, l'un complet par un Pont simple, l'autre par un Pont double
                  */
+                if( this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1
+                 || 
+                    this.getVoisinsConnectesParUnPontDouble().size() == 2 ) {
+                    return Aide.BLOQUE5;
+                }
+                
+                /*
                 if( (desVoisins = this.getVoisinsCompletsConnectes()).size() > 0 ) {
                     // pour chaque voisin complet connecté
                     for( Ile chaqueVoisin : desVoisins ) {
@@ -704,11 +762,25 @@ public class Ile extends Case {
                         return Aide.BLOQUE5;
                     }
                 }
+                */
                    
             case 6:
+                /*
+                 * une Ile qui a besoin de 6 Ponts,
+                 * qui a 4 voisins
+                 * et qui a un voisin de valeur 1
+                 * on met un pont entre chaque voisin qui n'est pas celle de 1
+                 * 
+                 */
 
             case 7:
-
+                /*
+                 * une Ile qui a besoin de 7 ponts,
+                 * et qui a un voisin connecté complet par un Pont simple
+                 */
+                if( this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1 ) {
+                    return Aide.BLOQUE7;
+                }
             default:
                 throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
                         + " n'est pas compris dans [1,8]");
