@@ -412,7 +412,7 @@ public class Ile extends Case {
      *         ou une liste vide si l'île n'a aucun voisin complets connectés à elle par un Pont simple
      */
     public List<Ile> getVoisinsCompletsConnectesParUnPontSimple() {
-        return filtreDeVoisins(   (filtreDeVoisins( getVoisinsConnectes(), e -> e.estComplet() ))   , e -> e.estConnecteParUnPontSimple(this) );
+        return filtreDeVoisins( getVoisinsCompletsConnectes(), e -> e.estConnecteParUnPontSimple(this) );
     } 
 
     /**
@@ -436,6 +436,17 @@ public class Ile extends Case {
     public List<Ile> getVoisinsLibresConnectes() {
         return filtreDeVoisins( getVoisinsConnectes(), e -> e.estLibre() );
     }
+
+    /**
+     * donne la liste des voisins qui ont un Pont simple de relié avec cette Ile
+     * ET qui sont libres
+     * 
+     * @return la liste des voisins libres connectés à cette Ile par un Pont simple, 
+     *         ou une liste vide si l'île n'a aucun voisin libres connectés à elle par un Pont simple
+     */
+    public List<Ile> getVoisinsLibresConnectesParUnPontSimple() {
+        return filtreDeVoisins( getVoisinsLibresConnectes(), e -> e.estConnecteParUnPontSimple(this) );
+    } 
 
     /**
      * donne la liste des voisins qui n'ont PAS de pont de relié avec cette Ile
