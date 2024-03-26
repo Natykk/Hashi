@@ -54,9 +54,50 @@ public class TrainingLoadGame extends Panel {
         });
         nouvellePartie.addActionListener(e -> {
             Jeu j = new Jeu();
-            j.genererGrilleDepuisFichier("grille.txt");
+            /*j.genererGrilleDepuisFichier("grille.txt");
             Grille grille = j.listeGrille.get(column + row);
+            PageManager.changerPage(new Hashi(grille));*/
+
+            // Fais 3 switch imbriqués pour déterminer la taille de la grille / la difficulté / le niveau
+            // puis appelle la méthode de Hashi pour générer la grille
+            // et enfin appelle la méthode de PageManager pour changer de page
+            StringBuilder sb = new StringBuilder();
+            switch (TypeTaille) {
+                case 0:
+                    sb.append("7x7/");
+                    
+                    break;
+                case 1:
+                    sb.append("10x10/");
+                    break;
+                case 2:
+                    sb.append("25x25/");
+                    break;
+                default:
+                    sb.append("7x7/");
+                    break;
+            }
+
+            switch (row) {
+                case 0:
+                    sb.append("Facile/GF.txt");
+                    break;
+                case 1:
+                    sb.append("Moyen/GM.txt");
+                    break;
+                case 2:
+                    sb.append("Difficile/GD.txt");
+                    break;
+                default:
+                    sb.append("Facile/GF.txt");
+                    break;
+            }
+
+            j.genererGrilleDepuisFichier(sb.toString());
+
+            Grille grille = j.listeGrille.get(column);
             PageManager.changerPage(new Hashi(grille));
+            
         });
         charger.addActionListener(e -> {
 
