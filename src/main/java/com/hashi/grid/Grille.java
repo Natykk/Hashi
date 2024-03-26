@@ -4,8 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.InvalidAttributeValueException;
-
 public class Grille extends MouseAdapter {
     private int taille; // coté de la grille
     private Case[][] table; // La matrice des Case de la grille
@@ -183,15 +181,6 @@ public class Grille extends MouseAdapter {
         this.Ponts.remove(pont);
     }
 
-    /**
-     * récupérer la liste des Ponts de la Grille
-     * 
-     * @return la liste des Ponts présents sur la Grille
-     */
-    public List<Pont> getListePonts() {
-        return (List<Pont>) this.Ponts;
-    }
-
     public int getNbPonts() {
         // compte les ponts simple et double
         return this.Ponts.size();
@@ -240,11 +229,6 @@ public class Grille extends MouseAdapter {
             res += pont.toString();
         }
         return res;
-    }
-
-    // affichage sur terminal
-    public void afficherGrille() {
-        this.toString();
     }
 
     /**
@@ -328,7 +312,7 @@ public class Grille extends MouseAdapter {
      * @param y coordonnée x sur la matrice
      * @return le Pont présent aux coordonnées données, ou null s'il n'y en a pas
      */
-    public Pont getPont(int x, int y) {
+    public Pont getPontAtOnGrid(int x, int y) {
         // il faut verifier si le pont existe dans la liste des ponts
         for (Pont pont : this.Ponts) {
             if (pont.getIle1().getX() == x && pont.getIle1().getY() == y) {
@@ -407,7 +391,7 @@ public class Grille extends MouseAdapter {
      * @return le Pont où se situe les coordonnées données, ou null s'il n'y en a
      *         pas
      */
-    public Pont getPontAt(int xAffichage, int yAffichage) {
+    public Pont getPontAtOnScreen(int xAffichage, int yAffichage) {
         // le rectangle situé à la position x,y correspond à quel pont ?
         for (Pont pont : this.Ponts) {
 
@@ -521,11 +505,12 @@ public class Grille extends MouseAdapter {
      * interroge toutes les îles de la grille en appelant leur méthodes de recherche
      * d'aide
      * 
-     * @return une liste d'Aide applicable à la grille, dans sa configuraiton actuelle
-     *          si aucune Aide n'a été trouvée, la Liste contient juste Aide.RIEN
+     * @return une liste d'Aide applicable à la grille, dans sa configuraiton
+     *         actuelle
+     *         si aucune Aide n'a été trouvée, la Liste contient juste Aide.RIEN
      */
     public List<Aide> estCeQueQuelquUnAUneAide() {
-        
+
         List<Aide> aidesTrouve = new ArrayList<>();
 
         // techniques de démarrage et techniques basiques
@@ -534,14 +519,14 @@ public class Grille extends MouseAdapter {
                 // on ne s'occupe pas des îles complètes
 
                 try {
-                    aidesTrouve.add( uneIle.techniquePontsForces() );
+                    aidesTrouve.add(uneIle.techniquePontsForces());
                 } catch (Exception e) {
                     // TODO: handle exception
                     System.err.println("Erreur: Attribut -valeur de l'Ile incorrect");
                 }
 
                 try {
-                    aidesTrouve.add( uneIle.techniquePontsBloques() );
+                    aidesTrouve.add(uneIle.techniquePontsBloques());
                 } catch (Exception e) {
                     // TODO: handle exception
                     System.err.println("Erreur: Attribut -valeur de l'Ile incorrect");
@@ -549,12 +534,13 @@ public class Grille extends MouseAdapter {
             }
         }
 
-        //TODO: enlever tous les Aide.RIEN de la List
-        //aidesTrouve = tream.distinct().toList();
-        
+        // TODO: enlever tous les Aide.RIEN de la List
+        // aidesTrouve = tream.distinct().toList();
+
         if (aidesTrouve.isEmpty()) {
-            // si on a trouvé aucune aide, on renvoit une List qui contient seulement Aide.RIEN
-            aidesTrouve.add( Aide.RIEN );
+            // si on a trouvé aucune aide, on renvoit une List qui contient seulement
+            // Aide.RIEN
+            aidesTrouve.add(Aide.RIEN);
         }
 
         return aidesTrouve;
