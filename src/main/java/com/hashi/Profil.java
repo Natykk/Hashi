@@ -65,9 +65,11 @@ public class Profil implements Serializable {
      * @param num
      * @param score
      */
-    public void addScoreEntrainement(int num, int score) {
+    public void setScoreEntrainement(int num, int score) {
         if (listeScoreEntrainement.get(num) < score) {
             listeScoreEntrainement.add(num, score);
+            setPartieEntrainement(num, new ArrayList<>());
+            sauvegarde();
         }
     }
 
@@ -87,8 +89,9 @@ public class Profil implements Serializable {
      * @param num
      * @param partie
      */
-    public void addPartieEntrainement(int num, List<Action> partie) {
+    public void setPartieEntrainement(int num, List<Action> partie) {
         listePartieEntrainement.add(num, partie);
+        sauvegarde();
     }
 
     /**
@@ -106,7 +109,7 @@ public class Profil implements Serializable {
      * 
      * @param score
      */
-    public void addScoreArcade(int score) {
+    public void setScoreArcade(int score) {
         // Si le score est supérieur au score enregistré le plus faible
         if (score > listeScoreArcade.get(4)) {
             // On le remplace par ce score plus élevé.
@@ -115,6 +118,7 @@ public class Profil implements Serializable {
             Collections.sort(listeScoreArcade);
             Collections.reverse(listeScoreArcade);
             listeScoreArcade.remove(5);
+            sauvegarde();
         }
     }
 
@@ -134,8 +138,10 @@ public class Profil implements Serializable {
      * @param num
      * @param score
      */
-    public void addScoreHistoire(int num, int score) {
+    public void setScoreHistoire(int num, int score) {
         listeScoreHistoire.add(num, score);
+        setPartieHistoire(num, new ArrayList<>());
+        sauvegarde();
     }
 
     /**
@@ -154,8 +160,9 @@ public class Profil implements Serializable {
      * @param num
      * @param partie
      */
-    public void addPartieHistoire(int num, List<Action> partie) {
+    public void setPartieHistoire(int num, List<Action> partie) {
         listePartieHistoire.add(num, partie);
+        sauvegarde();
     }
 
     /**

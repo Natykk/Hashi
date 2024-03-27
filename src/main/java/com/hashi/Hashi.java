@@ -2,6 +2,7 @@ package com.hashi;
 
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
+import com.hashi.game.mode.Mode;
 import com.hashi.grid.Case;
 import com.hashi.grid.Grille;
 import com.hashi.grid.Ile;
@@ -30,6 +31,7 @@ import com.hashi.menu.Victory;
  * Classe principale du jeu.
  */
 public class Hashi extends Panel {
+    private Mode mode;
     private Grille grille;
 
     /**
@@ -53,12 +55,14 @@ public class Hashi extends Panel {
      * Créer la {@link javax.swing.JFrame} du jeu.
      * 
      * @param grille la grille contenant la logique du jeu.
+     * @param mode
      */
-    public Hashi(Grille grille) {
+    public Hashi(Mode mode) {
         super(new BorderLayout(), "bg-game.png");
         PageManager.getInstance().setTitle("title");
-        this.grille = grille;
-        actions = PageManager.getProfil().getPartieEntrainement(0);
+        this.mode = mode;
+        this.grille = mode.getGrille();
+        actions = mode.getActions();
         currentIndex = actions.size() - 1;
 
         Panel buttonPanel = new Panel(new GridLayout(8, 1));
@@ -251,6 +255,7 @@ public class Hashi extends Panel {
 
                 System.out.println("Jeu finie, score : " + timerManager.tempsEcoule());
 
+                mode.setScore((int) timerManager.tempsEcoule());
             }
 
             repaint();
@@ -334,10 +339,8 @@ public class Hashi extends Panel {
         actions.add(action);
         currentIndex = actions.size() - 1;
         action.redo(grille);
+        mode.sauvegarder(actions);
         updateUndoRedoButtons();
-
-        PageManager.getProfil().addPartieEntrainement(0, actions);
-        PageManager.getProfil().sauvegarde();
     }
 
     /**

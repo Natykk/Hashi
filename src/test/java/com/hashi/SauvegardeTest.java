@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import com.hashi.grid.Grille;
+import com.hashi.game.mode.ModeEntrainement;
 
 public class SauvegardeTest {
     Profil save = new Profil("Toto");
@@ -32,16 +32,16 @@ public class SauvegardeTest {
 
     @Test
     public void sauvegardeProfil() throws Throwable {
-        save.addScoreEntrainement(1, 150);
-        save.addPartieEntrainement(1, new Hashi(new Grille(15)).getActions());
-        save.addScoreArcade(160);
-        save.addScoreArcade(900);
-        save.addScoreArcade(170);
-        save.addScoreArcade(950);
-        save.addScoreArcade(600);
-        save.addScoreArcade(910);
-        save.addScoreHistoire(5, 1);
-        save.addPartieHistoire(1, new Hashi(new Grille(15)).getActions());
+        save.setScoreEntrainement(1, 150);
+        save.setPartieEntrainement(1, new Hashi(new ModeEntrainement(0, 2, 5, false)).getActions());
+        save.setScoreArcade(160);
+        save.setScoreArcade(900);
+        save.setScoreArcade(170);
+        save.setScoreArcade(950);
+        save.setScoreArcade(600);
+        save.setScoreArcade(910);
+        save.setScoreHistoire(5, 1);
+        save.setPartieHistoire(1, new Hashi(new ModeEntrainement(0, 2, 5, false)).getActions());
         System.out.println(save);
         save.sauvegarde();
     }
