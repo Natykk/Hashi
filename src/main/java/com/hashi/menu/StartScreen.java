@@ -13,7 +13,8 @@ import com.hashi.style.*;
 
 /**
  * La classe `StartScreen` représente l'écran de démarrage du jeu.
- * Elle permet aux utilisateurs de sélectionner un profil existant ou de créer un nouveau profil.
+ * Elle permet aux utilisateurs de sélectionner un profil existant ou de créer
+ * un nouveau profil.
  * Elle étend la classe `Panel`.
  */
 public class StartScreen extends Panel {
@@ -39,6 +40,7 @@ public class StartScreen extends Panel {
 
     /**
      * Méthode utilitaire pour créer les contraintes de la grille.
+     * 
      * @param x La position en x dans la grille.
      * @param y La position en y dans la grille.
      * @return Les contraintes de la grille.
@@ -116,7 +118,7 @@ public class StartScreen extends Panel {
                 try {
                     profil.sauvegarde();
                 } catch (Throwable error) {
-                    System.out.println("Erreur de sauvegarder le profil : " + profil.nomProfil);
+                    System.out.println("Erreur de sauvegarder le profil : " + profil.getNomProfil());
                 }
 
                 PageManager.setProfil(profil);
@@ -135,6 +137,7 @@ public class StartScreen extends Panel {
 
     /**
      * Méthode pour vérifier si un profil existe déjà.
+     * 
      * @param nouveauprofil Le nom du profil à vérifier.
      * @return true si le profil existe déjà, sinon false.
      */

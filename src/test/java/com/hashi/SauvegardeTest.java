@@ -32,16 +32,16 @@ public class SauvegardeTest {
 
     @Test
     public void sauvegardeProfil() throws Throwable {
-        save.addNewScoreEntrainement(1, 150);
-        save.addNewPartieEntrainement(1, new Hashi(new Grille(15)).getActions());
-        save.addNewScoreArcade(160);
-        save.addNewScoreArcade(900);
-        save.addNewScoreArcade(170);
-        save.addNewScoreArcade(950);
-        save.addNewScoreArcade(600);
-        save.addNewScoreArcade(910);
-        save.addNewScoreHistoire(5, 1);
-        save.addNewPartieHistoire(1, new Hashi(new Grille(15)).getActions());
+        save.addScoreEntrainement(1, 150);
+        save.addPartieEntrainement(1, new Hashi(new Grille(15)).getActions());
+        save.addScoreArcade(160);
+        save.addScoreArcade(900);
+        save.addScoreArcade(170);
+        save.addScoreArcade(950);
+        save.addScoreArcade(600);
+        save.addScoreArcade(910);
+        save.addScoreHistoire(5, 1);
+        save.addPartieHistoire(1, new Hashi(new Grille(15)).getActions());
         System.out.println(save);
         save.sauvegarde();
     }

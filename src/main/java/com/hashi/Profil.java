@@ -3,40 +3,36 @@ package com.hashi;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
-import com.hashi.grid.Action;
+import com.hashi.grid.action.Action;
 
 /**
  * La classe Profil représente le profil d'un utilisateur. Elle peut être
  * sérialisée et sauvegardée/rechargée.
  */
 public class Profil implements Serializable {
-    public String nomProfil;
+    private String nomProfil;
 
-    public ArrayList<Integer> listeDesScores; // Liste des scores mode Entrainement
-    public ArrayList<List<Action>> listePartieEntrainement; // Liste des parties en cours mode Entrainement
+    private ArrayList<Integer> listeScoreEntrainement; // Liste des scores mode Entrainement
+    private ArrayList<List<Action>> listePartieEntrainement; // Liste des parties en cours mode Entrainement
 
-    public ArrayList<Integer> listeScoreArcade;// Liste des records mode arcade
+    private ArrayList<Integer> listeScoreArcade;// Liste des records mode arcade
 
-    public ArrayList<Integer> listeDesScoresHistoire; // Liste des scores mode Histoire
-    public ArrayList<List<Action>> listePartieHistoire; // Liste des parties en cours mode Histoire
+    private ArrayList<Integer> listeScoreHistoire; // Liste des scores mode Histoire
+    private ArrayList<List<Action>> listePartieHistoire; // Liste des parties en cours mode Histoire
 
     public Profil(String nom) {
         nomProfil = nom;
-        List<Action> la = null;
 
-        listeDesScores = new ArrayList<Integer>(54);
-        listePartieEntrainement = new ArrayList<List<Action>>();
+        listeScoreEntrainement = new ArrayList<Integer>(54);
+        listePartieEntrainement = new ArrayList<List<Action>>(54);
         for (int i = 0; i < 54; i++) {
-            listeDesScores.add(0);
-        }
-        for (int i = 0; i < 54; i++) {
-            listePartieEntrainement.add(la);
+            listeScoreEntrainement.add(0);
+            listePartieEntrainement.add(new ArrayList<Action>());
         }
 
         listeScoreArcade = new ArrayList<Integer>(5);
@@ -46,14 +42,21 @@ public class Profil implements Serializable {
         listeScoreArcade.add(0);
         listeScoreArcade.add(0);
 
-        listeDesScoresHistoire = new ArrayList<Integer>(12);
+        listeScoreHistoire = new ArrayList<Integer>(12);
+        listePartieHistoire = new ArrayList<List<Action>>(12);
         for (int i = 0; i < 12; i++) {
-            listeDesScoresHistoire.add(0);
+            listeScoreHistoire.add(0);
+            listePartieHistoire.add(new ArrayList<Action>());
         }
-        listePartieHistoire = new ArrayList<List<Action>>();
-        for (int i = 0; i < 12; i++) {
-            listePartieHistoire.add(la);
-        }
+    }
+
+    /**
+     * Récupère le nom du profil.
+     * 
+     * @return le nom du profil.
+     */
+    public String getNomProfil() {
+        return nomProfil;
     }
 
     /**
@@ -62,12 +65,20 @@ public class Profil implements Serializable {
      * @param num
      * @param score
      */
-    public void addNewScoreEntrainement(int num, int score) {
-        if (listeDesScores.get(num) == null) {
-            listeDesScores.add(num, score);
-        } else if (listeDesScores.get(num) < score) {
-            listeDesScores.add(num, score);
+    public void addScoreEntrainement(int num, int score) {
+        if (listeScoreEntrainement.get(num) < score) {
+            listeScoreEntrainement.add(num, score);
         }
+    }
+
+    /**
+     * Récupère le score en mode Entrainement.
+     * 
+     * @param num
+     * @return le score.
+     */
+    public int getScoreEntrainement(int num) {
+        return listeScoreEntrainement.get(num);
     }
 
     /**
@@ -76,8 +87,18 @@ public class Profil implements Serializable {
      * @param num
      * @param partie
      */
-    public void addNewPartieEntrainement(int num, List<Action> partie) {
+    public void addPartieEntrainement(int num, List<Action> partie) {
         listePartieEntrainement.add(num, partie);
+    }
+
+    /**
+     * Récupère le partie en mode Entrainement.
+     * 
+     * @param num
+     * @return le partie.
+     */
+    public List<Action> getPartieEntrainement(int num) {
+        return listePartieEntrainement.get(num);
     }
 
     /**
@@ -85,7 +106,7 @@ public class Profil implements Serializable {
      * 
      * @param score
      */
-    public void addNewScoreArcade(int score) {
+    public void addScoreArcade(int score) {
         // Si le score est supérieur au score enregistré le plus faible
         if (score > listeScoreArcade.get(4)) {
             // On le remplace par ce score plus élevé.
@@ -98,13 +119,33 @@ public class Profil implements Serializable {
     }
 
     /**
+     * Récupère le score en mode Arcade.
+     * 
+     * @param num
+     * @return le score.
+     */
+    public int getScoreArcade(int num) {
+        return listeScoreArcade.get(num);
+    }
+
+    /**
      * Ajouter un score en mode Histoire.
      * 
      * @param num
      * @param score
      */
-    public void addNewScoreHistoire(int num, int score) {
-        listeDesScoresHistoire.add(num, score);
+    public void addScoreHistoire(int num, int score) {
+        listeScoreHistoire.add(num, score);
+    }
+
+    /**
+     * Récupère le score en mode Histoire.
+     * 
+     * @param num
+     * @return le score.
+     */
+    public int getScoreHistoire(int num) {
+        return listeScoreHistoire.get(num);
     }
 
     /**
@@ -113,8 +154,18 @@ public class Profil implements Serializable {
      * @param num
      * @param partie
      */
-    public void addNewPartieHistoire(int num, List<Action> partie) {
+    public void addPartieHistoire(int num, List<Action> partie) {
         listePartieHistoire.add(num, partie);
+    }
+
+    /**
+     * Récupère le partie en mode Histoire.
+     * 
+     * @param num
+     * @return le partie.
+     */
+    public List<Action> getPartieHistoire(int num) {
+        return listePartieHistoire.get(num);
     }
 
     protected static void createSaveDir() {
@@ -128,6 +179,11 @@ public class Profil implements Serializable {
         }
     }
 
+    /**
+     * Récupère la liste des noms de profils.
+     * 
+     * @return la liste des noms de profils.
+     */
     public static List<String> getListeNomProlil() {
         createSaveDir();
 
@@ -147,7 +203,7 @@ public class Profil implements Serializable {
     /**
      * Lorsqu'un profil est fermé, on enregistre les changements.
      */
-    public void sauvegarde() throws Throwable {
+    public void sauvegarde() {
         createSaveDir();
 
         try {
@@ -161,7 +217,7 @@ public class Profil implements Serializable {
         }
     }
 
-    protected void finalize() throws Throwable {
+    protected void finalize() {
         this.sauvegarde();
     }
 
@@ -169,13 +225,10 @@ public class Profil implements Serializable {
     /**
      * @param nom
      * @return
-     * @throws IOException
-     * @throws ClassNotFoundException
      */
-    public static Profil charger(String nom) throws IOException, ClassNotFoundException {
+    public static Profil charger(String nom) {
         createSaveDir();
 
-        Profil courant = null;
         try {
             File fichier = new File("save/" + nom + ".ser");
 
@@ -183,20 +236,23 @@ public class Profil implements Serializable {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
 
             // désérialization de l'objet
-            courant = (Profil) ois.readObject();
+            Profil courant = (Profil) ois.readObject();
+
             ois.close();
+
+            return courant;
         } catch (Exception e) {
             System.out.println(e);
         }
-        return courant;
+        return null;
     }
 
     /**
      * Affiche le nom de la partie + les listes de scores.
      */
     public String toString() {
-        return this.nomProfil + "\n" + this.listeDesScores + "\n" + this.listeScoreArcade + "\n"
-                + this.listeDesScoresHistoire;
+        return this.nomProfil + "\n" + this.listeScoreEntrainement + "\n" + this.listeScoreArcade + "\n"
+                + this.listeScoreHistoire;
     }
 
 }

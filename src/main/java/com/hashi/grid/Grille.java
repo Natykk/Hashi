@@ -21,18 +21,6 @@ public class Grille extends MouseAdapter {
     }
 
     /**
-     * Remet la grille à zéro
-     */
-    public void reset() {
-        // on vide les Ponts
-        this.ponts = new ArrayList<Pont>();
-        // pour toute les iles de la grille on les remet à 0
-        for (Ile ile : iles) {
-            ile.reset();
-        }
-    }
-
-    /**
      * initialiser la matrice Grille.table en le remplissant de Cases vierges
      */
     public void initialiserTable() {
@@ -540,7 +528,8 @@ public class Grille extends MouseAdapter {
 
     public Pont getPont(Ile selectedIle, Ile clickedIle) {
         for (Pont pont : this.ponts) {
-            if (pont.getIle1() == selectedIle && pont.getIle2() == clickedIle) {
+            if ((pont.getIle1() == selectedIle && pont.getIle2() == clickedIle)
+                    || (pont.getIle1() == clickedIle && pont.getIle2() == selectedIle)) {
                 return pont;
             }
         }
@@ -549,7 +538,7 @@ public class Grille extends MouseAdapter {
     }
 
     // Rempli la liste this.listeVoisin = new ArrayList<>(); de chaque ile
-    public void FillListVoisins() {
+    public void fillListVoisins() {
         for (Ile ile : this.iles) {
 
             // Réeinitialisation de la liste des voisins

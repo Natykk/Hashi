@@ -1,4 +1,5 @@
 package com.hashi.menu;
+
 import com.hashi.grid.Aide;
 import com.hashi.grid.Grille;
 
@@ -14,14 +15,13 @@ import com.hashi.style.StyleManager;
 public class Help extends JFrame {
 
     public Help(Grille grille) {
-        
-        
+
         super(LanguageManager.getString("title_help"));
 
         // Crée une zone de texte JTextArea pour afficher le contenu de l'aide
-        grille.FillListVoisins();
-        List<Aide> aides ;
-        
+        grille.fillListVoisins();
+        List<Aide> aides;
+
         aides = grille.estCeQueQuelquUnAUneAide();
         System.out.println("aides = " + aides);
         Panel panel = new Panel(new BorderLayout(), "bg-help.png");
