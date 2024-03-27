@@ -179,8 +179,8 @@ public class Hashi extends Panel {
                 for (int j = 0; j < grille.getTaille(); j++) {
                     if (grille.getCase(i, j) instanceof Ile) {
                         Ile ile = (Ile) grille.getCase(i, j);
-                        ile.setxAffichage(xOffset + i * cellSize + cellSize / 2);
-                        ile.setyAffichage(yOffset + j * cellSize + cellSize / 2);
+                        ile.setXAffichage(xOffset + i * cellSize + cellSize / 2);
+                        ile.setYAffichage(yOffset + j * cellSize + cellSize / 2);
                         ile.setTailleAffichage(cellSize);
                     }
                 }

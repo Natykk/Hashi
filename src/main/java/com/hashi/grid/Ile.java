@@ -37,19 +37,19 @@ public class Ile extends Case {
         this.tailleAffichage = tailleAffichage;
     }
 
-    private int getDisplaySize() {
+    private int getTailleAffichage() {
         return (int) (this.tailleAffichage * ((grille.getSelectedCase() == this) ? 1.25 : 1));
     }
 
     public Rectangle getBounds() {
-        int tailleAffichage = getDisplaySize();
+        int tailleAffichage = getTailleAffichage();
 
         return new Rectangle(xAffichage - tailleAffichage / 2, yAffichage - tailleAffichage / 2, tailleAffichage,
                 tailleAffichage);
     }
 
     public void draw(Graphics g) {
-        int tailleAffichage = getDisplaySize();
+        int tailleAffichage = getTailleAffichage();
 
         if (estComplet()) {
             g.setColor(StyleManager.getInstance().getFgColor());
@@ -113,19 +113,19 @@ public class Ile extends Case {
         return this.valeur;
     }
 
-    public int getxAffichage() {
+    public int getXAffichage() {
         return xAffichage;
     }
 
-    public void setxAffichage(int xAffichage) {
+    public void setXAffichage(int xAffichage) {
         this.xAffichage = xAffichage;
     }
 
-    public int getyAffichage() {
+    public int getYAffichage() {
         return yAffichage;
     }
 
-    public void setyAffichage(int yAffichage) {
+    public void setYAffichage(int yAffichage) {
         this.yAffichage = yAffichage;
     }
 
@@ -216,18 +216,6 @@ public class Ile extends Case {
      */
     public boolean estComplet() {
         return this.valeur == this.getNbConnexion();
-    }
-
-    /**
-     * vérifier si la valeur de cette Ile est supérieure ou égale à son nombre de
-     * Ponts
-     * (savoir si une Ile n'est pas valide est utile pour les aides)
-     * 
-     * @return vrai si la valeur de cette Ile est supérieure ou égale à son nombre
-     *         de Ponts, faux sinon
-     */
-    public boolean estValide() {
-        return this.valeur >= this.getNbPonts();
     }
 
     public int getNbPontBas() {
@@ -938,11 +926,6 @@ public class Ile extends Case {
         }
 
         return nbPontsPossibles;
-    }
-
-    public void reset() {
-        // on retire tous les ponts de l'ile
-        this.listePont.clear();
     }
 
     public void resetListeVoisin() {
