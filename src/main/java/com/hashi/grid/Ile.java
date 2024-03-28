@@ -4,7 +4,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import javax.management.InvalidAttributeValueException;
 
@@ -343,21 +342,6 @@ public class Ile extends Case {
     }
 
     /**
-     * récupère toutes îles voisines, connectées à cette Ile ou non
-     * 
-     * @return une liste d'îles qui sont les îles voisines,
-     *         ou une liste vide si l'île n'a aucun voisin
-     */
-    public List<Ile> getVoisins() {
-        // java 8
-        // return Stream.concat(this.getVoisinsConnectes().stream(),
-        // this.getVoisinsConnectes().stream()).collect(Collectors.toList());
-
-        // java 16+
-        return Stream.concat(this.getVoisinsConnectes().stream(), this.getVoisinsConnectes().stream()).toList();
-    }
-
-    /**
      * prend une Liste d'Iles voisines à cette Ile, et en retire toutes les Iles qui
      * ne valident pas la méthode (predicat) passée en paramètre
      * 
@@ -453,7 +437,7 @@ public class Ile extends Case {
      *         ou une liste vide si l'île n'a aucun voisin libres
      */
     public List<Ile> getVoisinsLibres() {
-        return filtreDeVoisins(getVoisins(), e -> e.estLibre());
+        return filtreDeVoisins(getListeVoisin(), e -> e.estLibre());
     }
 
     /**
@@ -900,7 +884,7 @@ public class Ile extends Case {
                                   // Ponts restants de ses voisins
         Pont unPont;
 
-        for (Ile unVoisin : this.getVoisins()) {
+        for (Ile unVoisin : this.getListeVoisin()) {
             // pour chaque voisin
             if (!unVoisin.estComplet()) {
                 // si il n'est pas complété

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
@@ -19,13 +18,10 @@ public class AideTest {
     static Jeu j = new Jeu();
     static Grille g = new Grille(5);
 
-    @BeforeAll
-    public static void initGrille() {
-        g.initialiserTable();
-    }
-
     @BeforeEach
     public void beforeMessage(TestInfo testInfo) {
+        g.initialiserTable();
+
         System.out.println(
                 "===================== Start testing : " + testInfo.getDisplayName() + " =====================");
     }
@@ -48,8 +44,9 @@ public class AideTest {
         g.ajouterIle(i3);
         g.ajouterIle(i1);
         g.ajouterIle(i2);
+        g.fillListVoisins();
 
-        listeGetVoisins = i3.getVoisins();
+        listeGetVoisins = i3.getListeVoisin();
         uneListeDIle.add(i1); // bas
         uneListeDIle.add(i2); // droite
 
@@ -82,8 +79,9 @@ public class AideTest {
         g.ajouterIle(i3);
         g.ajouterIle(i1);
         g.ajouterIle(i2);
+        g.fillListVoisins();
 
-        uneListeDIle = i3.getVoisins();
+        uneListeDIle = i3.getListeVoisin();
 
         // i3 a 2 voisins
         assertEquals(2, uneListeDIle.size());
