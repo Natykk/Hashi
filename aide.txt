@@ -1,0 +1,18 @@
+RIEN: Pas d'aide trouvée.
+FORCE1: Technique 2  une île de valeur 1 avec un seul voisin libre = compléter l'île avec 1 pont.
+FORCE2: Technique 2  une île de valeur 2 avec un seul voisin libre = compléter l'île avec 2 ponts.
+FORCE3: Technique 3  une île de valeur 3 avec 2 voisins libres = on peut ajouter 1 pont pour chaque voisin.
+FORCE4: Technique 1  une île de valeur 4 avec 2 voisins libres = compléter l'île avec 4 ponts.
+FORCE5: Technique 3  une île de valeur 5 avec 3 voisins libres = on peut ajouter 1 pont pour chaque voisin.
+FORCE6: Technique 1  une île de valeur 6 avec 3 voisins libres = compléter l'île avec 6 ponts.
+FORCE7: Technique 3  une île de valeur 7 = on peut ajouter 1 pont pour chaque voisin.
+FORCE8: Technique 1  une île de valeur 8 = compléter l'île avec 8 ponts.
+BLOQUE3: Technique 4  une île de valeur 3 qui a 2 voisins dont 1 libre et 1 pont avec un voisin qui est complété = on peut compléter l'île avec 2 ponts sur son autre voisin (libre).
+BLOQUE41: Pas encore appliqué.
+BLOQUE42: Technique 5  une île de valeur 4 qui a 1 voisin libre et 1 pont avec 2 voisins qui sont complétés = on peut compléter l'île avec 2 ponts sur son 3e et dernier voisin.
+BLOQUE5: Pas encore appliqué.
+BLOQUE6: Pas encore appliqué.
+BLOQUE7: Pas encore appliqué.
+ISOLE1: Technique 7  une île de valeur 1 qui a 2 voisins libres mais un de ces voisins est une île de valeur 1 = il ne peut pas y avoir de pont entre ces deux îles donc il y en a forcément un avec son autre voisin libre.
+ISOLE2: Technique 7  une île de valeur 2 qui a 2 voisins libres mais un de ces voisins est une île de valeur 2 = il ne peut pas y avoir deux ponts entre ces deux îles donc il y en a forcément un avec son autre voisin libre.
+ISOLE22: Technique 7  une île de valeur 2 qui a 2 voisins libres mais ces deux voisins sont des îles de valeur 2 = il y a forcément un pont simple avec ses deux voisins.

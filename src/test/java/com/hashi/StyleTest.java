@@ -37,7 +37,7 @@ public class StyleTest {
             setSize(default_width, default_height);
             setMinimumSize(new Dimension(default_width, default_height));
 
-            Panel panel = new Panel(new FlowLayout(FlowLayout.LEFT), "bg-principal.png");
+            Panel panel = new Panel(new FlowLayout(FlowLayout.LEFT), "bg-home-menu.png");
 
             String[] combox_content = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
 
@@ -45,7 +45,7 @@ public class StyleTest {
 
             button.addActionListener(e -> {
                 StyleManager.setStyle((Style) new SummerStyle());
-                Language.setLanguage("en");
+                LanguageManager.setLanguage("en");
                 repaint();
             });
 

@@ -1,94 +1,157 @@
 package com.hashi;
 
-import com.hashi.grille.Grille;
-import com.hashi.grille.Ile;
-import com.hashi.grille.Jeu;
-import com.hashi.grille.Pont;
-import com.hashi.grille.TimerManager;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
+import com.hashi.game.mode.Mode;
+import com.hashi.grid.Case;
+import com.hashi.grid.Grille;
+import com.hashi.grid.Ile;
+import com.hashi.grid.Pont;
+import com.hashi.grid.TimerManager;
+import com.hashi.grid.action.Action;
+import com.hashi.grid.action.AddPontAction;
+import com.hashi.grid.action.RemovePontAction;
+import com.hashi.grid.action.ResetGrilleAction;
 import com.hashi.style.Button;
-import com.hashi.grille.Action;
 
 import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
+
+import com.hashi.menu.Help;
+import com.hashi.menu.PageManager;
+import com.hashi.menu.Parameter;
+import com.hashi.menu.Rule;
+import com.hashi.menu.Victory;
 
 /**
  * Classe principale du jeu.
  */
-public class Hashi extends JFrame {
+public class Hashi extends Panel {
+    private Mode mode;
     private Grille grille;
 
     /**
      * Taille des cellules.
      */
-    static protected int cellSize = 40;
+    private int cellSize = 40;
 
     private Button undoButton;
     private Button redoButton;
+    private Button resetButton;
+    private Button optionButton;
+    private Button checkbutton;
+    private Button returnButton;
+    private Button helpButton;
+    private Button hintButton;
+
     private List<Action> actions;
     private int currentIndex;
-
-    private static final int default_width = 1280;
-    private static final int default_height = 720;
 
     /**
      * Créer la {@link javax.swing.JFrame} du jeu.
      * 
      * @param grille la grille contenant la logique du jeu.
+     * @param mode
      */
-    public Hashi(Grille grille) {
-        super("Hashi Puzzle");
-
-        this.grille = grille;
-
-        setSize(default_width, default_height);
-        setMinimumSize(new Dimension(default_width, default_height));
-        setResizable(false);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        Panel mainPanel = new Panel(new BorderLayout(), "bg-jeu.png");
+    public Hashi(Mode mode) {
+        super(new BorderLayout(), "bg-game.png");
+        PageManager.getInstance().setTitle("title");
+        this.mode = mode;
+        this.grille = mode.getGrille();
+        actions = mode.getActions();
+        currentIndex = actions.size() - 1;
 
         Panel buttonPanel = new Panel(new GridLayout(8, 1));
-        for (int i = 0; i < 6; i++) {
-            JButton button = new JButton("Bouton " + (i + 1));
-            buttonPanel.add(button);
-        }
 
-        undoButton = new Button().setImage("btn-arriere.png");
-        redoButton = new Button().setImage("btn-avant.png");
+        returnButton = new Button().setImage("btn-return.png");
+        returnButton.setPreferredSize(new Dimension(80, 80));
+        buttonPanel.add(returnButton);
+
+        optionButton = new Button().setImage("btn-option.png");
+        buttonPanel.add(optionButton);
+
+        helpButton = new Button().setImage("btn-rule.png");
+        buttonPanel.add(helpButton);
+
+        hintButton = new Button().setImage("btn-help.png");
+        buttonPanel.add(hintButton);
+
+        checkbutton = new Button().setImage("btn-check.png");
+        buttonPanel.add(checkbutton);
+
+        undoButton = new Button().setImage("btn-backward.png");
         buttonPanel.add(undoButton);
+
+        redoButton = new Button().setImage("btn-forward.png");
         buttonPanel.add(redoButton);
 
-        Panel timerPanel = new Panel(new FlowLayout(FlowLayout.RIGHT));
-        Label timerLabel = new Label("00:00").setAsRawText().setFontSize(100);
-        timerPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 150));
-        timerPanel.add(timerLabel);
-        mainPanel.add(timerPanel, BorderLayout.NORTH);
+        resetButton = new Button().setImage("btn-restart.png");
+        buttonPanel.add(resetButton);
 
-        new TimerManager(timerLabel);
+        hintButton.addActionListener(e -> {
+            SwingUtilities.invokeLater(() -> new Help(grille));
+        });
+
+        helpButton.addActionListener(e -> {
+            PageManager.changerPage(new Rule(this, "title"));
+        });
+
+        returnButton.addActionListener(e -> {
+            PageManager.changerPage(mode.getReturnPanel());
+        });
+
+        Panel timerPanel = new Panel(new FlowLayout(FlowLayout.RIGHT));
+        Label timerLabel = new Label("00:00").setAsRawText().setFontSize(90);
+        timerLabel.setPreferredSize(new Dimension(400, 120));
+        timerPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 200));
+        timerPanel.add(timerLabel);
+        add(timerPanel, BorderLayout.NORTH);
 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 10, 0));
-        mainPanel.add(buttonPanel, BorderLayout.WEST);
-        mainPanel.add(new PuzzlePanel(), BorderLayout.CENTER);
-
-        add(mainPanel);
-        setLocationRelativeTo(null);
-        setVisible(true);
-        pack();
-
-        actions = new ArrayList<>();
-        currentIndex = -1;
+        add(buttonPanel, BorderLayout.WEST);
+        add(new PuzzlePanel(new TimerManager(timerLabel)), BorderLayout.CENTER);
 
         undoButton.addActionListener(e -> undoAction());
         redoButton.addActionListener(e -> redoAction());
+
+        resetButton.addActionListener(e -> {
+            addAction(new ResetGrilleAction(grille.getPonts()));
+            repaint();
+        });
+
+        optionButton.addActionListener(e -> {
+            PageManager.changerPage(new Parameter(this, "title"));
+        });
+
+        checkbutton.addActionListener(e -> {
+            if (grille.getIsGridFinished()) {
+                // recupere le temps
+                String temps = timerLabel.getText();
+                // change la page vers la page victory
+                PageManager.changerPage(new Victory(temps));
+            }
+        });
+
+        for (Action action : actions) {
+            action.redo(grille);
+        }
+
+        setVisible(true);
     }
 
     class PuzzlePanel extends Panel {
+
+        private final TimerManager timerManager;
+
+        /**
+         * Redéfinition de la méthode paintComponent pour dessiner la grille
+         * 
+         * @param g
+         * 
+         */
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
@@ -102,8 +165,11 @@ public class Hashi extends JFrame {
             drawIslands(g2d);
         }
 
+        // Méthode pour dessiner la grille
         private void drawGrid(Graphics2D g2d) {
-            int gridSize = grille.getTaille() * cellSize;
+            int gridSize = getHeight() - 75;
+
+            cellSize = gridSize / grille.getTaille();
 
             int xOffset = (getWidth() - gridSize) / 2;
             int yOffset = (getHeight() - gridSize) / 2;
@@ -112,27 +178,49 @@ public class Hashi extends JFrame {
                 for (int j = 0; j < grille.getTaille(); j++) {
                     if (grille.getCase(i, j) instanceof Ile) {
                         Ile ile = (Ile) grille.getCase(i, j);
-                        ile.setxAffichage(xOffset + i * cellSize + cellSize / 2);
-                        ile.setyAffichage(yOffset + j * cellSize + cellSize / 2);
+                        ile.setXAffichage(xOffset + i * cellSize + cellSize / 2);
+                        ile.setYAffichage(yOffset + j * cellSize + cellSize / 2);
+                        ile.setTailleAffichage(cellSize);
                     }
                 }
             }
         }
 
+        /**
+         * Méthode pour dessiner les îles
+         * 
+         * @param g2d
+         */
         private void drawIslands(Graphics2D g2d) {
             for (Ile ile : grille.getIles()) {
                 ile.draw(g2d);
             }
         }
 
+        /**
+         * Méthode pour dessiner les ponts
+         * 
+         * @param g2d
+         * @throws InvalidAttributeValueException
+         */
+
         private void drawBridges(Graphics2D g2d) throws InvalidAttributeValueException {
             for (Pont pont : grille.getPonts()) {
                 pont.draw(g2d);
             }
-            System.out.println("Nombre de ponts : " + grille.getPonts().size());
         }
 
-        public PuzzlePanel() {
+        /**
+         * Constructeur de PuzzlePanel prenant un TimerManager comme paramètre
+         * 
+         * @param timerManager
+         */
+        public PuzzlePanel(TimerManager timerManager) {
+            this.timerManager = timerManager;
+
+            /**
+             * Evenement pour voir si l'utilisateur clique sur sa souris
+             */
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -141,12 +229,17 @@ public class Hashi extends JFrame {
             });
         }
 
+        /**
+         * Méthode pour gérer les clics de souris sur la grille
+         * 
+         * @param e
+         */
         private void handleClick(MouseEvent e) {
             int x = (e.getX() - (getWidth() - grille.getTaille() * cellSize) / 2) / cellSize;
             int y = (e.getY() - (getHeight() - grille.getTaille() * cellSize) / 2) / cellSize;
 
             Ile clickedIle = grille.getIleAt(x, y);
-            Pont pont = grille.getPontAt(e.getX(), e.getY());
+            Pont pont = grille.getPontAtOnScreen(e.getX(), e.getY());
 
             if (clickedIle != null) {
                 handleIslandClick(clickedIle);
@@ -156,9 +249,23 @@ public class Hashi extends JFrame {
                 grille.setSelectedCase(null);
             }
 
+            if (grille.getIsGridFinished()) {
+                timerManager.stopTimer();
+
+                System.out.println("Jeu finie, score : " + timerManager.tempsEcoule());
+
+                mode.setScore((int) timerManager.tempsEcoule());
+            }
+
             repaint();
         }
 
+        /**
+         * Gère le clic sur une île.
+         * 
+         * @param clickedIle
+         * 
+         */
         private void handleIslandClick(Ile clickedIle) {
             if (grille.getSelectedCase() == null) {
                 grille.setSelectedCase(clickedIle);
@@ -167,6 +274,11 @@ public class Hashi extends JFrame {
             }
         }
 
+        /**
+         * Gère la sélection d'une île.
+         * 
+         * @param clickedIle
+         */
         private void handleIslandSelection(Ile clickedIle) {
             Ile selectedIle = (Ile) grille.getSelectedCase();
 
@@ -174,136 +286,99 @@ public class Hashi extends JFrame {
                     && (selectedIle.getX() == clickedIle.getX() || selectedIle.getY() == clickedIle.getY())) {
                 if (selectedIle.getNbConnexion() < selectedIle.getValeur()
                         && clickedIle.getNbConnexion() < clickedIle.getValeur()) {
-                    // empêche de placer un pont si une ile se trouve entre les deux iles
+                    Pont pont = grille.getPont(selectedIle, clickedIle);
+
+                    // empêche de placer un pont si une ile ou un pont se trouve entre les deux iles
                     if (selectedIle.getX() == clickedIle.getX()) {
                         int yEnd = Math.max(selectedIle.getY(), clickedIle.getY());
 
                         for (int y = Math.min(selectedIle.getY(), clickedIle.getY()) + 1; y < yEnd; y++) {
-                            if (grille.getIleAt(selectedIle.getX(), y) != null)
+                            Case case_ = grille.getCase(selectedIle.getX(), y);
+
+                            if (case_.estIle() || (case_.estPont() && case_ != pont))
                                 return;
                         }
                     } else {
-                        if (selectedIle.getX() == clickedIle.getX()) {
-                            int xEnd = Math.max(selectedIle.getX(), clickedIle.getX());
+                        int xEnd = Math.max(selectedIle.getX(), clickedIle.getX());
 
-                            for (int x = Math.min(selectedIle.getX(), clickedIle.getX()) + 1; x < xEnd; x++) {
-                                if (grille.getIleAt(x, selectedIle.getY()) != null)
-                                    return;
-                            }
+                        for (int x = Math.min(selectedIle.getX(), clickedIle.getX()) + 1; x < xEnd; x++) {
+                            Case case_ = grille.getCase(x, selectedIle.getY());
+
+                            if (case_.estIle() || (case_.estPont() && case_ != pont))
+                                return;
                         }
                     }
 
-                    // si un pont simple est deja présent alors on le transforme en pont double
-                    Pont pontAller = grille.getPont(selectedIle, clickedIle);
-                    Pont pontRetour = grille.getPont(clickedIle, selectedIle);
-                    if (pontAller != null) {
-                        pontAller.setEstDouble(true);
-                        addAction(new AddPontAction(pontAller));
-                    } else if (pontRetour != null) {
-                        pontRetour.setEstDouble(true);
-                        addAction(new AddPontAction(pontRetour));
-                    } else {
-                        Pont newPont = new Pont(selectedIle, clickedIle);
-                        grille.ajouterPont(newPont);
-                        addAction(new AddPontAction(newPont));
-                    }
+                    addAction(new AddPontAction(selectedIle, clickedIle));
                 }
             }
             grille.setSelectedCase(null);
         }
 
+        /**
+         * Gère le clic sur un pont.
+         * 
+         * @param pont
+         */
         private void handlePontClick(Pont pont) {
-            grille.retirerPont(pont);
-            grille.getPonts().remove(pont);
-            pont.getIleDep().retirerPont(pont);
-            pont.getIleArr().retirerPont(pont);
             addAction(new RemovePontAction(pont));
             repaint();
         }
     }
 
+    /**
+     * Ajoute une action à la liste des actions.
+     * 
+     * @param action
+     */
     private void addAction(Action action) {
-        actions.subList(currentIndex + 1, actions.size()).clear();
+        if (currentIndex < actions.size() - 1)
+            actions.subList(currentIndex + 1, actions.size()).clear();
+
         actions.add(action);
         currentIndex = actions.size() - 1;
+        action.redo(grille);
+        mode.sauvegarder(actions);
         updateUndoRedoButtons();
     }
 
+    /**
+     * Annule l'action précédente.
+     */
     private void undoAction() {
         if (currentIndex >= 0) {
-            actions.get(currentIndex).undo();
+            actions.get(currentIndex).undo(grille);
             currentIndex--;
             updateUndoRedoButtons();
             repaint();
         }
     }
 
+    /**
+     * Refait l'action précédente.
+     */
     private void redoAction() {
         if (currentIndex < actions.size() - 1) {
             currentIndex++;
-            actions.get(currentIndex).redo();
+            actions.get(currentIndex).redo(grille);
             updateUndoRedoButtons();
             repaint();
         }
     }
 
-    private void updateUndoRedoButtons() {
-        undoButton.setEnabled(currentIndex >= 0);
-        redoButton.setEnabled(currentIndex < actions.size() - 1);
-    }
-
-    private class AddPontAction implements Action {
-        private Pont pont;
-
-        AddPontAction(Pont pont) {
-            this.pont = pont;
-        }
-
-        @Override
-        public void undo() {
-            grille.retirerPont(pont);
-            grille.getPonts().remove(pont);
-            pont.getIleDep().retirerPont(pont);
-            pont.getIleArr().retirerPont(pont);
-        }
-
-        @Override
-        public void redo() {
-            grille.ajouterPont(pont);
-        }
-    }
-
-    private class RemovePontAction implements Action {
-        private Pont pont;
-
-        RemovePontAction(Pont pont) {
-            this.pont = pont;
-        }
-
-        @Override
-        public void undo() {
-            grille.ajouterPont(pont);
-        }
-
-        @Override
-        public void redo() {
-            grille.retirerPont(pont);
-            grille.getPonts().remove(pont);
-            pont.getIleDep().retirerPont(pont);
-            pont.getIleArr().retirerPont(pont);
-        }
+    /**
+     * 
+     * @return Retourne la liste d'action.
+     */
+    public List<Action> getActions() {
+        return actions;
     }
 
     /**
-     * Point d'entrée du jeu.
-     * 
-     * @param args arguments de la ligne de commande du jeu.
+     * Met à jour l'état des boutons d'annulation et de refaire.
      */
-    public static void main(String[] args) {
-        Jeu j = new Jeu();
-        j.genererGrilleDepuisFichier("grille.txt");
-        Grille grille = j.listeGrille.get(0);
-
-        SwingUtilities.invokeLater(() -> new Hashi(grille));
+    private void updateUndoRedoButtons() {
+        undoButton.setEnabled(currentIndex >= 0);
+        redoButton.setEnabled(currentIndex < actions.size() - 1);
     }
 }

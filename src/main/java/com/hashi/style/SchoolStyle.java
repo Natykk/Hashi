@@ -5,6 +5,13 @@ import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
+import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicComboBoxUI;
+
+/**
+ * La classe {@link com.hashi.style.SchoolStyle} applique thème un écolier,
+ * papier crayon aux éléments de l'application.
+ */
 public class SchoolStyle extends Style {
     private Image button_border_image;
 
@@ -28,13 +35,13 @@ public class SchoolStyle extends Style {
 
                 g.drawImage(image_component.getImage(), (image_component.getWidth() - width) / 2, 0, width,
                         image_component.getHeight(),
-                        null);
+                        image_component);
             } else {
                 int height = (int) (image_component.getWidth() / image_ratio);
 
                 g.drawImage(image_component.getImage(), 0, (image_component.getHeight() - height) / 2,
                         image_component.getWidth(), height,
-                        null);
+                        image_component);
             }
         }
     }
@@ -68,7 +75,7 @@ public class SchoolStyle extends Style {
 
     protected void paintButtonBorder(Button button, Graphics2D g) {
         if (button.getImage() == null)
-            g.drawImage(button_border_image, 0, 0, button.getWidth(), button.getHeight(), null);
+            g.drawImage(button_border_image, 0, 0, button.getWidth(), button.getHeight(), button);
     }
 
     protected void initLabel(Label label) {
@@ -89,6 +96,17 @@ public class SchoolStyle extends Style {
     }
 
     protected <E> void initComboBox(ComboBox<E> combo_box) {
+        combo_box.setUI(new BasicComboBoxUI() {
+            @Override
+            protected JButton createArrowButton() {
+                return new JButton() {
+                    @Override
+                    public int getWidth() {
+                        return 0;
+                    }
+                };
+            }
+        });
         combo_box.setFont(font.deriveFont(0, combo_box.getFontSize()));
     }
 
@@ -102,7 +120,7 @@ public class SchoolStyle extends Style {
     }
 
     protected <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g) {
-        g.drawImage(button_border_image, 0, 0, combo_box.getWidth(), combo_box.getHeight(), null);
+        g.drawImage(button_border_image, 0, 0, combo_box.getWidth(), combo_box.getHeight(), combo_box);
     }
 
     protected void initTextField(TextField text_field) {
@@ -125,6 +143,6 @@ public class SchoolStyle extends Style {
 
     protected void paintTextFieldBorder(TextField text_field, Graphics2D g) {
         g.drawImage(button_border_image, -text_field.getColumns() / 2, 0,
-                text_field.getWidth() + text_field.getColumns(), text_field.getHeight(), null);
+                text_field.getWidth() + text_field.getColumns(), text_field.getHeight(), text_field);
     }
 }
