@@ -3,9 +3,11 @@ package com.hashi.game.mode;
 import java.util.List;
 
 import com.hashi.grid.action.Action;
+import com.hashi.style.Panel;
 import com.hashi.grid.Grille;
 
 public abstract class Mode {
+    protected Panel returnPanel;
     protected Grille grille;
     protected int numGrille;
     protected boolean charger;
@@ -14,11 +16,13 @@ public abstract class Mode {
      * Créer une instance de {@link com.hashi.game.mode.Mode} représentant le mode
      * jeu.
      * 
+     * @param returnPanel
      * @param grille
      * @param numGrille
-     * @param charger   vrai si on doit charger l'ancien partie.
+     * @param charger     vrai si on doit charger l'ancien partie.
      */
-    public Mode(Grille grille, int numGrille, boolean charger) {
+    public Mode(Panel returnPanel, Grille grille, int numGrille, boolean charger) {
+        this.returnPanel = returnPanel;
         this.grille = grille;
         this.numGrille = numGrille;
         this.charger = charger;
@@ -31,6 +35,15 @@ public abstract class Mode {
      */
     public Grille getGrille() {
         return grille;
+    }
+
+    /**
+     * Récupère le menu pour le bouton retour.
+     * 
+     * @return le meun.
+     */
+    public Panel getReturnPanel() {
+        return returnPanel;
     }
 
     /**

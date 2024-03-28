@@ -33,7 +33,7 @@ public class SauvegardeTest {
     @Test
     public void sauvegardeProfil() throws Throwable {
         save.setScoreEntrainement(1, 150);
-        save.setPartieEntrainement(1, new Hashi(new ModeEntrainement(0, 2, 5, false)).getActions());
+        save.setPartieEntrainement(1, new Hashi(new ModeEntrainement(null, 0, 2, 5, false)).getActions());
         save.setScoreArcade(160);
         save.setScoreArcade(900);
         save.setScoreArcade(170);
@@ -41,7 +41,7 @@ public class SauvegardeTest {
         save.setScoreArcade(600);
         save.setScoreArcade(910);
         save.setScoreHistoire(5, 1);
-        save.setPartieHistoire(1, new Hashi(new ModeEntrainement(0, 2, 5, false)).getActions());
+        save.setPartieHistoire(1, new Hashi(new ModeEntrainement(null, 0, 2, 5, false)).getActions());
         System.out.println(save);
         save.sauvegarde();
     }

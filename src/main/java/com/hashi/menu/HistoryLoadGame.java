@@ -10,9 +10,9 @@ import java.awt.Insets;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
-
 /**
- * La classe `HistoryLoadGame` représente un panneau pour afficher les options de chargement de jeu.
+ * La classe `HistoryLoadGame` représente un panneau pour afficher les options
+ * de chargement de jeu.
  * Elle étend la classe `Panel`.
  */
 public class HistoryLoadGame extends Panel {
@@ -24,7 +24,6 @@ public class HistoryLoadGame extends Panel {
     private Button changerProfil;
     private Button regles;
     private Button quitter;
-
 
     /**
      * Constructeur de la classe `HistoryLoadGame`.
@@ -110,7 +109,9 @@ public class HistoryLoadGame extends Panel {
     }
 
     /**
-     * Crée une contrainte pour le positionnement des composants dans un panneau de type `GridBagLayout`.
+     * Crée une contrainte pour le positionnement des composants dans un panneau de
+     * type `GridBagLayout`.
+     * 
      * @param x Position horizontale du composant dans la grille
      * @param y Position verticale du composant dans la grille
      * @return GridBagConstraints pour le positionnement du composant dans la grille

@@ -29,11 +29,12 @@ public class TrainingLoadGame extends Panel {
     /**
      * Constructeur de la classe TrainingLoadGame.
      * 
-     * @param TypeTaille Le type de taille de grille.
-     * @param row        Le numéro de la ligne de la grille.
-     * @param column     Le numéro de la colonne de la grille.
+     * @param returnPanel
+     * @param typeTaille  Le type de taille de grille.
+     * @param row         Le numéro de la ligne de la grille.
+     * @param column      Le numéro de la colonne de la grille.
      */
-    public TrainingLoadGame(int TypeTaille, int row, int column) {
+    public TrainingLoadGame(Panel returnPanel, int typeTaille, int row, int column) {
         super(new BorderLayout(), "bg-training-load-game.png");
 
         PageManager.getInstance().setTitle(TITLE);
@@ -62,10 +63,10 @@ public class TrainingLoadGame extends Panel {
             PageManager.changerPage(new Rule(this, TITLE));
         });
         nouvellePartie.addActionListener(e -> {
-            PageManager.changerPage(new Hashi(new ModeEntrainement(TypeTaille, row, column, false)));
+            PageManager.changerPage(new Hashi(new ModeEntrainement(returnPanel, typeTaille, row, column, false)));
         });
         charger.addActionListener(e -> {
-            PageManager.changerPage(new Hashi(new ModeEntrainement(TypeTaille, row, column, true)));
+            PageManager.changerPage(new Hashi(new ModeEntrainement(returnPanel, typeTaille, row, column, true)));
         });
         parametre.addActionListener(e -> {
             PageManager.changerPage(new Parameter(this, TITLE));
@@ -74,7 +75,7 @@ public class TrainingLoadGame extends Panel {
             PageManager.changerPage(new StartScreen());
         });
         retour.addActionListener(e -> {
-            PageManager.changerPage(new TrainingGridSelection(TypeTaille));
+            PageManager.changerPage(returnPanel);
         });
     }
 

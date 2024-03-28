@@ -12,22 +12,24 @@ import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
 /**
- * La classe TrainingGridSelection représente la page permettant à l'utilisateur de sélectionner un niveau
+ * La classe TrainingGridSelection représente la page permettant à l'utilisateur
+ * de sélectionner un niveau
  * pour l'entraînement.
  */
 public class TrainingGridSelection extends Panel {
     private Button retour;
     private Button[][] boutons;
-    private int TypeTaille;
+    private int typeTaille;
 
     /**
      * Constructeur de la classe TrainingGridSelection.
-     * @param NumTaille Le numéro de la taille du puzzle sélectionné.
+     * 
+     * @param numTaille Le numéro de la taille du puzzle sélectionné.
      */
-    public TrainingGridSelection(int NumTaille) {
+    public TrainingGridSelection(int numTaille) {
 
         super(new BorderLayout(), "bg-training-grid-selection.png");
-        this.TypeTaille = NumTaille;
+        this.typeTaille = numTaille;
         PageManager.getInstance().setTitle("title_training_grid_selection");
 
         retour = new Button("return").setFontSize(50);
@@ -64,7 +66,7 @@ public class TrainingGridSelection extends Panel {
 
                 boutons[i][j].addActionListener(e -> {
 
-                    PageManager.changerPage(new TrainingLoadGame(TypeTaille, row, column));
+                    PageManager.changerPage(new TrainingLoadGame(this, typeTaille, row, column));
                 });
                 panelNiveau.add(boutons[i][j]);
             }

@@ -6,11 +6,12 @@ import java.util.List;
 import com.hashi.grid.action.Action;
 import com.hashi.grid.Jeu;
 import com.hashi.menu.PageManager;
+import com.hashi.style.Panel;
 
 public class ModeEntrainement extends Mode {
 
-    public ModeEntrainement(int typeTaille, int row, int column, boolean charger) {
-        super(null, 0, charger);
+    public ModeEntrainement(Panel returnPanel, int typeTaille, int row, int column, boolean charger) {
+        super(returnPanel, null, 0, charger);
 
         // Fais 3 switch imbriqués pour déterminer la taille de la grille / la
         // difficulté / le niveau

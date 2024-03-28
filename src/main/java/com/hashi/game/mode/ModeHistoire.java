@@ -3,12 +3,13 @@ package com.hashi.game.mode;
 import java.util.List;
 
 import com.hashi.grid.action.Action;
+import com.hashi.style.Panel;
 import com.hashi.grid.Grille;
 
 public class ModeHistoire extends Mode {
 
-    public ModeHistoire(Grille grille, int numGrille, boolean charger) {
-        super(grille, numGrille, charger);
+    public ModeHistoire(Panel returnPanel, Grille grille, int numGrille, boolean charger) {
+        super(returnPanel, grille, numGrille, charger);
     }
 
     @Override

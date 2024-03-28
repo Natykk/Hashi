@@ -24,7 +24,6 @@ import com.hashi.menu.Help;
 import com.hashi.menu.PageManager;
 import com.hashi.menu.Parameter;
 import com.hashi.menu.Rule;
-import com.hashi.menu.TrainingGridSelection;
 import com.hashi.menu.Victory;
 
 /**
@@ -101,7 +100,7 @@ public class Hashi extends Panel {
         });
 
         returnButton.addActionListener(e -> {
-            PageManager.changerPage(new TrainingGridSelection(0));
+            PageManager.changerPage(mode.getReturnPanel());
         });
 
         Panel timerPanel = new Panel(new FlowLayout(FlowLayout.RIGHT));
