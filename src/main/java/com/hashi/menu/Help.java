@@ -96,11 +96,7 @@ public class Help extends JFrame {
 
         if (!aidesUtilisables.isEmpty()) {
             numeroAide = (numeroAide + 1) % aidesUtilisables.size();
-            Iterator<Aide> iterator = aidesUtilisables.iterator();
-            for (int i = 0; i < numeroAide; i++) {
-                iterator.next();
-            }
-            return iterator.next();
+            return (Aide) aidesUtilisables.toArray()[numeroAide];
         } else {
             return null;
         }
