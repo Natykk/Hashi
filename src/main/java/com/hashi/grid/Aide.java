@@ -1,5 +1,8 @@
 package com.hashi.grid;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Aide {
 
 	// pas d'aide trouvé
@@ -184,6 +187,28 @@ public enum Aide {
 	 * 		 = isolé	et	||	  = isolé	donc:	|
 	 * 2					2						2
 	 */
-	ISOLE22
+	ISOLE22;
+
+
+
+    // Méthode pour obtenir une valeur d'Aide à partir d'une chaîne
+    public static Aide fromString(String text) {
+        if (text != null) {
+            text = text.trim().toUpperCase(); // Convertit la chaîne en majuscules et supprime les espaces inutiles
+
+            // Crée une carte de correspondance entre les chaînes et les valeurs d'Aide
+            Map<String, Aide> map = new HashMap<>();
+            for (Aide aide : Aide.values()) {
+                map.put(aide.name(), aide);
+            }
+
+            // Vérifie si la chaîne correspond à une valeur d'Aide connue
+            if (map.containsKey(text)) {
+                return map.get(text);
+            }
+        }
+        // Si la chaîne ne correspond à aucune valeur d'Aide connue, retourne RIEN
+        return Aide.RIEN;
+    }
 
 }
