@@ -2,6 +2,7 @@ package com.hashi.game.mode;
 
 import java.util.List;
 
+import com.hashi.grid.Jeu;
 import com.hashi.grid.action.Action;
 import com.hashi.style.Panel;
 import com.hashi.grid.Grille;
@@ -16,9 +17,9 @@ public abstract class Mode {
      * Créer une instance de {@link com.hashi.game.mode.Mode} représentant le mode
      * jeu.
      * 
-     * @param returnPanel
-     * @param grille
-     * @param numGrille
+     * @param returnPanel le menu pour le bouton retour.
+     * @param grille     la grille.
+     * @param numGrille le numéro de la grille.
      * @param charger     vrai si on doit charger l'ancien partie.
      */
     public Mode(Panel returnPanel, Grille grille, int numGrille, boolean charger) {
@@ -40,7 +41,7 @@ public abstract class Mode {
     /**
      * Récupère le menu pour le bouton retour.
      * 
-     * @return le meun.
+     * @return le menu pour le bouton retour.
      */
     public Panel getReturnPanel() {
         return returnPanel;
@@ -66,4 +67,41 @@ public abstract class Mode {
      * @param temps permettant de calculer le score.
      */
     public abstract void setScore(int temps);
+
+
+    public static String getGrilleToPlay(int typeTaille, int row, int column) {
+        StringBuilder sb = new StringBuilder();
+        switch (typeTaille) {
+            case 0:
+                sb.append("7x7/");
+                break;
+            case 1:
+                sb.append("10x10/");
+                break;
+            case 2:
+                sb.append("25x25/");
+                break;
+            default:
+                sb.append("7x7/");
+                break;
+        }
+
+        switch (row) {
+            case 0:
+                sb.append("Facile/GF.txt");
+                break;
+            case 1:
+                sb.append("Moyen/GM.txt");
+                break;
+            case 2:
+                sb.append("Difficile/GD.txt");
+                break;
+            default:
+                sb.append("Facile/GF.txt");
+                break;
+        }
+
+
+        return sb.toString();
+    }
 }

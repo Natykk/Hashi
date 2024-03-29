@@ -20,6 +20,8 @@ public class Profil implements Serializable {
     private ArrayList<Integer> listeScoreEntrainement; // Liste des scores mode Entrainement
     private ArrayList<List<Action>> listePartieEntrainement; // Liste des parties en cours mode Entrainement
 
+    private ArrayList<List<Action>> listePartieArcade; // Liste des parties en cours mode Arcade
+
     private ArrayList<Integer> listeScoreArcade;// Liste des records mode arcade
 
     private ArrayList<Integer> listeScoreHistoire; // Liste des scores mode Histoire
@@ -35,6 +37,7 @@ public class Profil implements Serializable {
             listePartieEntrainement.add(new ArrayList<Action>());
         }
 
+        // La capacité de la liste a été réglé à 5 aussi dans ArcadeVictory.java
         listeScoreArcade = new ArrayList<Integer>(5);
         listeScoreArcade.add(0);
         listeScoreArcade.add(0);
@@ -132,6 +135,26 @@ public class Profil implements Serializable {
         return listeScoreArcade.get(num);
     }
 
+
+    /**
+     * Récupère la partie en mode Arcade.
+     * @param num
+     * @return la partie.
+     */
+    public List<Action> getPartieArcade(int num) {
+        return listePartieArcade.get(num);
+    }
+
+    /**
+     *
+     * Ajouter une sauvegarde d'une partie en mode Arcade
+     * @param num
+     * @param partie
+     */
+    public void setPartieArcade(int num, List<Action> partie) {
+        listePartieEntrainement.add(num, partie);
+        sauvegarde();
+    }
     /**
      * Ajouter un score en mode Histoire.
      * 

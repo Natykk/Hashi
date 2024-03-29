@@ -7,6 +7,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import com.hashi.Hashi;
+import com.hashi.game.mode.Mode;
+import com.hashi.game.mode.ModeArcade;
+import com.hashi.game.mode.ModeEntrainement;
+import com.hashi.grid.Grille;
+import com.hashi.grid.Jeu;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
@@ -29,7 +35,7 @@ public class ArcadeLoadGame extends Panel {
      * Constructeur de la classe `ArcadeLoadGame`.
      * Initialise le panneau et les boutons.
      */
-    public ArcadeLoadGame() {
+    public ArcadeLoadGame(Panel returnPanel) {
         super(new BorderLayout(), "bg-training-load-game.png");
 
         PageManager.getInstance().setTitle(TITLE);
@@ -43,6 +49,9 @@ public class ArcadeLoadGame extends Panel {
         quitter = new Button().setImage("btn-quit.png");
 
         Dimension size = new Dimension(150, 90);
+
+
+
 
         parametre.setPreferredSize(size);
         changerProfil.setPreferredSize(size);
@@ -58,8 +67,20 @@ public class ArcadeLoadGame extends Panel {
             PageManager.changerPage(new Rule(this, TITLE));
         });
         nouvellePartie.addActionListener(e -> {
-            // juste pour tester la page etoiles
-            PageManager.changerPage(new ArcadeVictory());
+
+            int typeTaille = (int) (Math.random() * 3);
+            int row = (int) (Math.random() * 3);
+            int column = (int) (Math.random() * 7);
+
+
+            Jeu j = new Jeu();
+
+            j.genererGrilleDepuisFichier(Mode.getGrilleToPlay(typeTaille, row, column));
+
+            Grille grille = j.listeGrille.get(column);
+            int numGrille = typeTaille * 18 + row * 6 + column;
+            Mode.getGrilleToPlay(typeTaille, row, column);
+            PageManager.changerPage(new Hashi(new ModeArcade(returnPanel,grille,numGrille,false)));
         });
         charger.addActionListener(e -> {
             // grille sauvegarder

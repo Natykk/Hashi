@@ -8,6 +8,8 @@ import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 
+import com.hashi.Profil;
+import com.hashi.game.Score;
 import com.hashi.style.Button;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
@@ -36,12 +38,28 @@ public class ArcadeVictory extends Panel {
 
         continuer = new Button("continue").setFontSize(43);
         quitter = new Button("quit").setFontSize(50);
+        //this.score = PageManager.getProfil().getScoreArcade(0);
+
+        // recupere les 5 scores dans listeScoreArcade
+        // et les met dans un tableau
+
+        int[] scores = new int[5];
+
+        for(int i = 0; i < 5; i++){
+            scores[i] = PageManager.getProfil().getScoreArcade(i);
+        }
+
+        // calcul le score
+        this.score = Score.calculScoreArcade(scores);
+
 
         continuer.addActionListener(e -> {
-            // grille suivante ( histoire )
+
+            PageManager.changerPage(new ArcadeLoadGame(new HomeMenu()));
         });
 
         quitter.addActionListener(e -> {
+
             PageManager.changerPage(new HomeMenu());
         });
 

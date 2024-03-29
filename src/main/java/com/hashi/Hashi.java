@@ -1,5 +1,9 @@
 package com.hashi;
 
+import com.hashi.game.mode.ModeArcade;
+import com.hashi.game.mode.ModeEntrainement;
+import com.hashi.game.mode.ModeHistoire;
+import com.hashi.menu.*;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
 import com.hashi.game.mode.Mode;
@@ -19,12 +23,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
-
-import com.hashi.menu.Help;
-import com.hashi.menu.PageManager;
-import com.hashi.menu.Parameter;
-import com.hashi.menu.Rule;
-import com.hashi.menu.Victory;
 
 /**
  * Classe principale du jeu.
@@ -127,11 +125,22 @@ public class Hashi extends Panel {
         });
 
         checkbutton.addActionListener(e -> {
-            if (grille.getIsGridFinished()) {
+            if (!grille.getIsGridFinished()) {
                 // recupere le temps
                 String temps = timerLabel.getText();
+
                 // change la page vers la page victory
-                PageManager.changerPage(new Victory(temps));
+                // Verifie quelle mode de jeu est en cours
+
+                if (this.mode instanceof ModeEntrainement)
+                    PageManager.changerPage(new Victory(temps));
+                else if (this.mode instanceof ModeArcade) {
+                    PageManager.changerPage(new ArcadeVictory());
+                }else if(this.mode instanceof ModeHistoire){
+                    PageManager.changerPage(new HistoryVictory());
+                }else{
+                    System.out.println("Mode de jeu inconnu");
+                }
             }
         });
 

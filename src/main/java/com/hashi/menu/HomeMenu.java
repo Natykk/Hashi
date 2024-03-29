@@ -87,7 +87,7 @@ public class HomeMenu extends Panel {
 
         arcadeButton.addActionListener(e -> {
             // changement de page -> Mode Arcade
-            PageManager.changerPage(new ArcadeLoadGame());
+            PageManager.changerPage(new ArcadeLoadGame(this));
         });
 
         // Action du bouton "Histoire"
