@@ -1,8 +1,5 @@
 package com.hashi;
 
-import com.hashi.game.mode.ModeArcade;
-import com.hashi.game.mode.ModeEntrainement;
-import com.hashi.game.mode.ModeHistoire;
 import com.hashi.menu.*;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
@@ -11,7 +8,6 @@ import com.hashi.grid.Case;
 import com.hashi.grid.Grille;
 import com.hashi.grid.Ile;
 import com.hashi.grid.Pont;
-import com.hashi.grid.TimerManager;
 import com.hashi.grid.action.Action;
 import com.hashi.grid.action.AddPontAction;
 import com.hashi.grid.action.RemovePontAction;
@@ -108,9 +104,11 @@ public class Hashi extends Panel {
         timerPanel.add(timerLabel);
         add(timerPanel, BorderLayout.NORTH);
 
+        mode.startTimer(timerLabel);
+
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 10, 0));
         add(buttonPanel, BorderLayout.WEST);
-        add(new PuzzlePanel(new TimerManager(timerLabel)), BorderLayout.CENTER);
+        add(new PuzzlePanel(), BorderLayout.CENTER);
 
         undoButton.addActionListener(e -> undoAction());
         redoButton.addActionListener(e -> redoAction());
@@ -125,22 +123,8 @@ public class Hashi extends Panel {
         });
 
         checkbutton.addActionListener(e -> {
-            if (!grille.getIsGridFinished()) {
-                // recupere le temps
-                String temps = timerLabel.getText();
-
-                // change la page vers la page victory
-                // Verifie quelle mode de jeu est en cours
-
-                if (this.mode instanceof ModeEntrainement)
-                    PageManager.changerPage(new Victory(temps));
-                else if (this.mode instanceof ModeArcade) {
-                    PageManager.changerPage(new ArcadeVictory());
-                }else if(this.mode instanceof ModeHistoire){
-                    PageManager.changerPage(new HistoryVictory());
-                }else{
-                    System.out.println("Mode de jeu inconnu");
-                }
+            if (grille.isGridFinished()) {
+                PageManager.changerPage(mode.gameFinishedGetVictoryPanel());
             }
         });
 
@@ -152,8 +136,6 @@ public class Hashi extends Panel {
     }
 
     class PuzzlePanel extends Panel {
-
-        private final TimerManager timerManager;
 
         /**
          * Redéfinition de la méthode paintComponent pour dessiner la grille
@@ -220,12 +202,10 @@ public class Hashi extends Panel {
         }
 
         /**
-         * Constructeur de PuzzlePanel prenant un TimerManager comme paramètre
+         * Constructeur de PuzzlePanel
          * 
-         * @param timerManager
          */
-        public PuzzlePanel(TimerManager timerManager) {
-            this.timerManager = timerManager;
+        public PuzzlePanel() {
 
             /**
              * Evenement pour voir si l'utilisateur clique sur sa souris
@@ -256,14 +236,6 @@ public class Hashi extends Panel {
                 handlePontClick(pont);
             } else {
                 grille.setSelectedCase(null);
-            }
-
-            if (grille.getIsGridFinished()) {
-                timerManager.stopTimer();
-
-                System.out.println("Jeu finie, score : " + timerManager.tempsEcoule());
-
-                mode.setScore((int) timerManager.tempsEcoule());
             }
 
             repaint();

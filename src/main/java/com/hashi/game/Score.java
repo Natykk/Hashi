@@ -1,5 +1,7 @@
 package com.hashi.game;
 
+import java.util.List;
+
 public class Score {
 
     // la methode calculScoreHistoire prend en parametre le numero du niveau et le
@@ -7,7 +9,7 @@ public class Score {
     // la methode retourne le nombre d'étoiles a afficher pour la partie
     // pour le bon fonctionnement de la methode il faut que les niveaux dans le mode
     // histoire soient classés du plus facile au plus dure
-    public int calculScoreHistoire(int niveau, int temp) { // temp est en secondes
+    public static int calculScoreHistoire(int niveau, int temp) { // temp est en secondes
         if (niveau <= 5) { // niveaux faciles
             if (temp <= 40) {// bon temps
                 return 3;
@@ -45,7 +47,7 @@ public class Score {
     }
 
     // Méthode pour calculer le score
-    public static int calculScoreArcade(int[] completedDifficulties) {
+    public static int calculScoreArcade(List<Integer> completedDifficulties) {
         int score = 0;
 
         // Parcours des difficultés des grilles complétées

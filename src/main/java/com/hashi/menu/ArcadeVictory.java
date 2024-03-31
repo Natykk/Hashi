@@ -1,31 +1,27 @@
 package com.hashi.menu;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 
-import com.hashi.Profil;
-import com.hashi.game.Score;
+import com.hashi.Hashi;
+import com.hashi.game.mode.ModeArcade;
 import com.hashi.style.Button;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
-// il me reste l'affichage des etoiles 
-
 /**
- * La classe `ArcadeVictory` représente un panneau affichant les étoiles obtenues après une victoire.
+ * La classe `ArcadeVictory` représente un panneau affichant les étoiles
+ * obtenues après une victoire.
  * Elle étend la classe `Panel`.
  */
 public class ArcadeVictory extends Panel {
     private final String TITLE = "title_victory";
     private Button continuer;
-    private Button quitter;
-    private int score = 1;
-
+    private Button retour;
 
     /**
      * Constructeur de la classe `ArcadeVictory`.
@@ -37,29 +33,12 @@ public class ArcadeVictory extends Panel {
         PageManager.getInstance().setTitle(TITLE);
 
         continuer = new Button("continue").setFontSize(43);
-        quitter = new Button("quit").setFontSize(50);
-        //this.score = PageManager.getProfil().getScoreArcade(0);
-
-        // recupere les 5 scores dans listeScoreArcade
-        // et les met dans un tableau
-
-        int[] scores = new int[5];
-
-        for(int i = 0; i < 5; i++){
-            scores[i] = PageManager.getProfil().getScoreArcade(i);
-        }
-
-        // calcul le score
-        this.score = Score.calculScoreArcade(scores);
-
-
+        retour = new Button("return").setFontSize(50);
         continuer.addActionListener(e -> {
-
-            PageManager.changerPage(new ArcadeLoadGame(new HomeMenu()));
+            PageManager.changerPage(new Hashi(new ModeArcade()));
         });
 
-        quitter.addActionListener(e -> {
-
+        retour.addActionListener(e -> {
             PageManager.changerPage(new HomeMenu());
         });
 
@@ -70,30 +49,24 @@ public class ArcadeVictory extends Panel {
      * Positionne les boutons et les étoiles dans le panneau.
      */
     private void positionnerBoutons() {
-        Panel starsGroup = new Panel();
-
-        for (int i = 0; i < 3; i++) {
-            Panel star = new Panel().setImage(score >= (i + 1) ? "star.png" : "empty-star.png");
-
-            star.setPreferredSize(new Dimension(75, 70));
-            starsGroup.add(star);
-        }
-
         Panel groupButton = new Panel();
         groupButton.setLayout(new GridBagLayout());
         GridBagConstraints gbc = createGbc(0, 0);
         gbc.anchor = GridBagConstraints.WEST;
-        groupButton.add(new Label("stars").setFontSize(50), gbc);
+        groupButton.add(new Label("score").setFontSize(50), gbc);
 
         gbc.gridx = 1;
-        groupButton.add(starsGroup, gbc);
+        groupButton.add(
+                new Label(String.valueOf(PageManager.getProfil().getScoresArcade().get(0))).setAsRawText()
+                        .setFontSize(50),
+                gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.insets = new Insets(20, 50, 5, 5);
         groupButton.add(continuer, gbc);
         gbc.gridx = 1;
-        groupButton.add(quitter, gbc);
+        groupButton.add(retour, gbc);
         groupButton.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
 
         Panel contenu = new Panel(new BorderLayout());
@@ -103,7 +76,9 @@ public class ArcadeVictory extends Panel {
     }
 
     /**
-     * Crée une contrainte pour le positionnement des composants dans un panneau de type `GridBagLayout`.
+     * Crée une contrainte pour le positionnement des composants dans un panneau de
+     * type `GridBagLayout`.
+     * 
      * @param x Position horizontale du composant dans la grille
      * @param y Position verticale du composant dans la grille
      * @return GridBagConstraints pour le positionnement du composant dans la grille

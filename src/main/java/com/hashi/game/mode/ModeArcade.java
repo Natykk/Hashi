@@ -3,38 +3,83 @@ package com.hashi.game.mode;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hashi.grid.Jeu;
 import com.hashi.grid.action.Action;
+import com.hashi.menu.ArcadeVictory;
+import com.hashi.menu.HomeMenu;
 import com.hashi.menu.PageManager;
+import com.hashi.style.Label;
 import com.hashi.style.Panel;
+import com.hashi.Hashi;
+import com.hashi.game.Score;
 import com.hashi.grid.Grille;
+import com.hashi.grid.Jeu;
+import com.hashi.grid.TimerManager;
 
 public class ModeArcade extends Mode {
-    private int[] scores = new int[0];
+    protected List<Integer> scores;
+    protected int startTime;
 
-    public ModeArcade(Panel returnPanel, Grille grille, int numGrille, boolean charger) {
-        super(returnPanel, grille, numGrille, charger);
+    public ModeArcade() {
+        super(new HomeMenu(), false);
+
+        scores = new ArrayList<>();
+        startTime = -1;
+    }
+
+    @Override
+    public Grille getGrille() {
+        int typeTaille = (int) (Math.random() * 3);
+        int row = (int) (Math.random() * 3);
+        int column = (int) (Math.random() * 6);
+        Jeu j = new Jeu();
+
+        j.genererGrilleDepuisFichier(Mode.getGrilleToPlay(typeTaille, row, column));
+
+        if (startTime == -1) {
+            // temps au début de la première partie
+            startTime = (int) (60 * (typeTaille + 1) * 1.5);
+        } else {
+            // temps ajouté entre 2 partie
+            startTime += 30 * (typeTaille + 1);
+        }
+
+        return j.listeGrille.get(column);
+    }
+
+    @Override
+    public Panel gameFinishedGetVictoryPanel() {
+        timer.stopTimer();
+
+        int time = (int) timer.tempsEcoule() / 1000;
+
+        if (time > 0) {
+            scores.add(startTime - time);
+            startTime = time;
+
+            return new Hashi(this);
+        } else {
+            PageManager.getProfil().setScoreArcade(Score.calculScoreArcade(scores));
+
+            return new ArcadeVictory();
+        }
+    }
+
+    @Override
+    public void startTimer(Label label) {
+        timer = new TimerManager(label, startTime, true);
+        timer.addActionListener(e -> {
+            if (timer.tempsEcoule() <= 0)
+                PageManager.changerPage(gameFinishedGetVictoryPanel());
+        });
     }
 
     @Override
     public void sauvegarder(List<Action> actions) {
-        PageManager.getProfil().setPartieArcade(numGrille, actions);
     }
 
     @Override
     public List<Action> getActions() {
-        if (charger) {
-            return PageManager.getProfil().getPartieArcade(numGrille);
-        }
-
-        PageManager.getProfil().setPartieArcade(numGrille, new ArrayList<>());
-
         return new ArrayList<>();
-    }
-
-    @Override
-    public void setScore(int temps) {
-        PageManager.getProfil().setScoreArcade(0);
     }
 
 }

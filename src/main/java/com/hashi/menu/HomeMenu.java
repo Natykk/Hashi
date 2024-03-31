@@ -8,6 +8,8 @@ import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 
+import com.hashi.Hashi;
+import com.hashi.game.mode.ModeArcade;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
@@ -87,7 +89,7 @@ public class HomeMenu extends Panel {
 
         arcadeButton.addActionListener(e -> {
             // changement de page -> Mode Arcade
-            PageManager.changerPage(new ArcadeLoadGame(this));
+            PageManager.changerPage(new Hashi(new ModeArcade()));
         });
 
         // Action du bouton "Histoire"
@@ -141,7 +143,9 @@ public class HomeMenu extends Panel {
     }
 
     /**
-     * Crée une contrainte pour le positionnement des composants dans un panneau de type `GridBagLayout`.
+     * Crée une contrainte pour le positionnement des composants dans un panneau de
+     * type `GridBagLayout`.
+     * 
      * @param x Position horizontale du composant dans la grille
      * @param y Position verticale du composant dans la grille
      * @return GridBagConstraints pour le positionnement du composant dans la grille

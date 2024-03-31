@@ -39,7 +39,7 @@ public class Grille extends MouseAdapter {
      * 
      * @return Retourne si la grille est finie.
      */
-    public boolean getIsGridFinished() {
+    public boolean isGridFinished() {
         for (Ile ile : getIles())
             if (!ile.estComplet())
                 return false;
@@ -284,7 +284,6 @@ public class Grille extends MouseAdapter {
 
             // si la position de la souris est dans le rectangle du pont
             if (pont.getBounds().contains(xAffichage, yAffichage)) {
-                System.out.println("Un pont ce situe au coordonnées " + pont.getBounds());
                 return pont;
             }
         }

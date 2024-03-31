@@ -18,13 +18,13 @@ public class Profil implements Serializable {
     private String nomProfil;
 
     private ArrayList<Integer> listeScoreEntrainement; // Liste des scores mode Entrainement
+    private ArrayList<Integer> listeTempsEntrainement; // Liste des temps de parties en cours mode Entrainement
     private ArrayList<List<Action>> listePartieEntrainement; // Liste des parties en cours mode Entrainement
-
-    private ArrayList<List<Action>> listePartieArcade; // Liste des parties en cours mode Arcade
 
     private ArrayList<Integer> listeScoreArcade;// Liste des records mode arcade
 
     private ArrayList<Integer> listeScoreHistoire; // Liste des scores mode Histoire
+    private ArrayList<Integer> listeTempsHistoire; // Liste des temps de parties en cours mode Histoire
     private ArrayList<List<Action>> listePartieHistoire; // Liste des parties en cours mode Histoire
 
     public Profil(String nom) {
@@ -32,9 +32,11 @@ public class Profil implements Serializable {
 
         listeScoreEntrainement = new ArrayList<Integer>(54);
         listePartieEntrainement = new ArrayList<List<Action>>(54);
+        listeTempsEntrainement = new ArrayList<Integer>(54);
         for (int i = 0; i < 54; i++) {
             listeScoreEntrainement.add(0);
             listePartieEntrainement.add(new ArrayList<Action>());
+            listeTempsEntrainement.add(0);
         }
 
         // La capacité de la liste a été réglé à 5 aussi dans ArcadeVictory.java
@@ -47,9 +49,11 @@ public class Profil implements Serializable {
 
         listeScoreHistoire = new ArrayList<Integer>(12);
         listePartieHistoire = new ArrayList<List<Action>>(12);
+        listeTempsHistoire = new ArrayList<Integer>(12);
         for (int i = 0; i < 12; i++) {
             listeScoreHistoire.add(0);
             listePartieHistoire.add(new ArrayList<Action>());
+            listeTempsHistoire.add(0);
         }
     }
 
@@ -72,6 +76,7 @@ public class Profil implements Serializable {
         if (listeScoreEntrainement.get(num) < score) {
             listeScoreEntrainement.add(num, score);
             setPartieEntrainement(num, new ArrayList<>());
+            setTempsEntrainement(num, 0);
             sauvegarde();
         }
     }
@@ -84,6 +89,27 @@ public class Profil implements Serializable {
      */
     public int getScoreEntrainement(int num) {
         return listeScoreEntrainement.get(num);
+    }
+
+    /**
+     * Ajouter une sauvegarde d'un temps en mode Entrainement
+     * 
+     * @param num
+     * @param temps
+     */
+    public void setTempsEntrainement(int num, int temps) {
+        listeTempsEntrainement.add(num, temps);
+        sauvegarde();
+    }
+
+    /**
+     * Récupère le temps en mode Entrainement.
+     * 
+     * @param num
+     * @return le temps.
+     */
+    public int getTempsEntrainement(int num) {
+        return listeTempsEntrainement.get(num);
     }
 
     /**
@@ -126,35 +152,14 @@ public class Profil implements Serializable {
     }
 
     /**
-     * Récupère le score en mode Arcade.
+     * Récupère les scores en mode Arcade.
      * 
-     * @param num
-     * @return le score.
+     * @return les scores.
      */
-    public int getScoreArcade(int num) {
-        return listeScoreArcade.get(num);
+    public List<Integer> getScoresArcade() {
+        return listeScoreArcade;
     }
 
-
-    /**
-     * Récupère la partie en mode Arcade.
-     * @param num
-     * @return la partie.
-     */
-    public List<Action> getPartieArcade(int num) {
-        return listePartieArcade.get(num);
-    }
-
-    /**
-     *
-     * Ajouter une sauvegarde d'une partie en mode Arcade
-     * @param num
-     * @param partie
-     */
-    public void setPartieArcade(int num, List<Action> partie) {
-        listePartieEntrainement.add(num, partie);
-        sauvegarde();
-    }
     /**
      * Ajouter un score en mode Histoire.
      * 
@@ -164,6 +169,7 @@ public class Profil implements Serializable {
     public void setScoreHistoire(int num, int score) {
         listeScoreHistoire.add(num, score);
         setPartieHistoire(num, new ArrayList<>());
+        setTempsHistoire(num, 0);
         sauvegarde();
     }
 
@@ -175,6 +181,27 @@ public class Profil implements Serializable {
      */
     public int getScoreHistoire(int num) {
         return listeScoreHistoire.get(num);
+    }
+
+    /**
+     * Ajouter une sauvegarde d'un temps en mode Histoire
+     * 
+     * @param num
+     * @param temps
+     */
+    public void setTempsHistoire(int num, int temps) {
+        listeTempsHistoire.add(num, temps);
+        sauvegarde();
+    }
+
+    /**
+     * Récupère le temps en mode Histoire.
+     * 
+     * @param num
+     * @return le temps.
+     */
+    public int getTempsHistoire(int num) {
+        return listeTempsHistoire.get(num);
     }
 
     /**
