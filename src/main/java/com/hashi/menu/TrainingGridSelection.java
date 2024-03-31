@@ -6,9 +6,9 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import com.hashi.style.Button;
+import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
 /**
@@ -18,7 +18,6 @@ import com.hashi.style.Panel;
  */
 public class TrainingGridSelection extends Panel {
     private Button retour;
-    private Button[][] boutons;
     private int typeTaille;
 
     /**
@@ -33,7 +32,6 @@ public class TrainingGridSelection extends Panel {
         PageManager.getInstance().setTitle("title_training_grid_selection");
 
         retour = new Button("return").setFontSize(50);
-        boutons = new Button[3][6];
 
         positionnerBoutons3();
 
@@ -56,19 +54,23 @@ public class TrainingGridSelection extends Panel {
 
         for (i = 0; i < 3; i++) {
             final int row = i;
-            Panel panelNiveau = new Panel(new FlowLayout(FlowLayout.CENTER));
-            panelNiveau.setBorder(BorderFactory.createEmptyBorder(55, 0, 0, 0));
+            Panel panelNiveau = new Panel(new GridLayout(2, 6));
+            panelNiveau.setBorder(BorderFactory.createEmptyBorder(55, 250, 0, 150));
 
             for (int j = 0; j < 6; j++) {
                 final int column = j;
-                boutons[i][j] = new Button(String.valueOf(j + 1)).setAsRawText().setFontSize(60);
-                boutons[i][j].setPreferredSize(new Dimension(90, 90));
-
-                boutons[i][j].addActionListener(e -> {
-
+                Button bouton = new Button(String.valueOf(j + 1)).setAsRawText().setFontSize(45);
+                bouton.addActionListener(e -> {
                     PageManager.changerPage(new TrainingLoadGame(this, typeTaille, row, column));
                 });
-                panelNiveau.add(boutons[i][j]);
+                panelNiveau.add(bouton);
+            }
+
+            for (int j = 0; j < 6; j++) {
+                int score = PageManager.getProfil().getScoreEntrainement(j + 6 * i + 18 * typeTaille);
+
+                panelNiveau.add(new Label(score > -1 ? String.valueOf(score) : "")
+                        .setAsRawText().setFontSize(30));
             }
 
             contenu.add(panelNiveau);

@@ -23,14 +23,14 @@ public class TrainingVictory extends Panel {
      * 
      * @param temps Le temps écoulé pour la victoire.
      */
-    public TrainingVictory(int temps) {
+    public TrainingVictory(int temps, int numTaille) {
         super(new BorderLayout(), "bg-victory.png");
         PageManager.getInstance().setTitle(TITLE);
         txtTemp = String.valueOf(temps);
         retour = new Button("return").setFontSize(50);
 
         retour.addActionListener(e -> {
-            PageManager.changerPage(new TrainingGridSizeSelection());
+            PageManager.changerPage(new TrainingGridSelection(numTaille));
         });
 
         positionnerBoutons();

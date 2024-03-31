@@ -34,7 +34,7 @@ public class Profil implements Serializable {
         listePartieEntrainement = new ArrayList<List<Action>>(54);
         listeTempsEntrainement = new ArrayList<Integer>(54);
         for (int i = 0; i < 54; i++) {
-            listeScoreEntrainement.add(0);
+            listeScoreEntrainement.add(-1);
             listePartieEntrainement.add(new ArrayList<Action>());
             listeTempsEntrainement.add(0);
         }
@@ -51,7 +51,7 @@ public class Profil implements Serializable {
         listePartieHistoire = new ArrayList<List<Action>>(12);
         listeTempsHistoire = new ArrayList<Integer>(12);
         for (int i = 0; i < 12; i++) {
-            listeScoreHistoire.add(0);
+            listeScoreHistoire.add(-1);
             listePartieHistoire.add(new ArrayList<Action>());
             listeTempsHistoire.add(0);
         }

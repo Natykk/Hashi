@@ -15,6 +15,7 @@ import com.hashi.style.Panel;
 public class ModeEntrainement extends Mode {
     protected Grille grille;
     protected int numGrille;
+    protected int typeTaille;
 
     public ModeEntrainement(Panel returnPanel, int typeTaille, int row, int column, boolean charger) {
         super(returnPanel, charger);
@@ -25,6 +26,7 @@ public class ModeEntrainement extends Mode {
 
         this.grille = j.listeGrille.get(column);
         this.numGrille = typeTaille * 18 + row * 6 + column;
+        this.typeTaille = typeTaille;
     }
 
     @Override
@@ -40,7 +42,7 @@ public class ModeEntrainement extends Mode {
 
         PageManager.getProfil().setScoreEntrainement(numGrille, time);
 
-        return new TrainingVictory(time);
+        return new TrainingVictory(time, typeTaille);
     }
 
     @Override
