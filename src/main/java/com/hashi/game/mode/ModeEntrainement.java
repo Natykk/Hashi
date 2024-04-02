@@ -25,7 +25,7 @@ public class ModeEntrainement extends Mode {
         String fichierGrille = Mode.getGrilleToPlay(typeTaille, row, column);
 
         this.grille = Jeu.genererGrilleDepuisFichier(fichierGrille).get(column);
-        this.solution = Jeu.genererSolutionDepuisFichier(fichierGrille.replace(".txt", "_soluce.txt")).get(column);
+        this.solution = Jeu.genererSolutionDepuisFichier(fichierGrille.replace("G", "SG")).get(column);
         this.numGrille = typeTaille * 18 + row * 6 + column;
         this.typeTaille = typeTaille;
     }

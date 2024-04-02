@@ -50,7 +50,7 @@ public class ModeArcade extends Mode {
 
     @Override
     public List<PontAction> getSolution() {
-        return Jeu.genererSolutionDepuisFichier(fichierGrille.replace(".txt", "_soluce.txt")).get(column);
+        return Jeu.genererSolutionDepuisFichier(fichierGrille.replace("G", "SG")).get(column);
     }
 
     @Override

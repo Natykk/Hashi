@@ -105,8 +105,8 @@ public class Jeu {
                     solutionTemp = new ArrayList<>();
 
                 solutionTemp
-                        .add(new PontAction(Integer.parseInt(values[0]), Integer.parseInt(values[1]),
-                                Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+                        .add(new PontAction(Integer.parseInt(values[1]), Integer.parseInt(values[0]),
+                                Integer.parseInt(values[3]), Integer.parseInt(values[2]),
                                 Integer.parseInt(values[4]) == 1));
                 // on passe à a ligne suivante
                 row++;
