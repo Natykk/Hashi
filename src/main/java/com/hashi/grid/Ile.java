@@ -267,7 +267,12 @@ public class Ile extends Case {
      *         faux sinon
      */
     public boolean estConnecteParUnPontSimple(Ile voisin) {
-        return !this.getPontEntreIles(voisin).estDouble();
+        Pont p;
+        if((p = this.getPontEntreIles(voisin)) != null) {
+            return !p.estDouble();
+        }
+        System.err.println("Erreur estConnecteParUnPontSimple(): l'Ile passée en paramètre n'est pas un voisin");
+        return false;
     }
 
     /**
@@ -277,7 +282,13 @@ public class Ile extends Case {
      *         faux sinon
      */
     public boolean estConnecteParUnPontDouble(Ile voisin) {
-        return this.getPontEntreIles(voisin).estDouble();
+        Pont p;
+        if((p = this.getPontEntreIles(voisin)) != null) {
+            return p.estDouble();
+        }
+        // cas erreur
+        System.err.println("Erreur estConnecteParUnPontDouble(): l'Ile passée en paramètre n'est pas un voisin");
+        return false;
     }
 
     /**
@@ -852,8 +863,8 @@ public class Ile extends Case {
 
         for (Pont p : this.listePont) {
             // on parcourt les Ponts reliés à cette Ile
-            if ((p.getIle1() == this && p.getIle1() == unVoisin)
-                    || (p.getIle2() == this && p.getIle2() == unVoisin)) {
+            if ((p.getIle1() == this && p.getIle2() == unVoisin)
+                    || (p.getIle2() == this && p.getIle1() == unVoisin)) {
                 // si les deux Iles que ce Pont relient sont cette Ile et ce voisin, c'est le
                 // Pont qu'on recherche
                 return p;
