@@ -655,7 +655,26 @@ public class Ile extends Case {
                     return Aide.BLOQUE41;
                 }
 
-                // TODO BLOQUE42
+                /*
+                 * une Ile qui a besoin de 4 ponts,
+                 * qui est relié à DEUX voisins complet par un Pont simple
+                 * et qui a moins de 3 Ponts dans des sens différents (?)
+                 * 
+                 * pont simple d'un voisin complété: 2
+                 * et
+                 * pont double
+                 * + pont simple d'un voisin pas complété
+                 * + pas de pont
+                 * = 2
+                 */
+                if (this.getVoisinsCompletsConnectesParUnPontSimple().size() == 2
+                    && ((this.getVoisinsConnectesParUnPontDouble().size()
+                            + this.getVoisinsLibresConnectes().size()
+                            + this.getVoisinsLibresPasConnectes().size()) == 1)) {
+                    return Aide.BLOQUE42;
+                }
+
+
 
                 // précédents essais:
                 /*
@@ -723,6 +742,9 @@ public class Ile extends Case {
                     return Aide.BLOQUE5;
                 }
 
+
+
+                // précédents essais:
                 /*
                  * if( (desVoisins = this.getVoisinsCompletsConnectes()).size() > 0 ) {
                  * // pour chaque voisin complet connecté
@@ -762,6 +784,14 @@ public class Ile extends Case {
                  * on met un pont entre chaque voisin qui n'est pas celle de 1
                  * 
                  */
+                if(
+                    this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1
+                    && ((this.getVoisinsConnectesParUnPontDouble().size()
+                            + this.getVoisinsLibresConnectes().size()
+                            + this.getVoisinsLibresPasConnectes().size()) == 3)
+                ) {
+                    return Aide.BLOQUE6;
+                }
                 break;
             case 7:
                 /*
