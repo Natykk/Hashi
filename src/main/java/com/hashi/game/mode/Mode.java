@@ -106,4 +106,7 @@ public abstract class Mode {
 
         return sb.toString();
     }
+
+    public abstract void call_aide(Label label);
+
 }
