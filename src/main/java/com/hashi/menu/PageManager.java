@@ -19,7 +19,7 @@ public class PageManager extends JFrame {
     private PageManager() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(1280, 720);
-        setResizable(true);
+        setResizable(false);
         setLocationRelativeTo(null);
 
         instance = this;
