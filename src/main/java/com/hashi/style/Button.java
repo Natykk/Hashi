@@ -77,6 +77,7 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
      * @return Retourne un {@link com.hashi.style.Button} afin de pouvoir chainer
      *         les appels de fonctions.
      */
+    @Override
     public Button setAsRawText() {
         is_raw_text = true;
 
@@ -89,12 +90,14 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
      * @return Retourne un {@link com.hashi.style.Button} afin de pouvoir chainer
      *         les appels de fonctions.
      */
+    @Override
     public Button setImage(String image_res) {
         image.setImage(image_res);
 
         return this;
     }
 
+    @Override
     public java.awt.Image getImage() {
         return image.getImage();
     }
@@ -105,6 +108,7 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
      * @return Retourne un {@link com.hashi.style.Button} afin de pouvoir chainer
      *         les appels de fonctions.
      */
+    @Override
     public Button setFontSize(int size) {
         font_size = size;
 
@@ -113,6 +117,7 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
         return this;
     }
 
+    @Override
     public int getFontSize() {
         return font_size;
     }

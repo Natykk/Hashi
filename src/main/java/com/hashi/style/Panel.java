@@ -67,12 +67,14 @@ public class Panel extends JPanel implements ImageComponent<Panel> {
      * @return Retourne un {@link com.hashi.style.Panel} afin de pouvoir chainer
      *         les appels de fonctions.
      */
+    @Override
     public Panel setImage(String image_res) {
         image.setImage(image_res);
 
         return this;
     }
 
+    @Override
     public java.awt.Image getImage() {
         return image.getImage();
     }

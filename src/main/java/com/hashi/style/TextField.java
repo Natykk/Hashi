@@ -74,6 +74,7 @@ public class TextField extends JTextField implements FontSize<TextField> {
      * @return Retourne un {@link com.hashi.style.TextField} afin de pouvoir chainer
      *         les appels de fonctions.
      */
+    @Override
     public TextField setFontSize(int size) {
         font_size = size;
 
@@ -82,6 +83,7 @@ public class TextField extends JTextField implements FontSize<TextField> {
         return this;
     }
 
+    @Override
     public int getFontSize() {
         return font_size;
     }

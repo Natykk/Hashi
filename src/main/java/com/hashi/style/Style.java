@@ -3,6 +3,7 @@ package com.hashi.style;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.io.IOException;
 import javax.swing.ImageIcon;
@@ -103,6 +104,41 @@ public abstract class Style {
      */
     public ImageIcon getImageResource(String image_url) {
         return new ImageIcon(Style.class.getResource(image_url));
+    }
+
+    /**
+     * Fonction pour dessiner une image sur le fond d'un
+     * {@link com.hashi.style.ImageComponent}.
+     * 
+     * @param <T>             un élément hérité de {@link java.awt.Component} et
+     *                        {@link com.hashi.style.ImageComponent}.
+     * @param image_component l'élément sur lequel dessiner.
+     * @param g               {@link java.awt.Graphics2D} permettant de dessiner
+     *                        l'élément.
+     * @param contained       définit si l'image doit être contenue dans l'élément
+     *                        ou si elle peut dépasser.
+     */
+    protected <T extends Component & ImageComponent<?>> void drawImage(T image_component, Graphics2D g,
+            boolean contained) {
+        if (image_component.getImage() != null) {
+            float panel_ratio = (float) image_component.getWidth() / (float) image_component.getHeight();
+            float image_ratio = (float) image_component.getImage().getWidth(null)
+                    / (float) image_component.getImage().getHeight(null);
+
+            if ((!contained && panel_ratio < image_ratio) || (contained && panel_ratio >= image_ratio)) {
+                int width = (int) (image_ratio * image_component.getHeight());
+
+                g.drawImage(image_component.getImage(), (image_component.getWidth() - width) / 2, 0, width,
+                        image_component.getHeight(),
+                        image_component);
+            } else {
+                int height = (int) (image_component.getWidth() / image_ratio);
+
+                g.drawImage(image_component.getImage(), 0, (image_component.getHeight() - height) / 2,
+                        image_component.getWidth(), height,
+                        image_component);
+            }
+        }
     }
 
     /**
