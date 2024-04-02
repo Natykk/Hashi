@@ -1,6 +1,10 @@
 package com.hashi.menu;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+
+import com.hashi.Hashi;
+import com.hashi.game.mode.ModeHistoire;
 import com.hashi.style.Panel;
 import com.hashi.style.StyleManager;
 import com.hashi.style.Image;
@@ -38,7 +42,13 @@ public class History extends Panel {
         // Ajout du panel contenant l'image et le texte dans le JPanel principal
         contentPanel.add(imageTextPanel, BorderLayout.SOUTH);
         add(contentPanel, BorderLayout.SOUTH);
+
+        // Ajout d'un gestionnaire d'événements de clic de souris à ce panneau
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new Hashi(new ModeHistoire(new HomeMenu(),false));
+            }
+        });
     }
 }
-
-

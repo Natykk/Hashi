@@ -59,7 +59,7 @@ public class HistoryLoadGame extends Panel {
         });
         nouvellePartie.addActionListener(e -> {
             // juste pour tester la page etoiles
-            PageManager.changerPage(new HistoryVictory());
+            PageManager.changerPage(new History());
         });
         charger.addActionListener(e -> {
             // grille sauvegarder
