@@ -468,8 +468,10 @@ public class Ile extends Case {
      */
     public Aide techniquePontsForces() throws InvalidAttributeValueException {
 
-        // la condition "est-ce que l'Ile n'a pas encore tous les ponts est implicite,
-        // car cette méthode n'est pas appelée sur des Iles complètes"
+        /*
+         * la condition "est-ce que l'Ile n'a pas encore tous les ponts est implicite,
+         *  car cette méthode n'est pas appelée sur des Iles complètes"
+         */
 
         switch (this.valeur) {
             case 1:
