@@ -20,7 +20,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
-
 /**
  * Classe principale du jeu.
  */
@@ -95,23 +94,17 @@ public class Hashi extends Panel {
         mode.startTimer(timerLabel);
 
         hintButton.addActionListener(e -> {
-            this.mode.call_aide(timerLabel);
+            this.mode.callAide();
             SwingUtilities.invokeLater(() -> new Help(grille));
         });
 
         helpButton.addActionListener(e -> {
-            
             PageManager.changerPage(new Rule(this, "title"));
-            
         });
 
         returnButton.addActionListener(e -> {
             PageManager.changerPage(mode.getReturnPanel());
         });
-
-        
-
-        
 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 10, 0));
         add(buttonPanel, BorderLayout.WEST);

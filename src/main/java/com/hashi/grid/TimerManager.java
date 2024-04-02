@@ -83,4 +83,8 @@ public class TimerManager implements ActionListener {
     public long tempsEcoule() {
         return elapsedTime;
     }
+
+    public void addTemps(int temps) {
+        startTime += (isInverted ? temps : -temps) * 1000;
+    }
 }

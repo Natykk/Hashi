@@ -82,20 +82,10 @@ public class ModeArcade extends Mode {
         return new ArrayList<>();
     }
 
-
     @Override
-    public void call_aide(Label timerLabel) {
+    public void callAide() {
         // Chaque appel de l'aide enlève 10 secondes du timer
-        timer.stopTimer();
-        int temps = (int) timer.tempsEcoule() / 1000;
-        temps -= 10;
-        timer = new TimerManager(timerLabel,temps, true);
-        timer.addActionListener(e -> {
-            if (timer.tempsEcoule() <= 0)
-                PageManager.changerPage(gameFinishedGetVictoryPanel());
-        });
+        timer.addTemps(-10);
     }
-
-
 
 }

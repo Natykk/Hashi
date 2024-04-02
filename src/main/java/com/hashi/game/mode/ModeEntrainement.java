@@ -68,11 +68,8 @@ public class ModeEntrainement extends Mode {
         return new ArrayList<>();
     }
 
-
     @Override
-    public void call_aide(Label label) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'call_aide'");
+    public void callAide() {
     }
 
 }

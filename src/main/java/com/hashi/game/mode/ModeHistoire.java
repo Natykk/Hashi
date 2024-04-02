@@ -39,11 +39,7 @@ public class ModeHistoire extends Mode {
     }
 
     @Override
-    public void call_aide(Label label) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'call_aide'");
+    public void callAide() {
     }
-
-
 
 }
