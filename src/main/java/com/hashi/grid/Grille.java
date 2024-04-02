@@ -58,7 +58,7 @@ public class Grille extends MouseAdapter {
     /**
      * ajouter une Ile donnée à la Grille
      * l'Ile est mise dans la matrice à ses propres coordonnées x y
-     * l'Ile est aussi ajoutée à la lsite d'Iles
+     * l'Ile est aussi ajoutée à la liste d'Iles
      * 
      * @param ile l'Ile à ajouter
      */

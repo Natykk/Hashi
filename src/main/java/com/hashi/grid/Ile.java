@@ -267,7 +267,12 @@ public class Ile extends Case {
      *         faux sinon
      */
     public boolean estConnecteParUnPontSimple(Ile voisin) {
-        return !this.getPontEntreIles(voisin).estDouble();
+        Pont p;
+        if((p = this.getPontEntreIles(voisin)) != null) {
+            return !p.estDouble();
+        }
+        System.err.println("Erreur estConnecteParUnPontSimple(): l'Ile passée en paramètre n'est pas un voisin");
+        return false;
     }
 
     /**
@@ -277,7 +282,13 @@ public class Ile extends Case {
      *         faux sinon
      */
     public boolean estConnecteParUnPontDouble(Ile voisin) {
-        return this.getPontEntreIles(voisin).estDouble();
+        Pont p;
+        if((p = this.getPontEntreIles(voisin)) != null) {
+            return p.estDouble();
+        }
+        // cas erreur
+        System.err.println("Erreur estConnecteParUnPontDouble(): l'Ile passée en paramètre n'est pas un voisin");
+        return false;
     }
 
     /**
@@ -457,8 +468,10 @@ public class Ile extends Case {
      */
     public Aide techniquePontsForces() throws InvalidAttributeValueException {
 
-        // la condition "est-ce que l'Ile n'a pas encore tous les ponts est implicite,
-        // car cette méthode n'est pas appelée sur des Iles complètes"
+        /*
+         * la condition "est-ce que l'Ile n'a pas encore tous les ponts est implicite,
+         *  car cette méthode n'est pas appelée sur des Iles complètes"
+         */
 
         switch (this.valeur) {
             case 1:
@@ -582,7 +595,7 @@ public class Ile extends Case {
                 return Aide.FORCE8;
             // break;
             default:
-                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
+                throw new InvalidAttributeValueException("erreur techniquePontsForces():  l'attribut -valeur de " + this
                         + " n'est pas compris dans [1,8]");
         }
 
@@ -740,7 +753,7 @@ public class Ile extends Case {
                  * }
                  * }
                  */
-
+                break;
             case 6:
                 /*
                  * une Ile qui a besoin de 6 Ponts,
@@ -749,7 +762,7 @@ public class Ile extends Case {
                  * on met un pont entre chaque voisin qui n'est pas celle de 1
                  * 
                  */
-
+                break;
             case 7:
                 /*
                  * une Ile qui a besoin de 7 ponts,
@@ -758,8 +771,17 @@ public class Ile extends Case {
                 if (this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1) {
                     return Aide.BLOQUE7;
                 }
+                break;
+
+            case 1:
+            case 2:
+            case 8:
+                // cas non-utilisé
+                // il n'y a pas de techniques où un pont est bloqué pour les Iles avec ces valeurs
+                break;
+
             default:
-                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
+                throw new InvalidAttributeValueException("erreur techniquePontsBloques(): l'attribut -valeur de " + this
                         + " n'est pas compris dans [1,8]");
         }
 
@@ -824,8 +846,17 @@ public class Ile extends Case {
                 }
                 break;
 
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                // cas non-implémentés
+                break;
+
             default:
-                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
+                throw new InvalidAttributeValueException("erreur techniqueIsolation():    l'attribut -valeur de " + this
                         + " n'est pas compris dans [1,8]");
         }
 
@@ -852,8 +883,8 @@ public class Ile extends Case {
 
         for (Pont p : this.listePont) {
             // on parcourt les Ponts reliés à cette Ile
-            if ((p.getIle1() == this && p.getIle1() == unVoisin)
-                    || (p.getIle2() == this && p.getIle2() == unVoisin)) {
+            if ((p.getIle1() == this && p.getIle2() == unVoisin)
+                    || (p.getIle2() == this && p.getIle1() == unVoisin)) {
                 // si les deux Iles que ce Pont relient sont cette Ile et ce voisin, c'est le
                 // Pont qu'on recherche
                 return p;
