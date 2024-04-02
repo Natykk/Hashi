@@ -89,9 +89,11 @@ public class ModeArcade extends Mode {
         return new ArrayList<>();
     }
 
+    /**
+     * A chaque appel de l'aide enlève 10 secondes du timer
+     */
     @Override
     public void callAide() {
-        // Chaque appel de l'aide enlève 10 secondes du timer
         timer.addTemps(-10);
     }
 

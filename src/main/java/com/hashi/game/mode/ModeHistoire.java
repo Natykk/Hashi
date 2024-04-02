@@ -44,8 +44,4 @@ public class ModeHistoire extends Mode {
         throw new UnsupportedOperationException("Unimplemented method 'getActions'");
     }
 
-    @Override
-    public void callAide() {
-    }
-
 }

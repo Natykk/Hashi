@@ -117,6 +117,11 @@ public abstract class Mode {
         return sb.toString();
     }
 
-    public abstract void callAide();
+    /**
+     * Fonction appeler quand le bouton aide est cliquer
+     */
+    public void callAide() {
+
+    }
 
 }

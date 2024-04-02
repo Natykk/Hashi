@@ -74,8 +74,4 @@ public class ModeEntrainement extends Mode {
         return new ArrayList<>();
     }
 
-    @Override
-    public void callAide() {
-    }
-
 }
