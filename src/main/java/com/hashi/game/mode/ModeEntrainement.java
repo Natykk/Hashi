@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hashi.grid.action.Action;
+import com.hashi.grid.action.PontAction;
 import com.hashi.grid.Grille;
 import com.hashi.grid.Jeu;
 import com.hashi.grid.TimerManager;
@@ -14,17 +15,17 @@ import com.hashi.style.Panel;
 
 public class ModeEntrainement extends Mode {
     protected Grille grille;
+    protected List<PontAction> solution;
     protected int numGrille;
     protected int typeTaille;
 
     public ModeEntrainement(Panel returnPanel, int typeTaille, int row, int column, boolean charger) {
         super(returnPanel, charger);
 
-        Jeu j = new Jeu();
+        String fichierGrille = Mode.getGrilleToPlay(typeTaille, row, column);
 
-        j.genererGrilleDepuisFichier(Mode.getGrilleToPlay(typeTaille, row, column));
-
-        this.grille = j.listeGrille.get(column);
+        this.grille = Jeu.genererGrilleDepuisFichier(fichierGrille).get(column);
+        this.solution = Jeu.genererSolutionDepuisFichier(fichierGrille.replace(".txt", "_soluce.txt")).get(column);
         this.numGrille = typeTaille * 18 + row * 6 + column;
         this.typeTaille = typeTaille;
     }
@@ -32,6 +33,11 @@ public class ModeEntrainement extends Mode {
     @Override
     public Grille getGrille() {
         return grille;
+    }
+
+    @Override
+    public List<PontAction> getSolution() {
+        return solution;
     }
 
     @Override

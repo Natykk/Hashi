@@ -46,11 +46,9 @@ public class AideTest {
         g.ajouterIle(i1);
         g.ajouterIle(i2);
 
-        
         i3.remplirVoisinsConnectes();
         i3.remplirVoisinsPasConnectes();
 
-        
         listeGetVoisins = i3.getVoisins();
         uneListeDIle.add(i1); // bas
         uneListeDIle.add(i2); // droite
@@ -85,10 +83,8 @@ public class AideTest {
         g.ajouterIle(i1);
         g.ajouterIle(i2);
 
-        
         i3.remplirVoisinsConnectes();
         i3.remplirVoisinsPasConnectes();
-
 
         uneListeDIle = i3.getVoisins();
 
@@ -115,8 +111,7 @@ public class AideTest {
     @Test
     public void techniquePontsForces1() {
         // charger des grilles
-        j.genererGrilleDepuisFichier("grille.txt");
-        g = j.listeGrille.get(0);
+        g = Jeu.genererGrilleDepuisFichier("grille.txt").get(0);
 
         // la grille #0 ressemble à (?)
         // _ _ 3 _ 2 _ 1
@@ -142,7 +137,7 @@ public class AideTest {
             System.out.println("nb voisins libres : " + i1.getVoisinsLibres().size());
 
             try {
-                assertEquals( Aide.FORCE1, i1.techniquePontsForces() );
+                assertEquals(Aide.FORCE1, i1.techniquePontsForces());
 
             } catch (Exception e) {
                 System.err.println(e.getMessage());

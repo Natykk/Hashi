@@ -12,6 +12,7 @@ import com.hashi.grid.action.Action;
 import com.hashi.grid.action.AddPontAction;
 import com.hashi.grid.action.RemovePontAction;
 import com.hashi.grid.action.ResetGrilleAction;
+import com.hashi.grid.action.VerificationAction;
 import com.hashi.style.Button;
 
 import javax.management.InvalidAttributeValueException;
@@ -125,6 +126,9 @@ public class Hashi extends Panel {
         checkbutton.addActionListener(e -> {
             if (grille.isGridFinished()) {
                 PageManager.changerPage(mode.gameFinishedGetVictoryPanel());
+            } else {
+                addAction(new VerificationAction(grille, mode.getSolution()));
+                repaint();
             }
         });
 

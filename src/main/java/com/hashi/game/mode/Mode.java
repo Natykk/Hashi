@@ -3,6 +3,7 @@ package com.hashi.game.mode;
 import java.util.List;
 
 import com.hashi.grid.action.Action;
+import com.hashi.grid.action.PontAction;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
 import com.hashi.grid.Grille;
@@ -31,6 +32,15 @@ public abstract class Mode {
      * @return la grille.
      */
     public abstract Grille getGrille();
+
+    /**
+     * Récupère la solution.
+     * 
+     * Cette fonction doit toujours être appeler après getGrille()
+     * 
+     * @return la solution.
+     */
+    public abstract List<PontAction> getSolution();
 
     /**
      * Démarre le timer.

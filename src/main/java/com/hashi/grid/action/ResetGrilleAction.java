@@ -9,7 +9,7 @@ import com.hashi.grid.Pont;
  * Action remettant la grille à zero.
  */
 public class ResetGrilleAction implements Action {
-    private List<PontAction> ponts;
+    protected List<PontAction> ponts;
 
     public ResetGrilleAction(List<Pont> ponts) {
         this.ponts = ponts.stream().map(pont -> new PontAction(pont.getIle1(), pont.getIle2(), pont.estDouble()))

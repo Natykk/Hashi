@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hashi.grid.Grille;
 import com.hashi.grid.action.Action;
+import com.hashi.grid.action.PontAction;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
@@ -16,6 +17,11 @@ public class ModeHistoire extends Mode {
     @Override
     public Grille getGrille() {
         throw new UnsupportedOperationException("Unimplemented method 'getGrille'");
+    }
+
+    @Override
+    public List<PontAction> getSolution() {
+        throw new UnsupportedOperationException("Unimplemented method 'getSolution'");
     }
 
     @Override

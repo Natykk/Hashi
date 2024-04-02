@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hashi.grid.action.Action;
+import com.hashi.grid.action.PontAction;
 import com.hashi.menu.ArcadeVictory;
 import com.hashi.menu.HomeMenu;
 import com.hashi.menu.PageManager;
@@ -16,6 +17,8 @@ import com.hashi.grid.Jeu;
 import com.hashi.grid.TimerManager;
 
 public class ModeArcade extends Mode {
+    protected int column;
+    protected String fichierGrille;
     protected List<Integer> scores;
     protected int startTime;
 
@@ -30,10 +33,7 @@ public class ModeArcade extends Mode {
     public Grille getGrille() {
         int typeTaille = (int) (Math.random() * 3);
         int row = (int) (Math.random() * 3);
-        int column = (int) (Math.random() * 6);
-        Jeu j = new Jeu();
-
-        j.genererGrilleDepuisFichier(Mode.getGrilleToPlay(typeTaille, row, column));
+        column = (int) (Math.random() * 6);
 
         if (startTime == -1) {
             // temps au début de la première partie
@@ -43,7 +43,14 @@ public class ModeArcade extends Mode {
             startTime += 30 * (typeTaille + 1);
         }
 
-        return j.listeGrille.get(column);
+        fichierGrille = Mode.getGrilleToPlay(typeTaille, row, column);
+
+        return Jeu.genererGrilleDepuisFichier(fichierGrille).get(column);
+    }
+
+    @Override
+    public List<PontAction> getSolution() {
+        return Jeu.genererSolutionDepuisFichier(fichierGrille.replace(".txt", "_soluce.txt")).get(column);
     }
 
     @Override
