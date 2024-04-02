@@ -463,21 +463,5 @@ public class Grille extends MouseAdapter {
 
         return null;
     }
-
-    // Rempli la liste this.listeVoisin = new ArrayList<>(); de chaque ile
-    public void fillListVoisins() {
-        for (Ile ile : this.iles) {
-
-            // Réeinitialisation de la liste des voisins
-            ile.resetListeVoisinsConnectes();
-            ile.resetListeVoisinsPasConnectes();
-
-            ile.remplirVoisinsConnectes();
-            ile.remplirVoisinsPasConnectes();
-
-            // Affichage des voisins de l'Ile
-            System.out.println("Voisins de l'Ile " + ile + " : " + ile.getVoisins());
-        }
-    }
-
+    
 }

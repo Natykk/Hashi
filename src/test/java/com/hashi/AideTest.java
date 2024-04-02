@@ -44,8 +44,12 @@ public class AideTest {
         g.ajouterIle(i3);
         g.ajouterIle(i1);
         g.ajouterIle(i2);
-        g.fillListVoisins();
 
+        
+        i3.remplirVoisinsConnectes();
+        i3.remplirVoisinsPasConnectes();
+
+        
         listeGetVoisins = i3.getVoisins();
         uneListeDIle.add(i1); // bas
         uneListeDIle.add(i2); // droite
@@ -79,7 +83,11 @@ public class AideTest {
         g.ajouterIle(i3);
         g.ajouterIle(i1);
         g.ajouterIle(i2);
-        g.fillListVoisins();
+
+        
+        i3.remplirVoisinsConnectes();
+        i3.remplirVoisinsPasConnectes();
+
 
         uneListeDIle = i3.getVoisins();
 
