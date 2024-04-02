@@ -37,45 +37,50 @@ public class Help extends JFrame {
 
         // Ajout des techniques dans la zone de texte
         if (aideChoisie != null) {
-            text.setText(LanguageManager.getString(aideChoisie.toString()));
+            
+            // ce texte n'est pas très clair pour l'utilisateur, pas la peine de l'afficher
+            //text.setText(LanguageManager.getString(aideChoisie.toString()));
+            //text.append("\n\n");
+
             System.out.println("Aide choisie : " + aideChoisie);
+            
             // Ajout du titre d'explication si la technique 2 est affichée
             Image imageComponent1 = new Image(panel);
             Image imageComponent2 = new Image(panel);
             switch (aideChoisie) {
                 case FORCE8:
                 case FORCE6:
-                    text.append("\n\n" + LanguageManager.getString("technique1"));
+                    text.append(LanguageManager.getString("technique1"));
                     imageComponent1.setImage("tech1_1.png");
                     imageComponent2.setImage("tech1_2.png");
                     break;
                 case FORCE1:
                 case FORCE2:
-                    text.append("\n\n" + LanguageManager.getString("technique2"));
+                    text.append(LanguageManager.getString("technique2"));
                     imageComponent1.setImage("tech2_1.png");
                     imageComponent2.setImage("tech2_2.png");
                     break;
                 case FORCE3:
                 case FORCE5:
                 case FORCE7:
-                    text.append("\n\n" + LanguageManager.getString("technique3"));
+                    text.append(LanguageManager.getString("technique3"));
                     imageComponent1.setImage("tech3_1.png");
                     imageComponent2.setImage("tech3_2.png");
                     break;
                 case BLOQUE3:
-                    text.append("\n\n" + LanguageManager.getString("technique4"));
+                    text.append(LanguageManager.getString("technique4"));
                     imageComponent1.setImage("tech4_1.png");
                     imageComponent2.setImage("tech4_2.png");
                     break;
                 case BLOQUE42:
-                    text.append("\n\n" + LanguageManager.getString("technique5"));
+                    text.append(LanguageManager.getString("technique5"));
                     imageComponent1.setImage("tech5_1.png");
                     imageComponent2.setImage("tech5_2.png");
                     break;
                 case ISOLE1:
                 case ISOLE2:
                 case ISOLE22:
-                    text.append("\n\n" + LanguageManager.getString("technique7"));
+                    text.append(LanguageManager.getString("technique7"));
                     imageComponent1.setImage("tech7_1.png");
                     imageComponent2.setImage("tech7_2.png");
                     break;
