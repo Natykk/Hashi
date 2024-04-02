@@ -17,6 +17,8 @@ import com.hashi.grid.action.Action;
 public class Profil implements Serializable {
     private String nomProfil;
 
+    private int AvancementHistoire = 0;
+
     private ArrayList<Integer> listeScoreEntrainement; // Liste des scores mode Entrainement
     private ArrayList<Integer> listeTempsEntrainement; // Liste des temps de parties en cours mode Entrainement
     private ArrayList<List<Action>> listePartieEntrainement; // Liste des parties en cours mode Entrainement
@@ -310,6 +312,14 @@ public class Profil implements Serializable {
     public String toString() {
         return this.nomProfil + "\n" + this.listeScoreEntrainement + "\n" + this.listeScoreArcade + "\n"
                 + this.listeScoreHistoire;
+    }
+
+    public int getAvancementHistoire() {
+        return this.AvancementHistoire;
+    }
+
+    public void setAvancementHistoire(int avancement) {
+        this.AvancementHistoire = avancement;
     }
 
 }

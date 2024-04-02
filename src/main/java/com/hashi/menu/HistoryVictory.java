@@ -38,7 +38,10 @@ public class HistoryVictory extends Panel {
         quitter = new Button("quit").setFontSize(50);
 
         continuer.addActionListener(e -> {
-            // grille suivante ( histoire )
+
+            int avancement = PageManager.getProfil().getAvancementHistoire();
+            PageManager.getProfil().setAvancementHistoire(avancement + 1);
+            PageManager.changerPage(new Chapitre(avancement+1));
         });
 
         quitter.addActionListener(e -> {

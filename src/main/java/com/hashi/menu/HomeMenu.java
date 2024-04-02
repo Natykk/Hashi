@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 
 import com.hashi.Hashi;
 import com.hashi.game.mode.ModeArcade;
+import com.hashi.game.mode.ModeHistoire;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
@@ -96,7 +97,7 @@ public class HomeMenu extends Panel {
 
         histoireButton.addActionListener(e -> {
             // Votre code pour le bouton Histoire
-            PageManager.changerPage(new HistoryLoadGame());
+            PageManager.changerPage(new Hashi(new ModeHistoire(this,false)));
         });
 
         // Action du bouton "Entraînement"
