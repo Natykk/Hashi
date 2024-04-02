@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import javax.management.InvalidAttributeValueException;
 
@@ -15,7 +16,9 @@ public class Ile extends Case {
     private int xAffichage; // coordonnée x pour l'affichage de l'Ile
     private int yAffichage; // coordonnée y pour l'affichage de l'Ile
     private int tailleAffichage; // taille pour l'affichage
-    private List<Ile> listeVoisin; // liste des Iles voisines (pas implémenté)
+    //private List<Ile> listeVoisin; // liste des Iles voisines (pas implémenté)
+    private List<Ile> listeVoisinsConnectes; // liste des Iles voisines connectées par un Pont à cette Ile (rempli et utilisé lors de la demande d'aide)
+    private List<Ile> listeVoisinsPasConnectes; // liste des Iles voisines pas connectées par un Pont à cette Ile (rempli et utilisé lors de la demande d'aide)
 
     public Ile(int valeur, int x, int y, Grille lagrille) {
         super(x, y, lagrille);
@@ -23,7 +26,8 @@ public class Ile extends Case {
         this.listePont = new ArrayList<>();
         this.xAffichage = x;
         this.yAffichage = y;
-        this.listeVoisin = new ArrayList<>();
+        this.listeVoisinsConnectes = new ArrayList<>();
+        this.listeVoisinsPasConnectes = new ArrayList<>();
         grille = lagrille;
     }
 
@@ -87,16 +91,6 @@ public class Ile extends Case {
     public void ajouterPont(Pont pont) {
         if (!listePont.contains(pont))
             listePont.add(pont);
-    }
-
-    /**
-     * ajoute l'Ile donnée à la liste des voisins de cette Ile
-     * 
-     * @param voisin l'Ile voisine à ajouter
-     */
-    public void ajouterVoisin(Ile voisin) {
-        if (!listeVoisin.contains(voisin))
-            listeVoisin.add(voisin);
     }
 
     /**
@@ -199,12 +193,21 @@ public class Ile extends Case {
     }
 
     /**
-     * récupérer la liste des voisins de cette Ile
+     * récupérer la liste des voisins connectés par un Pont à cette Ile
      * 
      * @return une liste d'Iles
      */
-    public List<Ile> getListeVoisin() {
-        return this.listeVoisin;
+    public List<Ile> getListeVoisinsConnectes() {
+        return this.listeVoisinsConnectes;
+    }
+
+    /**
+     * récupérer la liste des voisins pas connectés par un Pont à cette Ile
+     * 
+     * @return une liste d'Iles
+     */
+    public List<Ile> getListeVoisinsPasConnectes() {
+        return this.listeVoisinsPasConnectes;
     }
 
     /**
@@ -278,17 +281,12 @@ public class Ile extends Case {
     }
 
     /**
-     * donne la liste des voisins qui ONT un pont simple ou double de relié avec
+     * remplit la liste des voisins (listeVoisinsConnectes) qui ONT un pont simple ou double de relié avec
      * cette Ile
      * (les îles sur le même axe cardinal que cette île, sans être bloqué par un
      * pont)
-     * 
-     * @return la liste des voisins connectés à cette Ile,
-     *         ou une liste vide si l'île n'a aucun voisin connectés à elle
      */
-    public List<Ile> getVoisinsConnectes() {
-
-        List<Ile> lesVoisins = new ArrayList<>();
+    public void remplirVoisinsConnectes() {
 
         if (!this.listePont.isEmpty()) {
 
@@ -297,48 +295,55 @@ public class Ile extends Case {
                 if (unPont.getIle1() == this) {
                     // si cette île est dans l'attribut -ile1, c'est qu'elle a une voisine dans
                     // -île2
-                    lesVoisins.add(unPont.getIle2());
+                    listeVoisinsConnectes.add(unPont.getIle2());
                 } else {
                     // et, logiquement, cette île est donc dans l'attribut -ile2, elle a une voisine
                     // dans -île1
-                    lesVoisins.add(unPont.getIle1());
+                    listeVoisinsConnectes.add(unPont.getIle1());
                 }
             }
         }
 
         // enlever les valeurs null, s'il y en a
-        while (lesVoisins.remove(null))
+        while (listeVoisinsConnectes.remove(null))
             ;
-
-        return lesVoisins;
     }
 
     /**
-     * donne la liste des voisins qui n'ont PAS de pont de relié avec cette Ile
+     * remplit la liste des voisins (listeVoisinsPasConnectes) qui n'ont PAS de pont de relié avec cette Ile
      * (les îles sur le même axe cardinal que cette île, sans être bloqué par un
      * pont)
-     * 
-     * @return la liste des voisins qui ne sont pas connectés à cette Ile,
-     *         ou une liste vide si l'île n'a aucun voisin pas connectés à elle
      */
-    public List<Ile> getVoisinsPasConnectes() {
-
-        List<Ile> lesVoisins = new ArrayList<>();
+    public void remplirVoisinsPasConnectes() {
 
         // récupération des îles voisines dans les quatre sens
         // (la méthode getVoisinSansPont ne permet pas de récupérer les îles voisines
         // qui
         // sont déjà reliées par un pont)
-        lesVoisins.add(grille.getVoisinSansPont(this, "haut"));
-        lesVoisins.add(grille.getVoisinSansPont(this, "bas"));
-        lesVoisins.add(grille.getVoisinSansPont(this, "gauche"));
-        lesVoisins.add(grille.getVoisinSansPont(this, "droite"));
+        listeVoisinsPasConnectes.add(grille.getVoisinSansPont(this, "haut"));
+        listeVoisinsPasConnectes.add(grille.getVoisinSansPont(this, "bas"));
+        listeVoisinsPasConnectes.add(grille.getVoisinSansPont(this, "gauche"));
+        listeVoisinsPasConnectes.add(grille.getVoisinSansPont(this, "droite"));
 
         // enlever les valeurs null, s'il y en a
-        while (lesVoisins.remove(null))
+        while (listeVoisinsPasConnectes.remove(null))
             ;
+    }
 
-        return lesVoisins;
+    /**
+     * récupère toutes îles voisines, connectées à cette Ile ou non
+     * (concatène juste listeVoisinsConnectes avec listeVoisinsPasConnectes)
+     * 
+     * @return une liste d'îles qui sont les îles voisines,
+     *         ou une liste vide si l'île n'a aucun voisin
+     */
+    public List<Ile> getVoisins() {
+        // java 8
+        // return Stream.concat(this.listeVoisinsConnectes.stream(),
+        // this.listeVoisinsPasConnectes.stream()).collect(Collectors.toList());
+
+        // java 16+
+        return Stream.concat(this.listeVoisinsConnectes.stream(), this.listeVoisinsPasConnectes.stream()).toList();
     }
 
     /**
@@ -363,7 +368,7 @@ public class Ile extends Case {
      *         ou une liste vide si l'île n'a aucun voisin complets connectés à elle
      */
     public List<Ile> getVoisinsCompletsConnectes() {
-        return filtreDeVoisins(getVoisinsConnectes(), e -> e.estComplet());
+        return filtreDeVoisins(getListeVoisinsConnectes(), e -> e.estComplet());
     }
 
     /**
@@ -389,7 +394,7 @@ public class Ile extends Case {
      *         Pont double
      */
     public List<Ile> getVoisinsConnectesParUnPontDouble() {
-        return filtreDeVoisins(getVoisinsConnectes(), e -> e.estConnecteParUnPontDouble(this));
+        return filtreDeVoisins(getListeVoisinsConnectes(), e -> e.estConnecteParUnPontDouble(this));
     }
 
     /**
@@ -401,7 +406,7 @@ public class Ile extends Case {
      *         ou une liste vide si l'île n'a aucun voisin libres connectés à elle
      */
     public List<Ile> getVoisinsLibresConnectes() {
-        return filtreDeVoisins(getVoisinsConnectes(), e -> e.estLibre());
+        return filtreDeVoisins(getListeVoisinsConnectes(), e -> e.estLibre());
     }
 
     /**
@@ -425,7 +430,7 @@ public class Ile extends Case {
      *         elle
      */
     public List<Ile> getVoisinsLibresPasConnectes() {
-        return filtreDeVoisins(getVoisinsPasConnectes(), e -> e.estLibre());
+        return filtreDeVoisins(getListeVoisinsPasConnectes(), e -> e.estLibre());
     }
 
     /**
@@ -437,7 +442,7 @@ public class Ile extends Case {
      *         ou une liste vide si l'île n'a aucun voisin libres
      */
     public List<Ile> getVoisinsLibres() {
-        return filtreDeVoisins(getListeVoisin(), e -> e.estLibre());
+        return filtreDeVoisins(getVoisins(), e -> e.estLibre());
     }
 
     /**
@@ -871,7 +876,7 @@ public class Ile extends Case {
                                   // Ponts restants de ses voisins
         Pont unPont;
 
-        for (Ile unVoisin : this.getListeVoisin()) {
+        for (Ile unVoisin : this.getVoisins()) {
             // pour chaque voisin
             if (!unVoisin.estComplet()) {
                 // si il n'est pas complété
@@ -899,8 +904,12 @@ public class Ile extends Case {
         return nbPontsPossibles;
     }
 
-    public void resetListeVoisin() {
-        this.listeVoisin.clear();
+    public void resetListeVoisinsConnectes() {
+        this.listeVoisinsConnectes.clear();
+    }
+
+    public void resetListeVoisinsPasConnectes() {
+        this.listeVoisinsPasConnectes.clear();
     }
 
     // affichage sur terminal

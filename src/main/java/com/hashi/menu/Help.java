@@ -22,9 +22,7 @@ public class Help extends JFrame {
         super(LanguageManager.getString("title_help"));
 
 
-        grille.fillListVoisins();
-
-
+        
         Aide aideChoisie = choisirAide(grille);
 
 

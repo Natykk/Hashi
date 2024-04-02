@@ -401,13 +401,24 @@ public class Grille extends MouseAdapter {
 
         // techniques de démarrage et techniques basiques
         for (Ile uneIle : this.iles) {
+
             if (!uneIle.estComplet()) {
                 // on ne s'occupe pas des îles complètes
+
+
+                // Réeinitialisation de la liste des voisins
+                uneIle.resetListeVoisinsConnectes();
+                uneIle.resetListeVoisinsPasConnectes();
+
+                // Remplir les listes de voisins une fois, pour ne pas avoir à le recalculer
+                uneIle.remplirVoisinsConnectes();
+                uneIle.remplirVoisinsPasConnectes();
+
 
                 try {
                     aidesTrouve.add(uneIle.techniquePontsBloques());
                 } catch (Exception e) {
-                    // TODO: handle exception*
+                    // TODO: handle exception
                     System.err.println(e.getMessage());
                     // System.err.println("Erreur: Attribut -valeur de l'Ile incorrect 1");
                 }
@@ -450,37 +461,14 @@ public class Grille extends MouseAdapter {
         for (Ile ile : this.iles) {
 
             // Réeinitialisation de la liste des voisins
-            ile.resetListeVoisin();
+            ile.resetListeVoisinsConnectes();
+            ile.resetListeVoisinsPasConnectes();
 
-            // Recherche des voisins sur les quatre directions
-            Ile voisin;
-
-            // Haut
-            voisin = getVoisinSansPont(ile, "haut");
-            if (voisin != null) {
-                ile.ajouterVoisin(voisin);
-            }
-
-            // Bas
-            voisin = getVoisinSansPont(ile, "bas");
-            if (voisin != null) {
-                ile.ajouterVoisin(voisin);
-            }
-
-            // Gauche
-            voisin = getVoisinSansPont(ile, "gauche");
-            if (voisin != null) {
-                ile.ajouterVoisin(voisin);
-            }
-
-            // Droite
-            voisin = getVoisinSansPont(ile, "droite");
-            if (voisin != null) {
-                ile.ajouterVoisin(voisin);
-            }
+            ile.remplirVoisinsConnectes();
+            ile.remplirVoisinsPasConnectes();
 
             // Affichage des voisins de l'île
-            System.out.println("Voisins de l'île " + ile + " : " + ile.getListeVoisin());
+            System.out.println("Voisins de l'île " + ile + " : " + ile.getVoisins());
         }
     }
 
