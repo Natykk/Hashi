@@ -38,4 +38,12 @@ public class ModeHistoire extends Mode {
         throw new UnsupportedOperationException("Unimplemented method 'getActions'");
     }
 
+    @Override
+    public void call_aide(Label label) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'call_aide'");
+    }
+
+
+
 }

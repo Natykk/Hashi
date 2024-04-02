@@ -20,6 +20,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
+
 /**
  * Classe principale du jeu.
  */
@@ -85,26 +86,32 @@ public class Hashi extends Panel {
         resetButton = new Button().setImage("btn-restart.png");
         buttonPanel.add(resetButton);
 
-        hintButton.addActionListener(e -> {
-            SwingUtilities.invokeLater(() -> new Help(grille));
-        });
-
-        helpButton.addActionListener(e -> {
-            PageManager.changerPage(new Rule(this, "title"));
-        });
-
-        returnButton.addActionListener(e -> {
-            PageManager.changerPage(mode.getReturnPanel());
-        });
-
         Panel timerPanel = new Panel(new FlowLayout(FlowLayout.RIGHT));
         Label timerLabel = new Label("00:00").setAsRawText().setFontSize(90);
         timerLabel.setPreferredSize(new Dimension(400, 120));
         timerPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 200));
         timerPanel.add(timerLabel);
         add(timerPanel, BorderLayout.NORTH);
-
         mode.startTimer(timerLabel);
+
+        hintButton.addActionListener(e -> {
+            this.mode.call_aide(timerLabel);
+            SwingUtilities.invokeLater(() -> new Help(grille));
+        });
+
+        helpButton.addActionListener(e -> {
+            
+            PageManager.changerPage(new Rule(this, "title"));
+            
+        });
+
+        returnButton.addActionListener(e -> {
+            PageManager.changerPage(mode.getReturnPanel());
+        });
+
+        
+
+        
 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 10, 0));
         add(buttonPanel, BorderLayout.WEST);
