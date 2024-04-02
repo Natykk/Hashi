@@ -63,6 +63,7 @@ public class HistoryLoadGame extends Panel {
         });
         charger.addActionListener(e -> {
             // grille sauvegarder
+            PageManager.changerPage(new History());
         });
         parametre.addActionListener(e -> {
             PageManager.changerPage(new Parameter(this, TITLE));
