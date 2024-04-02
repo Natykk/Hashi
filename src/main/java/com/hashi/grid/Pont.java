@@ -36,7 +36,7 @@ public class Pont extends Case {
         try {
             g.setColor(StyleManager.getInstance().getFgColor());
 
-            int decalage = estDouble ? 10 : 0;
+            int decalage = estDouble ? 5 : 0;
 
             if (estHorizontal()) {
                 g.drawLine(ile1.getXAffichage(), ile1.getYAffichage() - decalage, ile2.getXAffichage(),

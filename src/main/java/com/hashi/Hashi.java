@@ -158,7 +158,7 @@ public class Hashi extends Panel {
 
         // Méthode pour dessiner la grille
         private void drawGrid(Graphics2D g2d) {
-            int gridSize = getHeight() - 75;
+            int gridSize = getHeight() - 50;
 
             cellSize = gridSize / grille.getTaille();
 
