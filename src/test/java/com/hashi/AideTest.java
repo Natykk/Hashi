@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
+import com.hashi.grid.Aide;
 import com.hashi.grid.Grille;
 import com.hashi.grid.Ile;
 import com.hashi.grid.Jeu;
@@ -140,7 +141,12 @@ public class AideTest {
 
             System.out.println("nb voisins libres : " + i1.getVoisinsLibres().size());
 
-            // assertEquals( Aide.FORCE1, i1.techniquePontsForces() );
+            try {
+                assertEquals( Aide.FORCE1, i1.techniquePontsForces() );
+
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
         } else {
             System.out.println("i1 est null");
         }
