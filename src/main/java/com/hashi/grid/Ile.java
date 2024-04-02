@@ -770,6 +770,14 @@ public class Ile extends Case {
                     return Aide.BLOQUE7;
                 }
                 break;
+
+            case 1:
+            case 2:
+            case 8:
+                // cas non-utilisé
+                // il n'y a pas de techniques où un pont est bloqué pour les Iles avec ces valeurs
+                break;
+
             default:
                 throw new InvalidAttributeValueException("erreur techniquePontsBloques(): l'attribut -valeur de " + this
                         + " n'est pas compris dans [1,8]");
@@ -834,6 +842,15 @@ public class Ile extends Case {
                         return Aide.ISOLE2;
                     }
                 }
+                break;
+
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                // cas non-implémentés
                 break;
 
             default:
