@@ -593,7 +593,7 @@ public class Ile extends Case {
                 return Aide.FORCE8;
             // break;
             default:
-                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
+                throw new InvalidAttributeValueException("erreur techniquePontsForces():  l'attribut -valeur de " + this
                         + " n'est pas compris dans [1,8]");
         }
 
@@ -751,7 +751,7 @@ public class Ile extends Case {
                  * }
                  * }
                  */
-
+                break;
             case 6:
                 /*
                  * une Ile qui a besoin de 6 Ponts,
@@ -760,7 +760,7 @@ public class Ile extends Case {
                  * on met un pont entre chaque voisin qui n'est pas celle de 1
                  * 
                  */
-
+                break;
             case 7:
                 /*
                  * une Ile qui a besoin de 7 ponts,
@@ -769,8 +769,9 @@ public class Ile extends Case {
                 if (this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1) {
                     return Aide.BLOQUE7;
                 }
+                break;
             default:
-                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
+                throw new InvalidAttributeValueException("erreur techniquePontsBloques(): l'attribut -valeur de " + this
                         + " n'est pas compris dans [1,8]");
         }
 
@@ -836,7 +837,7 @@ public class Ile extends Case {
                 break;
 
             default:
-                throw new InvalidAttributeValueException("erreur techniquePontsForces(): l'attribut -valeur de " + this
+                throw new InvalidAttributeValueException("erreur techniqueIsolation():    l'attribut -valeur de " + this
                         + " n'est pas compris dans [1,8]");
         }
 
