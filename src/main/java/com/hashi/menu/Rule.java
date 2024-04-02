@@ -2,6 +2,7 @@ package com.hashi.menu;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Point;
 
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
@@ -20,6 +21,7 @@ public class Rule extends Panel {
 
     /**
      * Constructeur de la classe `Rule`.
+     * 
      * @param returnPanel Le panneau à retourner après la consultation des règles.
      * @param returnTitle Le titre de la page à retourner.
      */
@@ -36,6 +38,7 @@ public class Rule extends Panel {
         text.setFont(StyleManager.getInstance().getFont().deriveFont(0, 25));
         text.setLineWrap(true);
         text.setWrapStyleWord(true);
+        text.setFocusable(false);
 
         // Ajout des règles dans la zone de texte
         text.setText(LanguageManager.getString("rules"));
@@ -44,6 +47,7 @@ public class Rule extends Panel {
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(270, 270, 0, 270));
+        scrollPane.getViewport().setViewPosition(new Point(0, 0));
         add(scrollPane, BorderLayout.CENTER);
 
         Button retourButton = new Button("return").setFontSize(50);

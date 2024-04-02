@@ -44,9 +44,13 @@ public class AideTest {
         g.ajouterIle(i3);
         g.ajouterIle(i1);
         g.ajouterIle(i2);
-        g.fillListVoisins();
 
-        listeGetVoisins = i3.getListeVoisin();
+        
+        i3.remplirVoisinsConnectes();
+        i3.remplirVoisinsPasConnectes();
+
+        
+        listeGetVoisins = i3.getVoisins();
         uneListeDIle.add(i1); // bas
         uneListeDIle.add(i2); // droite
 
@@ -79,9 +83,13 @@ public class AideTest {
         g.ajouterIle(i3);
         g.ajouterIle(i1);
         g.ajouterIle(i2);
-        g.fillListVoisins();
 
-        uneListeDIle = i3.getListeVoisin();
+        
+        i3.remplirVoisinsConnectes();
+        i3.remplirVoisinsPasConnectes();
+
+
+        uneListeDIle = i3.getVoisins();
 
         // i3 a 2 voisins
         assertEquals(2, uneListeDIle.size());
@@ -126,7 +134,7 @@ public class AideTest {
             System.out.println("valeur : " + i1.getValeur());
 
             System.out.println("voisins: ");
-            for (Ile i : i1.getListeVoisin()) {
+            for (Ile i : i1.getVoisins()) {
                 System.out.println(i.getValeur());
             }
 
