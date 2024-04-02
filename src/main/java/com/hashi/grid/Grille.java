@@ -430,6 +430,14 @@ public class Grille extends MouseAdapter {
                     System.err.println(e.getMessage());
                     // System.err.println("Erreur: Attribut -valeur de l'Ile incorrect 2");
                 }
+
+                try {
+                    aidesTrouve.add(uneIle.techniqueIsolation());
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    System.err.println(e.getMessage());
+                    // System.err.println("Erreur: Attribut -valeur de l'Ile incorrect 3");
+                }
             }
         }
 
