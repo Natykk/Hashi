@@ -6,6 +6,7 @@ import java.util.List;
 import com.hashi.Profil;
 import com.hashi.grid.Grille;
 import com.hashi.grid.Jeu;
+import com.hashi.grid.TimerManager;
 import com.hashi.grid.action.Action;
 import com.hashi.grid.action.PontAction;
 import com.hashi.menu.HistoryVictory;
@@ -28,8 +29,8 @@ public class ModeHistoire extends Mode {
         String fichierGrille = Mode.getGrilleToPlay(1, 2,num);
 
         this.grille = Jeu.genererGrilleDepuisFichier(fichierGrille).get(num);
-        this.solution = Jeu.genererSolutionDepuisFichier(fichierGrille.replace("G", "SG")).get(num);
-        this.numGrille = 18 + num * 6 + num;
+        this.solution = Jeu.genererSolutionDepuisFichier(fichierGrille).get(num);
+        this.numGrille = num;
         this.typeTaille = 1;
     }
 
@@ -50,7 +51,9 @@ public class ModeHistoire extends Mode {
 
     @Override
     public void startTimer(Label label) {
-        throw new UnsupportedOperationException("Unimplemented method 'startTimer'");
+         timer = new TimerManager(label, PageManager.getProfil().getTempsEntrainement(numGrille), false);
+        timer.addActionListener(
+                e -> PageManager.getProfil().setTempsEntrainement(numGrille, (int) timer.tempsEcoule() / 1000));
     }
 
     @Override
@@ -68,5 +71,4 @@ public class ModeHistoire extends Mode {
 
         return new ArrayList<>();
     }
-
 }

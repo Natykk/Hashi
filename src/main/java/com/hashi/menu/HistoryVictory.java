@@ -39,7 +39,9 @@ public class HistoryVictory extends Panel {
 
         continuer.addActionListener(e -> {
 
-            int avancement = PageManager.getProfil().getAvancementHistoire();
+            //int avancement = PageManager.getProfil().getAvancementHistoire();
+            int avancement=0;
+            System.out.println("avancement : "+avancement);
             PageManager.getProfil().setAvancementHistoire(avancement + 1);
             PageManager.changerPage(new Chapitre(avancement+1));
         });

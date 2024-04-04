@@ -214,7 +214,6 @@ public class Profil implements Serializable {
      */
     public void setPartieHistoire(int num, List<Action> partie) {
         listePartieHistoire.add(num, partie);
-        sauvegarde();
     }
 
     /**
