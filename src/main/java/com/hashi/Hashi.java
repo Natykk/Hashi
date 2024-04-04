@@ -124,7 +124,7 @@ public class Hashi extends Panel {
         });
 
         checkbutton.addActionListener(e -> {
-            if (!grille.isGridFinished()) {
+            if (!grille.isGridFinished()) { // réinverser cette condition une fois le mode histoire finie
                 PageManager.changerPage(mode.gameFinishedGetVictoryPanel());
             } else {
                 addAction(new VerificationAction(grille, mode.getSolution()));
