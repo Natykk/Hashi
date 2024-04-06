@@ -12,7 +12,7 @@ import com.hashi.style.Button;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
-// il me reste l'affichage des etoiles 
+
 
 /**
  * La classe `HistoryVictory` représente un panneau affichant les étoiles obtenues après une victoire.
@@ -39,10 +39,10 @@ public class HistoryVictory extends Panel {
 
         continuer.addActionListener(e -> {
 
-            //int avancement = PageManager.getProfil().getAvancementHistoire();
-            int avancement=0;
+            int avancement = PageManager.getProfil().getAvancementHistoire();
+            //int avancement=0;
             System.out.println("avancement : "+avancement);
-            PageManager.getProfil().setAvancementHistoire(avancement + 1);
+            PageManager.getProfil().setAvancementHistoire(avancement+1);
             PageManager.changerPage(new Chapitre(avancement+1));
         });
 

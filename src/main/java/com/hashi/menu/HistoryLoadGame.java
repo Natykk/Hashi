@@ -24,6 +24,7 @@ public class HistoryLoadGame extends Panel {
     private Button changerProfil;
     private Button regles;
     private Button quitter;
+    private int chapitre= 1;
 
     /**
      * Constructeur de la classe `HistoryLoadGame`.
@@ -58,12 +59,12 @@ public class HistoryLoadGame extends Panel {
             PageManager.changerPage(new Rule(this, TITLE));
         });
         nouvellePartie.addActionListener(e -> {
-            // juste pour tester la page etoiles
-            PageManager.changerPage(new History());
+            
+            PageManager.changerPage(new Chapitre(chapitre));
         });
         charger.addActionListener(e -> {
             // grille sauvegarder
-            PageManager.changerPage(new History());
+            
         });
         parametre.addActionListener(e -> {
             PageManager.changerPage(new Parameter(this, TITLE));

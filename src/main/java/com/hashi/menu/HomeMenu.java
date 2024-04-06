@@ -27,6 +27,7 @@ public class HomeMenu extends Panel {
     private Button arcadeButton;
     private Button histoireButton;
     private Button entrainementButton;
+    private int chapitre=1;
 
     /**
      * Constructeur de la classe `HomeMenu`.
@@ -97,7 +98,7 @@ public class HomeMenu extends Panel {
 
         histoireButton.addActionListener(e -> {
             // Votre code pour le bouton Histoire
-            PageManager.changerPage(new Hashi(new ModeHistoire(this,false)));
+            PageManager.changerPage(new HistoryLoadGame());
         });
 
         // Action du bouton "Entraînement"
