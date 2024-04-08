@@ -10,7 +10,6 @@ import javax.swing.BorderFactory;
 
 import com.hashi.Hashi;
 import com.hashi.game.mode.ModeArcade;
-import com.hashi.game.mode.ModeHistoire;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
@@ -27,7 +26,6 @@ public class HomeMenu extends Panel {
     private Button arcadeButton;
     private Button histoireButton;
     private Button entrainementButton;
-    private int chapitre=1;
 
     /**
      * Constructeur de la classe `HomeMenu`.

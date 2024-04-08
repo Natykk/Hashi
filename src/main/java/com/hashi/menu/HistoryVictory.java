@@ -8,28 +8,27 @@ import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 
+import com.hashi.game.mode.ModeHistoire;
 import com.hashi.style.Button;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
-
-
 /**
- * La classe `HistoryVictory` représente un panneau affichant les étoiles obtenues après une victoire.
+ * La classe `HistoryVictory` représente un panneau affichant les étoiles
+ * obtenues après une victoire.
  * Elle étend la classe `Panel`.
  */
 public class HistoryVictory extends Panel {
     private final String TITLE = "title_victory";
     private Button continuer;
     private Button quitter;
-    private int score = 1;
+    private Panel starsGroup;
 
-
-     /**
+    /**
      * Constructeur de la classe `HistoryVictory`.
      * Initialise le panneau et les boutons.
      */
-    public HistoryVictory() {
+    public HistoryVictory(ModeHistoire mode, int score) {
         super(new BorderLayout(), "bg-victory.png");
 
         PageManager.getInstance().setTitle(TITLE);
@@ -38,26 +37,14 @@ public class HistoryVictory extends Panel {
         quitter = new Button("quit").setFontSize(50);
 
         continuer.addActionListener(e -> {
-
-            int avancement = PageManager.getProfil().getAvancementHistoire();
-            //int avancement=0;
-            System.out.println("avancement : "+avancement);
-            PageManager.getProfil().setAvancementHistoire(avancement+1);
-            PageManager.changerPage(new Chapitre(avancement+1));
+            PageManager.changerPage(mode.getNextPanel());
         });
 
         quitter.addActionListener(e -> {
             PageManager.changerPage(new HomeMenu());
         });
 
-        positionnerBoutons();
-    }
-
-    /**
-     * Positionne les boutons et les étoiles dans le panneau.
-     */
-    private void positionnerBoutons() {
-        Panel starsGroup = new Panel();
+        starsGroup = new Panel();
 
         for (int i = 0; i < 3; i++) {
             Panel star = new Panel().setImage(score >= (i + 1) ? "star.png" : "empty-star.png");
@@ -66,6 +53,13 @@ public class HistoryVictory extends Panel {
             starsGroup.add(star);
         }
 
+        positionnerBoutons();
+    }
+
+    /**
+     * Positionne les boutons et les étoiles dans le panneau.
+     */
+    private void positionnerBoutons() {
         Panel groupButton = new Panel();
         groupButton.setLayout(new GridBagLayout());
         GridBagConstraints gbc = createGbc(0, 0);
@@ -88,9 +82,11 @@ public class HistoryVictory extends Panel {
 
         add(contenu, BorderLayout.CENTER);
     }
-    
+
     /**
-     * Crée une contrainte pour le positionnement des composants dans un panneau de type `GridBagLayout`.
+     * Crée une contrainte pour le positionnement des composants dans un panneau de
+     * type `GridBagLayout`.
+     * 
      * @param x Position horizontale du composant dans la grille
      * @param y Position verticale du composant dans la grille
      * @return GridBagConstraints pour le positionnement du composant dans la grille

@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import com.hashi.game.mode.ModeHistoire;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
@@ -24,7 +25,6 @@ public class HistoryLoadGame extends Panel {
     private Button changerProfil;
     private Button regles;
     private Button quitter;
-    private int chapitre= 1;
 
     /**
      * Constructeur de la classe `HistoryLoadGame`.
@@ -59,12 +59,10 @@ public class HistoryLoadGame extends Panel {
             PageManager.changerPage(new Rule(this, TITLE));
         });
         nouvellePartie.addActionListener(e -> {
-            
-            PageManager.changerPage(new Chapitre(chapitre));
+            PageManager.changerPage(new ModeHistoire(new HomeMenu(), false).getNextPanel());
         });
         charger.addActionListener(e -> {
-            // grille sauvegarder
-            
+            PageManager.changerPage(new ModeHistoire(new HomeMenu(), true).getNextPanel());
         });
         parametre.addActionListener(e -> {
             PageManager.changerPage(new Parameter(this, TITLE));
