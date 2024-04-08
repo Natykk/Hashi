@@ -17,7 +17,7 @@ import com.hashi.grid.action.Action;
 public class Profil implements Serializable {
     private String nomProfil;
 
-    private int AvancementHistoire = 0;
+    private int AvancementHistoire = 1;
 
     private ArrayList<Integer> listeScoreEntrainement; // Liste des scores mode Entrainement
     private ArrayList<Integer> listeTempsEntrainement; // Liste des temps de parties en cours mode Entrainement
@@ -35,6 +35,7 @@ public class Profil implements Serializable {
         listeScoreEntrainement = new ArrayList<Integer>(54);
         listePartieEntrainement = new ArrayList<List<Action>>(54);
         listeTempsEntrainement = new ArrayList<Integer>(54);
+
         for (int i = 0; i < 54; i++) {
             listeScoreEntrainement.add(-1);
             listePartieEntrainement.add(new ArrayList<Action>());
@@ -52,8 +53,9 @@ public class Profil implements Serializable {
         listeScoreHistoire = new ArrayList<Integer>(12);
         listePartieHistoire = new ArrayList<List<Action>>(12);
         listeTempsHistoire = new ArrayList<Integer>(12);
+
         for (int i = 0; i < 12; i++) {
-            listeScoreHistoire.add(-1);
+            listeScoreHistoire.add(0);
             listePartieHistoire.add(new ArrayList<Action>());
             listeTempsHistoire.add(0);
         }
@@ -76,7 +78,7 @@ public class Profil implements Serializable {
      */
     public void setScoreEntrainement(int num, int score) {
         if (listeScoreEntrainement.get(num) < score) {
-            listeScoreEntrainement.add(num, score);
+            listeScoreEntrainement.set(num, score);
             setPartieEntrainement(num, new ArrayList<>());
             setTempsEntrainement(num, 0);
             sauvegarde();
@@ -100,7 +102,7 @@ public class Profil implements Serializable {
      * @param temps
      */
     public void setTempsEntrainement(int num, int temps) {
-        listeTempsEntrainement.add(num, temps);
+        listeTempsEntrainement.set(num, temps);
         sauvegarde();
     }
 
@@ -121,7 +123,7 @@ public class Profil implements Serializable {
      * @param partie
      */
     public void setPartieEntrainement(int num, List<Action> partie) {
-        listePartieEntrainement.add(num, partie);
+        listePartieEntrainement.set(num, partie);
         sauvegarde();
     }
 
@@ -192,7 +194,7 @@ public class Profil implements Serializable {
      * @param temps
      */
     public void setTempsHistoire(int num, int temps) {
-        listeTempsHistoire.add(num, temps);
+        listeTempsHistoire.set(num, temps);
         sauvegarde();
     }
 
@@ -213,7 +215,7 @@ public class Profil implements Serializable {
      * @param partie
      */
     public void setPartieHistoire(int num, List<Action> partie) {
-        listePartieHistoire.add(num, partie);
+        listePartieHistoire.set(num, partie);
     }
 
     /**
@@ -224,6 +226,25 @@ public class Profil implements Serializable {
      */
     public List<Action> getPartieHistoire(int num) {
         return listePartieHistoire.get(num);
+    }
+
+    /**
+     * Reset le mode Histoire.
+     */
+    public void resetHistoire() {
+        setAvancementHistoire(1);
+
+        listeScoreHistoire.clear();
+        listePartieHistoire.clear();
+        listeTempsHistoire.clear();
+
+        for (int i = 0; i < 12; i++) {
+            listeScoreHistoire.add(0);
+            listePartieHistoire.add(new ArrayList<Action>());
+            listeTempsHistoire.add(0);
+        }
+
+        sauvegarde();
     }
 
     protected static void createSaveDir() {

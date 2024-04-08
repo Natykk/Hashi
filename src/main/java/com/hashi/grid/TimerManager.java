@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class TimerManager implements ActionListener {
     private JLabel timerLabel;
-    public long startTime;
+    private long startTime;
     private long elapsedTime;
     private Timer timer;
     private boolean isInverted;

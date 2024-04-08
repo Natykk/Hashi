@@ -25,7 +25,7 @@ public class ModeHistoire extends Mode {
         super(returnPanel, charger);
 
         if (!charger)
-            PageManager.getProfil().setAvancementHistoire(1);
+            PageManager.getProfil().resetHistoire();
 
         this.numGrille = PageManager.getProfil().getAvancementHistoire();
 
@@ -33,14 +33,15 @@ public class ModeHistoire extends Mode {
     }
 
     private void loadNextGrid() {
-        String fichierGrille = Mode.getGrilleToPlay(1, this.numGrille / 6, this.numGrille % 6);
+        int tempNumGrille = numGrille - 1;
+        String fichierGrille = Mode.getGrilleToPlay(1, tempNumGrille / 6, tempNumGrille % 6);
 
-        this.grille = Jeu.genererGrilleDepuisFichier(fichierGrille).get(this.numGrille % 6);
-        this.solution = Jeu.genererSolutionDepuisFichier(fichierGrille).get(this.numGrille % 6);
+        grille = Jeu.genererGrilleDepuisFichier(fichierGrille).get(tempNumGrille % 6);
+        solution = Jeu.genererSolutionDepuisFichier(fichierGrille).get(tempNumGrille % 6);
     }
 
     public Panel getNextPanel() {
-        if (numGrille == 5 || numGrille == 8)
+        if (numGrille == 5 || numGrille == 8) // les fois on joue 2 parties de suite
             return new Hashi(this);
 
         return new Chapitre(this, numGrille);
@@ -60,10 +61,11 @@ public class ModeHistoire extends Mode {
     public Panel gameFinishedGetVictoryPanel() {
         timer.stopTimer();
 
+        int tempNumGrille = numGrille - 1;
         int time = (int) timer.tempsEcoule() / 1000;
-        int score = Score.calculScoreHistoire(numGrille, time);
+        int score = Score.calculScoreHistoire(tempNumGrille, time);
 
-        PageManager.getProfil().setScoreHistoire(numGrille, score);
+        PageManager.getProfil().setScoreHistoire(tempNumGrille, score);
 
         numGrille++;
 
@@ -76,14 +78,14 @@ public class ModeHistoire extends Mode {
 
     @Override
     public void startTimer(Label label) {
-        timer = new TimerManager(label, PageManager.getProfil().getTempsHistoire(numGrille), false);
+        timer = new TimerManager(label, PageManager.getProfil().getTempsHistoire(numGrille - 1), false);
         timer.addActionListener(
-                e -> PageManager.getProfil().setTempsHistoire(numGrille, (int) timer.tempsEcoule() / 1000));
+                e -> PageManager.getProfil().setTempsHistoire(numGrille - 1, (int) timer.tempsEcoule() / 1000));
     }
 
     @Override
     public void sauvegarder(List<Action> actions) {
-        PageManager.getProfil().setPartieHistoire(numGrille, actions);
+        PageManager.getProfil().setPartieHistoire(numGrille - 1, actions);
     }
 
     @Override
@@ -91,10 +93,10 @@ public class ModeHistoire extends Mode {
         if (charger) {
             charger = false;
 
-            return PageManager.getProfil().getPartieHistoire(numGrille);
+            return PageManager.getProfil().getPartieHistoire(numGrille - 1);
         }
 
-        PageManager.getProfil().setPartieHistoire(numGrille, new ArrayList<>());
+        PageManager.getProfil().setPartieHistoire(numGrille - 1, new ArrayList<>());
 
         return new ArrayList<>();
     }
