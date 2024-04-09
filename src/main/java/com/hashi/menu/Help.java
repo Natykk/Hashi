@@ -41,13 +41,13 @@ public class Help extends JFrame {
 
         // Ajout des techniques dans la zone de texte
         if (aideChoisie != null) {
-            
+
             // ce texte n'est pas très clair pour l'utilisateur, pas la peine de l'afficher
-            //text.setText(LanguageManager.getString(aideChoisie.toString()));
-            //text.append("\n\n");
+            // text.setText(LanguageManager.getString(aideChoisie.toString()));
+            // text.append("\n\n");
 
             System.out.println("Aide choisie : " + aideChoisie);
-            
+
             // Ajout du titre d'explication si la technique 2 est affichée
             String imageName1 = "";
             String imagename2 = "";
@@ -108,8 +108,7 @@ public class Help extends JFrame {
             panel.add(imagePanel, BorderLayout.SOUTH);
 
         } else {
-
-            text.setText(LanguageManager.getString("help"));
+            text.setText("");
             System.out.println("Aucune aide utilisable trouvée.");
         }
         JScrollPane scrollPane = new JScrollPane(text);
