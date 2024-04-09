@@ -26,6 +26,7 @@ public class HomeMenu extends Panel {
     private Button arcadeButton;
     private Button histoireButton;
     private Button entrainementButton;
+    private Button scoreboardButton;
 
     /**
      * Constructeur de la classe `HomeMenu`.
@@ -44,6 +45,7 @@ public class HomeMenu extends Panel {
         arcadeButton = new Button("arcade").setFontSize(30);
         histoireButton = new Button("history").setFontSize(30);
         entrainementButton = new Button("training").setFontSize(30);
+        scoreboardButton = new Button("Scoreboard").setAsRawText();
 
         Dimension size = new Dimension(150, 90);
 
@@ -52,11 +54,13 @@ public class HomeMenu extends Panel {
         reglesButton.setPreferredSize(size);
         quitterButton.setPreferredSize(size);
 
+
         size = new Dimension(260, 100);
 
         arcadeButton.setPreferredSize(size);
         histoireButton.setPreferredSize(size);
         entrainementButton.setPreferredSize(size);
+        scoreboardButton.setPreferredSize(size);
 
         positionnerBoutons1();
 
@@ -105,6 +109,13 @@ public class HomeMenu extends Panel {
             // Votre code pour le bouton Entraînement
             PageManager.changerPage(new TrainingGridSizeSelection());
         });
+
+        // Action du bouton "Scoreboard"
+        scoreboardButton.addActionListener(e -> {
+            // Votre code pour le bouton Scoreboard
+            PageManager.changerPage(new ScoreBoard());
+        });
+
     }
 
     /**
@@ -120,6 +131,8 @@ public class HomeMenu extends Panel {
         groupButton.add(histoireButton, gbc);
         gbc.gridx = 2;
         groupButton.add(entrainementButton, gbc);
+        gbc.gridx = 3;
+        groupButton.add(scoreboardButton, gbc);
         groupButton.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
 
         // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons

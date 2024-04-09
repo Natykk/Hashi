@@ -247,6 +247,10 @@ public class Profil implements Serializable {
         sauvegarde();
     }
 
+    public int getNbPartieHistoire() {
+        return listePartieHistoire.size();
+    }
+
     protected static void createSaveDir() {
         try {
             File directory = new File("save");

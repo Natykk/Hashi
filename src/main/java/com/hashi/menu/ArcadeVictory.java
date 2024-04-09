@@ -34,6 +34,10 @@ public class ArcadeVictory extends Panel {
 
         continuer = new Button("continue").setFontSize(43);
         retour = new Button("return").setFontSize(50);
+
+        // Affiche le score final de l'utilisateur
+
+
         continuer.addActionListener(e -> {
             PageManager.changerPage(new Hashi(new ModeArcade()));
         });
