@@ -1,7 +1,6 @@
 package com.hashi.style;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
@@ -23,45 +22,27 @@ public class SchoolStyle extends Style {
         button_border_image = getImageResource(getResourcePath("btn-border.png")).getImage();
     }
 
-    private <T extends Component & ImageComponent<?>> void drawImage(T image_component, Graphics2D g,
-            boolean contained) {
-        if (image_component.getImage() != null) {
-            float panel_ratio = (float) image_component.getWidth() / (float) image_component.getHeight();
-            float image_ratio = (float) image_component.getImage().getWidth(null)
-                    / (float) image_component.getImage().getHeight(null);
-
-            if ((!contained && panel_ratio < image_ratio) || (contained && panel_ratio >= image_ratio)) {
-                int width = (int) (image_ratio * image_component.getHeight());
-
-                g.drawImage(image_component.getImage(), (image_component.getWidth() - width) / 2, 0, width,
-                        image_component.getHeight(),
-                        image_component);
-            } else {
-                int height = (int) (image_component.getWidth() / image_ratio);
-
-                g.drawImage(image_component.getImage(), 0, (image_component.getHeight() - height) / 2,
-                        image_component.getWidth(), height,
-                        image_component);
-            }
-        }
-    }
-
+    @Override
     protected void initPanel(Panel panel) {
 
     }
 
+    @Override
     protected void paintPanel(Panel panel, Graphics2D g) {
         drawImage(panel, g, false);
     }
 
+    @Override
     protected void paintPanelBorder(Panel panel, Graphics2D g) {
 
     }
 
+    @Override
     protected void initButton(Button button) {
         button.setFont(font.deriveFont(0, button.getFontSize()));
     }
 
+    @Override
     protected void paintButton(Button button, Graphics2D g) {
         drawImage(button, g, true);
 
@@ -73,15 +54,18 @@ public class SchoolStyle extends Style {
                 (button.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
     }
 
+    @Override
     protected void paintButtonBorder(Button button, Graphics2D g) {
         if (button.getImage() == null)
             g.drawImage(button_border_image, 0, 0, button.getWidth(), button.getHeight(), button);
     }
 
+    @Override
     protected void initLabel(Label label) {
         label.setFont(font.deriveFont(0, label.getFontSize()));
     }
 
+    @Override
     protected void paintLabel(Label label, Graphics2D g) {
         g.setFont(font.deriveFont(0, label.getFontSize()));
         g.setColor(fg_color);
@@ -91,10 +75,12 @@ public class SchoolStyle extends Style {
                 (label.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent());
     }
 
+    @Override
     protected void paintLabelBorder(Label label, Graphics2D g) {
 
     }
 
+    @Override
     protected <E> void initComboBox(ComboBox<E> combo_box) {
         combo_box.setUI(new BasicComboBoxUI() {
             @Override
@@ -110,6 +96,7 @@ public class SchoolStyle extends Style {
         combo_box.setFont(font.deriveFont(0, combo_box.getFontSize()));
     }
 
+    @Override
     protected <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
         g.setFont(font.deriveFont(0, combo_box.getFontSize()));
         g.setColor(fg_color);
@@ -119,14 +106,17 @@ public class SchoolStyle extends Style {
                 (combo_box.getHeight() - g.getFontMetrics().getAscent()) / 2 + g.getFontMetrics().getAscent() - 5);
     }
 
+    @Override
     protected <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g) {
         g.drawImage(button_border_image, 0, 0, combo_box.getWidth(), combo_box.getHeight(), combo_box);
     }
 
+    @Override
     protected void initTextField(TextField text_field) {
         text_field.setFont(font.deriveFont(0, text_field.getFontSize()));
     }
 
+    @Override
     protected void paintTextField(TextField text_field, Graphics2D g) {
         int margin = 2;
 
@@ -141,6 +131,7 @@ public class SchoolStyle extends Style {
         text_field.getCaret().paint(g);
     }
 
+    @Override
     protected void paintTextFieldBorder(TextField text_field, Graphics2D g) {
         g.drawImage(button_border_image, -text_field.getColumns() / 2, 0,
                 text_field.getWidth() + text_field.getColumns(), text_field.getHeight(), text_field);

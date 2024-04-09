@@ -55,6 +55,7 @@ public class Label extends JLabel implements FontSize<Label>, AsRawText<Label> {
      * @return Retourne un {@link com.hashi.style.Label} afin de pouvoir chainer
      *         les appels de fonctions.
      */
+    @Override
     public Label setAsRawText() {
         is_raw_text = true;
 
@@ -67,6 +68,7 @@ public class Label extends JLabel implements FontSize<Label>, AsRawText<Label> {
      * @return Retourne un {@link com.hashi.style.Label} afin de pouvoir chainer
      *         les appels de fonctions.
      */
+    @Override
     public Label setFontSize(int size) {
         font_size = size;
 
@@ -75,6 +77,7 @@ public class Label extends JLabel implements FontSize<Label>, AsRawText<Label> {
         return this;
     }
 
+    @Override
     public int getFontSize() {
         return font_size;
     }

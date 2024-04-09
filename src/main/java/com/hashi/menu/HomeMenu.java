@@ -8,6 +8,8 @@ import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 
+import com.hashi.Hashi;
+import com.hashi.game.mode.ModeArcade;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
@@ -24,6 +26,7 @@ public class HomeMenu extends Panel {
     private Button arcadeButton;
     private Button histoireButton;
     private Button entrainementButton;
+    private Button scoreboardButton;
 
     /**
      * Constructeur de la classe `HomeMenu`.
@@ -42,6 +45,7 @@ public class HomeMenu extends Panel {
         arcadeButton = new Button("arcade").setFontSize(30);
         histoireButton = new Button("history").setFontSize(30);
         entrainementButton = new Button("training").setFontSize(30);
+        scoreboardButton = new Button("Scoreboard").setAsRawText();
 
         Dimension size = new Dimension(150, 90);
 
@@ -50,11 +54,13 @@ public class HomeMenu extends Panel {
         reglesButton.setPreferredSize(size);
         quitterButton.setPreferredSize(size);
 
+
         size = new Dimension(260, 100);
 
         arcadeButton.setPreferredSize(size);
         histoireButton.setPreferredSize(size);
         entrainementButton.setPreferredSize(size);
+        scoreboardButton.setPreferredSize(size);
 
         positionnerBoutons1();
 
@@ -87,7 +93,7 @@ public class HomeMenu extends Panel {
 
         arcadeButton.addActionListener(e -> {
             // changement de page -> Mode Arcade
-            PageManager.changerPage(new ArcadeLoadGame());
+            PageManager.changerPage(new Hashi(new ModeArcade()));
         });
 
         // Action du bouton "Histoire"
@@ -103,6 +109,13 @@ public class HomeMenu extends Panel {
             // Votre code pour le bouton Entraînement
             PageManager.changerPage(new TrainingGridSizeSelection());
         });
+
+        // Action du bouton "Scoreboard"
+        scoreboardButton.addActionListener(e -> {
+            // Votre code pour le bouton Scoreboard
+            PageManager.changerPage(new ScoreBoard());
+        });
+
     }
 
     /**
@@ -118,6 +131,8 @@ public class HomeMenu extends Panel {
         groupButton.add(histoireButton, gbc);
         gbc.gridx = 2;
         groupButton.add(entrainementButton, gbc);
+        gbc.gridx = 3;
+        groupButton.add(scoreboardButton, gbc);
         groupButton.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
 
         // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
@@ -141,7 +156,9 @@ public class HomeMenu extends Panel {
     }
 
     /**
-     * Crée une contrainte pour le positionnement des composants dans un panneau de type `GridBagLayout`.
+     * Crée une contrainte pour le positionnement des composants dans un panneau de
+     * type `GridBagLayout`.
+     * 
      * @param x Position horizontale du composant dans la grille
      * @param y Position verticale du composant dans la grille
      * @return GridBagConstraints pour le positionnement du composant dans la grille

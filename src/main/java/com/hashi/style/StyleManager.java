@@ -58,10 +58,12 @@ public class StyleManager extends Style {
         return style.getResourcePath(res);
     }
 
+    @Override
     protected void initPanel(Panel panel) {
         style.initPanel(panel);
     }
 
+    @Override
     protected void paintPanel(Panel panel, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -69,6 +71,7 @@ public class StyleManager extends Style {
         style.paintPanel(panel, g);
     }
 
+    @Override
     protected void paintPanelBorder(Panel panel, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -76,10 +79,12 @@ public class StyleManager extends Style {
         style.paintPanelBorder(panel, g);
     }
 
+    @Override
     protected void initButton(Button button) {
         style.initButton(button);
     }
 
+    @Override
     protected void paintButton(Button button, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -87,6 +92,7 @@ public class StyleManager extends Style {
         style.paintButton(button, g);
     }
 
+    @Override
     protected void paintButtonBorder(Button button, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -94,10 +100,12 @@ public class StyleManager extends Style {
         style.paintButtonBorder(button, g);
     }
 
+    @Override
     protected void initLabel(Label label) {
         style.initLabel(label);
     }
 
+    @Override
     protected void paintLabel(Label label, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -105,6 +113,7 @@ public class StyleManager extends Style {
         style.paintLabel(label, g);
     }
 
+    @Override
     protected void paintLabelBorder(Label label, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -112,10 +121,12 @@ public class StyleManager extends Style {
         style.paintLabelBorder(label, g);
     }
 
+    @Override
     protected <E> void initComboBox(ComboBox<E> comboBox) {
         style.initComboBox(comboBox);
     }
 
+    @Override
     protected <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -123,6 +134,7 @@ public class StyleManager extends Style {
         style.paintComboBox(combo_box, g);
     }
 
+    @Override
     protected <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -130,10 +142,12 @@ public class StyleManager extends Style {
         style.paintComboBoxBorder(combo_box, g);
     }
 
+    @Override
     protected void initTextField(TextField text_field) {
         style.initTextField(text_field);
     }
 
+    @Override
     protected void paintTextField(TextField text_field, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -141,6 +155,7 @@ public class StyleManager extends Style {
         style.paintTextField(text_field, g);
     }
 
+    @Override
     protected void paintTextFieldBorder(TextField text_field, Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);

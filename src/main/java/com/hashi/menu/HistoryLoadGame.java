@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import com.hashi.game.mode.ModeHistoire;
 import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
@@ -58,11 +59,10 @@ public class HistoryLoadGame extends Panel {
             PageManager.changerPage(new Rule(this, TITLE));
         });
         nouvellePartie.addActionListener(e -> {
-            // juste pour tester la page etoiles
-            PageManager.changerPage(new HistoryVictory());
+            PageManager.changerPage(new ModeHistoire(new HomeMenu(), false).getNextPanel());
         });
         charger.addActionListener(e -> {
-            // grille sauvegarder
+            PageManager.changerPage(new ModeHistoire(new HomeMenu(), true).getNextPanel());
         });
         parametre.addActionListener(e -> {
             PageManager.changerPage(new Parameter(this, TITLE));

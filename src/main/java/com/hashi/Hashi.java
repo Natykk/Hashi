@@ -1,5 +1,6 @@
 package com.hashi;
 
+import com.hashi.menu.*;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
 import com.hashi.game.mode.Mode;
@@ -7,11 +8,11 @@ import com.hashi.grid.Case;
 import com.hashi.grid.Grille;
 import com.hashi.grid.Ile;
 import com.hashi.grid.Pont;
-import com.hashi.grid.TimerManager;
 import com.hashi.grid.action.Action;
 import com.hashi.grid.action.AddPontAction;
 import com.hashi.grid.action.RemovePontAction;
 import com.hashi.grid.action.ResetGrilleAction;
+import com.hashi.grid.action.VerificationAction;
 import com.hashi.style.Button;
 
 import javax.management.InvalidAttributeValueException;
@@ -19,12 +20,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
-
-import com.hashi.menu.Help;
-import com.hashi.menu.PageManager;
-import com.hashi.menu.Parameter;
-import com.hashi.menu.Rule;
-import com.hashi.menu.Victory;
 
 /**
  * Classe principale du jeu.
@@ -91,7 +86,16 @@ public class Hashi extends Panel {
         resetButton = new Button().setImage("btn-restart.png");
         buttonPanel.add(resetButton);
 
+        Panel timerPanel = new Panel(new FlowLayout(FlowLayout.RIGHT));
+        Label timerLabel = new Label("00:00").setAsRawText().setFontSize(90);
+        timerLabel.setPreferredSize(new Dimension(400, 120));
+        timerPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 200));
+        timerPanel.add(timerLabel);
+        add(timerPanel, BorderLayout.NORTH);
+        mode.startTimer(timerLabel);
+
         hintButton.addActionListener(e -> {
+            this.mode.callAide();
             SwingUtilities.invokeLater(() -> new Help(grille));
         });
 
@@ -103,16 +107,9 @@ public class Hashi extends Panel {
             PageManager.changerPage(mode.getReturnPanel());
         });
 
-        Panel timerPanel = new Panel(new FlowLayout(FlowLayout.RIGHT));
-        Label timerLabel = new Label("00:00").setAsRawText().setFontSize(90);
-        timerLabel.setPreferredSize(new Dimension(400, 120));
-        timerPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 200));
-        timerPanel.add(timerLabel);
-        add(timerPanel, BorderLayout.NORTH);
-
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 10, 0));
         add(buttonPanel, BorderLayout.WEST);
-        add(new PuzzlePanel(new TimerManager(timerLabel)), BorderLayout.CENTER);
+        add(new PuzzlePanel(), BorderLayout.CENTER);
 
         undoButton.addActionListener(e -> undoAction());
         redoButton.addActionListener(e -> redoAction());
@@ -127,11 +124,11 @@ public class Hashi extends Panel {
         });
 
         checkbutton.addActionListener(e -> {
-            if (grille.getIsGridFinished()) {
-                // recupere le temps
-                String temps = timerLabel.getText();
-                // change la page vers la page victory
-                PageManager.changerPage(new Victory(temps));
+            if (grille.isGridFinished()) {
+                PageManager.changerPage(mode.gameFinishedGetVictoryPanel());
+            } else {
+                addAction(new VerificationAction(grille, mode.getSolution()));
+                repaint();
             }
         });
 
@@ -143,8 +140,6 @@ public class Hashi extends Panel {
     }
 
     class PuzzlePanel extends Panel {
-
-        private final TimerManager timerManager;
 
         /**
          * Redéfinition de la méthode paintComponent pour dessiner la grille
@@ -167,7 +162,7 @@ public class Hashi extends Panel {
 
         // Méthode pour dessiner la grille
         private void drawGrid(Graphics2D g2d) {
-            int gridSize = getHeight() - 75;
+            int gridSize = getHeight() - 50;
 
             cellSize = gridSize / grille.getTaille();
 
@@ -211,12 +206,10 @@ public class Hashi extends Panel {
         }
 
         /**
-         * Constructeur de PuzzlePanel prenant un TimerManager comme paramètre
+         * Constructeur de PuzzlePanel
          * 
-         * @param timerManager
          */
-        public PuzzlePanel(TimerManager timerManager) {
-            this.timerManager = timerManager;
+        public PuzzlePanel() {
 
             /**
              * Evenement pour voir si l'utilisateur clique sur sa souris
@@ -247,14 +240,6 @@ public class Hashi extends Panel {
                 handlePontClick(pont);
             } else {
                 grille.setSelectedCase(null);
-            }
-
-            if (grille.getIsGridFinished()) {
-                timerManager.stopTimer();
-
-                System.out.println("Jeu finie, score : " + timerManager.tempsEcoule());
-
-                mode.setScore((int) timerManager.tempsEcoule());
             }
 
             repaint();

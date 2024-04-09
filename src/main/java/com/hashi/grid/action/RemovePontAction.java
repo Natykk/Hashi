@@ -7,7 +7,7 @@ import com.hashi.grid.Pont;
  * Action supprimant un pont.
  */
 public class RemovePontAction implements Action {
-    private PontAction pont;
+    protected PontAction pont;
 
     public RemovePontAction(Pont pont) {
         this.pont = new PontAction(pont.getIle1(), pont.getIle2(), pont.estDouble());

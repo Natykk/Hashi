@@ -13,6 +13,14 @@ public class PontAction implements Serializable {
     public int ile2Y;
     public boolean estDouble;
 
+    public PontAction(int ile1X, int ile1Y, int ile2X, int ile2Y, boolean estDouble) {
+        this.ile1X = ile1X;
+        this.ile1Y = ile1Y;
+        this.ile2X = ile2X;
+        this.ile2Y = ile2Y;
+        this.estDouble = estDouble;
+    }
+
     public PontAction(Ile ile1, Ile ile2, boolean estDouble) {
         this.ile1X = ile1.getX();
         this.ile1Y = ile1.getY();

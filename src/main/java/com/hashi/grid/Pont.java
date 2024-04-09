@@ -36,7 +36,7 @@ public class Pont extends Case {
         try {
             g.setColor(StyleManager.getInstance().getFgColor());
 
-            int decalage = estDouble ? 10 : 0;
+            int decalage = estDouble ? 5 : 0;
 
             if (estHorizontal()) {
                 g.drawLine(ile1.getXAffichage(), ile1.getYAffichage() - decalage, ile2.getXAffichage(),
@@ -120,25 +120,25 @@ public class Pont extends Case {
      * est-ce que le Pont est horizontal ou vertical
      * 
      * @return vrai si le Pont est horizontal, faux si il est vertical
-     * @throws InvalidAttributeValueException si les 2 îles que le pont relie ne
+     * @throws InvalidAttributeValueException si les 2 Iles que le pont relie ne
      *                                        sont pas alignées horizontalement ni
      *                                        verticalement
      */
     public boolean estHorizontal() throws InvalidAttributeValueException {
         if (this.ile1.getX() == this.ile2.getX()) {
-            // si les 2 îles que le pont relie ont le même Y (vertical)
+            // si les 2 Iles que le pont relie ont le même Y (vertical)
             // c'est un pont vertical
             return false;
         } else if (this.ile1.getY() == this.ile2.getY()) {
-            // si les 2 îles que le pont relie ont le même X (horizontal)
+            // si les 2 Iles que le pont relie ont le même X (horizontal)
             // c'est un pont horizontal
             return true;
         }
 
-        // si les 2 îles que le pont relie ne sont pas alignées horizontalement ni
+        // si les 2 Iles que le pont relie ne sont pas alignées horizontalement ni
         // verticalement
         throw new InvalidAttributeValueException(
-                "Les 2 îles que le pont relie ne sont pas alignées horizontalement ni verticalement");
+                "Les 2 Iles que le pont relie ne sont pas alignées horizontalement ni verticalement");
     }
 
     /**

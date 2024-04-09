@@ -58,6 +58,7 @@ public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
      * @return Retourne une {@link com.hashi.style.ComboBox} afin de
      *         pouvoir chainer les appels de fonctions.
      */
+    @Override
     public ComboBox<E> setFontSize(int size) {
         font_size = size;
 
@@ -66,6 +67,7 @@ public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
         return this;
     }
 
+    @Override
     public int getFontSize() {
         return font_size;
     }

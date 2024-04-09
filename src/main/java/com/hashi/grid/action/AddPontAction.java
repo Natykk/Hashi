@@ -8,7 +8,7 @@ import com.hashi.grid.Pont;
  * Action ajoutant un pont.
  */
 public class AddPontAction implements Action {
-    private PontAction pont;
+    protected PontAction pont;
 
     public AddPontAction(Ile ile1, Ile ile2) {
         this.pont = new PontAction(ile1, ile2);

@@ -4,56 +4,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hashi.grid.action.Action;
+import com.hashi.grid.action.PontAction;
+import com.hashi.grid.Grille;
 import com.hashi.grid.Jeu;
+import com.hashi.grid.TimerManager;
 import com.hashi.menu.PageManager;
+import com.hashi.menu.TrainingVictory;
+import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
 public class ModeEntrainement extends Mode {
+    protected Grille grille;
+    protected List<PontAction> solution;
+    protected int numGrille;
+    protected int typeTaille;
 
     public ModeEntrainement(Panel returnPanel, int typeTaille, int row, int column, boolean charger) {
-        super(returnPanel, null, 0, charger);
+        super(returnPanel, charger);
 
-        // Fais 3 switch imbriqués pour déterminer la taille de la grille / la
-        // difficulté / le niveau
-        // puis appelle la méthode de Hashi pour générer la grille
-        // et enfin appelle la méthode de PageManager pour changer de page
-        StringBuilder sb = new StringBuilder();
-        switch (typeTaille) {
-            case 0:
-                sb.append("7x7/");
-                break;
-            case 1:
-                sb.append("10x10/");
-                break;
-            case 2:
-                sb.append("25x25/");
-                break;
-            default:
-                sb.append("7x7/");
-                break;
-        }
+        String fichierGrille = Mode.getGrilleToPlay(typeTaille, row, column);
 
-        switch (row) {
-            case 0:
-                sb.append("Facile/GF.txt");
-                break;
-            case 1:
-                sb.append("Moyen/GM.txt");
-                break;
-            case 2:
-                sb.append("Difficile/GD.txt");
-                break;
-            default:
-                sb.append("Facile/GF.txt");
-                break;
-        }
+        this.grille = Jeu.genererGrilleDepuisFichier(fichierGrille).get(column);
+        this.solution = Jeu.genererSolutionDepuisFichier(fichierGrille.replace("G", "SG")).get(column);
+        this.numGrille = typeTaille * 18 + row * 6 + column;
+        this.typeTaille = typeTaille;
+    }
 
-        Jeu j = new Jeu();
+    @Override
+    public Grille getGrille() {
+        return grille;
+    }
 
-        j.genererGrilleDepuisFichier(sb.toString());
+    @Override
+    public List<PontAction> getSolution() {
+        return solution;
+    }
 
-        grille = j.listeGrille.get(column);
-        numGrille = typeTaille * 18 + row * 6 + column;
+    @Override
+    public Panel gameFinishedGetVictoryPanel() {
+        timer.stopTimer();
+
+        int time = (int) timer.tempsEcoule() / 1000;
+
+        PageManager.getProfil().setScoreEntrainement(numGrille, time);
+
+        return new TrainingVictory(time, typeTaille);
+    }
+
+    @Override
+    public void startTimer(Label label) {
+        timer = new TimerManager(label, PageManager.getProfil().getTempsEntrainement(numGrille), false);
+        timer.addActionListener(
+                e -> PageManager.getProfil().setTempsEntrainement(numGrille, (int) timer.tempsEcoule() / 1000));
     }
 
     @Override
@@ -70,11 +72,6 @@ public class ModeEntrainement extends Mode {
         PageManager.getProfil().setPartieEntrainement(numGrille, new ArrayList<>());
 
         return new ArrayList<>();
-    }
-
-    @Override
-    public void setScore(int temps) {
-        PageManager.getProfil().setScoreEntrainement(numGrille, temps);
     }
 
 }

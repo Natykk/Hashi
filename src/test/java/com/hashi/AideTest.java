@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
+import com.hashi.grid.Aide;
 import com.hashi.grid.Grille;
 import com.hashi.grid.Ile;
 import com.hashi.grid.Jeu;
@@ -44,9 +45,11 @@ public class AideTest {
         g.ajouterIle(i3);
         g.ajouterIle(i1);
         g.ajouterIle(i2);
-        g.fillListVoisins();
 
-        listeGetVoisins = i3.getListeVoisin();
+        i3.remplirVoisinsConnectes();
+        i3.remplirVoisinsPasConnectes();
+
+        listeGetVoisins = i3.getVoisins();
         uneListeDIle.add(i1); // bas
         uneListeDIle.add(i2); // droite
 
@@ -79,9 +82,11 @@ public class AideTest {
         g.ajouterIle(i3);
         g.ajouterIle(i1);
         g.ajouterIle(i2);
-        g.fillListVoisins();
 
-        uneListeDIle = i3.getListeVoisin();
+        i3.remplirVoisinsConnectes();
+        i3.remplirVoisinsPasConnectes();
+
+        uneListeDIle = i3.getVoisins();
 
         // i3 a 2 voisins
         assertEquals(2, uneListeDIle.size());
@@ -106,8 +111,7 @@ public class AideTest {
     @Test
     public void techniquePontsForces1() {
         // charger des grilles
-        j.genererGrilleDepuisFichier("grille.txt");
-        g = j.listeGrille.get(0);
+        g = Jeu.genererGrilleDepuisFichier("grille.txt").get(0);
 
         // la grille #0 ressemble à (?)
         // _ _ 3 _ 2 _ 1
@@ -126,13 +130,18 @@ public class AideTest {
             System.out.println("valeur : " + i1.getValeur());
 
             System.out.println("voisins: ");
-            for (Ile i : i1.getListeVoisin()) {
+            for (Ile i : i1.getVoisins()) {
                 System.out.println(i.getValeur());
             }
 
             System.out.println("nb voisins libres : " + i1.getVoisinsLibres().size());
 
-            // assertEquals( Aide.FORCE1, i1.techniquePontsForces() );
+            try {
+                assertEquals(Aide.FORCE1, i1.techniquePontsForces());
+
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
         } else {
             System.out.println("i1 est null");
         }

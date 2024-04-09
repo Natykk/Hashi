@@ -2,6 +2,9 @@ package com.hashi.style;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.*;
 
 import com.hashi.LanguageManager;
@@ -23,9 +26,11 @@ import com.hashi.LanguageManager;
  * {@link com.hashi.LanguageManager}.
  */
 public class Button extends JButton implements FontSize<Button>, ImageComponent<Button>, AsRawText<Button> {
+    private final double HOVER_SCALE_FACTOR = 0.85;
     private int font_size = 20;
     private boolean is_raw_text = false;
     private Image image;
+    private boolean isHover = false;
 
     /**
      * Créer un bouton sans texte ni image.
@@ -49,6 +54,18 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
         setOpaque(false);
 
         this.image = new Image(this);
+        this.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+                isHover = true;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+                isHover = false;
+            }
+        });
 
         StyleManager.getInstance().initButton(this);
     }
@@ -60,6 +77,7 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
      * @return Retourne un {@link com.hashi.style.Button} afin de pouvoir chainer
      *         les appels de fonctions.
      */
+    @Override
     public Button setAsRawText() {
         is_raw_text = true;
 
@@ -72,12 +90,14 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
      * @return Retourne un {@link com.hashi.style.Button} afin de pouvoir chainer
      *         les appels de fonctions.
      */
+    @Override
     public Button setImage(String image_res) {
         image.setImage(image_res);
 
         return this;
     }
 
+    @Override
     public java.awt.Image getImage() {
         return image.getImage();
     }
@@ -88,6 +108,7 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
      * @return Retourne un {@link com.hashi.style.Button} afin de pouvoir chainer
      *         les appels de fonctions.
      */
+    @Override
     public Button setFontSize(int size) {
         font_size = size;
 
@@ -96,6 +117,7 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
         return this;
     }
 
+    @Override
     public int getFontSize() {
         return font_size;
     }
@@ -117,7 +139,15 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
 
     @Override
     protected void paintComponent(Graphics g) {
-        StyleManager.getInstance().paintButton(this, (Graphics2D) g);
+        Graphics2D g2d = (Graphics2D) g;
+
+        if (isHover) {
+            g2d.scale(HOVER_SCALE_FACTOR, HOVER_SCALE_FACTOR);
+            g2d.translate((getWidth() - (getWidth() * HOVER_SCALE_FACTOR)) / 2,
+                    (getHeight() - (getHeight() * HOVER_SCALE_FACTOR)) / 2);
+        }
+
+        StyleManager.getInstance().paintButton(this, (Graphics2D) g2d);
     }
 
     @Override

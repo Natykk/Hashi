@@ -9,18 +9,31 @@ public class TimerManager implements ActionListener {
     private long startTime;
     private long elapsedTime;
     private Timer timer;
+    private boolean isInverted;
 
     /**
-     * Constructeur prenant un JLabel en paramètre pour afficher le temps écoulé
-     * @param timerLabel
+     * Créer un timer qui compte les secondes.
+     * 
+     * @param timerLabel Label pour afficher le temps écoulé.
+     * @param startTime  le temps en secondes au démarrage du timer.
+     * @param isInverted vrai si le timer décompte faux sinon.
      */
-    public TimerManager(JLabel timerLabel) {
+    public TimerManager(JLabel timerLabel, int startTime, boolean isInverted) {
         this.timerLabel = timerLabel;
-        this.startTime = System.currentTimeMillis();
-        this.elapsedTime = 0;
+        this.isInverted = isInverted;
+
+        if (isInverted) {
+            this.startTime = System.currentTimeMillis() + startTime * 1000;
+            this.elapsedTime = startTime * 1000;
+        } else {
+            this.startTime = System.currentTimeMillis() - startTime * 1000;
+            this.elapsedTime = 0;
+        }
 
         timer = new Timer(1000, this);
         timer.start();
+
+        updateTimer();
     }
 
     /**
@@ -32,10 +45,21 @@ public class TimerManager implements ActionListener {
     }
 
     /**
+     * Ajout un écouteur d'évènement sur le timer.
+     */
+    public void addActionListener(ActionListener al) {
+        timer.addActionListener(al);
+    }
+
+    /**
      * Méthode privée pour mettre à jour le minuteur
      */
     private void updateTimer() {
-        elapsedTime = System.currentTimeMillis() - startTime;
+        if (isInverted) {
+            elapsedTime = startTime - System.currentTimeMillis();
+        } else {
+            elapsedTime = System.currentTimeMillis() - startTime;
+        }
 
         long minutes = (elapsedTime / 1000) / 60;
         long seconds = (elapsedTime / 1000) % 60;
@@ -51,10 +75,16 @@ public class TimerManager implements ActionListener {
     }
 
     /**
-     * // Méthode pour obtenir le temps écoulé en millisecondes depuis le démarrage du minuteur
+     * // Méthode pour obtenir le temps écoulé en millisecondes depuis le démarrage
+     * du minuteur
+     * 
      * @return
      */
     public long tempsEcoule() {
         return elapsedTime;
+    }
+
+    public void addTemps(int temps) {
+        startTime += (isInverted ? temps : -temps) * 1000;
     }
 }
