@@ -45,7 +45,7 @@ public class HomeMenu extends Panel {
         arcadeButton = new Button("arcade").setFontSize(30);
         histoireButton = new Button("history").setFontSize(30);
         entrainementButton = new Button("training").setFontSize(30);
-        scoreboardButton = new Button("Scoreboard").setAsRawText();
+        scoreboardButton = new Button("scoreBoard").setFontSize(30);
 
         Dimension size = new Dimension(150, 90);
 
@@ -133,6 +133,7 @@ public class HomeMenu extends Panel {
         groupButton.add(entrainementButton, gbc);
         gbc.gridx = 3;
         groupButton.add(scoreboardButton, gbc);
+        gbc.gridx = 4;
         groupButton.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
 
         // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
