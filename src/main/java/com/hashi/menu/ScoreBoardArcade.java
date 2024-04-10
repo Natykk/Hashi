@@ -4,35 +4,24 @@ import com.hashi.Profil;
 import com.hashi.style.Panel;
 import com.hashi.style.Button;
 import com.hashi.style.StyleManager;
-import com.hashi.LanguageManager;
 
 import java.awt.*;
 import javax.swing.*;
 
 public class ScoreBoardArcade extends Panel {
-    private static final String TITLE = "title";
+    private static final String TITLE = "title_score_arcade";
 
     public ScoreBoardArcade() {
-        super(new BorderLayout(), "bg-home-menu.png");
+        super(new BorderLayout(), "bg-start-screen.png");
         PageManager.getInstance().setTitle(TITLE);
 
         // Récupération du profil
         Profil profil = PageManager.getProfil();
 
-        // Titre des scores d'arcade
-        JLabel titleLabel = new JLabel("Scores d'Arcade");
-        titleLabel.setFont(StyleManager.getInstance().getFont().deriveFont(Font.BOLD, 30));
-        titleLabel.setForeground(StyleManager.getInstance().getFgColor());
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(250, 0, 10, 0));
-
-        // Ajout du titre au centre
-        add(titleLabel, BorderLayout.NORTH);
-
         // Création du panneau pour les scores d'arcade
         Panel scoreArcadePanel = new Panel();
         scoreArcadePanel.setLayout(new BoxLayout(scoreArcadePanel, BoxLayout.Y_AXIS));
-        scoreArcadePanel.setOpaque(false);
+        scoreArcadePanel.setBorder(BorderFactory.createEmptyBorder(310, 0, 10, 0));
 
         // Ajout des scores d'arcade
         for (int i = 0; i < profil.getScoresArcade().size(); i++) {
@@ -54,7 +43,6 @@ public class ScoreBoardArcade extends Panel {
         });
 
         Panel buttonPanel = new Panel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.setOpaque(false);
         buttonPanel.add(retourButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }

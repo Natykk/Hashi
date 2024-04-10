@@ -45,7 +45,7 @@ public class HomeMenu extends Panel {
         arcadeButton = new Button("arcade").setFontSize(30);
         histoireButton = new Button("history").setFontSize(30);
         entrainementButton = new Button("training").setFontSize(30);
-        scoreboardButton = new Button("scoreBoard").setFontSize(30);
+        scoreboardButton = new Button("scoreBoard").setFontSize(20);
 
         Dimension size = new Dimension(150, 90);
 
@@ -54,12 +54,14 @@ public class HomeMenu extends Panel {
         reglesButton.setPreferredSize(size);
         quitterButton.setPreferredSize(size);
 
-
         size = new Dimension(260, 100);
 
         arcadeButton.setPreferredSize(size);
         histoireButton.setPreferredSize(size);
         entrainementButton.setPreferredSize(size);
+
+        size = new Dimension(150, 60);
+
         scoreboardButton.setPreferredSize(size);
 
         positionnerBoutons1();
@@ -131,16 +133,17 @@ public class HomeMenu extends Panel {
         groupButton.add(histoireButton, gbc);
         gbc.gridx = 2;
         groupButton.add(entrainementButton, gbc);
-        gbc.gridx = 3;
+        gbc.gridx = 1;
+        gbc.gridy = 1;
         groupButton.add(scoreboardButton, gbc);
-        gbc.gridx = 4;
-        groupButton.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
+        groupButton.setBorder(BorderFactory.createEmptyBorder(200, 0, 0, 0));
 
         // Ajout du groupe de boutons en bas de la fenêtre contenant les boutons
         // paramètres, changer de profil, règles et quitter
 
         Panel groupButton2 = new Panel(new GridBagLayout());
         gbc.gridx = 0;
+        gbc.gridy = 0;
         groupButton2.add(parametresButton, gbc);
         gbc.gridx = 1;
         groupButton2.add(changerProfilButton, gbc);
