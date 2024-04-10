@@ -25,18 +25,25 @@ public class ScoreBoard extends Panel {
         scoreHistoirePanel.setOpaque(false);
 
         // Titre des scores d'histoire
-        Label scoreHistoireLabel = new Label("Histoire");
-        // Met la police d'écriture Schoolstyle
-        scoreHistoireLabel.setFont(new Font("Schoolstyle", Font.PLAIN, 30));
+        Label scoreHistoireLabel = new Label("Histoire").setAsRawText();
         scoreHistoirePanel.add(scoreHistoireLabel);
         scoreHistoirePanel.add(Box.createVerticalStrut(20));
 
         // Ajout des scores d'histoire
+        boolean histoireScoreExist = false;
         for (int i = 0; i < profil.getNbPartieHistoire(); i++) {
-            String score = profil.getScoreHistoire(i) + " points";
-            Label scoreLabel = new Label(score).setAsRawText();
-            scoreLabel.setFont(new Font("Schoolstyle", Font.PLAIN, 20));
-            scoreHistoirePanel.add(scoreLabel);
+            int scoreValue = profil.getScoreHistoire(i);
+            if (scoreValue > 0) {
+                histoireScoreExist = true;
+                String score = "Chapitre " + (i + 1) + " : " + scoreValue + " points";
+                Label scoreLabel = new Label(score).setAsRawText();
+                scoreHistoirePanel.add(scoreLabel);
+                scoreHistoirePanel.add(Box.createVerticalStrut(10));
+            }
+        }
+        if (!histoireScoreExist) {
+            Label noHistoryScoreLabel = new Label("Aucun score enregistre").setAsRawText();
+            scoreHistoirePanel.add(noHistoryScoreLabel);
             scoreHistoirePanel.add(Box.createVerticalStrut(10));
         }
 
@@ -46,28 +53,47 @@ public class ScoreBoard extends Panel {
         scoreArcadePanel.setOpaque(false);
 
         // Titre des scores d'arcade
-        Label scoreArcadeLabel = new Label("Arcade");
-        // Met la police d'écriture Schoolstyle
-        scoreArcadeLabel.setFont(new Font("Schoolstyle", Font.PLAIN, 30));
+        Label scoreArcadeLabel = new Label("Arcade").setAsRawText();
         scoreArcadePanel.add(scoreArcadeLabel);
         scoreArcadePanel.add(Box.createVerticalStrut(20));
 
         // Ajout des scores d'arcade
+        boolean arcadeScoreExist = false;
         for (int i = 0; i < profil.getScoresArcade().size(); i++) {
-            Label scoreLabel = new Label("Record "+(i+1)+" : "+profil.getScoresArcade().get(i)).setAsRawText();
-            scoreLabel.setFont(new Font("Schoolstyle", Font.PLAIN, 20));
-            scoreArcadePanel.add(scoreLabel);
+            int scoreValue = profil.getScoresArcade().get(i);
+            if (scoreValue > 0) {
+                arcadeScoreExist = true;
+                Label scoreLabel = new Label("Record " + (i + 1) + " : " + scoreValue).setAsRawText();
+                scoreArcadePanel.add(scoreLabel);
+                scoreArcadePanel.add(Box.createVerticalStrut(10));
+            }
+        }
+        if (!arcadeScoreExist) {
+            Label noArcadeScoreLabel = new Label("Aucun score enregistre").setAsRawText();
+            scoreArcadePanel.add(noArcadeScoreLabel);
             scoreArcadePanel.add(Box.createVerticalStrut(10));
         }
 
-        // Création du panneau pour les scores
-        Panel scorePanel = new Panel(new GridLayout(1,2,50,0));
-        scorePanel.setOpaque(false);
-        scorePanel.add(scoreHistoirePanel);
-        scorePanel.add(scoreArcadePanel);
-        add(scorePanel, BorderLayout.CENTER);
+        // Création du panneau principal pour les scores
+        Panel scoresContainer = new Panel(new GridBagLayout());
+        scoresContainer.setOpaque(false);
 
-        //Création du bouton retour
+        // Ajout du panneau pour les scores d'histoire
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0; // Permet au panneau de remplir l'espace horizontal
+        gbc.anchor = GridBagConstraints.CENTER;
+        scoresContainer.add(scoreHistoirePanel, gbc);
+
+        // Ajout du panneau pour les scores d'arcade
+        gbc.gridx = 1;
+        scoresContainer.add(scoreArcadePanel, gbc);
+
+        // Ajout du panneau principal des scores au centre de ScoreBoard
+        add(scoresContainer, BorderLayout.CENTER);
+
+        // Création du bouton retour
         Button retourButton = new Button("Retour").setAsRawText();
         retourButton.setPreferredSize(new Dimension(150, 90));
         add(retourButton, BorderLayout.SOUTH);
@@ -76,12 +102,6 @@ public class ScoreBoard extends Panel {
         retourButton.addActionListener(e -> {
             PageManager.changerPage(new HomeMenu());
         });
-
-
-
-
-
-
 
     }
 }
