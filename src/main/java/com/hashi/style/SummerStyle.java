@@ -14,6 +14,9 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 public class SummerStyle extends Style {
     private Image button_background_image;
 
+    /**
+     * Créer une instance du thème été à la plage.
+     */
     public SummerStyle() {
         name = "summer";
         bg_color = Color.decode("#f99d03");

@@ -8,8 +8,17 @@ import com.hashi.grid.Pont;
  * Action ajoutant un pont.
  */
 public class AddPontAction implements Action {
+    /**
+     * Pont a ajouter à la grille.
+     */
     protected PontAction pont;
 
+    /**
+     * Créer une instance de l'action ajoutant un pont.
+     * 
+     * @param ile1 l'ile de départ du pont.
+     * @param ile2 l'ile de fin du pont.
+     */
     public AddPontAction(Ile ile1, Ile ile2) {
         this.pont = new PontAction(ile1, ile2);
     }

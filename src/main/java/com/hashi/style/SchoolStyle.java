@@ -14,6 +14,9 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 public class SchoolStyle extends Style {
     private Image button_border_image;
 
+    /**
+     * Créer une instance du thème écolier.
+     */
     public SchoolStyle() {
         name = "school";
         bg_color = Color.decode("#e4e099");

@@ -16,7 +16,6 @@ import com.hashi.grid.Ile;
 import com.hashi.grid.Jeu;
 
 public class AideTest {
-    static Jeu j = new Jeu();
     static Grille g = new Grille(5);
 
     @BeforeEach

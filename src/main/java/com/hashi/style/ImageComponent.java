@@ -6,8 +6,8 @@ import java.awt.Image;
  * Interface pour définir un élément contenant une
  * {@link com.hashi.style.Image} et faire appel à celle-ci.
  * 
- * @param <T> Le type de l'élément qui implémente
- *            {@link com.hashi.style.ImageComponent}
+ * @param <T> le type de l'élément qui implémente
+ *            {@link com.hashi.style.ImageComponent}.
  */
 public interface ImageComponent<T> {
     /**

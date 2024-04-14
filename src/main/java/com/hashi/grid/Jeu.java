@@ -9,13 +9,20 @@ import java.util.List;
 import com.hashi.Hashi;
 import com.hashi.grid.action.PontAction;
 
+/**
+ * Génère la grille et la solution depuis les fichiers.
+ */
 public class Jeu {
 
+    private Jeu() {
+
+    }
+
     /**
-     * Charge des grilles prédéfini dans un fichier
+     * Charge des grilles prédéfini dans un fichier.
      * 
-     * @param cheminFichier
-     * @return la liste de grille
+     * @param cheminFichier chemin du fichier de grille.
+     * @return la liste de grille.
      */
     public static List<Grille> genererGrilleDepuisFichier(String cheminFichier) {
         try (BufferedReader br = new BufferedReader(
@@ -72,10 +79,10 @@ public class Jeu {
     }
 
     /**
-     * Charge des solutions prédéfini dans un fichier
+     * Charge des solutions prédéfini dans un fichier.
      * 
-     * @param cheminFichier
-     * @return la liste de solution
+     * @param cheminFichier chemin du fichier de solution.
+     * @return la liste de solution.
      */
     public static List<List<PontAction>> genererSolutionDepuisFichier(String cheminFichier) {
         try (BufferedReader br = new BufferedReader(

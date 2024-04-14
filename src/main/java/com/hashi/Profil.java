@@ -15,20 +15,56 @@ import com.hashi.grid.action.Action;
  * sérialisée et sauvegardée/rechargée.
  */
 public class Profil implements Serializable {
+    /**
+     * Nom du profil.
+     */
     private String nomProfil;
 
+    /**
+     * Avancement dans l'histoire.
+     */
     private int AvancementHistoire = 1;
 
-    private ArrayList<Integer> listeScoreEntrainement; // Liste des scores mode Entrainement
-    private ArrayList<Integer> listeTempsEntrainement; // Liste des temps de parties en cours mode Entrainement
-    private ArrayList<List<Action>> listePartieEntrainement; // Liste des parties en cours mode Entrainement
+    /**
+     * Liste des scores mode Entrainement.
+     */
+    private ArrayList<Integer> listeScoreEntrainement;
 
-    private ArrayList<Integer> listeScoreArcade;// Liste des records mode arcade
+    /**
+     * Liste des temps de parties en cours mode Entrainement.
+     */
+    private ArrayList<Integer> listeTempsEntrainement;
 
-    private ArrayList<Integer> listeScoreHistoire; // Liste des scores mode Histoire
-    private ArrayList<Integer> listeTempsHistoire; // Liste des temps de parties en cours mode Histoire
-    private ArrayList<List<Action>> listePartieHistoire; // Liste des parties en cours mode Histoire
+    /**
+     * Liste des parties en cours mode Entrainement.
+     */
+    private ArrayList<List<Action>> listePartieEntrainement;
 
+    /**
+     * Liste des records mode arcade.
+     */
+    private ArrayList<Integer> listeScoreArcade;
+
+    /**
+     * Liste des scores mode Histoire.
+     */
+    private ArrayList<Integer> listeScoreHistoire;
+
+    /**
+     * Liste des temps de parties en cours mode Histoire.
+     */
+    private ArrayList<Integer> listeTempsHistoire;
+
+    /**
+     * Liste des parties en cours mode Histoire.
+     */
+    private ArrayList<List<Action>> listePartieHistoire;
+
+    /**
+     * Créer un nouveau profil.
+     * 
+     * @param nom le nom du profil.
+     */
     public Profil(String nom) {
         nomProfil = nom;
 
@@ -73,8 +109,8 @@ public class Profil implements Serializable {
     /**
      * Ajouter un score en mode Entrainement.
      * 
-     * @param num
-     * @param score
+     * @param num   le numéro de sauvegarde.
+     * @param score le score.
      */
     public void setScoreEntrainement(int num, int score) {
         if (listeScoreEntrainement.get(num) < score) {
@@ -88,7 +124,7 @@ public class Profil implements Serializable {
     /**
      * Récupère le score en mode Entrainement.
      * 
-     * @param num
+     * @param num le numéro de sauvegarde.
      * @return le score.
      */
     public int getScoreEntrainement(int num) {
@@ -98,8 +134,8 @@ public class Profil implements Serializable {
     /**
      * Ajouter une sauvegarde d'un temps en mode Entrainement
      * 
-     * @param num
-     * @param temps
+     * @param num   le numéro de sauvegarde.
+     * @param temps le temps.
      */
     public void setTempsEntrainement(int num, int temps) {
         listeTempsEntrainement.set(num, temps);
@@ -109,7 +145,7 @@ public class Profil implements Serializable {
     /**
      * Récupère le temps en mode Entrainement.
      * 
-     * @param num
+     * @param num le numéro de sauvegarde.
      * @return le temps.
      */
     public int getTempsEntrainement(int num) {
@@ -119,8 +155,8 @@ public class Profil implements Serializable {
     /**
      * Ajouter une sauvegarde d'une partie en mode Entrainement
      * 
-     * @param num
-     * @param partie
+     * @param num    le numéro de sauvegarde.
+     * @param partie la partie.
      */
     public void setPartieEntrainement(int num, List<Action> partie) {
         listePartieEntrainement.set(num, partie);
@@ -130,7 +166,7 @@ public class Profil implements Serializable {
     /**
      * Récupère le partie en mode Entrainement.
      * 
-     * @param num
+     * @param num le numéro de sauvegarde.
      * @return le partie.
      */
     public List<Action> getPartieEntrainement(int num) {
@@ -140,7 +176,7 @@ public class Profil implements Serializable {
     /**
      * Ajouter un score pour le mode Arcade
      * 
-     * @param score
+     * @param score le score.
      */
     public void setScoreArcade(int score) {
         // Si le score est supérieur au score enregistré le plus faible
@@ -167,8 +203,8 @@ public class Profil implements Serializable {
     /**
      * Ajouter un score en mode Histoire.
      * 
-     * @param num
-     * @param score
+     * @param num   le numéro de sauvegarde.
+     * @param score le score.
      */
     public void setScoreHistoire(int num, int score) {
         listeScoreHistoire.add(num, score);
@@ -180,7 +216,7 @@ public class Profil implements Serializable {
     /**
      * Récupère le score en mode Histoire.
      * 
-     * @param num
+     * @param num le numéro de sauvegarde.
      * @return le score.
      */
     public int getScoreHistoire(int num) {
@@ -190,8 +226,8 @@ public class Profil implements Serializable {
     /**
      * Ajouter une sauvegarde d'un temps en mode Histoire
      * 
-     * @param num
-     * @param temps
+     * @param num   le numéro de sauvegarde.
+     * @param temps le temps.
      */
     public void setTempsHistoire(int num, int temps) {
         listeTempsHistoire.set(num, temps);
@@ -201,7 +237,7 @@ public class Profil implements Serializable {
     /**
      * Récupère le temps en mode Histoire.
      * 
-     * @param num
+     * @param num le numéro de sauvegarde.
      * @return le temps.
      */
     public int getTempsHistoire(int num) {
@@ -211,8 +247,8 @@ public class Profil implements Serializable {
     /**
      * Ajouter une sauvegarde d'une partie en mode Histoire
      * 
-     * @param num
-     * @param partie
+     * @param num    le numéro de sauvegarde.
+     * @param partie la partie.
      */
     public void setPartieHistoire(int num, List<Action> partie) {
         listePartieHistoire.set(num, partie);
@@ -221,7 +257,7 @@ public class Profil implements Serializable {
     /**
      * Récupère le partie en mode Histoire.
      * 
-     * @param num
+     * @param num le numéro de sauvegarde.
      * @return le partie.
      */
     public List<Action> getPartieHistoire(int num) {
@@ -247,10 +283,9 @@ public class Profil implements Serializable {
         sauvegarde();
     }
 
-    public int getNbPartieHistoire() {
-        return listePartieHistoire.size();
-    }
-
+    /**
+     * Créer le dossier de sauvegarde.
+     */
     protected static void createSaveDir() {
         try {
             File directory = new File("save");
@@ -300,14 +335,16 @@ public class Profil implements Serializable {
         }
     }
 
+    @Override
     protected void finalize() {
         this.sauvegarde();
     }
 
-    /* Chargement d'un fichier existant. */
     /**
-     * @param nom
-     * @return
+     * Chargement d'un fichier existant.
+     * 
+     * @param nom le nom du profil à charger.
+     * @return le profil.
      */
     public static Profil charger(String nom) {
         createSaveDir();
@@ -333,15 +370,26 @@ public class Profil implements Serializable {
     /**
      * Affiche le nom de la partie + les listes de scores.
      */
+    @Override
     public String toString() {
         return this.nomProfil + "\n" + this.listeScoreEntrainement + "\n" + this.listeScoreArcade + "\n"
                 + this.listeScoreHistoire;
     }
 
+    /**
+     * Retourne l'avancement dans l'histoire.
+     * 
+     * @return l'avancement dans l'histoire.
+     */
     public int getAvancementHistoire() {
         return this.AvancementHistoire;
     }
 
+    /**
+     * Définit l'avancement dans l'histoire.
+     * 
+     * @param avancement l'avancement dans l'histoire.
+     */
     public void setAvancementHistoire(int avancement) {
         this.AvancementHistoire = avancement;
     }

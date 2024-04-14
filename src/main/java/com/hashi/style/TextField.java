@@ -21,6 +21,9 @@ import com.hashi.LanguageManager;
  * {@link com.hashi.LanguageManager}.
  */
 public class TextField extends JTextField implements FontSize<TextField> {
+    /**
+     * Taille de police.
+     */
     private int font_size = 20;
 
     /**
@@ -34,7 +37,7 @@ public class TextField extends JTextField implements FontSize<TextField> {
     /**
      * Créer une boite de texte avec texte.
      * 
-     * @param text
+     * @param text le texte.
      */
     public TextField(String text) {
         super(LanguageManager.getString(text));
@@ -44,7 +47,7 @@ public class TextField extends JTextField implements FontSize<TextField> {
     /**
      * Créer une boite de texte avec un nombre de colonnes fixe.
      * 
-     * @param columns
+     * @param columns le nombre de colonne.
      */
     public TextField(int columns) {
         super(columns);
@@ -54,8 +57,8 @@ public class TextField extends JTextField implements FontSize<TextField> {
     /**
      * Créer une boite de texte avec du texte et un nombre de colonnes fixe.
      * 
-     * @param text
-     * @param columns
+     * @param text    le texte.
+     * @param columns le nombre de colonne.
      */
     public TextField(String text, int columns) {
         super(LanguageManager.getString(text), columns);

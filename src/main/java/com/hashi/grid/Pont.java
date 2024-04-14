@@ -8,12 +8,37 @@ import javax.management.InvalidAttributeValueException;
 
 import com.hashi.style.StyleManager;
 
+/**
+ * Classe représentant un pont sur la grille.
+ */
 public class Pont extends Case {
-    private Ile ile1; // Ile que le Pont raccorde
-    private Ile ile2; // autre Ile que le Pont raccorde
-    private boolean estDouble; // le Pont peut être simple ou double
-    private List<Case> listeCase; // Liste des Cases par lesquelles passe le Pont
+    /**
+     * Ile que le Pont raccorde.
+     */
+    private Ile ile1;
 
+    /**
+     * Autre Ile que le Pont raccorde.
+     */
+    private Ile ile2;
+
+    /**
+     * le Pont peut être simple ou double.
+     */
+    private boolean estDouble;
+
+    /**
+     * Liste des Cases par lesquelles passe le Pont.
+     */
+    private List<Case> listeCase;
+
+    /**
+     * Créer un pont sur la grille.
+     * 
+     * @param ile1   l'ile de départ.
+     * @param ile2   l'ile de fin.
+     * @param grille la grille où ajouter le pont.
+     */
     public Pont(Ile ile1, Ile ile2, Grille grille) {
         // grille est static
         super(0, 0, grille);
@@ -30,7 +55,7 @@ public class Pont extends Case {
     /**
      * Dessine le pont à l'écran.
      * 
-     * @param g
+     * @param g {@link java.awt.Graphics2D} permettant de dessiner l'élément.
      */
     public void draw(Graphics g) {
         try {
@@ -61,7 +86,7 @@ public class Pont extends Case {
     /**
      * Zone cliquable du pont (zone entre deux iles)
      * 
-     * @return
+     * @return retourne le rectangle du pont.
      */
     public Rectangle getBounds() {
         boolean horizontal = true;
@@ -88,11 +113,21 @@ public class Pont extends Case {
                     ile2.getYAffichage() - ile1.getYAffichage() - (ile1.getTaille() + ile2.getTaille()) / 2);
     }
 
+    /**
+     * Récupère la 1er ile du pont.
+     * 
+     * @return retournne la 1er ile du pont.
+     */
     public Ile getIle1() {
 
         return this.ile1;
     }
 
+    /**
+     * Récupère la 2ème ile du pont.
+     * 
+     * @return retournne la 2ème ile du pont.
+     */
     public Ile getIle2() {
         return this.ile2;
     }
@@ -110,7 +145,7 @@ public class Pont extends Case {
      * ajouter une Case donnée à la liste des Cases de ce Pont
      * ce sont les Cases dans la matrice où passe ce Pont
      * 
-     * @param c
+     * @param c la case.
      */
     public void ajoutCase(Case c) {
         this.listeCase.add(c);
@@ -156,10 +191,20 @@ public class Pont extends Case {
         this.ile2.retirerPont(this);
     }
 
+    /**
+     * Définit si le pont est double ou simple.
+     * 
+     * @param estDouble si le pont est double ou simple.
+     */
     public void setEstDouble(boolean estDouble) {
         this.estDouble = estDouble;
     }
 
+    /**
+     * Récupère si le pont est double.
+     * 
+     * @return retourne si le pont est double ou simple.
+     */
     public boolean estDouble() {
         return this.estDouble;
     }

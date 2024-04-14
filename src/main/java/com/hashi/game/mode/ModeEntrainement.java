@@ -13,12 +13,40 @@ import com.hashi.menu.TrainingVictory;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
+/**
+ * Classe gérant le mode entrainement.
+ */
 public class ModeEntrainement extends Mode {
+    /**
+     * La grille actuellement charger.
+     */
     protected Grille grille;
+
+    /**
+     * La solution associer à la grille.
+     */
     protected List<PontAction> solution;
+
+    /**
+     * Le numéro de la grille.
+     */
     protected int numGrille;
+
+    /**
+     * Taille de la grille.
+     */
     protected int typeTaille;
 
+    /**
+     * Créer une instance du mode entrainement.
+     * 
+     * @param returnPanel le menu pour le bouton retour.
+     * @param typeTaille  taille de la grille.
+     * @param row         ligne de la grille au niveau de l'affichage dans le menu.
+     * @param column      colonne de la grille au niveau de l'affichage dans le
+     *                    menu.
+     * @param charger     si l'on doit charger l'ancienne partie.
+     */
     public ModeEntrainement(Panel returnPanel, int typeTaille, int row, int column, boolean charger) {
         super(returnPanel, charger);
 

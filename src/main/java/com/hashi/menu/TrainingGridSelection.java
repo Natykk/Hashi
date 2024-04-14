@@ -17,7 +17,14 @@ import com.hashi.style.Panel;
  * pour l'entraînement.
  */
 public class TrainingGridSelection extends Panel {
+    /**
+     * Bouton retour.
+     */
     private Button retour;
+
+    /**
+     * Taille de grille choisie.
+     */
     private int typeTaille;
 
     /**

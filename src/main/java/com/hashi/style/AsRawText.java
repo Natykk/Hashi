@@ -2,6 +2,9 @@ package com.hashi.style;
 
 /**
  * Interface permettant de désactiver tous traitements fait sur le texte.
+ * 
+ * @param <T> le type de l'élément qui implémente
+ *            {@link com.hashi.style.AsRawText}.
  */
 public interface AsRawText<T> {
     /**

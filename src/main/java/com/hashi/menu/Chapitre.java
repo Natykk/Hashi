@@ -19,19 +19,48 @@ import com.hashi.LanguageManager;
  */
 public class Chapitre extends Panel {
 
+    /**
+     * Chapitre courant.
+     */
     private int chapitre;
-    private List<String> texts = new ArrayList<>(); // Liste des textes
+
+    /**
+     * Liste des textes à afficher.
+     */
+    private List<String> texts = new ArrayList<>();
+
+    /**
+     * Index dans la liste de texte.
+     */
     private int currentTextIndex = 0;
+
+    /**
+     * Le panneau à afficher.
+     */
     private Panel contentPanel;
+
+    /**
+     * Le panneau contenant l'image à afficher.
+     */
     private Panel imagePanel;
+
+    /**
+     * L'étiquette contenant le texte à afficher.
+     */
     private JLabel textLabel;
+
+    /**
+     * La fonction à appeler quand le texte change pour modifier l'image en accord
+     * avec le texte.
+     */
     private Consumer<Integer> onTextChange;
 
     /**
      * Constructeur de la classe `Chapitre`.
      * Initialise le chapitre.
      * 
-     * @param chapitre Le numéro du chapitre.
+     * @param mode     le mode de jeu actuelle.
+     * @param chapitre le numéro du chapitre.
      */
     public Chapitre(ModeHistoire mode, int chapitre) {
         super(new BorderLayout(), getBackgroundImage(chapitre));

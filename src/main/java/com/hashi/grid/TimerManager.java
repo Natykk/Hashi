@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Timer capable de compter ou décompter à partir d'un certain temps.
+ */
 public class TimerManager implements ActionListener {
     private JLabel timerLabel;
     private long startTime;
@@ -46,6 +49,8 @@ public class TimerManager implements ActionListener {
 
     /**
      * Ajout un écouteur d'évènement sur le timer.
+     * 
+     * @param al l'action listener à ajouter.
      */
     public void addActionListener(ActionListener al) {
         timer.addActionListener(al);
@@ -75,15 +80,20 @@ public class TimerManager implements ActionListener {
     }
 
     /**
-     * // Méthode pour obtenir le temps écoulé en millisecondes depuis le démarrage
-     * du minuteur
+     * Méthode pour obtenir le temps écoulé en millisecondes depuis le démarrage du
+     * minuteur.
      * 
-     * @return
+     * @return retourne le temps écoulé en millisecondes.
      */
     public long tempsEcoule() {
         return elapsedTime;
     }
 
+    /**
+     * Ajoute du temps au timer.
+     * 
+     * @param temps le temps à ajouter.
+     */
     public void addTemps(int temps) {
         startTime += (isInverted ? temps : -temps) * 1000;
     }

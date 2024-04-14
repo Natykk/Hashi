@@ -20,9 +20,20 @@ import com.hashi.LanguageManager;
 import com.hashi.style.Panel;
 import com.hashi.style.StyleManager;
 
+/**
+ * Menu d'aide.
+ */
 public class Help extends JFrame {
+    /**
+     * Le numéro de l'aide à appliquer.
+     */
     public static int numeroAide = -1;
 
+    /**
+     * Créer une instance du menu d'aide.
+     * 
+     * @param grille la grille où appliquer l'aide.
+     */
     public Help(Grille grille) {
 
         super(LanguageManager.getString("title_help"));
@@ -145,6 +156,12 @@ public class Help extends JFrame {
         }
     }
 
+    /**
+     * Choisi quel aide afficher.
+     * 
+     * @param grille la grille où appliquer l'aide.
+     * @return retourne l'aide choisi.
+     */
     private Aide choisirAide(Grille grille) {
         List<Aide> aides = grille.estCeQueQuelquUnAUneAide();
         Set<Aide> aidesUtilisables = new HashSet<>();

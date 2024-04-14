@@ -31,6 +31,13 @@ public abstract class Style {
     protected Font font;
 
     /**
+     * Créer une instance de style pour l'application.
+     */
+    protected Style() {
+
+    }
+
+    /**
      * Récupère le nom de dossier du style.
      * 
      * @return Retourne le nom de dossier.
@@ -176,6 +183,7 @@ public abstract class Style {
      * Fonction appelée à l'initialisation d'un {@link com.hashi.style.Button}.
      * 
      * @param button le {@link com.hashi.style.Button} en cour d'initialisation.
+     * @param g      {@link java.awt.Graphics2D} permettant de dessiner l'élément.
      */
     protected abstract void paintButton(Button button, Graphics2D g);
 
@@ -199,6 +207,7 @@ public abstract class Style {
      * Fonction appelée à l'initialisation d'un {@link com.hashi.style.Label}.
      * 
      * @param label le {@link com.hashi.style.Label} en cour d'initialisation.
+     * @param g     {@link java.awt.Graphics2D} permettant de dessiner l'élément.
      */
     protected abstract void paintLabel(Label label, Graphics2D g);
 
@@ -216,6 +225,7 @@ public abstract class Style {
      * 
      * @param combo_box le {@link com.hashi.style.ComboBox} en cour
      *                  d'initialisation.
+     * @param <E>       le type des éléments contenu par le menu déroulant.
      */
     protected abstract <E> void initComboBox(ComboBox<E> combo_box);
 
@@ -224,6 +234,9 @@ public abstract class Style {
      * 
      * @param combo_box le {@link com.hashi.style.ComboBox} en cour
      *                  d'initialisation.
+     * @param g         {@link java.awt.Graphics2D} permettant de dessiner
+     *                  l'élément.
+     * @param <E>       le type des éléments contenu par le menu déroulant.
      */
     protected abstract <E> void paintComboBox(ComboBox<E> combo_box, Graphics2D g);
 
@@ -234,6 +247,7 @@ public abstract class Style {
      * @param combo_box le {@link com.hashi.style.ComboBox} à repeindre.
      * @param g         {@link java.awt.Graphics2D} permettant de dessiner
      *                  l'élément.
+     * @param <E>       le type des éléments contenu par le menu déroulant.
      */
     protected abstract <E> void paintComboBoxBorder(ComboBox<E> combo_box, Graphics2D g);
 
@@ -250,6 +264,8 @@ public abstract class Style {
      * 
      * @param text_field le {@link com.hashi.style.TextField} en cour
      *                   d'initialisation.
+     * @param g          {@link java.awt.Graphics2D} permettant de dessiner
+     *                   l'élément.
      */
     protected abstract void paintTextField(TextField text_field, Graphics2D g);
 

@@ -3,7 +3,7 @@ package com.hashi.style;
 /**
  * Interface gérant la taille de police d'un élément.
  * 
- * @param <T> Le type de l'élément qui implémente
+ * @param <T> le type de l'élément qui implémente
  *            {@link com.hashi.style.FontSize}
  */
 public interface FontSize<T> {
