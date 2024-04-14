@@ -1,20 +1,51 @@
 package com.hashi.grid;
 
+/**
+ * Représente une case de la grille.
+ */
 public class Case {
+    /**
+     * La position en x.
+     */
     protected int x;
-    protected int y;
-    protected Grille grille; // référence vers la Grille où cette Case se situe
 
+    /**
+     * La position en y.
+     */
+    protected int y;
+
+    /**
+     * Référence vers la Grille où cette Case se situe.
+     */
+    protected Grille grille;
+
+    /**
+     * Créer une case sur la grille.
+     * 
+     * @param x        la position en x.
+     * @param y        la position en y.
+     * @param laGrille la grille contenant la case.
+     */
     public Case(int x, int y, Grille laGrille) {
         this.x = x;
         this.y = y;
         grille = laGrille;
     }
 
+    /**
+     * Récupère la position en x.
+     * 
+     * @return retourne la position en x.
+     */
     public int getX() {
         return this.x;
     }
 
+    /**
+     * Récupère la position en y.
+     * 
+     * @return retourne la position en y.
+     */
     public int getY() {
         return this.y;
     }

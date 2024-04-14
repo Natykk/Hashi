@@ -9,9 +9,23 @@ import com.hashi.style.Panel;
 import com.hashi.grid.Grille;
 import com.hashi.grid.TimerManager;
 
+/**
+ * Classe abstraite permettant de gérer les différents modes de jeu.
+ */
 public abstract class Mode {
+    /**
+     * Le menu pour le bouton retour.
+     */
     protected Panel returnPanel;
+
+    /**
+     * Si l'on doit charger l'ancienne partie.
+     */
     protected boolean charger;
+
+    /**
+     * Le timer pour le jeu.
+     */
     protected TimerManager timer;
 
     /**
@@ -19,7 +33,7 @@ public abstract class Mode {
      * jeu.
      * 
      * @param returnPanel le menu pour le bouton retour.
-     * @param charger     vrai si on doit charger l'ancien partie.
+     * @param charger     si l'on doit charger l'ancienne partie.
      */
     public Mode(Panel returnPanel, boolean charger) {
         this.returnPanel = returnPanel;
@@ -71,7 +85,7 @@ public abstract class Mode {
     /**
      * Sauvegarde la liste d'action de la partie.
      * 
-     * @param actions
+     * @param actions la liste d'action à sauvegarder.
      */
     public abstract void sauvegarder(List<Action> actions);
 
@@ -82,6 +96,15 @@ public abstract class Mode {
      */
     public abstract List<Action> getActions();
 
+    /**
+     * Récupère dans quel fichier se trouve la grille rechercher.
+     * 
+     * @param typeTaille taille de la grille.
+     * @param row        ligne de la grille au niveau de l'affichage dans le menu.
+     * @param column     colonne de la grille au niveau de l'affichage dans le
+     *                   menu.
+     * @return retourne le chemin du fichier.
+     */
     protected static String getGrilleToPlay(int typeTaille, int row, int column) {
         StringBuilder sb = new StringBuilder();
         switch (typeTaille) {

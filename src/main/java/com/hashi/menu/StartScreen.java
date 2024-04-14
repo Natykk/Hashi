@@ -18,11 +18,24 @@ import com.hashi.style.*;
  * Elle étend la classe `Panel`.
  */
 public class StartScreen extends Panel {
-
+    /**
+     * Menu déroulant des profils.
+     */
     private ComboBox<String> profilBox;
+
+    /**
+     * Liste des profils.
+     */
     private List<String> profils;
+
+    /**
+     * Bouton panneau pour l'affichage.
+     */
     private Panel panel1, panel2;
 
+    /**
+     * Créer une instance du menu.
+     */
     public StartScreen() {
         super(new GridBagLayout(), "bg-start-screen.png");
         PageManager.getInstance().setTitle("title_start_screen");

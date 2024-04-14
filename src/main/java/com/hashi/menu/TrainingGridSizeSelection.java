@@ -11,20 +11,58 @@ import com.hashi.style.Button;
 import com.hashi.style.Panel;
 
 /**
- * La classe TrainingGridSizeSelection représente la page permettant à l'utilisateur de choisir la taille du puzzle pour l'entraînement.
+ * La classe TrainingGridSizeSelection représente la page permettant à
+ * l'utilisateur de choisir la taille du puzzle pour l'entraînement.
  */
 public class TrainingGridSizeSelection extends Panel {
+    /**
+     * Titre du menu.
+     */
     private final String TITLE = "title_training_grid_size_selection";
+
+    /**
+     * Bouton retour.
+     */
     private Button retour;
+
+    /**
+     * Bouton paramètre.
+     */
     private Button parametre;
+
+    /**
+     * Bouton changer de profil.
+     */
     private Button changerProfil;
+
+    /**
+     * Bouton règle.
+     */
     private Button regles;
+
+    /**
+     * Bouton quitter.
+     */
     private Button quitter;
+
+    /**
+     * Bouton taille sept.
+     */
     private Button sept;
+
+    /**
+     * Bouton taille dix.
+     */
     private Button dix;
+
+    /**
+     * Bouton vingt-cinq.
+     */
     private Button vignt;
 
-
+    /**
+     * Créer une instance du menu.
+     */
     public TrainingGridSizeSelection() {
         super(new BorderLayout(), "bg-training-grid-size-selection.png");
 
@@ -113,9 +151,10 @@ public class TrainingGridSizeSelection extends Panel {
         add(contenu, BorderLayout.CENTER);
     }
 
-
     /**
-     * Méthode utilitaire pour créer un GridBagConstraints avec des valeurs prédéfinies.
+     * Méthode utilitaire pour créer un GridBagConstraints avec des valeurs
+     * prédéfinies.
+     * 
      * @param x La position en x.
      * @param y La position en y.
      * @return Le GridBagConstraints créé.

@@ -21,9 +21,12 @@ import javax.swing.*;
  * {@link com.hashi.LanguageManager}.
  */
 public class Panel extends JPanel implements ImageComponent<Panel> {
+    /**
+     * L'image à afficher.
+     */
     private Image image;
 
-    /*
+    /**
      * Créer un panneau sans image.
      */
     public Panel() {
@@ -34,7 +37,7 @@ public class Panel extends JPanel implements ImageComponent<Panel> {
     /**
      * Créer un panneau sans image avec un layout.
      * 
-     * @param layout
+     * @param layout le layout manager.
      */
     public Panel(LayoutManager layout) {
         super(layout);
@@ -44,8 +47,8 @@ public class Panel extends JPanel implements ImageComponent<Panel> {
     /**
      * Créer un panneau avec une image et un layout.
      * 
-     * @param layout
-     * @param image_res
+     * @param layout    le layout manager.
+     * @param image_res le lien vers l'image.
      */
     public Panel(LayoutManager layout, String image_res) {
         super(layout);

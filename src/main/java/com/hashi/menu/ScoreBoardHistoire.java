@@ -7,9 +7,15 @@ import com.hashi.style.StyleManager;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * Menu d'affichage des scores en mode Histoire.
+ */
 public class ScoreBoardHistoire extends Panel {
     private static final String TITLE = "title_score_history";
 
+    /**
+     * Créer une instance du menu.
+     */
     public ScoreBoardHistoire() {
         super(new BorderLayout(), "bg-start-screen.png");
         PageManager.getInstance().setTitle(TITLE);

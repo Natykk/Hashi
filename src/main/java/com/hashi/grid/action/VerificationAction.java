@@ -9,6 +9,12 @@ import com.hashi.grid.Grille;
  */
 public class VerificationAction extends ResetGrilleAction {
 
+    /**
+     * Créer une instance de l'action vérifiant la grille.
+     * 
+     * @param grille   la grille pour la vérification.
+     * @param solution la solution contre laquel vérifier.
+     */
     public VerificationAction(Grille grille, List<PontAction> solution) {
         super(grille.getPonts().stream().filter(pont -> {
             for (PontAction pont_ : solution) {

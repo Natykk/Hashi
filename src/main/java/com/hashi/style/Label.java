@@ -21,10 +21,17 @@ import com.hashi.LanguageManager;
  * {@link com.hashi.LanguageManager}.
  */
 public class Label extends JLabel implements FontSize<Label>, AsRawText<Label> {
+    /**
+     * Taille de police.
+     */
     private int font_size = 20;
+
+    /**
+     * Internationalisation désactiver ?
+     */
     private boolean is_raw_text = false;
 
-    /*
+    /**
      * Créer une étiquette sans texte.
      */
     public Label() {
@@ -35,7 +42,7 @@ public class Label extends JLabel implements FontSize<Label>, AsRawText<Label> {
     /**
      * Créer une étiquette avec texte.
      * 
-     * @param text
+     * @param text le texte à afficher.
      */
     public Label(String text) {
         super(text);

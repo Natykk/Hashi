@@ -14,14 +14,26 @@ import com.hashi.style.Panel;
  * atteinte dans le jeu.
  */
 public class TrainingVictory extends Panel {
+    /**
+     * Titre du menu.
+     */
     private final String TITLE = "title_victory";
+
+    /**
+     * Bouton retour.
+     */
     private Button retour;
+
+    /**
+     * Score à afficher.
+     */
     private String txtTemp;
 
     /**
      * Constructeur de la classe Victory.
      * 
-     * @param temps Le temps écoulé pour la victoire.
+     * @param temps     le temps écoulé pour la victoire.
+     * @param numTaille le numéro de la grille.
      */
     public TrainingVictory(int temps, int numTaille) {
         super(new BorderLayout(), "bg-victory.png");

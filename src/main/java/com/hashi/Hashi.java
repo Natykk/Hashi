@@ -25,7 +25,14 @@ import java.util.List;
  * Classe principale du jeu.
  */
 public class Hashi extends Panel {
+    /**
+     * Le mode jeu sélectionner.
+     */
     private Mode mode;
+
+    /**
+     * La grille de jeu.
+     */
     private Grille grille;
 
     /**
@@ -33,23 +40,30 @@ public class Hashi extends Panel {
      */
     private int cellSize = 40;
 
+    /**
+     * Bouton undo.
+     */
     private Button undoButton;
-    private Button redoButton;
-    private Button resetButton;
-    private Button optionButton;
-    private Button checkbutton;
-    private Button returnButton;
-    private Button helpButton;
-    private Button hintButton;
 
+    /**
+     * Bouton redo.
+     */
+    private Button redoButton;
+
+    /**
+     * Liste des actions de la partie.
+     */
     private List<Action> actions;
+
+    /**
+     * Index courant dans la liste d'action.
+     */
     private int currentIndex;
 
     /**
      * Créer la {@link javax.swing.JFrame} du jeu.
      * 
-     * @param grille la grille contenant la logique du jeu.
-     * @param mode
+     * @param mode le mode de jeu choisi.
      */
     public Hashi(Mode mode) {
         super(new BorderLayout(), "bg-game.png");
@@ -61,20 +75,20 @@ public class Hashi extends Panel {
 
         Panel buttonPanel = new Panel(new GridLayout(8, 1));
 
-        returnButton = new Button().setImage("btn-return.png");
+        Button returnButton = new Button().setImage("btn-return.png");
         returnButton.setPreferredSize(new Dimension(80, 80));
         buttonPanel.add(returnButton);
 
-        optionButton = new Button().setImage("btn-option.png");
+        Button optionButton = new Button().setImage("btn-option.png");
         buttonPanel.add(optionButton);
 
-        helpButton = new Button().setImage("btn-rule.png");
+        Button helpButton = new Button().setImage("btn-rule.png");
         buttonPanel.add(helpButton);
 
-        hintButton = new Button().setImage("btn-help.png");
+        Button hintButton = new Button().setImage("btn-help.png");
         buttonPanel.add(hintButton);
 
-        checkbutton = new Button().setImage("btn-check.png");
+        Button checkbutton = new Button().setImage("btn-check.png");
         buttonPanel.add(checkbutton);
 
         undoButton = new Button().setImage("btn-backward.png");
@@ -83,7 +97,7 @@ public class Hashi extends Panel {
         redoButton = new Button().setImage("btn-forward.png");
         buttonPanel.add(redoButton);
 
-        resetButton = new Button().setImage("btn-restart.png");
+        Button resetButton = new Button().setImage("btn-restart.png");
         buttonPanel.add(resetButton);
 
         Panel timerPanel = new Panel(new FlowLayout(FlowLayout.RIGHT));
@@ -352,6 +366,7 @@ public class Hashi extends Panel {
     }
 
     /**
+     * Récupère la liste d'action.
      * 
      * @return Retourne la liste d'action.
      */

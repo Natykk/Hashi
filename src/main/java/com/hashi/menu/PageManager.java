@@ -13,7 +13,14 @@ import com.hashi.style.Panel;
  * Cette classe permet aussi d'afficher des popup.
  */
 public class PageManager extends JFrame {
+    /**
+     * L'instance de {@link com.hashi.menu.PageManager}.
+     */
     private static PageManager instance;
+
+    /**
+     * Profil courant.
+     */
     private Profil profil;
 
     private PageManager() {
@@ -53,6 +60,7 @@ public class PageManager extends JFrame {
     }
 
     /**
+     * Récupère le {@link com.hashi.Profil} à utiliser.
      * 
      * @return Retourne le {@link com.hashi.Profil} à utiliser.
      */

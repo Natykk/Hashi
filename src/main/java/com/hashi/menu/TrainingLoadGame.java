@@ -17,22 +17,53 @@ import com.hashi.style.Panel;
  * l'entraînement.
  */
 public class TrainingLoadGame extends Panel {
+    /**
+     * Titre du menu.
+     */
     private final String TITLE = "title_training_load_game";
+
+    /**
+     * Bouton retour.
+     */
     private Button retour;
+
+    /**
+     * Bouton nouvelle partie.
+     */
     private Button nouvellePartie;
+
+    /**
+     * Bouton charger.
+     */
     private Button charger;
+
+    /**
+     * Bouton paramètre.
+     */
     private Button parametre;
+
+    /**
+     * Bouton changer de profil.
+     */
     private Button changerProfil;
+
+    /**
+     * Bouton règle.
+     */
     private Button regles;
+
+    /**
+     * Bouton quitter.
+     */
     private Button quitter;
 
     /**
      * Constructeur de la classe TrainingLoadGame.
      * 
-     * @param returnPanel
-     * @param typeTaille  Le type de taille de grille.
-     * @param row         Le numéro de la ligne de la grille.
-     * @param column      Le numéro de la colonne de la grille.
+     * @param returnPanel le menu de retour.
+     * @param typeTaille  le type de taille de grille.
+     * @param row         le numéro de la ligne de la grille.
+     * @param column      le numéro de la colonne de la grille.
      */
     public TrainingLoadGame(Panel returnPanel, int typeTaille, int row, int column) {
         super(new BorderLayout(), "bg-training-load-game.png");

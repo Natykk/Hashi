@@ -16,12 +16,33 @@ import com.hashi.grid.Grille;
 import com.hashi.grid.Jeu;
 import com.hashi.grid.TimerManager;
 
+/**
+ * Classe gérant le mode arcade.
+ */
 public class ModeArcade extends Mode {
+    /**
+     * Colonne de la grille au niveau de l'affichage dans le menu.
+     */
     protected int column;
+
+    /**
+     * Le fichier de la grille sélectionner.
+     */
     protected String fichierGrille;
+
+    /**
+     * Liste de score accumuler.
+     */
     protected List<Integer> scores;
+
+    /**
+     * Temps au début de chaque partie.
+     */
     protected int startTime;
 
+    /**
+     * Créer une instance du mode arcade.
+     */
     public ModeArcade() {
         super(new HomeMenu(), false);
 

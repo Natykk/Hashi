@@ -6,12 +6,33 @@ import com.hashi.style.Button;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * Menu d'affichage des scores.
+ */
 public class ScoreBoard extends Panel {
+    /**
+     * Titre du menu.
+     */
     private static final String TITLE = "title_score";
+
+    /**
+     * Bouton score arcade.
+     */
     private Button scoreArcade;
+
+    /**
+     * Bouton score histoire.
+     */
     private Button scoreHistoire;
+
+    /**
+     * Bouton retour.
+     */
     private Button retourButton;
 
+    /**
+     * Créer une instance du menu.
+     */
     public ScoreBoard() {
         super(new BorderLayout(), "bg-home-menu.png");
 

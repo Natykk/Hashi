@@ -4,13 +4,40 @@ import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe représentant la grille.
+ */
 public class Grille extends MouseAdapter {
-    private int taille; // coté de la grille
-    private Case[][] table; // La matrice des Case de la grille
-    private List<Ile> iles; // Le Tableau des Iles de la grille
-    protected List<Pont> ponts; // Le Tableau des ponts de la grille
-    private Case selectedCase; // Case selectionnée par l'utilisateur
+    /**
+     * Coté de la grille.
+     */
+    private int taille;
 
+    /**
+     * La matrice des Case de la grille.
+     */
+    private Case[][] table;
+
+    /**
+     * Le Tableau des Iles de la grille.
+     */
+    private List<Ile> iles;
+
+    /**
+     * Le Tableau des ponts de la grille.
+     */
+    protected List<Pont> ponts;
+
+    /**
+     * Case selectionnée par l'utilisateur.
+     */
+    private Case selectedCase;
+
+    /**
+     * Créer une grille de taille définit.
+     * 
+     * @param taille la taille.
+     */
     public Grille(int taille) {
         this.table = new Case[taille][taille];
         this.taille = taille;
@@ -21,7 +48,7 @@ public class Grille extends MouseAdapter {
     }
 
     /**
-     * initialiser la matrice Grille.table en le remplissant de Cases vierges
+     * Initialiser la matrice Grille.table en le remplissant de Cases vierges.
      */
     public void initialiserTable() {
         for (int i = 0; i < taille; i++) {
@@ -47,10 +74,24 @@ public class Grille extends MouseAdapter {
         return true;
     }
 
+    /**
+     * Récupère une case.
+     * 
+     * @param x la position x de la case.
+     * @param y la position y de la case.
+     * @return retourne la case.
+     */
     public Case getCase(int x, int y) {
         return this.table[x][y];
     }
 
+    /**
+     * Définit une case.
+     * 
+     * @param x        la position x de la case.
+     * @param y        la position y de la case.
+     * @param new_case la case à définir.
+     */
     public void setCase(int x, int y, Case new_case) {
         this.table[x][y] = new_case;
     }
@@ -159,6 +200,11 @@ public class Grille extends MouseAdapter {
         this.ponts.remove(pont);
     }
 
+    /**
+     * Récupère le nombre de pont de la grille.
+     * 
+     * @return retourne le nombre de pont de la grille.
+     */
     public int getNbPonts() {
         // compte les ponts simple et double
         return this.ponts.size();
@@ -183,11 +229,20 @@ public class Grille extends MouseAdapter {
         return res;
     }
 
+    /**
+     * Récupère la taille de la grille.
+     * 
+     * @return retourne la taille de la grille.
+     */
     public int getTaille() {
         return this.taille;
     }
 
-    // affichage sur terminal
+    /**
+     * Affiche une ile sur terminal.
+     * 
+     * @return la représentation en chaine de caractère.
+     */
     public String afficherIles() {
         String res = "";
         for (Ile ile : this.iles) {
@@ -200,7 +255,11 @@ public class Grille extends MouseAdapter {
         return res;
     }
 
-    // affichage sur terminal
+    /**
+     * Affiche un pont sur terminal.
+     * 
+     * @return la représentation en chaine de caractère.
+     */
     public String afficherPonts() {
         String res = "";
         for (Pont pont : this.ponts) {
@@ -243,10 +302,20 @@ public class Grille extends MouseAdapter {
         return null;
     }
 
+    /**
+     * Récupère la case sélectionner.
+     * 
+     * @return la case sélectionner.
+     */
     public Case getSelectedCase() {
         return this.selectedCase;
     }
 
+    /**
+     * Définit la case sélectionner.
+     * 
+     * @param selectedCase la case à sélectionner.
+     */
     public void setSelectedCase(Case selectedCase) {
         this.selectedCase = selectedCase;
     }
@@ -405,7 +474,6 @@ public class Grille extends MouseAdapter {
             if (!uneIle.estComplet()) {
                 // on ne s'occupe pas des Iles complètes
 
-
                 // Réeinitialisation de la liste des voisins
                 uneIle.resetListeVoisinsConnectes();
                 uneIle.resetListeVoisinsPasConnectes();
@@ -413,7 +481,6 @@ public class Grille extends MouseAdapter {
                 // Remplir les listes de voisins une fois, pour ne pas avoir à le recalculer
                 uneIle.remplirVoisinsConnectes();
                 uneIle.remplirVoisinsPasConnectes();
-
 
                 try {
                     aidesTrouve.add(uneIle.techniquePontsBloques());
@@ -453,6 +520,13 @@ public class Grille extends MouseAdapter {
         return aidesTrouve;
     }
 
+    /**
+     * Récupère un pont à partir des iles de début et de fin.
+     * 
+     * @param selectedIle ile de départ.
+     * @param clickedIle  ile de fin.
+     * @return retourne le pont à cette position.
+     */
     public Pont getPont(Ile selectedIle, Ile clickedIle) {
         for (Pont pont : this.ponts) {
             if ((pont.getIle1() == selectedIle && pont.getIle2() == clickedIle)
@@ -463,5 +537,5 @@ public class Grille extends MouseAdapter {
 
         return null;
     }
-    
+
 }

@@ -13,8 +13,13 @@ import javax.swing.*;
  * Pour changer le style il faut passé par le
  * {@link com.hashi.style.StyleManager} et lui donner un
  * {@link com.hashi.style.Style}.<br>
+ * 
+ * @param <E> le type des éléments contenu par le menu déroulant.
  */
 public class ComboBox<E> extends JComboBox<E> implements FontSize<ComboBox<E>> {
+    /**
+     * Taille de police.
+     */
     private int font_size = 20;
 
     /**

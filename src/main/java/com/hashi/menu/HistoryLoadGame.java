@@ -17,13 +17,44 @@ import com.hashi.style.Panel;
  * Elle étend la classe `Panel`.
  */
 public class HistoryLoadGame extends Panel {
+    /**
+     * Titre du menu.
+     */
     private final String TITLE = "title_history_load_game";
+
+    /**
+     * Bouton retour.
+     */
     private Button retour;
+
+    /**
+     * Bouton nouvelle partie.
+     */
     private Button nouvellePartie;
+
+    /**
+     * Bouton charger.
+     */
     private Button charger;
+
+    /**
+     * Bouton paramètre.
+     */
     private Button parametre;
+
+    /**
+     * Bouton changer de profil.
+     */
     private Button changerProfil;
+
+    /**
+     * Bouton règle.
+     */
     private Button regles;
+
+    /**
+     * Bouton quitter.
+     */
     private Button quitter;
 
     /**

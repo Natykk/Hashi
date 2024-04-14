@@ -16,11 +16,31 @@ import com.hashi.menu.PageManager;
 import com.hashi.style.Label;
 import com.hashi.style.Panel;
 
+/**
+ * Classe gérant le mode histoire.
+ */
 public class ModeHistoire extends Mode {
+    /**
+     * La grille actuellement charger.
+     */
     protected Grille grille;
+
+    /**
+     * La solution associer à la grille.
+     */
     protected List<PontAction> solution;
+
+    /**
+     * Le numéro de la grille.
+     */
     protected int numGrille;
 
+    /**
+     * Créer une instance du mode histoire.
+     * 
+     * @param returnPanel le menu pour le bouton retour.
+     * @param charger     si l'on doit charger l'ancienne partie.
+     */
     public ModeHistoire(Panel returnPanel, boolean charger) {
         super(returnPanel, charger);
 
@@ -32,6 +52,9 @@ public class ModeHistoire extends Mode {
         loadNextGrid();
     }
 
+    /**
+     * Charge la prochaine grillle de l'histoire.
+     */
     private void loadNextGrid() {
         int tempNumGrille = numGrille - 1;
         String fichierGrille = Mode.getGrilleToPlay(1, tempNumGrille / 6, tempNumGrille % 6);
@@ -40,6 +63,12 @@ public class ModeHistoire extends Mode {
         solution = Jeu.genererSolutionDepuisFichier(fichierGrille).get(tempNumGrille % 6);
     }
 
+    /**
+     * Récupère le prochain menu à afficher pour le mode histoire, soit le jeu, soit
+     * le prochain chapitre.
+     * 
+     * @return le menu.
+     */
     public Panel getNextPanel() {
         if (numGrille == 5 || numGrille == 8) // les fois on joue 2 parties de suite
             return new Hashi(this);

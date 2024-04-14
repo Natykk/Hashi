@@ -26,10 +26,29 @@ import com.hashi.LanguageManager;
  * {@link com.hashi.LanguageManager}.
  */
 public class Button extends JButton implements FontSize<Button>, ImageComponent<Button>, AsRawText<Button> {
+    /**
+     * Facteur d'agrandissement au survol de la souris.
+     */
     private final double HOVER_SCALE_FACTOR = 0.85;
+
+    /**
+     * Taille de police.
+     */
     private int font_size = 20;
+
+    /**
+     * Internationalisation désactiver ?
+     */
     private boolean is_raw_text = false;
+
+    /**
+     * L'image à afficher.
+     */
     private Image image;
+
+    /**
+     * Survol de la souris ?
+     */
     private boolean isHover = false;
 
     /**
@@ -43,7 +62,7 @@ public class Button extends JButton implements FontSize<Button>, ImageComponent<
     /**
      * Créer un bouton avec texte.
      * 
-     * @param text
+     * @param text le texte à afficher.
      */
     public Button(String text) {
         super(text);

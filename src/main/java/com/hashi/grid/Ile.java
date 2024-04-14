@@ -10,16 +10,55 @@ import javax.management.InvalidAttributeValueException;
 
 import com.hashi.style.StyleManager;
 
+/**
+ * Classe représentant une ile sur la grille.
+ */
 public class Ile extends Case {
+    /**
+     * Le nombre de connexion maximale de l'ile.
+     */
     private int valeur;
-    public List<Pont> listePont;
-    private int xAffichage; // coordonnée x pour l'affichage de l'Ile
-    private int yAffichage; // coordonnée y pour l'affichage de l'Ile
-    private int tailleAffichage; // taille pour l'affichage
-    //private List<Ile> listeVoisin; // liste des Iles voisines (pas implémenté)
-    private List<Ile> listeVoisinsConnectes; // liste des Iles voisines connectées par un Pont à cette Ile (rempli et utilisé lors de la demande d'aide)
-    private List<Ile> listeVoisinsPasConnectes; // liste des Iles voisines pas connectées par un Pont à cette Ile (rempli et utilisé lors de la demande d'aide)
 
+    /**
+     * Liste des ponts liés à l'ile.
+     */
+    public List<Pont> listePont;
+
+    /**
+     * Coordonnée x pour l'affichage de l'Ile.
+     */
+    private int xAffichage;
+
+    /**
+     * Coordonnée y pour l'affichage de l'Ile.
+     */
+    private int yAffichage;
+
+    /**
+     * Taille pour l'affichage.
+     */
+    private int tailleAffichage;
+
+    /**
+     * Liste des Iles voisines connectées par un Pont à cette Ile (rempli et utilisé
+     * lors de la demande d'aide).
+     */
+    private List<Ile> listeVoisinsConnectes;
+
+    /**
+     * Liste des Iles voisines pas connectées par un Pont à cette Ile (rempli et
+     * utilisé lors de la demande d'aide).
+     */
+    private List<Ile> listeVoisinsPasConnectes;
+
+    /**
+     * Créer une ile sur la grille.
+     * 
+     * @param valeur   le nombre de connexion maximale de l'ile.
+     * @param x        position en x sur la grille.
+     * @param y        position en y sur la grille.
+     * @param lagrille la grille où ajouter l'ile.
+     */
     public Ile(int valeur, int x, int y, Grille lagrille) {
         super(x, y, lagrille);
         this.valeur = valeur;
@@ -34,16 +73,26 @@ public class Ile extends Case {
     /**
      * Change la taille d'affichage
      * 
-     * @param tailleAffichage
+     * @param tailleAffichage la taille.
      */
     public void setTailleAffichage(int tailleAffichage) {
         this.tailleAffichage = tailleAffichage;
     }
 
+    /**
+     * Récupère la taille d'affichage de l'ile.
+     * 
+     * @return retourne la taille d'affichage de l'ile.
+     */
     private int getTailleAffichage() {
         return (int) (this.tailleAffichage * ((grille.getSelectedCase() == this) ? 1.25 : 1));
     }
 
+    /**
+     * Zone cliquable de l'ile.
+     * 
+     * @return retourne le rectangle de l'ile.
+     */
     public Rectangle getBounds() {
         int tailleAffichage = getTailleAffichage();
 
@@ -51,6 +100,11 @@ public class Ile extends Case {
                 tailleAffichage);
     }
 
+    /**
+     * Dessine l'ile à l'écran.
+     * 
+     * @param g {@link java.awt.Graphics2D} permettant de dessiner l'élément.
+     */
     public void draw(Graphics g) {
         int tailleAffichage = getTailleAffichage();
 
@@ -84,9 +138,9 @@ public class Ile extends Case {
     }
 
     /**
-     * ajoute le pont donné à la liste des ponts de cette Ile
+     * ajoute le pont donné à la liste des ponts de cette Ile.
      * 
-     * @param pont le pont à ajouter
+     * @param pont le pont à ajouter.
      */
     public void ajouterPont(Pont pont) {
         if (!listePont.contains(pont))
@@ -96,28 +150,53 @@ public class Ile extends Case {
     /**
      * Donne la taille en pixel de l'{@link com.hashi.grid.Ile}
      * 
-     * @return la taille en pixel
+     * @return la taille en pixel.
      */
     public int getTaille() {
         return tailleAffichage;
     }
 
+    /**
+     * Récupère le nombre de connexion maximale de l'ile.
+     * 
+     * @return retourne le nombre de connexion maximale de l'ile.
+     */
     public int getValeur() {
         return this.valeur;
     }
 
+    /**
+     * Récupère la position en x pour l'affichage.
+     * 
+     * @return retourne la position.
+     */
     public int getXAffichage() {
         return xAffichage;
     }
 
+    /**
+     * Définit la position en x pour l'affichage.
+     * 
+     * @param xAffichage la position en x.
+     */
     public void setXAffichage(int xAffichage) {
         this.xAffichage = xAffichage;
     }
 
+    /**
+     * Récupère la position en y pour l'affichage.
+     * 
+     * @return retourne la position.
+     */
     public int getYAffichage() {
         return yAffichage;
     }
 
+    /**
+     * Définit la position en y pour l'affichage.
+     * 
+     * @param yAffichage la position en y.
+     */
     public void setYAffichage(int yAffichage) {
         this.yAffichage = yAffichage;
     }
@@ -220,6 +299,11 @@ public class Ile extends Case {
         return this.valeur == this.getNbConnexion();
     }
 
+    /**
+     * Récupère le nombre de pont bas.
+     * 
+     * @return retourne le nombre de pont bas.
+     */
     public int getNbPontBas() {
         int nbPontBas = 0;
         for (Pont pont : this.listePont) {
@@ -230,6 +314,11 @@ public class Ile extends Case {
         return nbPontBas;
     }
 
+    /**
+     * Récupère le nombre de pont haut.
+     * 
+     * @return retourne le nombre de pont haut.
+     */
     public int getNbPontHaut() {
         int nbPontHaut = 0;
         for (Pont pont : this.listePont) {
@@ -263,12 +352,13 @@ public class Ile extends Case {
     /**
      * vérifie si l'Ile est relié à son voisin par un Pont simple
      * 
+     * @param voisin l'ile voisine.
      * @return vrai si le Pont entre cette Ile et son voisin est simple,
      *         faux sinon
      */
     public boolean estConnecteParUnPontSimple(Ile voisin) {
         Pont p;
-        if((p = this.getPontEntreIles(voisin)) != null) {
+        if ((p = this.getPontEntreIles(voisin)) != null) {
             return !p.estDouble();
         }
         System.err.println("Erreur estConnecteParUnPontSimple(): l'Ile passée en paramètre n'est pas un voisin");
@@ -278,12 +368,13 @@ public class Ile extends Case {
     /**
      * vérifie si l'Ile est relié à son voisin par un Pont double
      * 
+     * @param voisin l'ile voisine.
      * @return vrai si le Pont entre cette Ile et son voisin est double,
      *         faux sinon
      */
     public boolean estConnecteParUnPontDouble(Ile voisin) {
         Pont p;
-        if((p = this.getPontEntreIles(voisin)) != null) {
+        if ((p = this.getPontEntreIles(voisin)) != null) {
             return p.estDouble();
         }
         // cas erreur
@@ -292,7 +383,8 @@ public class Ile extends Case {
     }
 
     /**
-     * remplit la liste des voisins (listeVoisinsConnectes) qui ONT un pont simple ou double de relié avec
+     * remplit la liste des voisins (listeVoisinsConnectes) qui ONT un pont simple
+     * ou double de relié avec
      * cette Ile
      * (les Iles sur le même axe cardinal que cette Ile, sans être bloqué par un
      * pont)
@@ -321,7 +413,8 @@ public class Ile extends Case {
     }
 
     /**
-     * remplit la liste des voisins (listeVoisinsPasConnectes) qui n'ont PAS de pont de relié avec cette Ile
+     * remplit la liste des voisins (listeVoisinsPasConnectes) qui n'ont PAS de pont
+     * de relié avec cette Ile
      * (les Iles sur le même axe cardinal que cette Ile, sans être bloqué par un
      * pont)
      */
@@ -362,6 +455,7 @@ public class Ile extends Case {
      * ne valident pas la méthode (predicat) passée en paramètre
      * 
      * @param sesVoisins la liste d'Ile qui va se faire appliquer la méthode
+     * @param predicat   le filtre
      * @return une liste de voisins, dont certains ont été retirés selon un critère,
      *         ou pas,
      *         ou une liste vide s'ils ont tous été enlévés
@@ -470,7 +564,7 @@ public class Ile extends Case {
 
         /*
          * la condition "est-ce que l'Ile n'a pas encore tous les ponts est implicite,
-         *  car cette méthode n'est pas appelée sur des Iles complètes"
+         * car cette méthode n'est pas appelée sur des Iles complètes"
          */
 
         switch (this.valeur) {
@@ -668,13 +762,11 @@ public class Ile extends Case {
                  * = 2
                  */
                 if (this.getVoisinsCompletsConnectesParUnPontSimple().size() == 2
-                    && ((this.getVoisinsConnectesParUnPontDouble().size()
-                            + this.getVoisinsLibresConnectes().size()
-                            + this.getVoisinsLibresPasConnectes().size()) == 1)) {
+                        && ((this.getVoisinsConnectesParUnPontDouble().size()
+                                + this.getVoisinsLibresConnectes().size()
+                                + this.getVoisinsLibresPasConnectes().size()) == 1)) {
                     return Aide.BLOQUE42;
                 }
-
-
 
                 // précédents essais:
                 /*
@@ -742,8 +834,6 @@ public class Ile extends Case {
                     return Aide.BLOQUE5;
                 }
 
-
-
                 // précédents essais:
                 /*
                  * if( (desVoisins = this.getVoisinsCompletsConnectes()).size() > 0 ) {
@@ -784,12 +874,10 @@ public class Ile extends Case {
                  * on met un pont entre chaque voisin qui n'est pas celle de 1
                  * 
                  */
-                if(
-                    this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1
-                    && ((this.getVoisinsConnectesParUnPontDouble().size()
-                            + this.getVoisinsLibresConnectes().size()
-                            + this.getVoisinsLibresPasConnectes().size()) == 3)
-                ) {
+                if (this.getVoisinsCompletsConnectesParUnPontSimple().size() == 1
+                        && ((this.getVoisinsConnectesParUnPontDouble().size()
+                                + this.getVoisinsLibresConnectes().size()
+                                + this.getVoisinsLibresPasConnectes().size()) == 3)) {
                     return Aide.BLOQUE6;
                 }
                 break;
@@ -807,7 +895,8 @@ public class Ile extends Case {
             case 2:
             case 8:
                 // cas non-utilisé
-                // il n'y a pas de techniques où un pont est bloqué pour les Iles avec ces valeurs
+                // il n'y a pas de techniques où un pont est bloqué pour les Iles avec ces
+                // valeurs
                 break;
 
             default:
@@ -965,10 +1054,16 @@ public class Ile extends Case {
         return nbPontsPossibles;
     }
 
+    /**
+     * Remet à zéro la liste des voisins connecté de l'ile.
+     */
     public void resetListeVoisinsConnectes() {
         this.listeVoisinsConnectes.clear();
     }
 
+    /**
+     * Remet à zéro la liste des voisins non connecté de l'ile.
+     */
     public void resetListeVoisinsPasConnectes() {
         this.listeVoisinsPasConnectes.clear();
     }

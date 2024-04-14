@@ -19,8 +19,19 @@ import com.hashi.style.Panel;
  * Elle étend la classe `Panel`.
  */
 public class ArcadeVictory extends Panel {
+    /**
+     * Titre du menu.
+     */
     private final String TITLE = "title_victory";
+
+    /**
+     * Bouton continer.
+     */
     private Button continuer;
+
+    /**
+     * Bouton retour.
+     */
     private Button retour;
 
     /**
@@ -36,7 +47,6 @@ public class ArcadeVictory extends Panel {
         retour = new Button("return").setFontSize(50);
 
         // Affiche le score final de l'utilisateur
-
 
         continuer.addActionListener(e -> {
             PageManager.changerPage(new Hashi(new ModeArcade()));

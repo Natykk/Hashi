@@ -18,14 +18,49 @@ import com.hashi.style.Panel;
  * Elle étend la classe `Panel`.
  */
 public class HomeMenu extends Panel {
+    /**
+     * Titre du menu.
+     */
     private static final String TITLE = "title";
+
+    /**
+     * Bouton paramètre.
+     */
     private Button parametresButton;
+
+    /**
+     * Bouton changer de profil.
+     */
     private Button changerProfilButton;
+
+    /**
+     * Bouton règle.
+     */
     private Button reglesButton;
+
+    /**
+     * Bouton quitter.
+     */
     private Button quitterButton;
+
+    /**
+     * Bouton arcade.
+     */
     private Button arcadeButton;
+
+    /**
+     * Bouton histoire.
+     */
     private Button histoireButton;
+
+    /**
+     * Bouton entrainement.
+     */
     private Button entrainementButton;
+
+    /**
+     * Bouton scoreboard.
+     */
     private Button scoreboardButton;
 
     /**

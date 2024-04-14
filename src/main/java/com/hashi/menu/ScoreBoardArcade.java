@@ -8,9 +8,15 @@ import com.hashi.style.StyleManager;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * Menu d'affichage des scores en mode Arcade.
+ */
 public class ScoreBoardArcade extends Panel {
     private static final String TITLE = "title_score_arcade";
 
+    /**
+     * Créer une instance du menu.
+     */
     public ScoreBoardArcade() {
         super(new BorderLayout(), "bg-start-screen.png");
         PageManager.getInstance().setTitle(TITLE);

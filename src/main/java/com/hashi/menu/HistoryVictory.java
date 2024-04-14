@@ -19,14 +19,32 @@ import com.hashi.style.Panel;
  * Elle étend la classe `Panel`.
  */
 public class HistoryVictory extends Panel {
+    /**
+     * Titre du menu.
+     */
     private final String TITLE = "title_victory";
+
+    /**
+     * Bouton continer.
+     */
     private Button continuer;
+
+    /**
+     * Bouton quitter.
+     */
     private Button quitter;
+
+    /**
+     * Panneau contenant les étoiles du score.
+     */
     private Panel starsGroup;
 
     /**
      * Constructeur de la classe `HistoryVictory`.
      * Initialise le panneau et les boutons.
+     * 
+     * @param mode  le mode histoire.
+     * @param score le score à afficher.
      */
     public HistoryVictory(ModeHistoire mode, int score) {
         super(new BorderLayout(), "bg-victory.png");
