@@ -7,7 +7,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
-import java.io.*;
 import java.util.*;
 
 import javax.swing.BorderFactory;
@@ -137,25 +136,6 @@ public class Help extends JFrame {
         getContentPane().add(panel);
     }
 
-    // Méthode pour charger les descriptions d'aide depuis une source de données
-    private void chargerDescriptionsAide(Map<Aide, String> descriptionsAide) {
-        try {
-            FileReader fileReader = new FileReader("aide.txt");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] parts = line.split(":");
-                if (parts.length == 2) {
-                    Aide aide = Aide.fromString(parts[0]);
-                    descriptionsAide.put(aide, parts[1]);
-                }
-            }
-            bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Choisi quel aide afficher.
      * 
@@ -165,12 +145,9 @@ public class Help extends JFrame {
     private Aide choisirAide(Grille grille) {
         List<Aide> aides = grille.estCeQueQuelquUnAUneAide();
         Set<Aide> aidesUtilisables = new HashSet<>();
-        Map<Aide, String> descriptionsAide = new HashMap<>();
-
-        chargerDescriptionsAide(descriptionsAide);
 
         for (Aide aide : aides) {
-            if (aide != Aide.RIEN && descriptionsAide.containsKey(aide)) {
+            if (aide != Aide.RIEN) {
                 aidesUtilisables.add(aide);
             }
         }
